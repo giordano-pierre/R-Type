@@ -1,0 +1,19 @@
+name: Mirroring
+
+on: [ push ]
+
+jobs:
+  mirroring:
+    if: ${{ github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Mirroring Epitech repository
+        uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          target_repo_url:
+            "git@github.com:EpitechPromo2027/B-DEV-500-LYN-5-1-area-theo.vermorel.git"
+          ssh_private_key:
+            ${{ secrets.SSH_PRIVATE_KEY }}
