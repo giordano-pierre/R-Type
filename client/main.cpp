@@ -9,7 +9,7 @@ public:
     Gui(const std::string& framesPath, int frameCount, int frameDurationMs)
         : m_frameCount(frameCount), m_frameDuration(sf::milliseconds(frameDurationMs)), m_currentFrame(0)
     {
-        for (int i = 0; i < frameCount; ++i)
+        for (int i = 1; i < frameCount; ++i)
         {
             sf::Texture texture;
             std::string filename = framesPath + "/frame-" + std::to_string(i) + ".png";
@@ -78,7 +78,7 @@ private:
 
 int main()
 {
-    Gui gui("../assets/graphisme/lunar_pirate.gif", 48, 30);
+    Gui gui("../assets/graphisme/lunar_pirate.gif", 49, 30);
     gui.run();
 
     return 0;
