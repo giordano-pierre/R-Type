@@ -33,3 +33,6 @@
 
 # Useless Hidden folders
 .vscode/
+
+# Useless Compilation folders
+build/
