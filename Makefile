@@ -3,7 +3,7 @@ CLIENT_TARGET=r-type_client
 DIR=build
 
 all:
-	cmake . -B $(DIR) -DCMAKE_TOOLCHAIN_FILE=/home/nellymegaswag/Documents/delivery/B-CPP-500-LYN-5-2-rtype-nathan.baudelin/vcpkg/scripts/buildsystems/vcpkg.cmake
+	cmake . -B $(DIR)
 	make -C $(DIR)
 	cp $(DIR)/serveur/$(SERV_TARGET) .
 	cp $(DIR)/client/$(CLIENT_TARGET) .

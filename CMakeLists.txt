@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 
-set(CMAKE_TOOLCHAIN_FILE "/home/nellymegaswag/Documents/delivery/B-CPP-500-LYN-5-2-rtype-nathan.baudelin/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE STRING "")
+set(CMAKE_TOOLCHAIN_FILE "./vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE STRING "")
 
 project(r-type VERSION 1.0 LANGUAGES CXX)
 
@@ -22,4 +22,5 @@ add_custom_target(assets SOURCES
     assets/audio
     assets/font
     assets/graphisme
+    assets/images
 )
