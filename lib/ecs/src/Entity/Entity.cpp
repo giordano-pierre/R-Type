@@ -5,7 +5,7 @@
 ** Entity.cpp
 */
 
-#include "ecs/include/Entity/Entity.hpp"
+#include "Entity/Entity.hpp"
 
 Entity::Entity(std::size_t size)
 {

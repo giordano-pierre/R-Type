@@ -5,7 +5,7 @@
 ** ECS.inl
 */
 
-#include "ecs/include/ECS/ECS.hpp"
+#include "ECS/ECS.hpp"
 
 ECS::ECS()
 {

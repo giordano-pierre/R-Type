@@ -1,7 +1,7 @@
 #pragma once
 
-#include "ecs/include/Entity/Entity.hpp"
-#include "ecs/include/SparseArray/SparseArray.hpp"
+#include "Entity/Entity.hpp"
+#include "SparseArray/SparseArray.hpp"
 #include <unordered_map>
 #include <any>
 #include <typeindex>

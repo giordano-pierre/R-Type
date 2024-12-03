@@ -36,3 +36,8 @@
 
 # Useless Compilation folders
 build/
+
+r-type_client
+r-type_server
+build
+vcpkg
