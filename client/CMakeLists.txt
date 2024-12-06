@@ -8,11 +8,17 @@ set(SRC
     src/components/Drawable.cpp
     src/components/Position.cpp
     src/components/Velocity.cpp
+    src/components/Playable.cpp
+    src/components/Type.cpp
+    src/components/Window.cpp
+    src/components/Hitbox.cpp
     src/events/FrameEvent.cpp
     src/events/TicEvent.cpp
-    src/systems/DrawableSys.cpp
-    src/systems/VelocitySys.cpp
+    src/systems/FrameSys.cpp
+    src/systems/MoveSys.cpp
     src/systems/WindowSys.cpp
+    src/systems/PauseSys.cpp
+    src/systems/BorderSys.cpp
 )
 
 add_executable(r-type_client ${SRC})
