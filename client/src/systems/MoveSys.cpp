@@ -2,59 +2,55 @@
 ** EPITECH PROJECT, 2024
 ** R-Type
 ** File description:
-** VelocitySys
+** MoveSys
 */
 
-#include "systems/VelocitySys.hpp"
+#include "systems/MoveSys.hpp"
 #include <iostream>
 
 namespace Rtype::Client {
 
-void VelocitySys::operator()(ECS &ecs, const InputEvent &e_input,
+void MoveSys::operator()(ECS &ecs, const InputEvent &e_input,
                              const SparseArray<Playable> &players,
                              SparseArray<Velocity> &velocities)
 {
     TupleInt newValue = {-1, -1};
-    bool changeState = false;
 
-    switch(e_input.event.type) {
+    switch(e_input._event.type) {
         case sf::Event::KeyPressed:
-            if (e_input.event.key.code == sf::Keyboard::Space)
-                changeState = true;
-            if (e_input.event.key.code == sf::Keyboard::Left)
+            if (e_input._event.key.code == sf::Keyboard::Left)
                 newValue.x = -5;
-            if (e_input.event.key.code == sf::Keyboard::Right)
+            if (e_input._event.key.code == sf::Keyboard::Right)
                 newValue.x = 5;
-            if (e_input.event.key.code == sf::Keyboard::Up)
+            if (e_input._event.key.code == sf::Keyboard::Up)
                     newValue.y = -5;
-            if (e_input.event.key.code == sf::Keyboard::Down)
+            if (e_input._event.key.code == sf::Keyboard::Down)
                     newValue.y = 5;
             break;
         case sf::Event::KeyReleased:
-            if (e_input.event.key.code == sf::Keyboard::Left ||
-                e_input.event.key.code == sf::Keyboard::Right)
+            if (e_input._event.key.code == sf::Keyboard::Left ||
+                e_input._event.key.code == sf::Keyboard::Right)
                 newValue.x = 0;
-            if (e_input.event.key.code == sf::Keyboard::Up ||
-                e_input.event.key.code == sf::Keyboard::Down)
+            if (e_input._event.key.code == sf::Keyboard::Up ||
+                e_input._event.key.code == sf::Keyboard::Down)
                 newValue.y = 0;
             break;
         default:
             return;
     }
 
-    for (size_t i = 0; i < velocities.size(); ++i) {
+    for (size_t i = 0; i < velocities.size() && i < players.size(); ++i) {
         auto &vel = velocities[i];
+        auto &play = players[i];
 
-        if (vel && changeState)
-            vel.value()._activated = !vel.value()._activated;
-        if (vel && i < players.size() && players[i] && players[i].value()._id == 1 && newValue.x != -1)
+        if (vel && play && newValue.x != -1)
             vel.value()._current.x = newValue.x;
-        if (vel && i < players.size() && players[i] && players[i].value()._id == 1 && newValue.y != -1)
+        if (vel && play && newValue.y != -1)
             vel.value()._current.y = newValue.y;
     }
 }
 
-void VelocitySys::operator()(ECS &ecs, const TicEvent &e_tic,
+void MoveSys::operator()(ECS &ecs, const TicEvent &e_tic,
                         SparseArray<Position> &positions,
                         const SparseArray<Velocity> &velocities)
 {

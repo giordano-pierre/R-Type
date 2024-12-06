@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** R-Type
 ** File description:
-** PlayerSys
+** MoveSys
 */
 
 #pragma once
@@ -16,10 +16,10 @@
 #include "components/Drawable.hpp"
 
 namespace Rtype::Client {
-    class VelocitySys {
+    class MoveSys {
         public:
-            VelocitySys() = default;
-            ~VelocitySys() = default;
+            MoveSys() = default;
+            ~MoveSys() = default;
 
         void operator()(ECS &ecs, const InputEvent &e_input,
                         const SparseArray<Playable> &players,
