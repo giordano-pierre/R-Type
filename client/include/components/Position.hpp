@@ -13,7 +13,6 @@
 
 namespace Rtype::Client {
     struct Position {
-        TupleFloat _old;
         TupleFloat _current;
     };
 
