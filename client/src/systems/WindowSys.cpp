@@ -14,25 +14,53 @@ namespace Rtype::Client {
 
 WindowSys::WindowSys(sf::VideoMode mode, const sf::String &title,
                      sf::Uint32 style, const sf::ContextSettings &settings)
-    : _window(mode, title, style, settings)
+    : _window(mode, title, style, settings), _title(title)
 {
 }
 
+void WindowSys::resizeWindow(TupleUInt newSize)
+{
+    sf::Vector2u sizeWindow = _window.getSize();
+
+    if (sizeWindow.x == newSize.x && sizeWindow.y == newSize.y)
+        return;
+    _window.close();
+    _window.create({newSize.x, newSize.y, 32}, _title, sf::Style::Titlebar | sf::Style::Close);
+}
+
 void WindowSys::operator()(ECS &ecs, const FrameEvent &,
+                           const SparseArray<Window> &windows,
                            const SparseArray<Position> &positions,
+                           const SparseArray<Hitbox> &hitboxs,
                            SparseArray<Drawable> &sprites)
 {
     _window.clear();
-    for (size_t i = 0; i < positions.size() && i < sprites.size(); ++i) {
+    if (windows.size() > 0 && windows[0])
+        resizeWindow(windows[0].value()._size);
+    sf::Vector2u sizeWindow = _window.getSize();
+
+    for (size_t i = 0; i < positions.size() && i < sprites.size() && i < hitboxs.size(); ++i) {
         auto const &pos = positions[i];
         auto &sprite = sprites[i];
+        auto const &box = hitboxs[i];
 
-        if (pos && sprite) {
+        if (pos && sprite && box) {
+            sf::Vector2f sizeObj = {box.value()._coefSize.x * sizeWindow.x, box.value()._coefSize.y * sizeWindow.y};
+
             sprite.value()._sprite.setPosition({pos.value()._current.x, pos.value()._current.y});
             sprite.value()._sprite.setTextureRect(sprite.value()._rectangle);
-            float size = sprite.value()._percSize * _window.getSize().y;
-            sprite.value()._sprite.setScale({size / sprite.value()._sizeFrame.y, size / sprite.value()._sizeFrame.y});
+            sprite.value()._sprite.setScale({sizeObj.x / sprite.value()._sizeFrame.x, sizeObj.y / sprite.value()._sizeFrame.y});
             _window.draw(sprite.value()._sprite);
+
+            if (box.value()._display) {
+                sf::RectangleShape borderRect(sizeObj);
+                borderRect.setOrigin(sizeObj.x / 2, sizeObj.y / 2);
+                borderRect.setFillColor(sf::Color::Transparent);
+                borderRect.setOutlineColor(sf::Color::Red);
+                borderRect.setOutlineThickness(2.0);
+                borderRect.setPosition({pos.value()._current.x, pos.value()._current.y});
+                _window.draw(borderRect);
+            }
         }
     }
     _window.display();
