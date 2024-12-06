@@ -14,7 +14,6 @@
 namespace Rtype::Client {
     struct Velocity {
         TupleInt _current;
-        // bool _isPlayer;
         bool _activated = true;
     };
 }
