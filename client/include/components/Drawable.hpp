@@ -12,14 +12,13 @@
 #pragma once
 namespace Rtype::Client {
     struct Drawable {
-        Drawable(std::shared_ptr<sf::Texture> texture, TupleInt sizeTexture, TupleInt sizeFrame, int nbFrame, float percSize);
+        Drawable(const std::shared_ptr<sf::Texture> texture, const TupleInt sizeTexture, const TupleInt sizeFrame, int nbFrame);
         ~Drawable() = default;
 
         int _nbFrame;
         int _currentFrame;
         TupleInt _sizeTexture;
         TupleInt _sizeFrame;
-        float _percSize;
         bool _activated = true;
 
         std::shared_ptr<sf::Texture> _texture;

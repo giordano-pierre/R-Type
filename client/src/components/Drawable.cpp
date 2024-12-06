@@ -7,10 +7,10 @@
 
 #include "components/Drawable.hpp"
 
-namespace Rtype::Client{
+namespace Rtype::Client {
 
-Drawable::Drawable(std::shared_ptr<sf::Texture> texture, TupleInt sizeTexture, TupleInt sizeFrame, int nbFrame, float percSize)
-    : _texture(texture), _sizeTexture(sizeTexture), _sizeFrame(sizeFrame), _nbFrame(nbFrame), _currentFrame(0), _percSize(percSize)
+Drawable::Drawable(const std::shared_ptr<sf::Texture> texture, const TupleInt sizeTexture, const TupleInt sizeFrame, int nbFrame)
+    : _texture(texture), _sizeTexture(sizeTexture), _sizeFrame(sizeFrame), _nbFrame(nbFrame), _currentFrame(0)
 {
     _rectangle = sf::IntRect(0, 0, _sizeFrame.x, _sizeFrame.y);
     _sprite = sf::Sprite(*_texture);
