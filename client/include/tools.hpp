@@ -13,8 +13,34 @@ namespace Rtype::Client {
         int y;
     };
 
+    struct TupleUInt {
+        unsigned int x;
+        unsigned int y;
+    };
+
     struct TupleFloat {
         float x;
         float y;
+    };
+
+    enum ObjectType {
+        WINDOW,
+        PLAYER,
+        BACKGROUND,
+        SHOT,
+    };
+
+    enum UserInput {
+        NOTHING = 0,
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT,
+        ENTER,
+        PAUSE,
+        SHOOT,
+        SUPERSHOOT,
+        RETURN,
+        QUIT,
     };
 }
