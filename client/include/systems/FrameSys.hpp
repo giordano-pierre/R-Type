@@ -9,7 +9,6 @@
 
 #include "ECS/ECS.hpp"
 #include "events/FrameEvent.hpp"
-#include "events/InputEvent.hpp"
 #include "components/Drawable.hpp"
 
 namespace Rtype::Client {
@@ -20,8 +19,5 @@ namespace Rtype::Client {
 
             void operator()(ECS &ecs, const FrameEvent &,
                             SparseArray<Drawable> &sprites);
-
-            // void operator()(ECS &ecs, const InputEvent &e_input,
-            //                 SparseArray<Drawable> &sprites);
     };
 }
