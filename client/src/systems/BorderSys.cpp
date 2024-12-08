@@ -43,6 +43,8 @@ void BorderSys::operator()(ECS &ecs, const TicEvent &e_tic,
                     pos.value()._current.y = sizeWindow.y - sizeObj.y;
                 break;
             case SHOT:
+                if (pos.value()._current.x - sizeObj.x > sizeWindow.x)
+                    ecs.kill_entity(Entity(i));
                 break;
             default:
                 break;

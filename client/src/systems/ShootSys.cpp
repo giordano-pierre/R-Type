@@ -1,0 +1,51 @@
+/*
+** EPITECH PROJECT, 2024
+** R-Type
+** File description:
+** ShootSys
+*/
+
+#include "systems/ShootSys.hpp"
+#include "components/Velocity.hpp"
+#include "components/Type.hpp"
+#include "components/Drawable.hpp"
+
+namespace Rtype::Client {
+
+void ShootSys::operator()(ECS &ecs, const InputEvent &e_input,
+                          SparseArray<Window> &windows,
+                          const SparseArray<Playable> &players,
+                          const SparseArray<Position> &positions,
+                          const SparseArray<Hitbox> &hitboxs)
+{
+    bool player1Shoot = false;
+
+    switch(e_input._event.type) {
+        case sf::Event::KeyPressed:
+            if (e_input._event.key.code == sf::Keyboard::Space)
+                player1Shoot = true;
+                break;
+        default:
+            return;
+    }
+
+    TupleUInt sizeWindow = (windows.size() > 0 && windows[0]) ? windows[0].value()._size : (TupleUInt){1920, 1080};
+
+    for (size_t i = 0; i < players.size() && i < positions.size() && i < hitboxs.size(); ++i) {
+        const auto &play = players[i];
+        const auto &pos = positions[i];
+        const auto &box = hitboxs[i];
+
+        if (play && pos && box && player1Shoot) {
+            TupleFloat sizeObj = {box.value()._coefSize.x * sizeWindow.x / 2, box.value()._coefSize.y * sizeWindow.y / 2};
+            Entity shot = ecs.spawn_entity();
+            ecs.add_component<Position>(shot, {pos.value()._current.x + sizeObj.x, pos.value()._current.y});
+            ecs.add_component<Velocity>(shot, {5, 0});
+            ecs.add_component<Type>(shot, {SHOT});
+            ecs.add_component<Hitbox>(shot, {{0.07, 0.05}});
+            ecs.add_component<Drawable>(shot, {windows[0].value()._myTextures.getTexture("assets/images/shot/purple_shot.png"), {251, 144}, {251, 144}, 1});
+        }
+    }
+}
+
+}
