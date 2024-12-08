@@ -8,8 +8,11 @@
 
 #include <SFML/Window.hpp>
 
+#include "tools.hpp"
+
 namespace Rtype::Client {
     struct InputEvent {
-        sf::Event event;
+        sf::Event _event;
+        // UserInput _keybord;
     };
 }
