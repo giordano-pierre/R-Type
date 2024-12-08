@@ -20,6 +20,7 @@ set(SRC
     src/systems/PauseSys.cpp
     src/systems/BorderSys.cpp
     src/systems/ShootSys.cpp
+    src/systems/CheatSys.cpp
 )
 
 add_executable(r-type_client ${SRC})

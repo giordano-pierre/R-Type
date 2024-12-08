@@ -21,6 +21,7 @@ namespace Rtype::Client {
         TupleUInt _size;
         std::map<UserInput, sf::Keyboard::Key> _inputConfig;
         TextureManager _myTextures;
+        bool _displayHitboxs = false;
     };
 }
 std::ostream &operator<<(std::ostream &out, const Rtype::Client::Window &window);

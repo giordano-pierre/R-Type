@@ -34,6 +34,8 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
                            const SparseArray<Hitbox> &hitboxs,
                            SparseArray<Drawable> &sprites)
 {
+    bool displayHitbox = (windows.size() > 0 && windows[0]) ? windows[0].value()._displayHitboxs : false;
+
     _window.clear();
     if (windows.size() > 0 && windows[0])
         resizeWindow(windows[0].value()._size);
@@ -52,7 +54,7 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
             sprite.value()._sprite.setScale({sizeObj.x / sprite.value()._sizeFrame.x, sizeObj.y / sprite.value()._sizeFrame.y});
             _window.draw(sprite.value()._sprite);
 
-            if (box.value()._display) {
+            if (box.value()._display && displayHitbox) {
                 sf::RectangleShape borderRect(sizeObj);
                 borderRect.setOrigin(sizeObj.x / 2, sizeObj.y / 2);
                 borderRect.setFillColor(sf::Color::Transparent);

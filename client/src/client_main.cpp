@@ -26,6 +26,7 @@
 #include "systems/PauseSys.hpp"
 #include "systems/BorderSys.hpp"
 #include "systems/ShootSys.hpp"
+#include "systems/CheatSys.hpp"
 
 #include "TextureManager.hpp"
 
@@ -49,14 +50,14 @@ int main (void) {
     ecs.add_component<Rtype::Client::Position>(back1, {1280 / 2, 720 / 2});
     ecs.add_component<Rtype::Client::Velocity>(back1, {-1, 0});
     ecs.add_component<Rtype::Client::Type>(back1, {Rtype::Client::BACKGROUND});
-    ecs.add_component<Rtype::Client::Hitbox>(back1, {{1, 1}});
+    ecs.add_component<Rtype::Client::Hitbox>(back1, {{1, 1}, false});
     ecs.add_component<Rtype::Client::Drawable>(back1, {myWindow[0].value()._myTextures.getTexture("assets/images/background/background_mountain.jpg"), {675, 360}, {675, 360}, 1});
 
     Entity back2 = ecs.spawn_entity();
     ecs.add_component<Rtype::Client::Position>(back2, {1280 / 2 + 1280, 720 / 2});
     ecs.add_component<Rtype::Client::Velocity>(back2, {-1, 0});
     ecs.add_component<Rtype::Client::Type>(back2, {Rtype::Client::BACKGROUND});
-    ecs.add_component<Rtype::Client::Hitbox>(back2, {{1, 1}});
+    ecs.add_component<Rtype::Client::Hitbox>(back2, {{1, 1}, false});
     ecs.add_component<Rtype::Client::Drawable>(back2, {myWindow[0].value()._myTextures.getTexture("assets/images/background/background_mountain.jpg"), {675, 360}, {675, 360}, 1});
 
     Entity entity1 = ecs.spawn_entity();
@@ -74,6 +75,9 @@ int main (void) {
     auto pauseSys = Rtype::Client::PauseSys();
     ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Drawable>(pauseSys);
     ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Velocity>(pauseSys);
+
+    auto cheatSys = Rtype::Client::CheatSys();
+    ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Window>(cheatSys);
 
     auto moveSys = Rtype::Client::MoveSys();
     ecs.subscribe<Rtype::Client::TicEvent, Rtype::Client::Position, Rtype::Client::Velocity>(moveSys);

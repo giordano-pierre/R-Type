@@ -15,7 +15,7 @@
 namespace Rtype::Client {
     struct Hitbox {
         TupleFloat _coefSize;
-        bool _display = false;
+        bool _display = true;
     };
 }
 std::ostream &operator<<(std::ostream &out, const Rtype::Client::Hitbox &hitbox);
