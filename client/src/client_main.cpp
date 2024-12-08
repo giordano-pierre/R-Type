@@ -25,12 +25,12 @@
 #include "systems/MoveSys.hpp"
 #include "systems/PauseSys.hpp"
 #include "systems/BorderSys.hpp"
+#include "systems/ShootSys.hpp"
 
 #include "TextureManager.hpp"
 
 int main (void) {
     ECS ecs;
-    Rtype::Client::TextureManager myTextures;
     ecs.register_component<Rtype::Client::Window>();
     ecs.register_component<Rtype::Client::Type>();
     ecs.register_component<Rtype::Client::Position>();
@@ -43,27 +43,29 @@ int main (void) {
     ecs.add_component<Rtype::Client::Type>(window, {Rtype::Client::WINDOW});
     ecs.add_component<Rtype::Client::Window>(window, {{1280, 720}});
 
+    auto myWindow = ecs.get_components<Rtype::Client::Window>();
+
     Entity back1 = ecs.spawn_entity();
     ecs.add_component<Rtype::Client::Position>(back1, {1280 / 2, 720 / 2});
     ecs.add_component<Rtype::Client::Velocity>(back1, {-1, 0});
     ecs.add_component<Rtype::Client::Type>(back1, {Rtype::Client::BACKGROUND});
     ecs.add_component<Rtype::Client::Hitbox>(back1, {{1, 1}});
-    ecs.add_component<Rtype::Client::Drawable>(back1, {myTextures.getTexture("assets/images/background/background_mountain.jpg"), {675, 360}, {675, 360}, 1});
+    ecs.add_component<Rtype::Client::Drawable>(back1, {myWindow[0].value()._myTextures.getTexture("assets/images/background/background_mountain.jpg"), {675, 360}, {675, 360}, 1});
 
     Entity back2 = ecs.spawn_entity();
     ecs.add_component<Rtype::Client::Position>(back2, {1280 / 2 + 1280, 720 / 2});
     ecs.add_component<Rtype::Client::Velocity>(back2, {-1, 0});
     ecs.add_component<Rtype::Client::Type>(back2, {Rtype::Client::BACKGROUND});
     ecs.add_component<Rtype::Client::Hitbox>(back2, {{1, 1}});
-    ecs.add_component<Rtype::Client::Drawable>(back2, {myTextures.getTexture("assets/images/background/background_mountain.jpg"), {675, 360}, {675, 360}, 1});
+    ecs.add_component<Rtype::Client::Drawable>(back2, {myWindow[0].value()._myTextures.getTexture("assets/images/background/background_mountain.jpg"), {675, 360}, {675, 360}, 1});
 
     Entity entity1 = ecs.spawn_entity();
     ecs.add_component<Rtype::Client::Position>(entity1, {500, 500});
     ecs.add_component<Rtype::Client::Velocity>(entity1, {0, 0});
     ecs.add_component<Rtype::Client::Playable>(entity1, {1});
     ecs.add_component<Rtype::Client::Type>(entity1, {Rtype::Client::PLAYER});
-    ecs.add_component<Rtype::Client::Hitbox>(entity1, {{0.1, 0.18}, true});
-    ecs.add_component<Rtype::Client::Drawable>(entity1, {myTextures.getTexture("assets/images/ship/enemy_ship_1.png"), {2030, 1450}, {290, 290}, 35});
+    ecs.add_component<Rtype::Client::Hitbox>(entity1, {{0.1, 0.18}});
+    ecs.add_component<Rtype::Client::Drawable>(entity1, {myWindow[0].value()._myTextures.getTexture("assets/images/ship/enemy_ship_1.png"), {2030, 1450}, {290, 290}, 35});
 
     ecs.register_event<Rtype::Client::FrameEvent>();
     ecs.register_event<Rtype::Client::InputEvent>();
@@ -82,6 +84,9 @@ int main (void) {
 
     auto borderSys = Rtype::Client::BorderSys();
     ecs.subscribe<Rtype::Client::TicEvent, Rtype::Client::Window, Rtype::Client::Type, Rtype::Client::Hitbox, Rtype::Client::Position>(borderSys);
+
+    auto shootSys = Rtype::Client::ShootSys();
+    ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Window, Rtype::Client::Playable, Rtype::Client::Position, Rtype::Client::Hitbox>(shootSys);
 
     bool running = true;
     ecs.subscribe<Rtype::Client::InputEvent>(
