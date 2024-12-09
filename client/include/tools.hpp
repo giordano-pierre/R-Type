@@ -28,6 +28,7 @@ namespace Rtype::Client {
         PLAYER,
         BACKGROUND,
         SHOT,
+        BUTTON,
     };
 
     enum UserInput {
@@ -43,4 +44,6 @@ namespace Rtype::Client {
         RETURN,
         QUIT,
     };
+
+    float computeDist(TupleFloat a, TupleFloat b);
 }
