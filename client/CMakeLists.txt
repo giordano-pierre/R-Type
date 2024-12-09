@@ -21,6 +21,8 @@ set(SRC
     src/systems/BorderSys.cpp
     src/systems/ShootSys.cpp
     src/systems/CheatSys.cpp
+    src/systems/SelectSys.cpp
+    src/tools.cpp
 )
 
 add_executable(r-type_client ${SRC})
