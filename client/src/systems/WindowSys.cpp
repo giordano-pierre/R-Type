@@ -31,7 +31,7 @@ void WindowSys::resizeWindow(TupleUInt newSize)
 void WindowSys::operator()(ECS &ecs, const FrameEvent &,
                            const SparseArray<Window> &windows,
                            const SparseArray<Position> &positions,
-                           const SparseArray<Hitbox> &hitboxs,
+                           SparseArray<Hitbox> &hitboxs,
                            SparseArray<Drawable> &sprites)
 {
     bool displayHitbox = (windows.size() > 0 && windows[0]) ? windows[0].value()._displayHitboxs : false;
@@ -44,19 +44,19 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
     for (size_t i = 0; i < positions.size() && i < sprites.size() && i < hitboxs.size(); ++i) {
         auto const &pos = positions[i];
         auto &sprite = sprites[i];
-        auto const &box = hitboxs[i];
+        auto &box = hitboxs[i];
 
         if (pos && sprite && box) {
-            sf::Vector2f sizeObj = {box.value()._coefSize.x * sizeWindow.x, box.value()._coefSize.y * sizeWindow.y};
+            box.value()._size = {box.value()._coefSize.x * sizeWindow.x, box.value()._coefSize.y * sizeWindow.y};
 
             sprite.value()._sprite.setPosition({pos.value()._current.x, pos.value()._current.y});
             sprite.value()._sprite.setTextureRect(sprite.value()._rectangle);
-            sprite.value()._sprite.setScale({sizeObj.x / sprite.value()._sizeFrame.x, sizeObj.y / sprite.value()._sizeFrame.y});
+            sprite.value()._sprite.setScale({box.value()._size.x / sprite.value()._sizeFrame.x, box.value()._size.y / sprite.value()._sizeFrame.y});
             _window.draw(sprite.value()._sprite);
 
             if (box.value()._display && displayHitbox) {
-                sf::RectangleShape borderRect(sizeObj);
-                borderRect.setOrigin(sizeObj.x / 2, sizeObj.y / 2);
+                sf::RectangleShape borderRect(sf::Vector2f({box.value()._size.x, box.value()._size.y}));
+                borderRect.setOrigin(box.value()._size.x / 2, box.value()._size.y / 2);
                 borderRect.setFillColor(sf::Color::Transparent);
                 borderRect.setOutlineColor(sf::Color::Red);
                 borderRect.setOutlineThickness(2.0);
