@@ -205,7 +205,7 @@ int main (void) {
     ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Position, Rtype::Client::Drawable, Rtype::Client::Hitbox, Rtype::Client::Selectable>(selSys);
 
     auto pressSys = Rtype::Client::PressButtonSys();
-    ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Selectable>(pressSys);
+    ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Position, Rtype::Client::Hitbox, Rtype::Client::Selectable>(pressSys);
 
     bool running = true;
     ecs.subscribe<Rtype::Client::InputEvent>(

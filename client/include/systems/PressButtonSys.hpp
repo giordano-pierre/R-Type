@@ -10,6 +10,8 @@
 #include "ECS/ECS.hpp"
 #include "events/InputEvent.hpp"
 #include "components/Selectable.hpp"
+#include "components/Position.hpp"
+#include "components/Hitbox.hpp"
 
 namespace Rtype::Client {
     class PressButtonSys {
@@ -18,6 +20,8 @@ namespace Rtype::Client {
             ~PressButtonSys() = default;
 
             void operator()(ECS &ecs, const InputEvent &e_input,
+                            const SparseArray<Position> &positions,
+                            const SparseArray<Hitbox> &hitboxs,
                             SparseArray<Selectable> &selectables);
 
     };
