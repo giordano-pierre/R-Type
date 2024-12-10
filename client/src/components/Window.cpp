@@ -9,7 +9,8 @@
 
 namespace Rtype::Client {
 
-Window::Window(TupleUInt size) : _size(size)
+Window::Window(TupleUInt size, TupleUInt serverSize)
+    : _size(size), _serverSize(serverSize)
 {
     this->_inputConfig.insert({UP, sf::Keyboard::Up});
     this->_inputConfig.insert({DOWN, sf::Keyboard::Down});
@@ -28,5 +29,6 @@ Window::Window(TupleUInt size) : _size(size)
 std::ostream &operator<<(std::ostream &out, const Rtype::Client::Window &window)
 {
     out << "size: " << window._size.x << " " << window._size.y << std::endl;
+    out << "serverSize: " << window._serverSize.x << " " << window._serverSize.y;
     return out;
 }

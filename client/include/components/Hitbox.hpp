@@ -15,8 +15,9 @@
 namespace Rtype::Client {
     struct Hitbox {
         TupleFloat _coefSize;
-        TupleFloat _size;
         bool _display = true;
+        TupleFloat _client = {0, 0};
+        TupleFloat _server = {0, 0};
         bool _needUpdate = true;
     };
 }

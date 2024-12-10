@@ -30,6 +30,7 @@ void ShootSys::operator()(ECS &ecs, const InputEvent &e_input,
     }
 
     TupleUInt sizeWindow = (windows.size() > 0 && windows[0]) ? windows[0].value()._size : (TupleUInt){1920, 1080};
+    TupleUInt serverSize = (windows.size() > 0 && windows[0]) ? windows[0].value()._serverSize : (TupleUInt){1920, 1080};
 
     for (size_t i = 0; i < players.size() && i < positions.size() && i < hitboxs.size(); ++i) {
         const auto &play = players[i];
@@ -37,9 +38,8 @@ void ShootSys::operator()(ECS &ecs, const InputEvent &e_input,
         const auto &box = hitboxs[i];
 
         if (play && pos && box && player1Shoot) {
-            TupleFloat sizeObj = {box.value()._coefSize.x * sizeWindow.x / 2, box.value()._coefSize.y * sizeWindow.y / 2};
             Entity shot = ecs.spawn_entity();
-            ecs.add_component<Position>(shot, {pos.value()._current.x + sizeObj.x, pos.value()._current.y});
+            ecs.add_component<Position>(shot, {pos.value()._server.x + (box.value()._server.x / 2), pos.value()._server.y});
             ecs.add_component<Velocity>(shot, {5, 0});
             ecs.add_component<Type>(shot, {SHOT});
             ecs.add_component<Hitbox>(shot, {{0.07, 0.05}});

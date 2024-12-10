@@ -31,10 +31,10 @@ void PressButtonSys::operator()(ECS &ecs, const InputEvent &e_input,
                     const auto &box = hitboxs[i];
 
                     if (sel && pos && box && sel.value()._isSelected &&
-                        e_input._event.mouseButton.x > pos.value()._current.x - (box.value()._size.x / 2) &&
-                        e_input._event.mouseButton.x < pos.value()._current.x + (box.value()._size.x / 2) &&
-                        e_input._event.mouseButton.y > pos.value()._current.y - (box.value()._size.y / 2) &&
-                        e_input._event.mouseButton.y < pos.value()._current.y + (box.value()._size.y / 2))
+                        e_input._event.mouseButton.x > pos.value()._client.x - (box.value()._client.x / 2) &&
+                        e_input._event.mouseButton.x < pos.value()._client.x + (box.value()._client.x / 2) &&
+                        e_input._event.mouseButton.y > pos.value()._client.y - (box.value()._client.y / 2) &&
+                        e_input._event.mouseButton.y < pos.value()._client.y + (box.value()._client.y / 2))
                         sel.value()._func(ecs);
                 }
         default:

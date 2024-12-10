@@ -59,8 +59,9 @@ void MoveSys::operator()(ECS &ecs, const TicEvent &e_tic,
         const auto &vel = velocities[i];
 
         if (pos && vel && vel.value()._activated) {
-            pos.value()._current.x += vel.value()._current.x;
-            pos.value()._current.y += vel.value()._current.y;
+            pos.value()._server.x += vel.value()._current.x;
+            pos.value()._server.y += vel.value()._current.y;
+            pos.value()._needUpdate = true;
         }
     }
 }

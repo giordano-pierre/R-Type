@@ -27,7 +27,7 @@ namespace Rtype::Client{
 
         void operator()(ECS &ecs, const FrameEvent &e_frame,
                         const SparseArray<Window> &windows,
-                        const SparseArray<Position> &positions,
+                        SparseArray<Position> &positions,
                         SparseArray<Hitbox> &hitboxs,
                         SparseArray<Drawable> &sprites);
 

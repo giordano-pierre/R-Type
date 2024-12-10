@@ -9,7 +9,9 @@
 
 auto operator<<(std::ostream &out, const Rtype::Client::Hitbox &hitbox) -> std::ostream &
 {
-    out << "Size: " << hitbox._coefSize.x * 100 << " %% of the width and ";
-    out << hitbox._coefSize.y * 100 << " %% of height of the window.";
+    out << "server: " << hitbox._server.x << " pixel of width and ";
+    out << hitbox._server.y << " pixels of height." << std::endl;
+    out << "client: " << hitbox._client.x << " pixel of width and ";
+    out << hitbox._client.y << " pixels of height.";
     return out;
 }
