@@ -16,7 +16,7 @@ void PressButtonSys::operator()(ECS &ecs, const InputEvent &e_input,
 {
     switch(e_input._event.type) {
         case sf::Event::KeyPressed:
-            if (e_input._event.key.code == sf::Keyboard::Space)
+            if (e_input._myEvent == ENTER)
                 for (size_t i = 0; i < selectables.size(); ++i) {
                     auto &sel = selectables[i];
 

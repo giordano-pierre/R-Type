@@ -16,7 +16,7 @@ void PauseSys::operator()(ECS &ecs, const InputEvent &e_input,
 
     switch(e_input._event.type) {
         case sf::Event::KeyPressed:
-            if (e_input._event.key.code == sf::Keyboard::P)
+            if (e_input._myEvent == PAUSE)
                 changeState = true;
                 break;
         default:
@@ -38,7 +38,7 @@ void PauseSys::operator()(ECS &ecs, const InputEvent &e_input,
 
     switch(e_input._event.type) {
         case sf::Event::KeyPressed:
-            if (e_input._event.key.code == sf::Keyboard::P)
+            if (e_input._myEvent == PAUSE)
                 changeState = true;
                 break;
         default:

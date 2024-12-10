@@ -74,10 +74,10 @@ void SelectSys::operator()(ECS &ecs, const InputEvent &e_input,
 
     if (!isOldEntity) {
         if (e_input._event.type == sf::Event::KeyPressed && (
-            e_input._event.key.code == sf::Keyboard::Up ||
-            e_input._event.key.code == sf::Keyboard::Down ||
-            e_input._event.key.code == sf::Keyboard::Left ||
-            e_input._event.key.code == sf::Keyboard::Right)) {
+            e_input._myEvent == UP ||
+            e_input._myEvent == DOWN ||
+            e_input._myEvent == LEFT ||
+            e_input._myEvent == RIGHT)) {
             for (size_t i = 0; i < sprites.size() && i < selectables.size() && i < hitboxes.size(); ++i) {
                 auto &sprite = sprites[i];
                 auto &sel = selectables[i];
@@ -104,13 +104,13 @@ void SelectSys::operator()(ECS &ecs, const InputEvent &e_input,
             continue;
         switch (e_input._event.type) {
             case sf::Event::KeyPressed:
-                if (e_input._event.key.code == sf::Keyboard::Up && oldPos.y > pos.value()._client.y)
+                if (e_input._myEvent == UP && oldPos.y > pos.value()._client.y)
                     compareDist(oldPos, pos.value()._client, i, dist, newEntity, isNewEntity);
-                if (e_input._event.key.code == sf::Keyboard::Down && oldPos.y < pos.value()._client.y)
+                if (e_input._myEvent == DOWN && oldPos.y < pos.value()._client.y)
                     compareDist(oldPos, pos.value()._client, i, dist, newEntity, isNewEntity);
-                if (e_input._event.key.code == sf::Keyboard::Left && oldPos.x > pos.value()._client.x)
+                if (e_input._myEvent == LEFT && oldPos.x > pos.value()._client.x)
                     compareDist(oldPos, pos.value()._client, i, dist, newEntity, isNewEntity);
-                if (e_input._event.key.code == sf::Keyboard::Right && oldPos.x < pos.value()._client.x)
+                if (e_input._myEvent == RIGHT && oldPos.x < pos.value()._client.x)
                     compareDist(oldPos, pos.value()._client, i, dist, newEntity, isNewEntity);
                 break;
             case sf::Event::MouseMoved:

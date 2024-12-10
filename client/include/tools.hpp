@@ -37,12 +37,12 @@ namespace Rtype::Client {
         DOWN,
         LEFT,
         RIGHT,
-        ENTER,
         PAUSE,
         SHOOT,
         SUPERSHOOT,
         RETURN,
         QUIT,
+        ENTER = SHOOT,
     };
 
     float computeDist(TupleFloat a, TupleFloat b);

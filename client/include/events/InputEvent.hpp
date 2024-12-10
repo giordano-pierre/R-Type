@@ -13,6 +13,6 @@
 namespace Rtype::Client {
     struct InputEvent {
         sf::Event _event;
-        // UserInput _keybord;
+        UserInput _myEvent;
     };
 }

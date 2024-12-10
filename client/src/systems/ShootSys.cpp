@@ -22,7 +22,7 @@ void ShootSys::operator()(ECS &ecs, const InputEvent &e_input,
 
     switch(e_input._event.type) {
         case sf::Event::KeyPressed:
-            if (e_input._event.key.code == sf::Keyboard::Space)
+            if (e_input._myEvent == SHOOT)
                 player1Shoot = true;
                 break;
         default:

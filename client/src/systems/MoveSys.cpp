@@ -18,21 +18,21 @@ void MoveSys::operator()(ECS &ecs, const InputEvent &e_input,
 
     switch(e_input._event.type) {
         case sf::Event::KeyPressed:
-            if (e_input._event.key.code == sf::Keyboard::Left)
+            if (e_input._myEvent == LEFT)
                 newValue.x = -5;
-            if (e_input._event.key.code == sf::Keyboard::Right)
+            if (e_input._myEvent == RIGHT)
                 newValue.x = 5;
-            if (e_input._event.key.code == sf::Keyboard::Up)
+            if (e_input._myEvent == UP)
                     newValue.y = -5;
-            if (e_input._event.key.code == sf::Keyboard::Down)
+            if (e_input._myEvent == DOWN)
                     newValue.y = 5;
             break;
         case sf::Event::KeyReleased:
-            if (e_input._event.key.code == sf::Keyboard::Left ||
-                e_input._event.key.code == sf::Keyboard::Right)
+            if (e_input._myEvent == LEFT ||
+                e_input._myEvent == RIGHT)
                 newValue.x = 0;
-            if (e_input._event.key.code == sf::Keyboard::Up ||
-                e_input._event.key.code == sf::Keyboard::Down)
+            if (e_input._myEvent == UP ||
+                e_input._myEvent == DOWN)
                 newValue.y = 0;
             break;
         default:

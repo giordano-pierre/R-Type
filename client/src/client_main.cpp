@@ -215,7 +215,7 @@ int main (void) {
     ecs.subscribe<Rtype::Client::InputEvent>(
         [&running](ECS &, const Rtype::Client::InputEvent &e_input) -> void {
             if ((e_input._event.type == sf::Event::KeyPressed &&
-                e_input._event.key.code == sf::Keyboard::Escape) || e_input._event.type == sf::Event::Closed){
+                e_input._myEvent == Rtype::Client::QUIT) || e_input._event.type == sf::Event::Closed){
                 running = false;
             }
         });

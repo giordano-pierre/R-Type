@@ -29,6 +29,16 @@ void WindowSys::resizeWindow(TupleUInt newSize, bool &isResize)
     isResize = true;
 }
 
+UserInput extractInput(sf::Event event, const std::map<UserInput, sf::Keyboard::Key> &inputConfig)
+{
+    if (event.type != sf::Event::KeyPressed && event.type != sf::Event::KeyReleased)
+        return NOTHING;
+    for (const auto [key, value] : inputConfig)
+        if (value == event.key.code)
+            return key;
+    return NOTHING;
+}
+
 void WindowSys::operator()(ECS &ecs, const FrameEvent &,
                            const SparseArray<Window> &windows,
                            SparseArray<Position> &positions,
@@ -37,6 +47,7 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
 {
     bool displayHitbox = (windows.size() > 0 && windows[0]) ? windows[0].value()._displayHitboxs : false;
     TupleUInt serverSize = (windows.size() > 0 && windows[0]) ? windows[0].value()._serverSize : TupleUInt{1920, 1080};
+    auto inputConfig = (windows.size() > 0 && windows[0]) ? windows[0].value()._inputConfig : std::map<UserInput, sf::Keyboard::Key>();
     bool isResize = false;
 
     _window.clear();
@@ -80,7 +91,7 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
     sf::Event event;
 
     while (_window.pollEvent(event)) {
-        ecs.post<InputEvent>({event});
+        ecs.post<InputEvent>({event, extractInput(event, inputConfig)});
     }
 }
 
