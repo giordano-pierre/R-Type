@@ -76,6 +76,9 @@ int mainTestGame (void) {
     ecs.register_event<Rtype::Client::InputEvent>();
     ecs.register_event<Rtype::Client::TicEvent>();
 
+    auto windowSys = Rtype::Client::WindowSys({1920, 1080, 32}, "R-type", sf::Style::Titlebar | sf::Style::Close);
+    ecs.subscribe<Rtype::Client::FrameEvent, Rtype::Client::Window, Rtype::Client::Position, Rtype::Client::Hitbox, Rtype::Client::Drawable>(windowSys);
+
     auto pauseSys = Rtype::Client::PauseSys();
     ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Drawable>(pauseSys);
     ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Velocity>(pauseSys);
@@ -104,9 +107,6 @@ int mainTestGame (void) {
                 running = false;
             }
         });
-
-    auto windowSys = Rtype::Client::WindowSys({1920, 1080, 32}, "R-type", sf::Style::Titlebar | sf::Style::Close);
-    ecs.subscribe<Rtype::Client::FrameEvent, Rtype::Client::Window, Rtype::Client::Position, Rtype::Client::Hitbox, Rtype::Client::Drawable>(windowSys);
 
     const auto FPS = 60;
     const timer::duration<double, std::ratio<1, FPS>> frameRate(1);
@@ -198,6 +198,9 @@ int main (void) {
     ecs.register_event<Rtype::Client::InputEvent>();
     ecs.register_event<Rtype::Client::TicEvent>();
 
+    auto windowSys = Rtype::Client::WindowSys({1920, 1080, 32}, "R-type", sf::Style::Titlebar | sf::Style::Close);
+    ecs.subscribe<Rtype::Client::FrameEvent, Rtype::Client::Window, Rtype::Client::Position, Rtype::Client::Hitbox, Rtype::Client::Drawable>(windowSys);
+
     auto cheatSys = Rtype::Client::CheatSys();
     ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Window>(cheatSys);
 
@@ -215,9 +218,6 @@ int main (void) {
                 running = false;
             }
         });
-
-    auto windowSys = Rtype::Client::WindowSys({1920, 1080, 32}, "R-type", sf::Style::Titlebar | sf::Style::Close);
-    ecs.subscribe<Rtype::Client::FrameEvent, Rtype::Client::Window, Rtype::Client::Position, Rtype::Client::Hitbox, Rtype::Client::Drawable>(windowSys);
 
     const auto FPS = 60;
     const timer::duration<double, std::ratio<1, FPS>> frameRate(1);

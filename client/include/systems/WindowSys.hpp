@@ -35,6 +35,6 @@ namespace Rtype::Client{
         sf::RenderWindow _window;
         sf::String _title;
 
-        void resizeWindow(TupleUInt);
+        void resizeWindow(TupleUInt, bool &);
     };
 }

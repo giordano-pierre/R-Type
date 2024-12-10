@@ -21,12 +21,14 @@ void changeSelect(SparseArray<Drawable> &sprites,
         sprites[newSelect].value()._sprite.setTexture(*selectables[newSelect].value()._texture);
         hitboxes[newSelect].value()._coefSize.x += 0.01;
         hitboxes[newSelect].value()._coefSize.y += 0.005625;
+        hitboxes[newSelect].value()._needUpdate = true;
     }
     if (oldSelect != -1) {
         selectables[oldSelect].value()._isSelected = false;
         sprites[oldSelect].value()._sprite.setTexture(*sprites[oldSelect].value()._texture);
         hitboxes[oldSelect].value()._coefSize.x -= 0.01;
         hitboxes[oldSelect].value()._coefSize.y -= 0.005625;
+        hitboxes[oldSelect].value()._needUpdate = true;
     }
 }
 

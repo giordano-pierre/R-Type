@@ -17,6 +17,7 @@ namespace Rtype::Client {
         TupleFloat _coefSize;
         TupleFloat _size;
         bool _display = true;
+        bool _needUpdate = true;
     };
 }
 std::ostream &operator<<(std::ostream &out, const Rtype::Client::Hitbox &hitbox);

@@ -18,7 +18,7 @@ WindowSys::WindowSys(sf::VideoMode mode, const sf::String &title,
 {
 }
 
-void WindowSys::resizeWindow(TupleUInt newSize)
+void WindowSys::resizeWindow(TupleUInt newSize, bool &isResize)
 {
     sf::Vector2u sizeWindow = _window.getSize();
 
@@ -26,6 +26,7 @@ void WindowSys::resizeWindow(TupleUInt newSize)
         return;
     _window.close();
     _window.create({newSize.x, newSize.y, 32}, _title, sf::Style::Titlebar | sf::Style::Close);
+    isResize = true;
 }
 
 void WindowSys::operator()(ECS &ecs, const FrameEvent &,
@@ -35,10 +36,11 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
                            SparseArray<Drawable> &sprites)
 {
     bool displayHitbox = (windows.size() > 0 && windows[0]) ? windows[0].value()._displayHitboxs : false;
+    bool isResize = false;
 
     _window.clear();
     if (windows.size() > 0 && windows[0])
-        resizeWindow(windows[0].value()._size);
+        resizeWindow(windows[0].value()._size, isResize);
     sf::Vector2u sizeWindow = _window.getSize();
 
     for (size_t i = 0; i < positions.size() && i < sprites.size() && i < hitboxs.size(); ++i) {
@@ -47,8 +49,10 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
         auto &box = hitboxs[i];
 
         if (pos && sprite && box) {
-            box.value()._size = {box.value()._coefSize.x * sizeWindow.x, box.value()._coefSize.y * sizeWindow.y};
-
+            if (box.value()._needUpdate || isResize) {
+                box.value()._size = {box.value()._coefSize.x * sizeWindow.x, box.value()._coefSize.y * sizeWindow.y};
+                box.value()._needUpdate = false;
+            }
             sprite.value()._sprite.setPosition({pos.value()._current.x, pos.value()._current.y});
             sprite.value()._sprite.setTextureRect(sprite.value()._rectangle);
             sprite.value()._sprite.setScale({box.value()._size.x / sprite.value()._sizeFrame.x, box.value()._size.y / sprite.value()._sizeFrame.y});
