@@ -33,8 +33,8 @@
 
 #include "TextureManager.hpp"
 
-int main (void) {
-// int mainTestGame (void) {
+// int main (void) {
+int mainTestGame (void) {
     ECS ecs;
     ecs.register_component<Rtype::Client::Window>();
     ecs.register_component<Rtype::Client::Type>();
@@ -135,8 +135,8 @@ int main (void) {
 }
 
 
-// int main (void) {
-int mainTestMenu (void) {
+int main (void) {
+// int mainTestMenu (void) {
     ECS ecs;
     ecs.register_component<Rtype::Client::Window>();
     ecs.register_component<Rtype::Client::Type>();
