@@ -12,6 +12,7 @@ set(SRC
     src/components/Type.cpp
     src/components/Window.cpp
     src/components/Hitbox.cpp
+    src/components/Text.cpp
     src/events/FrameEvent.cpp
     src/events/TicEvent.cpp
     src/systems/FrameSys.cpp

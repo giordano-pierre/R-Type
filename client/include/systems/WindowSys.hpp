@@ -15,6 +15,7 @@
 #include "components/Position.hpp"
 #include "components/Hitbox.hpp"
 #include "components/Window.hpp"
+#include "components/Text.hpp"
 #include "events/FrameEvent.hpp"
 
 namespace Rtype::Client{
@@ -29,12 +30,24 @@ namespace Rtype::Client{
                         const SparseArray<Window> &windows,
                         SparseArray<Position> &positions,
                         SparseArray<Hitbox> &hitboxs,
-                        SparseArray<Drawable> &sprites);
+                        SparseArray<Drawable> &sprites,
+                        SparseArray<Text> &texts);
 
     private:
         sf::RenderWindow _window;
         sf::String _title;
 
         void resizeWindow(TupleUInt, bool &);
+        void updateInfo(SparseArray<Position> &positions,
+                        SparseArray<Hitbox> &hitboxs,
+                        bool isResize, sf::Vector2u sizeClient, TupleUInt serverSize);
+        void drawSprite(SparseArray<Position> &positions,
+                        SparseArray<Hitbox> &hitboxs,
+                        SparseArray<Drawable> &sprites);
+        void drawText(SparseArray<Position> &positions,
+                      SparseArray<Hitbox> &hitboxs,
+                      SparseArray<Text> &texts, bool isResize);
+        void drawHitboxes(SparseArray<Position> &positions,
+                          SparseArray<Hitbox> &hitboxs, bool draw);
     };
 }

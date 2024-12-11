@@ -9,7 +9,7 @@
 
 namespace Rtype::Client {
 
-Window::Window(TupleUInt size, TupleUInt serverSize)
+Window::Window(const std::string &fontPath, TupleUInt size, TupleUInt serverSize)
     : _size(size), _serverSize(serverSize)
 {
     this->_inputConfig.insert({UP, sf::Keyboard::Up});
@@ -22,6 +22,7 @@ Window::Window(TupleUInt size, TupleUInt serverSize)
     this->_inputConfig.insert({SUPERSHOOT, sf::Keyboard::Enter});
     this->_inputConfig.insert({RETURN, sf::Keyboard::Q});
     this->_inputConfig.insert({QUIT, sf::Keyboard::Escape});
+    _font.loadFromFile(fontPath);
 }
 
 }
