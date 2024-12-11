@@ -33,8 +33,8 @@
 
 #include "TextureManager.hpp"
 
-// int main (void) {
-int mainTestGame (void) {
+int main (void) {
+// int mainTestGame (void) {
     Rtype::Client::TupleUInt serverSize = {640, 360};
     ECS ecs;
     ecs.register_component<Rtype::Client::Window>();
@@ -135,8 +135,8 @@ int mainTestGame (void) {
 }
 
 
-int main (void) {
-// int mainTestMenu (void) {
+// int main (void) {
+int mainTestMenu (void) {
     Rtype::Client::TupleUInt serverSize = {1920, 1080};
     ECS ecs;
     ecs.register_component<Rtype::Client::Window>();

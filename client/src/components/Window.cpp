@@ -12,12 +12,13 @@ namespace Rtype::Client {
 Window::Window(TupleUInt size, TupleUInt serverSize)
     : _size(size), _serverSize(serverSize)
 {
-    this->_inputConfig.insert({UP, sf::Keyboard::Z});
-    this->_inputConfig.insert({DOWN, sf::Keyboard::S});
-    this->_inputConfig.insert({LEFT, sf::Keyboard::Q});
-    this->_inputConfig.insert({RIGHT, sf::Keyboard::D});
+    this->_inputConfig.insert({UP, sf::Keyboard::Up});
+    this->_inputConfig.insert({DOWN, sf::Keyboard::Down});
+    this->_inputConfig.insert({LEFT, sf::Keyboard::Left});
+    this->_inputConfig.insert({RIGHT, sf::Keyboard::Right});
+    this->_inputConfig.insert({ENTER, sf::Keyboard::Space});
     this->_inputConfig.insert({PAUSE, sf::Keyboard::P});
-    this->_inputConfig.insert({SHOOT, sf::Keyboard::Enter});
+    this->_inputConfig.insert({SHOOT, sf::Keyboard::Space});
     this->_inputConfig.insert({SUPERSHOOT, sf::Keyboard::Enter});
     this->_inputConfig.insert({RETURN, sf::Keyboard::Q});
     this->_inputConfig.insert({QUIT, sf::Keyboard::Escape});

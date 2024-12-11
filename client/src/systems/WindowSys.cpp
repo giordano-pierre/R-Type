@@ -29,14 +29,24 @@ void WindowSys::resizeWindow(TupleUInt newSize, bool &isResize)
     isResize = true;
 }
 
-UserInput extractInput(sf::Event event, const std::map<UserInput, sf::Keyboard::Key> &inputConfig)
+void extractInput(ECS &ecs, sf::Event event, const std::map<UserInput, sf::Keyboard::Key> &inputConfig)
 {
-    if (event.type != sf::Event::KeyPressed && event.type != sf::Event::KeyReleased)
-        return NOTHING;
-    for (const auto [key, value] : inputConfig)
-        if (value == event.key.code)
-            return key;
-    return NOTHING;
+    bool isRegister = false;
+
+    if (event.type != sf::Event::KeyPressed && event.type != sf::Event::KeyReleased) {
+        ecs.post<InputEvent>({event, NOTHING});
+        isRegister = true;
+    } else {
+        for (const auto [key, value] : inputConfig) {
+            if (value == event.key.code) {
+                ecs.post<InputEvent>({event, key});
+                isRegister = true;
+            }
+        }
+    }
+
+    if (!isRegister)
+        ecs.post<InputEvent>({event, NOTHING});
 }
 
 void WindowSys::operator()(ECS &ecs, const FrameEvent &,
@@ -91,7 +101,7 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
     sf::Event event;
 
     while (_window.pollEvent(event)) {
-        ecs.post<InputEvent>({event, extractInput(event, inputConfig)});
+        extractInput(ecs, event, inputConfig);
     }
 }
 
