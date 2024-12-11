@@ -14,7 +14,7 @@
 namespace Rtype::Client {
     struct Selectable {
         std::shared_ptr<sf::Texture> _texture;
-        std::function<void(ECS)> _func;
+        std::function<void(ECS &)> _func;
         bool _isSelected = false;
     };
 }

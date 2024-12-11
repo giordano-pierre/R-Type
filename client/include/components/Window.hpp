@@ -20,7 +20,8 @@ namespace Rtype::Client {
 
         TupleUInt _size;
         TupleUInt _serverSize;
-        std::map<UserInput, sf::Keyboard::Key> _inputConfig;
+        std::pair<std::map<UserInput, sf::Keyboard::Key>,
+                  std::map<UserInput, sf::Keyboard::Key>> _inputConfig;
         TextureManager _myTextures;
         sf::Font _font;
         bool _displayHitboxs = false;

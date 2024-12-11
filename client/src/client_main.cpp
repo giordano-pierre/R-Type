@@ -104,8 +104,7 @@ int mainTestGame (void) {
     bool running = true;
     ecs.subscribe<Rtype::Client::InputEvent>(
         [&running](ECS &, const Rtype::Client::InputEvent &e_input) -> void {
-            if ((e_input._event.type == sf::Event::KeyPressed &&
-                e_input._event.key.code == sf::Keyboard::Escape) || e_input._event.type == sf::Event::Closed){
+            if (e_input._myEvent == Rtype::Client::QUIT || e_input._event.type == sf::Event::Closed){
                 running = false;
             }
         });
@@ -157,52 +156,52 @@ int main (void) {
     auto myWindow = ecs.get_components<Rtype::Client::Window>();
 
     Entity button = ecs.spawn_entity();
-    ecs.add_component<Rtype::Client::Position>(button, {float(serverSize.x) / 4, float(serverSize.y) / 3});
+    ecs.add_component<Rtype::Client::Position>(button, {float(serverSize.x) / 2, float(serverSize.y) / 5});
     ecs.add_component<Rtype::Client::Type>(button, {Rtype::Client::BUTTON});
     ecs.add_component<Rtype::Client::Hitbox>(button, {{0.2, 0.07}});
-    ecs.add_component<Rtype::Client::Text>(button, {"Test 1", myWindow[0].value()._font, {0.5, 0.5}, {0, 0.5}, sf::Color::White, sf::Text::Style::Regular});
+    ecs.add_component<Rtype::Client::Text>(button, {"START", myWindow[0].value()._font, {0.5, 0.5}, {0.5, 0.5}, sf::Color::White});
     ecs.add_component<Rtype::Client::Drawable>(button, {myWindow[0].value()._myTextures.getTexture("assets/images/utils/Btn_V03.png"), {366, 67}, {366, 67}, 1});
-    ecs.add_component<Rtype::Client::Selectable>(button, {myWindow[0].value()._myTextures.getTexture("assets/images/utils/Btn_V03.png"), [](ECS ecs){std::cout << "Button 1 is clicked!" << std::endl;}});
+    ecs.add_component<Rtype::Client::Selectable>(button, {myWindow[0].value()._myTextures.getTexture("assets/images/utils/Btn_V03.png"), [](ECS ecs){std::cout << "Start the game !" << std::endl;}});
 
     Entity button2 = ecs.spawn_entity();
-    ecs.add_component<Rtype::Client::Position>(button2, {float(serverSize.x) / 4 * 2, float(serverSize.y) / 3});
+    ecs.add_component<Rtype::Client::Position>(button2, {float(serverSize.x) / 2, float(serverSize.y) / 5 * 2});
     ecs.add_component<Rtype::Client::Type>(button2, {Rtype::Client::BUTTON});
     ecs.add_component<Rtype::Client::Hitbox>(button2, {{0.2, 0.07}});
-    ecs.add_component<Rtype::Client::Text>(button2, {"Test 2", myWindow[0].value()._font, {0.5, 0.5}, {0.5, 0.5}, sf::Color::White, sf::Text::Style::Regular});
+    ecs.add_component<Rtype::Client::Text>(button2, {"CUSTOM", myWindow[0].value()._font, {0.5, 0.5}, {0.5, 0.5}, sf::Color::White, sf::Text::Style::Regular});
     ecs.add_component<Rtype::Client::Drawable>(button2, {myWindow[0].value()._myTextures.getTexture("assets/images/utils/Btn_V03.png"), {366, 67}, {366, 67}, 1});
-    ecs.add_component<Rtype::Client::Selectable>(button2, {myWindow[0].value()._myTextures.getTexture("assets/images/utils/Btn_V03.png"), [](ECS ecs){std::cout << "Button 2 is clicked!" << std::endl;}});
+    ecs.add_component<Rtype::Client::Selectable>(button2, {myWindow[0].value()._myTextures.getTexture("assets/images/utils/Btn_V03.png"), [](ECS ecs){std::cout << "Custom your ship !" << std::endl;}});
 
     Entity button3 = ecs.spawn_entity();
-    ecs.add_component<Rtype::Client::Position>(button3, {float(serverSize.x) / 4 * 3, float(serverSize.y) / 3});
+    ecs.add_component<Rtype::Client::Position>(button3, {float(serverSize.x) / 2, float(serverSize.y) / 5 * 3});
     ecs.add_component<Rtype::Client::Type>(button3, {Rtype::Client::BUTTON});
     ecs.add_component<Rtype::Client::Hitbox>(button3, {{0.2, 0.07}});
-    ecs.add_component<Rtype::Client::Text>(button3, {"Test 3", myWindow[0].value()._font, {0.5, 0.5}, {1, 0.5}, sf::Color::White, sf::Text::Style::Regular});
+    ecs.add_component<Rtype::Client::Text>(button3, {"CONFIGS", myWindow[0].value()._font, {0.5, 0.5}, {0.5, 0.5}, sf::Color::White, sf::Text::Style::Regular});
     ecs.add_component<Rtype::Client::Drawable>(button3, {myWindow[0].value()._myTextures.getTexture("assets/images/utils/Btn_V03.png"), {366, 67}, {366, 67}, 1});
-    ecs.add_component<Rtype::Client::Selectable>(button3, {myWindow[0].value()._myTextures.getTexture("assets/images/utils/Btn_V03.png"), [](ECS ecs){std::cout << "Button 3 is clicked!" << std::endl;}});
+    ecs.add_component<Rtype::Client::Selectable>(button3, {myWindow[0].value()._myTextures.getTexture("assets/images/utils/Btn_V03.png"), [](ECS ecs){std::cout << "Open Parameters !" << std::endl;}});
 
     Entity button4 = ecs.spawn_entity();
-    ecs.add_component<Rtype::Client::Position>(button4, {float(serverSize.x) / 4, float(serverSize.y) / 3 * 2});
+    ecs.add_component<Rtype::Client::Position>(button4, {float(serverSize.x) / 2, float(serverSize.y) / 5 * 4});
     ecs.add_component<Rtype::Client::Type>(button4, {Rtype::Client::BUTTON});
     ecs.add_component<Rtype::Client::Hitbox>(button4, {{0.2, 0.07}});
-    ecs.add_component<Rtype::Client::Text>(button4, {"Test 4", myWindow[0].value()._font, {0.5, 0.5}, {0.25, 0.5}, sf::Color::White, sf::Text::Style::Regular});
+    ecs.add_component<Rtype::Client::Text>(button4, {"QUIT", myWindow[0].value()._font, {0.5, 0.5}, {0.5, 0.5}, sf::Color::White, sf::Text::Style::Regular});
     ecs.add_component<Rtype::Client::Drawable>(button4, {myWindow[0].value()._myTextures.getTexture("assets/images/utils/Btn_V03.png"), {366, 67}, {366, 67}, 1});
-    ecs.add_component<Rtype::Client::Selectable>(button4, {myWindow[0].value()._myTextures.getTexture("assets/images/utils/Btn_V03.png"), [](ECS ecs){std::cout << "Button 4 is clicked!" << std::endl;}});
+    ecs.add_component<Rtype::Client::Selectable>(button4, {myWindow[0].value()._myTextures.getTexture("assets/images/utils/Btn_V03.png"),[](ECS &ecs){std::cout << "QUIT" << std::endl; ecs.post<Rtype::Client::InputEvent>({sf::Event(), Rtype::Client::QUIT});}});
 
-    Entity button5 = ecs.spawn_entity();
-    ecs.add_component<Rtype::Client::Position>(button5, {float(serverSize.x) / 4 * 2, float(serverSize.y) / 3 * 2});
-    ecs.add_component<Rtype::Client::Type>(button5, {Rtype::Client::BUTTON});
-    ecs.add_component<Rtype::Client::Hitbox>(button5, {{0.2, 0.07}});
-    ecs.add_component<Rtype::Client::Text>(button5, {"Test 5", myWindow[0].value()._font, {0.5, 0.5}, {0.5, 0.5},sf::Color::White, sf::Text::Style::Regular});
-    ecs.add_component<Rtype::Client::Drawable>(button5, {myWindow[0].value()._myTextures.getTexture("assets/images/utils/Btn_V03.png"), {366, 67}, {366, 67}, 1});
-    ecs.add_component<Rtype::Client::Selectable>(button5, {myWindow[0].value()._myTextures.getTexture("assets/images/utils/Btn_V03.png"), [](ECS ecs){std::cout << "Button 5 is clicked!" << std::endl;}});
+    // Entity button5 = ecs.spawn_entity();
+    // ecs.add_component<Rtype::Client::Position>(button5, {float(serverSize.x) / 4 * 2, float(serverSize.y) / 3 * 2});
+    // ecs.add_component<Rtype::Client::Type>(button5, {Rtype::Client::BUTTON});
+    // ecs.add_component<Rtype::Client::Hitbox>(button5, {{0.2, 0.07}});
+    // ecs.add_component<Rtype::Client::Text>(button5, {"Test 5", myWindow[0].value()._font, {0.5, 0.5}, {0.5, 0.5},sf::Color::White, sf::Text::Style::Regular});
+    // ecs.add_component<Rtype::Client::Drawable>(button5, {myWindow[0].value()._myTextures.getTexture("assets/images/utils/Btn_V03.png"), {366, 67}, {366, 67}, 1});
+    // ecs.add_component<Rtype::Client::Selectable>(button5, {myWindow[0].value()._myTextures.getTexture("assets/images/utils/Btn_V03.png"), [](ECS ecs){std::cout << "Button 5 is clicked!" << std::endl;}});
 
-    Entity button6 = ecs.spawn_entity();
-    ecs.add_component<Rtype::Client::Position>(button6, {float(serverSize.x) / 4 * 3, float(serverSize.y) / 3 * 2});
-    ecs.add_component<Rtype::Client::Type>(button6, {Rtype::Client::BUTTON});
-    ecs.add_component<Rtype::Client::Hitbox>(button6, {{0.2, 0.07}});
-    ecs.add_component<Rtype::Client::Text>(button6, {"Test 6", myWindow[0].value()._font, {0.5, 0.5}, {0.75, 0.5}, sf::Color::White, sf::Text::Style::Regular});
-    ecs.add_component<Rtype::Client::Drawable>(button6, {myWindow[0].value()._myTextures.getTexture("assets/images/utils/Btn_V03.png"), {366, 67}, {366, 67}, 1});
-    ecs.add_component<Rtype::Client::Selectable>(button6, {myWindow[0].value()._myTextures.getTexture("assets/images/utils/Btn_V03.png"), [](ECS ecs){std::cout << "Button 6 is clicked!" << std::endl;}});
+    // Entity button6 = ecs.spawn_entity();
+    // ecs.add_component<Rtype::Client::Position>(button6, {float(serverSize.x) / 4 * 3, float(serverSize.y) / 3 * 2});
+    // ecs.add_component<Rtype::Client::Type>(button6, {Rtype::Client::BUTTON});
+    // ecs.add_component<Rtype::Client::Hitbox>(button6, {{0.2, 0.07}});
+    // ecs.add_component<Rtype::Client::Text>(button6, {"Test 6", myWindow[0].value()._font, {0.5, 0.5}, {0.75, 0.5}, sf::Color::White, sf::Text::Style::Regular});
+    // ecs.add_component<Rtype::Client::Drawable>(button6, {myWindow[0].value()._myTextures.getTexture("assets/images/utils/Btn_V03.png"), {366, 67}, {366, 67}, 1});
+    // ecs.add_component<Rtype::Client::Selectable>(button6, {myWindow[0].value()._myTextures.getTexture("assets/images/utils/Btn_V03.png"), [](ECS ecs){std::cout << "Button 6 is clicked!" << std::endl;}});
 
     ecs.register_event<Rtype::Client::FrameEvent>();
     ecs.register_event<Rtype::Client::InputEvent>();
@@ -223,8 +222,7 @@ int main (void) {
     bool running = true;
     ecs.subscribe<Rtype::Client::InputEvent>(
         [&running](ECS &, const Rtype::Client::InputEvent &e_input) -> void {
-            if ((e_input._event.type == sf::Event::KeyPressed &&
-                e_input._myEvent == Rtype::Client::QUIT) || e_input._event.type == sf::Event::Closed){
+            if (e_input._myEvent == Rtype::Client::QUIT || e_input._event.type == sf::Event::Closed){
                 running = false;
             }
         });

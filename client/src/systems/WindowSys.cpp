@@ -29,22 +29,28 @@ void WindowSys::resizeWindow(TupleUInt newSize, bool &isResize)
     isResize = true;
 }
 
-void extractInput(ECS &ecs, sf::Event event, const std::map<UserInput, sf::Keyboard::Key> &inputConfig)
+void extractInput(ECS &ecs, sf::Event event,
+                  const std::pair<std::map<UserInput, sf::Keyboard::Key>,
+                        std::map<UserInput, sf::Keyboard::Key>> &inputConfig)
 {
     bool isRegister = false;
 
-    if (event.type != sf::Event::KeyPressed && event.type != sf::Event::KeyReleased) {
-        ecs.post<InputEvent>({event, NOTHING});
-        isRegister = true;
-    } else {
-        for (const auto [key, value] : inputConfig) {
+    if (event.type == sf::Event::KeyPressed) {
+        for (const auto [key, value] : inputConfig.first) {
             if (value == event.key.code) {
                 ecs.post<InputEvent>({event, key});
                 isRegister = true;
             }
         }
     }
-
+    if (event.type == sf::Event::KeyReleased) {
+        for (const auto [key, value] : inputConfig.second) {
+            if (value == event.key.code) {
+                ecs.post<InputEvent>({event, key});
+                isRegister = true;
+            }
+        }
+    }
     if (!isRegister)
         ecs.post<InputEvent>({event, NOTHING});
 }
@@ -141,7 +147,8 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
 {
     bool displayHitbox = (windows.size() > 0 && windows[0]) ? windows[0].value()._displayHitboxs : false;
     TupleUInt serverSize = (windows.size() > 0 && windows[0]) ? windows[0].value()._serverSize : TupleUInt{1920, 1080};
-    auto inputConfig = (windows.size() > 0 && windows[0]) ? windows[0].value()._inputConfig : std::map<UserInput, sf::Keyboard::Key>();
+    auto inputConfig = (windows.size() > 0 && windows[0]) ? windows[0].value()._inputConfig
+                        : std::pair<std::map<UserInput, sf::Keyboard::Key>, std::map<UserInput, sf::Keyboard::Key>>();
     bool isResize = false;
 
     _window.clear();

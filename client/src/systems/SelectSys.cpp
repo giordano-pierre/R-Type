@@ -73,11 +73,8 @@ void SelectSys::operator()(ECS &ecs, const InputEvent &e_input,
     }
 
     if (!isOldEntity) {
-        if (e_input._event.type == sf::Event::KeyPressed && (
-            e_input._myEvent == UP ||
-            e_input._myEvent == DOWN ||
-            e_input._myEvent == LEFT ||
-            e_input._myEvent == RIGHT)) {
+        if (e_input._myEvent == UP1P || e_input._myEvent == DOWN1P ||
+            e_input._myEvent == LEFT1P || e_input._myEvent == RIGHT1P) {
             for (size_t i = 0; i < sprites.size() && i < selectables.size() && i < hitboxes.size(); ++i) {
                 auto &sprite = sprites[i];
                 auto &sel = selectables[i];
@@ -102,26 +99,31 @@ void SelectSys::operator()(ECS &ecs, const InputEvent &e_input,
             continue;
         if (sel.value()._isSelected)
             continue;
-        switch (e_input._event.type) {
-            case sf::Event::KeyPressed:
-                if (e_input._myEvent == UP && oldPos.y > pos.value()._client.y)
-                    compareDist(oldPos, pos.value()._client, i, dist, newEntity, isNewEntity);
-                if (e_input._myEvent == DOWN && oldPos.y < pos.value()._client.y)
-                    compareDist(oldPos, pos.value()._client, i, dist, newEntity, isNewEntity);
-                if (e_input._myEvent == LEFT && oldPos.x > pos.value()._client.x)
-                    compareDist(oldPos, pos.value()._client, i, dist, newEntity, isNewEntity);
-                if (e_input._myEvent == RIGHT && oldPos.x < pos.value()._client.x)
+        switch (e_input._myEvent) {
+            case UP1P:
+                if (oldPos.y > pos.value()._client.y)
                     compareDist(oldPos, pos.value()._client, i, dist, newEntity, isNewEntity);
                 break;
-            case sf::Event::MouseMoved:
-                if (e_input._event.mouseMove.x > pos.value()._client.x - (box.value()._client.x / 2) &&
+            case DOWN1P:
+                if (oldPos.y < pos.value()._client.y)
+                    compareDist(oldPos, pos.value()._client, i, dist, newEntity, isNewEntity);
+                break;
+            case LEFT1P:
+                if (oldPos.x > pos.value()._client.x)
+                    compareDist(oldPos, pos.value()._client, i, dist, newEntity, isNewEntity);
+                break;
+            case RIGHT1P:
+                if (oldPos.x < pos.value()._client.x)
+                    compareDist(oldPos, pos.value()._client, i, dist, newEntity, isNewEntity);
+                break;
+            default:
+                if (e_input._event.type == sf::Event::MouseMoved &&
+                    e_input._event.mouseMove.x > pos.value()._client.x - (box.value()._client.x / 2) &&
                     e_input._event.mouseMove.x < pos.value()._client.x + (box.value()._client.x / 2) &&
                     e_input._event.mouseMove.y > pos.value()._client.y - (box.value()._client.y / 2) &&
                     e_input._event.mouseMove.y < pos.value()._client.y + (box.value()._client.y / 2))
                         changeSelect(sprites, hitboxes, selectables, i, oldEntity);
                 break;
-            default:
-                return;
         }
     }
 

@@ -16,27 +16,33 @@ void MoveSys::operator()(ECS &ecs, const InputEvent &e_input,
 {
     TupleInt newValue = {-1, -1};
 
-    switch(e_input._event.type) {
-        case sf::Event::KeyPressed:
-            if (e_input._myEvent == LEFT)
-                newValue.x = -5;
-            if (e_input._myEvent == RIGHT)
-                newValue.x = 5;
-            if (e_input._myEvent == UP)
-                    newValue.y = -5;
-            if (e_input._myEvent == DOWN)
-                    newValue.y = 5;
+    switch (e_input._myEvent) {
+        case LEFT1P:
+            newValue.x = -5;
             break;
-        case sf::Event::KeyReleased:
-            if (e_input._myEvent == LEFT ||
-                e_input._myEvent == RIGHT)
-                newValue.x = 0;
-            if (e_input._myEvent == UP ||
-                e_input._myEvent == DOWN)
-                newValue.y = 0;
+        case LEFT1R:
+            newValue.x = 0;
+            break;
+        case RIGHT1P:
+            newValue.x = 5;
+            break;
+        case RIGHT1R:
+            newValue.x = 0;
+            break;
+        case UP1P:
+            newValue.y = -5;
+            break;
+        case UP1R:
+            newValue.y = 0;
+            break;
+        case DOWN1P:
+            newValue.y = 5;
+            break;
+        case DOWN1R:
+            newValue.y = 0;
             break;
         default:
-            return;
+            break;
     }
 
     for (size_t i = 0; i < velocities.size() && i < players.size(); ++i) {

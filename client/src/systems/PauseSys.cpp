@@ -14,11 +14,10 @@ void PauseSys::operator()(ECS &ecs, const InputEvent &e_input,
 {
     bool changeState = false;
 
-    switch(e_input._event.type) {
-        case sf::Event::KeyPressed:
-            if (e_input._myEvent == PAUSE)
-                changeState = true;
-                break;
+    switch(e_input._myEvent) {
+        case PAUSE:
+            changeState = true;
+            break;
         default:
             return;
     }
@@ -36,11 +35,10 @@ void PauseSys::operator()(ECS &ecs, const InputEvent &e_input,
 {
     bool changeState = false;
 
-    switch(e_input._event.type) {
-        case sf::Event::KeyPressed:
-            if (e_input._myEvent == PAUSE)
-                changeState = true;
-                break;
+    switch(e_input._myEvent) {
+        case PAUSE:
+            changeState = true;
+            break;
         default:
             return;
     }

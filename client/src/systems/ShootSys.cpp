@@ -20,11 +20,10 @@ void ShootSys::operator()(ECS &ecs, const InputEvent &e_input,
 {
     bool player1Shoot = false;
 
-    switch(e_input._event.type) {
-        case sf::Event::KeyPressed:
-            if (e_input._myEvent == SHOOT)
-                player1Shoot = true;
-                break;
+    switch(e_input._myEvent) {
+        case SHOOT1:
+            player1Shoot = true;
+            break;
         default:
             return;
     }

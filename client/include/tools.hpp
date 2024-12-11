@@ -33,16 +33,20 @@ namespace Rtype::Client {
 
     enum UserInput {
         NOTHING = 0,
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT,
         ENTER,
         PAUSE,
-        SHOOT,
-        SUPERSHOOT,
-        RETURN,
         QUIT,
+        RETURN,
+        UP1P,
+        DOWN1P,
+        LEFT1P,
+        RIGHT1P,
+        UP1R,
+        DOWN1R,
+        LEFT1R,
+        RIGHT1R,
+        SHOOT1,
+        SUPERSHOOT1,
     };
 
     float computeDist(TupleFloat a, TupleFloat b);

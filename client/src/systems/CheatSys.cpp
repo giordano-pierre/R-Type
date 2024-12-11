@@ -14,6 +14,8 @@ void CheatSys::operator()(ECS &ecs, const InputEvent &e_input,
 {
     bool changeState = false;
 
+    if (e_input._myEvent != NOTHING)
+        return;
     switch(e_input._event.type) {
         case sf::Event::KeyPressed:
             if (e_input._event.key.code == sf::Keyboard::H)
