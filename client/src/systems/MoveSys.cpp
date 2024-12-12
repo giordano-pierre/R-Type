@@ -6,7 +6,6 @@
 */
 
 #include "systems/MoveSys.hpp"
-#include <iostream>
 
 namespace Rtype::Client {
 
@@ -18,25 +17,25 @@ void MoveSys::operator()(ECS &ecs, const InputEvent &e_input,
 
     switch (e_input._myEvent) {
         case LEFT1P:
-            newValue.x = -5;
+            newValue.x = -8;
             break;
         case LEFT1R:
             newValue.x = 0;
             break;
         case RIGHT1P:
-            newValue.x = 5;
+            newValue.x = 8;
             break;
         case RIGHT1R:
             newValue.x = 0;
             break;
         case UP1P:
-            newValue.y = -5;
+            newValue.y = -8;
             break;
         case UP1R:
             newValue.y = 0;
             break;
         case DOWN1P:
-            newValue.y = 5;
+            newValue.y = 8;
             break;
         case DOWN1R:
             newValue.y = 0;

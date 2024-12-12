@@ -36,7 +36,7 @@ void ShootSys::operator()(ECS &ecs, const InputEvent &e_input,
         if (play && pos && box && player1Shoot) {
             Entity shot = ecs.spawn_entity();
             ecs.add_component<Position>(shot, {pos.value()._server.x + (box.value()._server.x / 2), pos.value()._server.y});
-            ecs.add_component<Velocity>(shot, {5, 0});
+            ecs.add_component<Velocity>(shot, {15, 0});
             ecs.add_component<Tag>(shot, {SHOT});
             ecs.add_component<Hitbox>(shot, {{0.07, 0.05}});
             ecs.add_component<Drawable>(shot, {windows[0].value()._myTextures.getTexture("assets/images/shot/purple_shot.png"), {251, 144}, {251, 144}, 1});
