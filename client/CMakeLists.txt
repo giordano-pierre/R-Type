@@ -5,6 +5,7 @@ project(r-type_client VERSION 1.0 LANGUAGES CXX)
 set(SRC
     main.cpp
     src/client_file.cpp
+    src/UDPClient.cpp
 )
 
 add_executable(r-type_client ${SRC})

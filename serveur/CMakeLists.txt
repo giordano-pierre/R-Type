@@ -3,6 +3,7 @@ project(r-type_server VERSION 1.0 LANGUAGES CXX)
 set(SRC
     main.cpp
     src/server_file.cpp
+    src/UDPServer.cpp
 )
 
 add_executable(r-type_server ${SRC})
