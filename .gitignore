@@ -41,3 +41,5 @@ r-type_client
 r-type_server
 build
 vcpkg
+
+tests
