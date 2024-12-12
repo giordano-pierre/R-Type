@@ -10,33 +10,31 @@
 
 namespace Rtype::Client {
 
-void loadGameSystem(ECS &ecs)
-{
-    auto pauseSys = PauseSys();
-    ecs.subscribe<InputEvent, Drawable>(pauseSys);
-    ecs.subscribe<InputEvent, Velocity>(pauseSys);
+void loadGameSystem(ECS &ecs) {
+  auto pauseSys = PauseSys();
+  ecs.subscribe<InputEvent, Drawable>(pauseSys);
+  ecs.subscribe<InputEvent, Velocity>(pauseSys);
 
-    auto moveSys = MoveSys();
-    ecs.subscribe<TicEvent, Position, Velocity>(moveSys);
-    ecs.subscribe<InputEvent, Playable, Velocity>(moveSys);
+  auto moveSys = MoveSys();
+  ecs.subscribe<TicEvent, Position, Velocity>(moveSys);
+  ecs.subscribe<InputEvent, Playable, Velocity>(moveSys);
 
-    auto frameSys = FrameSys();
-    ecs.subscribe<FrameEvent, Drawable>(frameSys);
+  auto frameSys = FrameSys();
+  ecs.subscribe<FrameEvent, Drawable>(frameSys);
 
-    auto borderSys = BorderSys();
-    ecs.subscribe<TicEvent, Window, Tag, Hitbox, Position>(borderSys);
+  auto borderSys = BorderSys();
+  ecs.subscribe<TicEvent, Window, Tag, Hitbox, Position>(borderSys);
 
-    auto shootSys = ShootSys();
-    ecs.subscribe<InputEvent, Window, Playable, Position, Hitbox>(shootSys);
+  auto shootSys = ShootSys();
+  ecs.subscribe<InputEvent, Window, Playable, Position, Hitbox>(shootSys);
 }
 
-void loadMenuSystem(ECS &ecs)
-{
-    auto selSys = SelectSys();
-    ecs.subscribe<InputEvent, Position, Drawable, Hitbox, Selectable>(selSys);
+void loadMenuSystem(ECS &ecs) {
+  auto selSys = SelectSys();
+  ecs.subscribe<InputEvent, Position, Drawable, Hitbox, Selectable>(selSys);
 
-    auto pressSys = PressButtonSys();
-    ecs.subscribe<InputEvent, Position, Hitbox, Selectable>(pressSys);
+  auto pressSys = PressButtonSys();
+  ecs.subscribe<InputEvent, Position, Hitbox, Selectable>(pressSys);
 }
 
-}
+} // namespace Rtype::Client

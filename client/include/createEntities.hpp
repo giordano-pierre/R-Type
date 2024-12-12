@@ -10,7 +10,7 @@
 #include "ECS/ECS.hpp"
 
 namespace Rtype::Client {
-    void createGameEntities(ECS &ecs);
-    void createMenuEntities(ECS &ecs);
-    void createConfigEntities(ECS &ecs);
-}
+void createGameEntities(ECS &ecs);
+void createMenuEntities(ECS &ecs);
+void createConfigEntities(ECS &ecs);
+} // namespace Rtype::Client

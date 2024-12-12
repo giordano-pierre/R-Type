@@ -23,16 +23,16 @@ struct TupleFloat {
   float y;
 };
 
-    enum ObjectType {
-        WINDOW,
-        PLAYER,
-        BACKGROUND,
-        SHOT,
-        MENU,
-        CONFIG,
-        CGENERAL,
-        CPLAYER,
-    };
+enum ObjectType {
+  WINDOW,
+  PLAYER,
+  BACKGROUND,
+  SHOT,
+  MENU,
+  CONFIG,
+  CGENERAL,
+  CPLAYER,
+};
 
 enum UserInput {
   NOTHING = 0,
