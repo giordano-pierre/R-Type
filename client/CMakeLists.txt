@@ -24,6 +24,8 @@ set(SRC
     src/systems/CheatSys.cpp
     src/systems/SelectSys.cpp
     src/systems/PressButtonSys.cpp
+    src/createEntities.cpp
+    src/loadSystems.cpp
     src/tools.cpp
 )
 
