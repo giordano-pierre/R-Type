@@ -7,36 +7,40 @@
 #include <iostream>
 
 #include "ECS/ECS.hpp"
-#include "tools.hpp"
-#include "ecsObjects.hpp"
 #include "createEntities.hpp"
+#include "ecsObjects.hpp"
 #include "loadSystems.hpp"
+#include "tools.hpp"
 
-int main (void) {
-// int mainTestGame (void) {
-    Rtype::Client::TupleUInt serverSize = {1920, 1080};
-    ECS ecs;
+int main(void) {
+  // int mainTestGame (void) {
+  Rtype::Client::TupleUInt serverSize = {1920, 1080};
+  ECS ecs;
 
-    ecs.register_component<Rtype::Client::Window>();
-    ecs.register_component<Rtype::Client::Tag>();
-    ecs.register_component<Rtype::Client::Position>();
-    ecs.register_component<Rtype::Client::Velocity>();
-    ecs.register_component<Rtype::Client::Drawable>();
-    ecs.register_component<Rtype::Client::Playable>();
-    ecs.register_component<Rtype::Client::Hitbox>();
-    ecs.register_component<Rtype::Client::Selectable>();
-    ecs.register_component<Rtype::Client::Text>();
+  ecs.register_component<Rtype::Client::Window>();
+  ecs.register_component<Rtype::Client::Tag>();
+  ecs.register_component<Rtype::Client::Position>();
+  ecs.register_component<Rtype::Client::Velocity>();
+  ecs.register_component<Rtype::Client::Drawable>();
+  ecs.register_component<Rtype::Client::Playable>();
+  ecs.register_component<Rtype::Client::Hitbox>();
+  ecs.register_component<Rtype::Client::Selectable>();
+  ecs.register_component<Rtype::Client::Text>();
 
-    ecs.register_event<Rtype::Client::FrameEvent>();
-    ecs.register_event<Rtype::Client::InputEvent>();
-    ecs.register_event<Rtype::Client::TicEvent>();
+  ecs.register_event<Rtype::Client::FrameEvent>();
+  ecs.register_event<Rtype::Client::InputEvent>();
+  ecs.register_event<Rtype::Client::TicEvent>();
 
-    Entity window = ecs.spawn_entity();
-    ecs.add_component<Rtype::Client::Tag>(window, {Rtype::Client::WINDOW});
-    ecs.add_component<Rtype::Client::Window>(window, {"assets/font/retro_gaming.ttf", {1280, 720}, serverSize});
+  Entity window = ecs.spawn_entity();
+  ecs.add_component<Rtype::Client::Tag>(window, {Rtype::Client::WINDOW});
+  ecs.add_component<Rtype::Client::Window>(
+      window, {"assets/font/retro_gaming.ttf", {1280, 720}, serverSize});
 
-    auto windowSys = Rtype::Client::WindowSys({1920, 1080, 32}, "R-type", sf::Style::Titlebar | sf::Style::Close);
-    ecs.subscribe<Rtype::Client::FrameEvent, Rtype::Client::Window, Rtype::Client::Position, Rtype::Client::Hitbox, Rtype::Client::Drawable, Rtype::Client::Text>(windowSys);
+  auto windowSys = Rtype::Client::WindowSys(
+      {1920, 1080, 32}, "R-type", sf::Style::Titlebar | sf::Style::Close);
+  ecs.subscribe<Rtype::Client::FrameEvent, Rtype::Client::Window,
+                Rtype::Client::Position, Rtype::Client::Hitbox,
+                Rtype::Client::Drawable, Rtype::Client::Text>(windowSys);
 
     auto cheatSys = Rtype::Client::CheatSys();
     ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Window>(cheatSys);

@@ -14,34 +14,34 @@ void MoveSys::operator()(ECS &ecs, const InputEvent &e_input,
                          SparseArray<Velocity> &velocities) {
   TupleInt newValue = {-1, -1};
 
-    switch (e_input._myEvent) {
-        case LEFT1P:
-            newValue.x = -8;
-            break;
-        case LEFT1R:
-            newValue.x = 0;
-            break;
-        case RIGHT1P:
-            newValue.x = 8;
-            break;
-        case RIGHT1R:
-            newValue.x = 0;
-            break;
-        case UP1P:
-            newValue.y = -8;
-            break;
-        case UP1R:
-            newValue.y = 0;
-            break;
-        case DOWN1P:
-            newValue.y = 8;
-            break;
-        case DOWN1R:
-            newValue.y = 0;
-            break;
-        default:
-            break;
-    }
+  switch (e_input._myEvent) {
+  case LEFT1P:
+    newValue.x = -8;
+    break;
+  case LEFT1R:
+    newValue.x = 0;
+    break;
+  case RIGHT1P:
+    newValue.x = 8;
+    break;
+  case RIGHT1R:
+    newValue.x = 0;
+    break;
+  case UP1P:
+    newValue.y = -8;
+    break;
+  case UP1R:
+    newValue.y = 0;
+    break;
+  case DOWN1P:
+    newValue.y = 8;
+    break;
+  case DOWN1R:
+    newValue.y = 0;
+    break;
+  default:
+    break;
+  }
 
   for (size_t i = 0; i < velocities.size() && i < players.size(); ++i) {
     auto &vel = velocities[i];
