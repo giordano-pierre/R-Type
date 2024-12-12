@@ -9,8 +9,6 @@
 #include "components/Velocity.hpp"
 #include "components/Tag.hpp"
 #include "components/Drawable.hpp"
-#include "components/Type.hpp"
-#include "components/Velocity.hpp"
 
 namespace Rtype::Client {
 
@@ -44,6 +42,5 @@ void ShootSys::operator()(ECS &ecs, const InputEvent &e_input,
         }
     }
   }
-}
 
 } // namespace Rtype::Client

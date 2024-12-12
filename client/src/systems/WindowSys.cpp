@@ -128,7 +128,7 @@ void WindowSys::drawText(SparseArray<Position> &positions,
         }
     }
   }
-}
+
 
 void WindowSys::drawHitboxes(SparseArray<Position> &positions,
                              SparseArray<Hitbox> &hitboxs, bool draw) {
