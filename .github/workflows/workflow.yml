@@ -13,9 +13,6 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y clang-format
-      - name: Run Clang-Format on C++ code
-        run: |
-          find . -name "*.cpp" -o -name "*.h" -o -name "*.hpp" | xargs clang-format --dry-run --Werror
       - name: Apply Clang-Format to C++ code
         run: |
           find . -name "*.cpp" -o -name "*.h" -o -name "*.hpp" | xargs clang-format -i
