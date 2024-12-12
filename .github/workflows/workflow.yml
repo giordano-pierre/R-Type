@@ -15,7 +15,17 @@ jobs:
           sudo apt install -y clang-format
       - name: Run Clang-Format on C++ code
         run: |
-          find . -name "*.cpp" -o -name "*.hpp" | xargs clang-format --dry-run --Werror
+          find . -name "*.cpp" -o -name "*.h" -o -name "*.hpp" | xargs clang-format --dry-run --Werror
+      - name: Apply Clang-Format to C++ code
+        run: |
+          find . -name "*.cpp" -o -name "*.h" -o -name "*.hpp" | xargs clang-format -i
+      - name: Commit and push formatted code
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add .
+          git commit -m "Apply code formatting using Clang-Format"
+          git push origin ${{ github.ref_name }}
 
   mirroring:
     if: github.repository == 'giordano-pierre/R-Type'
