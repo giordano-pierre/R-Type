@@ -12,8 +12,8 @@
 #include "tools.hpp"
 
 namespace Rtype::Client {
-    struct Type {
-        ObjectType _type;
-    };
-}
+struct Type {
+  ObjectType _type;
+};
+} // namespace Rtype::Client
 std::ostream &operator<<(std::ostream &out, const Rtype::Client::Type &type);

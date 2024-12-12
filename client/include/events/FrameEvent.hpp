@@ -11,10 +11,10 @@
 namespace timer = std::chrono;
 
 namespace Rtype::Client {
-    struct FrameEvent {
-        FrameEvent(const timer::time_point<timer::steady_clock> &time_stamp);
-        ~FrameEvent() = default;
+struct FrameEvent {
+  FrameEvent(const timer::time_point<timer::steady_clock> &time_stamp);
+  ~FrameEvent() = default;
 
-        timer::time_point<timer::steady_clock> time_stamp;
-    };
-}
+  timer::time_point<timer::steady_clock> time_stamp;
+};
+} // namespace Rtype::Client
