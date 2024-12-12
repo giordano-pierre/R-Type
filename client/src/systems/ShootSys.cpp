@@ -9,6 +9,8 @@
 #include "components/Velocity.hpp"
 #include "components/Tag.hpp"
 #include "components/Drawable.hpp"
+#include "components/Type.hpp"
+#include "components/Velocity.hpp"
 
 namespace Rtype::Client {
 
@@ -16,9 +18,8 @@ void ShootSys::operator()(ECS &ecs, const InputEvent &e_input,
                           SparseArray<Window> &windows,
                           const SparseArray<Playable> &players,
                           const SparseArray<Position> &positions,
-                          const SparseArray<Hitbox> &hitboxs)
-{
-    bool player1Shoot = false;
+                          const SparseArray<Hitbox> &hitboxs) {
+  bool player1Shoot = false;
 
     switch(e_input._myEvent) {
         case SHOOT1:
@@ -42,6 +43,7 @@ void ShootSys::operator()(ECS &ecs, const InputEvent &e_input,
             ecs.add_component<Drawable>(shot, {windows[0].value()._myTextures.getTexture("assets/images/shot/purple_shot.png"), {251, 144}, {251, 144}, 1});
         }
     }
+  }
 }
 
-}
+} // namespace Rtype::Client

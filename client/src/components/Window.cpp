@@ -34,11 +34,11 @@ Window::Window(const std::string &fontPath, TupleUInt size, TupleUInt serverSize
     _font = std::make_shared<sf::Font>(tmp);
 }
 
-}
+} // namespace Rtype::Client
 
-std::ostream &operator<<(std::ostream &out, const Rtype::Client::Window &window)
-{
-    out << "size: " << window._size.x << " " << window._size.y << std::endl;
-    out << "serverSize: " << window._serverSize.x << " " << window._serverSize.y;
-    return out;
+std::ostream &operator<<(std::ostream &out,
+                         const Rtype::Client::Window &window) {
+  out << "size: " << window._size.x << " " << window._size.y << std::endl;
+  out << "serverSize: " << window._serverSize.x << " " << window._serverSize.y;
+  return out;
 }

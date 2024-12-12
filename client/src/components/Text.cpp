@@ -18,4 +18,4 @@ Text::Text(const std::string &str, const std::shared_ptr<sf::Font> &font,
     _text.setFont(*font);
 }
 
-}
+} // namespace Rtype::Client

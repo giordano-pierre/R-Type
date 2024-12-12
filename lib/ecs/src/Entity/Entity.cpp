@@ -7,17 +7,8 @@
 
 #include "Entity/Entity.hpp"
 
-Entity::Entity(std::size_t size)
-{
-    _size = size;
-}
+Entity::Entity(std::size_t size) { _size = size; }
 
-void Entity::setSize(std::size_t size)
-{
-    _size = size;
-}
+void Entity::setSize(std::size_t size) { _size = size; }
 
-Entity::operator std::size_t() const
-{
-    return _size;
-}
+Entity::operator std::size_t() const { return _size; }

@@ -7,17 +7,19 @@
 
 #pragma once
 
+#include <SFML/Graphics.hpp>
 #include <map>
 #include <ostream>
 #include <SFML/Graphics.hpp>
 #include <memory>
 
-#include "tools.hpp"
 #include "TextureManager.hpp"
+#include "tools.hpp"
 
 namespace Rtype::Client {
-    struct Window {
-        Window(const std::string &, TupleUInt = {1920, 1080}, TupleUInt = {1920, 1080});
+struct Window {
+  Window(const std::string &, TupleUInt = {1920, 1080},
+         TupleUInt = {1920, 1080});
 
         TupleUInt _size;
         TupleUInt _serverSize;

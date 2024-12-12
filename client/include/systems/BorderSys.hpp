@@ -13,12 +13,15 @@
 #include "components/Tag.hpp"
 #include "components/Hitbox.hpp"
 #include "components/Position.hpp"
+#include "components/Type.hpp"
+#include "components/Window.hpp"
+#include "events/TicEvent.hpp"
 
 namespace Rtype::Client {
-    class BorderSys {
-    public:
-        BorderSys() = default;
-        ~BorderSys() = default;
+class BorderSys {
+public:
+  BorderSys() = default;
+  ~BorderSys() = default;
 
         void operator()(ECS &ecs, const TicEvent &e_tic,
                         const SparseArray<Window> &windows,

@@ -38,8 +38,10 @@ int main (void) {
     auto windowSys = Rtype::Client::WindowSys({1920, 1080, 32}, "R-type", sf::Style::Titlebar | sf::Style::Close);
     ecs.subscribe<Rtype::Client::FrameEvent, Rtype::Client::Window, Rtype::Client::Position, Rtype::Client::Hitbox, Rtype::Client::Drawable, Rtype::Client::Text>(windowSys);
 
-    auto cheatSys = Rtype::Client::CheatSys();
-    ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Window>(cheatSys);
+  auto selSys = Rtype::Client::SelectSys();
+  ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Position,
+                Rtype::Client::Drawable, Rtype::Client::Hitbox,
+                Rtype::Client::Selectable>(selSys);
 
     bool running = true;
     ecs.subscribe<Rtype::Client::InputEvent>(
@@ -77,6 +79,30 @@ int main (void) {
             }
             dtime = std::chrono::duration<double>::zero();
         }
+      });
+
+  const auto FPS = 60;
+  const timer::duration<double, std::ratio<1, FPS>> frameRate(1);
+  timer::time_point<timer::steady_clock> frameStart;
+  timer::time_point<timer::steady_clock> newTime;
+  timer::duration<double> dtime = timer::duration<double>::zero();
+
+  while (running) {
+    newTime = timer::steady_clock::now();
+    dtime += newTime - frameStart;
+    frameStart = newTime;
+
+    if (dtime >= frameRate) {
+      ecs.post<Rtype::Client::TicEvent>({std::chrono::steady_clock::now()});
+      ecs.post<Rtype::Client::FrameEvent>({std::chrono::steady_clock::now()});
+
+      while (!ecs.empty()) {
+        auto evt = ecs.front();
+        evt();
+        ecs.pop_front();
+      }
+      dtime = std::chrono::duration<double>::zero();
     }
-    return 0;
+  }
+  return 0;
 }
