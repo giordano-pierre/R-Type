@@ -42,45 +42,46 @@ int main(void) {
                 Rtype::Client::Position, Rtype::Client::Hitbox,
                 Rtype::Client::Drawable, Rtype::Client::Text>(windowSys);
 
-    auto cheatSys = Rtype::Client::CheatSys();
-    ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Window>(cheatSys);
+  auto cheatSys = Rtype::Client::CheatSys();
+  ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Window>(cheatSys);
 
-    bool running = true;
-    ecs.subscribe<Rtype::Client::InputEvent>(
-        [&running](ECS &, const Rtype::Client::InputEvent &e_input) -> void {
-            if (e_input._myEvent == Rtype::Client::QUIT || e_input._event.type == sf::Event::Closed){
-                running = false;
-            }
-        });
-
-    // Rtype::Client::createGameEntities(ecs);
-    // Rtype::Client::loadGameSystem(ecs);
-    // Rtype::Client::createMenuEntities(ecs);
-    Rtype::Client::createConfigEntities(ecs);
-    Rtype::Client::loadMenuSystem(ecs);
-
-    const auto FPS = 60;
-    const timer::duration<double, std::ratio<1, FPS>> frameRate(1);
-    timer::time_point<timer::steady_clock> frameStart;
-    timer::time_point<timer::steady_clock> newTime;
-    timer::duration<double> dtime = timer::duration<double>::zero();
-
-    while (running) {
-        newTime = timer::steady_clock::now();
-        dtime += newTime - frameStart;
-        frameStart = newTime;
-
-        if (dtime >= frameRate) {
-            ecs.post<Rtype::Client::TicEvent>({std::chrono::steady_clock::now()});
-            ecs.post<Rtype::Client::FrameEvent>({std::chrono::steady_clock::now()});
-
-            while (!ecs.empty()) {
-                auto evt = ecs.front();
-                evt();
-                ecs.pop_front();
-            }
-            dtime = std::chrono::duration<double>::zero();
+  bool running = true;
+  ecs.subscribe<Rtype::Client::InputEvent>(
+      [&running](ECS &, const Rtype::Client::InputEvent &e_input) -> void {
+        if (e_input._myEvent == Rtype::Client::QUIT ||
+            e_input._event.type == sf::Event::Closed) {
+          running = false;
         }
+      });
+
+  // Rtype::Client::createGameEntities(ecs);
+  // Rtype::Client::loadGameSystem(ecs);
+  // Rtype::Client::createMenuEntities(ecs);
+  Rtype::Client::createConfigEntities(ecs);
+  Rtype::Client::loadMenuSystem(ecs);
+
+  const auto FPS = 60;
+  const timer::duration<double, std::ratio<1, FPS>> frameRate(1);
+  timer::time_point<timer::steady_clock> frameStart;
+  timer::time_point<timer::steady_clock> newTime;
+  timer::duration<double> dtime = timer::duration<double>::zero();
+
+  while (running) {
+    newTime = timer::steady_clock::now();
+    dtime += newTime - frameStart;
+    frameStart = newTime;
+
+    if (dtime >= frameRate) {
+      ecs.post<Rtype::Client::TicEvent>({std::chrono::steady_clock::now()});
+      ecs.post<Rtype::Client::FrameEvent>({std::chrono::steady_clock::now()});
+
+      while (!ecs.empty()) {
+        auto evt = ecs.front();
+        evt();
+        ecs.pop_front();
       }
-      return 0;
+      dtime = std::chrono::duration<double>::zero();
+    }
+  }
+  return 0;
 }

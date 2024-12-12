@@ -25,44 +25,44 @@ void BorderSys::operator()(ECS &ecs, const TicEvent &e_tic,
     const auto &box = hitboxs[i];
     auto &pos = positions[i];
 
-        if (!tag || !box || !pos)
-            continue;
-        TupleFloat sizeObj = {box.value()._server.x / 2, box.value()._server.y / 2};
-        switch (tag.value()._type) {
-            case BACKGROUND:
-                if (pos.value()._server.x + sizeObj.x < 0) {
-                    pos.value()._server.x += sizeObj.x * 4;
-                    pos.value()._needUpdate = true;
-                }
-                break;
-            case PLAYER:
-                if (pos.value()._server.x - sizeObj.x < 0) {
-                    pos.value()._server.x = sizeObj.x;
-                    pos.value()._needUpdate = true;
-                }
-                if (pos.value()._server.x + sizeObj.x > serverSize.x) {
-                    pos.value()._server.x = serverSize.x - sizeObj.x;
-                    pos.value()._needUpdate = true;
-                }
-                if (pos.value()._server.y - sizeObj.y < 0) {
-                    pos.value()._server.y = sizeObj.y;
-                    pos.value()._needUpdate = true;
-                }
-                if (pos.value()._server.y + sizeObj.y > serverSize.y) {
-                    pos.value()._server.y = serverSize.y - sizeObj.y;
-                    pos.value()._needUpdate = true;
-                }
-                break;
-            case SHOT:
-                if (pos.value()._server.x - sizeObj.x > serverSize.x ||
-                    pos.value()._server.x + sizeObj.x < 0 ||
-                    pos.value()._server.y - sizeObj.y > serverSize.y ||
-                    pos.value()._server.y + sizeObj.y < 0)
-                    ecs.kill_entity(Entity(i));
-                break;
-            default:
-                break;
-        }
+    if (!tag || !box || !pos)
+      continue;
+    TupleFloat sizeObj = {box.value()._server.x / 2, box.value()._server.y / 2};
+    switch (tag.value()._type) {
+    case BACKGROUND:
+      if (pos.value()._server.x + sizeObj.x < 0) {
+        pos.value()._server.x += sizeObj.x * 4;
+        pos.value()._needUpdate = true;
+      }
+      break;
+    case PLAYER:
+      if (pos.value()._server.x - sizeObj.x < 0) {
+        pos.value()._server.x = sizeObj.x;
+        pos.value()._needUpdate = true;
+      }
+      if (pos.value()._server.x + sizeObj.x > serverSize.x) {
+        pos.value()._server.x = serverSize.x - sizeObj.x;
+        pos.value()._needUpdate = true;
+      }
+      if (pos.value()._server.y - sizeObj.y < 0) {
+        pos.value()._server.y = sizeObj.y;
+        pos.value()._needUpdate = true;
+      }
+      if (pos.value()._server.y + sizeObj.y > serverSize.y) {
+        pos.value()._server.y = serverSize.y - sizeObj.y;
+        pos.value()._needUpdate = true;
+      }
+      break;
+    case SHOT:
+      if (pos.value()._server.x - sizeObj.x > serverSize.x ||
+          pos.value()._server.x + sizeObj.x < 0 ||
+          pos.value()._server.y - sizeObj.y > serverSize.y ||
+          pos.value()._server.y + sizeObj.y < 0)
+        ecs.kill_entity(Entity(i));
+      break;
+    default:
+      break;
+    }
   }
 }
 

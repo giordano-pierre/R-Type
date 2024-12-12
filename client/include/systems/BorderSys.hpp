@@ -10,8 +10,8 @@
 #include "ECS/ECS.hpp"
 #include "components/Hitbox.hpp"
 #include "components/Position.hpp"
-#include "components/Window.hpp"
 #include "components/Tag.hpp"
+#include "components/Window.hpp"
 #include "events/TicEvent.hpp"
 
 namespace Rtype::Client {
