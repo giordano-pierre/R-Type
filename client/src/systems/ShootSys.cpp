@@ -49,4 +49,5 @@ void ShootSys::operator()(ECS &ecs, const InputEvent &e_input,
                                    1});
     }
   }
+}
 } // namespace Rtype::Client
