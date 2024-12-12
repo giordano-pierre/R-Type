@@ -46,7 +46,8 @@ namespace Rtype::Client{
                         SparseArray<Drawable> &sprites);
         void drawText(SparseArray<Position> &positions,
                       SparseArray<Hitbox> &hitboxs,
-                      SparseArray<Text> &texts, bool isResize);
+                      SparseArray<Text> &texts, bool isResize,
+                      sf::Vector2u sizeClient, TupleUInt serverSize);
         void drawHitboxes(SparseArray<Position> &positions,
                           SparseArray<Hitbox> &hitboxs, bool draw);
     };

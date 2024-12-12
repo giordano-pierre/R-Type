@@ -95,7 +95,8 @@ void WindowSys::drawSprite(SparseArray<Position> &positions,
 
 void WindowSys::drawText(SparseArray<Position> &positions,
                            SparseArray<Hitbox> &hitboxs,
-                           SparseArray<Text> &texts, bool isResize)
+                           SparseArray<Text> &texts, bool isResize,
+                           sf::Vector2u sizeClient, TupleUInt serverSize)
 {
     for (size_t i = 0; i < positions.size() && i < hitboxs.size() && i < texts.size(); ++i) {
         auto &pos = positions[i];
@@ -107,13 +108,20 @@ void WindowSys::drawText(SparseArray<Position> &positions,
                 tex.value()._text.setFillColor(tex.value()._color);
                 tex.value()._text.setStyle(tex.value()._style);
             }
-            TupleFloat sizeGoal = {tex.value()._sizeInBox.x * box.value()._client.x, tex.value()._sizeInBox.y * box.value()._client.y};
-            TupleFloat boxOrigine = {pos.value()._client.x - (box.value()._client.x / 2), pos.value()._client.y - (box.value()._client.y / 2)};
-            TupleFloat posInBox = {(box.value()._client.x - sizeGoal.x) * tex.value()._posInBox.x, (box.value()._client.y - sizeGoal.y) * tex.value()._posInBox.y};
+            unsigned int charSize = tex.value()._charSize * sizeClient.x / serverSize.x;
+            tex.value()._text.setCharacterSize(charSize);
             auto currentSize = tex.value()._text.getLocalBounds();
-            auto coef = std::min(sizeGoal.x / currentSize.width, sizeGoal.y / currentSize.height);
-            tex.value()._text.setScale({coef, coef});
-            tex.value()._text.setPosition({boxOrigine.x + posInBox.x + (sizeGoal.x / 2), boxOrigine.y + posInBox.y + (sizeGoal.y / 2)});
+            tex.value()._text.setOrigin({0, (currentSize.top + currentSize.height) / 2});
+            TupleFloat boxOrigine = {pos.value()._client.x - (box.value()._client.x / 2), pos.value()._client.y - (box.value()._client.y / 2)};
+            if (tex.value()._pos == 0.0)
+                tex.value()._text.setPosition({pos.value()._client.x - (currentSize.left + currentSize.width) / 2, pos.value()._client.y});
+            else if (tex.value()._pos < 0) {
+                auto tmp = std::max(box.value()._client.x * tex.value()._pos * -1, box.value()._client.x - (currentSize.left + currentSize.width));
+                tex.value()._text.setPosition({pos.value()._client.x + (box.value()._client.x / 2) - tmp - (currentSize.left + currentSize.width), pos.value()._client.y});
+            } else {
+                auto tmp = std::min(box.value()._client.x * tex.value()._pos, box.value()._client.x - (currentSize.left + currentSize.width));
+                tex.value()._text.setPosition({pos.value()._client.x - (box.value()._client.x / 2) + tmp, pos.value()._client.y});
+            }
             _window.draw(tex.value()._text);
         }
     }
@@ -158,7 +166,7 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
 
     updateInfo(positions, hitboxs, isResize, sizeWindow, serverSize);
     drawSprite(positions, hitboxs, sprites);
-    drawText(positions, hitboxs, texts, isResize);
+    drawText(positions, hitboxs, texts, isResize, sizeWindow, serverSize);
     drawHitboxes(positions, hitboxs, displayHitbox);
     _window.display();
 

@@ -13,21 +13,21 @@ namespace Rtype::Client {
 
 void BorderSys::operator()(ECS &ecs, const TicEvent &e_tic,
                         const SparseArray<Window> &windows,
-                        const SparseArray<Type> &types,
+                        const SparseArray<Tag> &tags,
                         const SparseArray<Hitbox> &hitboxs,
                         SparseArray<Position> &positions)
 {
     TupleUInt serverSize = (windows.size() > 0 && windows[0]) ? windows[0].value()._serverSize : (TupleUInt){1920, 1080};
 
-    for (size_t i = 0; i < types.size() && i < hitboxs.size() && i < positions.size(); ++i) {
-        const auto &type = types[i];
+    for (size_t i = 0; i < tags.size() && i < hitboxs.size() && i < positions.size(); ++i) {
+        const auto &tag = tags[i];
         const auto &box = hitboxs[i];
         auto &pos = positions[i];
 
-        if (!type || !box || !pos)
+        if (!tag || !box || !pos)
             continue;
         TupleFloat sizeObj = {box.value()._server.x / 2, box.value()._server.y / 2};
-        switch (type.value()._type) {
+        switch (tag.value()._type) {
             case BACKGROUND:
                 if (pos.value()._server.x + sizeObj.x < 0) {
                     pos.value()._server.x += sizeObj.x * 4;

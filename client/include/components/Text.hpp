@@ -15,14 +15,15 @@
 namespace Rtype::Client {
     struct Text {
         Text(const std::string &, const sf::Font &,
-             const TupleFloat &, const TupleFloat &,
+             const TupleFloat &, const float &, int,
              const sf::Color &, const sf::Uint32 & = sf::Text::Style::Regular);
 
         TupleFloat _sizeInBox;
-        TupleFloat _posInBox;
+        float _pos;
         sf::Color _color;
         sf::Uint32 _style;
         sf::Text _text;
+        int _charSize;
         bool _needUpdate = true;
     };
 }

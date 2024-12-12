@@ -28,7 +28,10 @@ namespace Rtype::Client {
         PLAYER,
         BACKGROUND,
         SHOT,
-        BUTTON,
+        MENU,
+        CONFIG,
+        CGENERAL,
+        CPLAYER,
     };
 
     enum UserInput {

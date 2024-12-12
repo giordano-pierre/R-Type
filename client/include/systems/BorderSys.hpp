@@ -10,7 +10,7 @@
 #include "ECS/ECS.hpp"
 #include "events/TicEvent.hpp"
 #include "components/Window.hpp"
-#include "components/Type.hpp"
+#include "components/Tag.hpp"
 #include "components/Hitbox.hpp"
 #include "components/Position.hpp"
 
@@ -22,7 +22,7 @@ namespace Rtype::Client {
 
         void operator()(ECS &ecs, const TicEvent &e_tic,
                         const SparseArray<Window> &windows,
-                        const SparseArray<Type> &types,
+                        const SparseArray<Tag> &tags,
                         const SparseArray<Hitbox> &hitboxs,
                         SparseArray<Position> &positions);
     };

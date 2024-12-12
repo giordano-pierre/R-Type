@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** R-Type
 ** File description:
-** Type
+** Tag
 */
 
 #pragma once
@@ -12,8 +12,9 @@
 #include "tools.hpp"
 
 namespace Rtype::Client {
-    struct Type {
+    struct Tag {
         ObjectType _type;
+        size_t _id = 0;
     };
 }
-std::ostream &operator<<(std::ostream &out, const Rtype::Client::Type &type);
+std::ostream &operator<<(std::ostream &out, const Rtype::Client::Tag &type);
