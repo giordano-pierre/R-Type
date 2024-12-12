@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include "UDPClient.hpp"
 
 class Gui
 {
@@ -78,8 +79,20 @@ private:
 
 int main()
 {
-    Gui gui("../assets/graphisme/lunar_pirate.gif", 49, 30);
-    gui.run();
+    // Gui gui("../assets/graphisme/lunar_pirate.gif", 49, 30);
+    // gui.run();
+    try {
+        UDPClient client("127.0.0.1", "4242");
 
+        std::string line;
+        while (std::getline(std::cin, line)) {
+            client.send(line);
+            if (line == "exit") {
+                break;
+            }
+        }
+    } catch (std::exception& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
     return 0;
 }
