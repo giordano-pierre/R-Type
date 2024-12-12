@@ -7,7 +7,6 @@
 
 #include "systems/BorderSys.hpp"
 #include "tools.hpp"
-#include <iostream>
 
 namespace Rtype::Client {
 

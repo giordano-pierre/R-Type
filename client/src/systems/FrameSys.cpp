@@ -6,7 +6,6 @@
 */
 
 #include "systems/FrameSys.hpp"
-#include <iostream>
 
 namespace Rtype::Client {
 

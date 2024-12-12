@@ -7,8 +7,6 @@
 
 #include "systems/SelectSys.hpp"
 
-#include <iostream>
-
 namespace Rtype::Client {
 
 void changeSelect(SparseArray<Drawable> &sprites,

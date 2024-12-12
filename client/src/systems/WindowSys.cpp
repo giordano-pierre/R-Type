@@ -8,8 +8,6 @@
 #include "systems/WindowSys.hpp"
 #include "events/InputEvent.hpp"
 
-#include <iostream>
-
 namespace Rtype::Client {
 
 WindowSys::WindowSys(sf::VideoMode mode, const sf::String &title,
