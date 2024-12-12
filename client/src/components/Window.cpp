@@ -29,7 +29,9 @@ Window::Window(const std::string &fontPath, TupleUInt size, TupleUInt serverSize
     pressed.insert({SHOOT1, sf::Keyboard::Space});
     pressed.insert({SUPERSHOOT1, sf::Keyboard::Enter});
     _inputConfig = {pressed, released};
-    _font.loadFromFile(fontPath);
+    sf::Font tmp = sf::Font();
+    tmp.loadFromFile(fontPath);
+    _font = std::make_shared<sf::Font>(tmp);
 }
 
 }

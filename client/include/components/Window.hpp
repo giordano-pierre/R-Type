@@ -10,6 +10,7 @@
 #include <map>
 #include <ostream>
 #include <SFML/Graphics.hpp>
+#include <memory>
 
 #include "tools.hpp"
 #include "TextureManager.hpp"
@@ -23,7 +24,7 @@ namespace Rtype::Client {
         std::pair<std::map<UserInput, sf::Keyboard::Key>,
                   std::map<UserInput, sf::Keyboard::Key>> _inputConfig;
         TextureManager _myTextures;
-        sf::Font _font;
+        std::shared_ptr<sf::Font> _font;
         bool _displayHitboxs = false;
     };
 }

@@ -9,12 +9,13 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <memory>
 
 #include "tools.hpp"
 
 namespace Rtype::Client {
     struct Text {
-        Text(const std::string &, const sf::Font &,
+        Text(const std::string &, const std::shared_ptr<sf::Font> &,
              const TupleFloat &, const float &, int,
              const sf::Color &, const sf::Uint32 & = sf::Text::Style::Regular);
 
