@@ -9,14 +9,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Set up ESLint for C++
+      - name: Set up Clang-Format
         run: |
           sudo apt update
-          sudo apt install -y npm
-          npm install -g eslint eslint-plugin-cpp
-      - name: Run ESLint on C++ code
+          sudo apt install -y clang-format
+      - name: Run Clang-Format on C++ code
         run: |
-          eslint . --ext .cpp,.h
+          find . -name "*.cpp" -o -name "*.hpp" | xargs clang-format --dry-run --Werror
 
   mirroring:
     if: github.repository == 'giordano-pierre/R-Type'
