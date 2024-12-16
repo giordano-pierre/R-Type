@@ -20,9 +20,7 @@ public:
 
   const PlayerScore &getPlayerScore(Entity entity) const;
   bool hasPlayer(Entity entity) const;
-  const std::map<Entity, PlayerScore> &getAllScores() const {
-    return scores;
-  }
+  const std::map<Entity, PlayerScore> &getAllScores() const { return scores; }
 
 private:
   std::map<Entity, PlayerScore> scores;

@@ -1,8 +1,7 @@
 #include "ServerCore.hpp"
 
-Server::Server(ECS &ecs) : gameLogicSystem(rtype::systems::GameLogicSystem(ecs))
-{
-}
+Server::Server(ECS &ecs)
+    : gameLogicSystem(rtype::systems::GameLogicSystem(ecs)) {}
 
 void Server::run() {
   while (true) {

@@ -5,7 +5,4 @@
 ** unit_test
 */
 
-int main(void)
-{
-  return 0;
-}
+int main(void) { return 0; }

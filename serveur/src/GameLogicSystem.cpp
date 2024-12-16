@@ -4,8 +4,7 @@ namespace rtype {
 namespace systems {
 
 GameLogicSystem::GameLogicSystem(ECS &ecs_ref)
-    : ecs(ecs_ref), levelManager(ecs_ref),
-      gameState{false, 0.0f, 0} {
+    : ecs(ecs_ref), levelManager(ecs_ref), gameState{false, 0.0f, 0} {
   initializeComponents();
 }
 

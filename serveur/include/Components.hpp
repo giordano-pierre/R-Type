@@ -1,9 +1,9 @@
 #pragma once
 
 #include <cstddef>
+#include <cstdint>
 #include <string>
 #include <vector>
-#include <cstdint>
 
 struct Position {
   float x = 0.0f;
