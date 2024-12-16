@@ -4,7 +4,6 @@
 
 Le **R-Type** est un jeu d'arcade emblématique développé par Irem en 1987. Ce **shoot 'em up à défilement horizontal** place le joueur dans le cockpit d'un vaisseau spatial, le **R-9 Arrowhead**, pour combattre la menace extraterrestre connue sous le nom de **Bydo Empire**.
 
-
 ## Technologies utilisées
 
 - **Langages de programmation :** Python et C++
@@ -13,9 +12,9 @@ Le **R-Type** est un jeu d'arcade emblématique développé par Irem en 1987. Ce
 
 N'hésitez pas a consulter notre [comparative study](doc/Comparative_study.md) !
 
-
 ## Architecture du projet
 ![Alt text](/doc/archi.png "project architecture")
+
 
 ## Comment jouer ?
 
@@ -123,8 +122,4 @@ N'hésitez pas a consulter notre [comparative study](doc/Comparative_study.md) !
 - **Touche Échap :** Quitter le jeu
 
 Les touches sont modifiables dans les paramètres.
-```
-
-
-## Comment utiliser notre game engine ?
 
