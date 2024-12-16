@@ -10,7 +10,11 @@ Le **R-Type** est un jeu d'arcade emblématique développé par Irem en 1987. Ce
 - **Bibliothèque graphique :** [SFML](https://www.sfml-dev.org/)
 - **Gestion audio :** Intégrée via SFML
 
+N'hésitez pas a consulter notre [comparative study](doc/Comparative_study.md) !
+
 ## Architecture du projet
+![Alt text](/doc/archi.png "project architecture")
+
 
 ## Comment jouer ?
 

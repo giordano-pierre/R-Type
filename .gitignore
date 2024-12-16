@@ -42,4 +42,5 @@ r-type_server
 build
 vcpkg
 
+tests
 perso

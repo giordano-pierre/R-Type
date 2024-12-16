@@ -1,6 +1,15 @@
+#include "server_header.h"
+#include "GameLogicSystem.hpp"
+#include "ScoreManager.hpp"
 
-#include <iostream>
 int main() {
-  std::cout << "Hello world!\n";
-  return 0;
+    try {
+        Server server;
+        server.run();
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Server error: " << e.what() << std::endl;
+        return 1;
+    }
+    return 0;
 }
