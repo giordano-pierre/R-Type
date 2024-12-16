@@ -60,13 +60,16 @@ class ECS {
         auto get_events() const -> const systems_type <Event> &;
 
         template <class Event, class ... Components, typename System>
-        auto subscribe(System &&system) -> void;
+        auto subscribe(System &&system, bool permanent) -> void;
 
         template <class Event, class ... Components, typename System>
-        auto subscribe(System &system) -> void;
+        auto subscribe(System &system, bool permanent) -> void;
 
         template <class Event, class ... Components, typename System>
-        auto subscribe(const System &system) -> void;
+        auto subscribe(const System &system, bool permanent) -> void;
+
+        template <class Event>
+        auto clean() -> void;
 
         template <class Event > auto post(const Event &event) -> void;
         auto front(void) -> const callback_type &;
