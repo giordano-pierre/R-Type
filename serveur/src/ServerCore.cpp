@@ -1,19 +1,11 @@
-#include "server_header.h"
-#include "GameLogicSystem.hpp"
-#include "ScoreManager.hpp"
-class Server {
-private:
-    rtype::systems::GameLogicSystem gameLogicSystem;
-    float deltaTime;
+#include "ServerCore.hpp"
 
-public:
-    void run() {
-        while (true) {
-            update();
-        }
+Server::run() {
+    while (true) {
+        update();
     }
+}
 
-    void update() {
-        gameLogicSystem.update(deltaTime);
-    }
-};
+Server::update() {
+    gameLogicSystem.update(deltaTime);
+}
