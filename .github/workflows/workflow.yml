@@ -40,17 +40,11 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y python3 make cmake
-      - name: Install SFML with vcpkg
-        run: |
-          git clone https://github.com/microsoft/vcpkg.git
-          ./vcpkg/bootstrap-vcpkg.sh
-          ./vcpkg/vcpkg install sfml
       - name: Run install script
         run: |
           python3 install.py
       - name: Compile project
         run: |
-          cmake . -B build -DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake
           cmake --build build
 
   documentation:
