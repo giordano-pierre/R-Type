@@ -21,6 +21,5 @@ add_subdirectory(tests)
 add_custom_target(assets SOURCES
     assets/audio
     assets/font
-    assets/graphisme
     assets/images
 )
