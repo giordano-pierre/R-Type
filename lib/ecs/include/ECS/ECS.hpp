@@ -2,12 +2,12 @@
 
 #include "Entity/Entity.hpp"
 #include "SparseArray/SparseArray.hpp"
+#include <algorithm>
 #include <any>
 #include <functional>
 #include <list>
 #include <typeindex>
 #include <typeinfo>
-#include <algorithm>
 #include <unordered_map>
 
 class ECS {
