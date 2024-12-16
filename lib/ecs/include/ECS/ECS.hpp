@@ -7,6 +7,7 @@
 #include <list>
 #include <typeindex>
 #include <typeinfo>
+#include <algorithm>
 #include <unordered_map>
 
 class ECS {
