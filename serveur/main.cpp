@@ -1,6 +1,6 @@
 #include "GameLogicSystem.hpp"
 #include "ScoreManager.hpp"
-#include "server_header.h"
+#include "ServerCore.hpp"
 
 int main() {
   try {
