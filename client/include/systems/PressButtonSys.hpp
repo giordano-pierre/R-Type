@@ -10,6 +10,7 @@
 #include "ECS/ECS.hpp"
 #include "components/Hitbox.hpp"
 #include "components/Position.hpp"
+#include "components/Pressable.hpp"
 #include "components/Selectable.hpp"
 #include "events/InputEvent.hpp"
 
@@ -22,6 +23,10 @@ public:
   void operator()(ECS &ecs, const InputEvent &e_input,
                   const SparseArray<Position> &positions,
                   const SparseArray<Hitbox> &hitboxs,
-                  SparseArray<Selectable> &selectables);
+                  const SparseArray<Selectable> &selectables,
+                  SparseArray<Pressable> &pressables);
+  void operator()(ECS &ecs, const InputEvent &e_input,
+                  const SparseArray<Selectable> &selectables,
+                  SparseArray<Pressable> &pressables);
 };
 } // namespace Rtype::Client

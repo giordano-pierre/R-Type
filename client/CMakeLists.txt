@@ -13,6 +13,7 @@ set(SRC
     src/components/Window.cpp
     src/components/Hitbox.cpp
     src/components/Text.cpp
+    src/components/Selectable.cpp
     src/events/FrameEvent.cpp
     src/events/TicEvent.cpp
     src/systems/FrameSys.cpp
@@ -24,6 +25,7 @@ set(SRC
     src/systems/CheatSys.cpp
     src/systems/SelectSys.cpp
     src/systems/PressButtonSys.cpp
+    src/buttonFunctions.cpp
     src/createEntities.cpp
     src/loadSystems.cpp
     src/tools.cpp

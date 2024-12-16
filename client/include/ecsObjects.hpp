@@ -11,6 +11,7 @@
 #include "components/Hitbox.hpp"
 #include "components/Playable.hpp"
 #include "components/Position.hpp"
+#include "components/Pressable.hpp"
 #include "components/Selectable.hpp"
 #include "components/Tag.hpp"
 #include "components/Text.hpp"
