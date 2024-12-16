@@ -1,51 +1,62 @@
 #include "UDPClient.hpp"
 
-void UDPClient::send(const json& message_json) {
+void UDPClient::send(const json &message_json)
+{
     std::cout << "send" << std::endl;
-    std::string message = message_json.dump();
 
-    uint32_t message_size = static_cast<uint32_t>(message.size());
+    std::vector<uint8_t> bson_data = json::to_bson(message_json);
+    uint32_t message_size = static_cast<uint32_t>(bson_data.size());
     uint32_t network_size = htonl(message_size);
 
     std::vector<uint8_t> buffer;
-    buffer.resize(sizeof(network_size) + message_size);
+    buffer.resize(sizeof(network_size) + bson_data.size());
 
     std::memcpy(buffer.data(), &network_size, sizeof(network_size));
 
-    std::memcpy(buffer.data() + sizeof(network_size), message.data(), message_size);
+    std::memcpy(buffer.data() + sizeof(network_size), bson_data.data(), bson_data.size());
 
     std::cout << "SEND [" << buffer.data() << "]" << std::endl;
 
     socket_.async_send_to(
         boost::asio::buffer(buffer), server_endpoint_,
-        [this](boost::system::error_code ec, std::size_t bytes) {
+        [this](boost::system::error_code ec, std::size_t bytes)
+        {
             std::cout << "bytes sent: " << bytes << std::endl;
-            if (ec) {
+            if (ec)
+            {
                 std::cerr << "send error: " << ec.message() << std::endl;
             }
             start_receive();
         });
 }
 
-void UDPClient::start_receive() {
+void UDPClient::start_receive()
+{
     std::cout << "start_receive" << std::endl;
     socket_.async_receive_from(
         boost::asio::buffer(buffer_), server_endpoint_,
-        [this](boost::system::error_code ec, std::size_t bytes_recvd) {
-            if (!ec && bytes_recvd > 0) {
+        [this](boost::system::error_code ec, std::size_t bytes_recvd)
+        {
+            if (!ec && bytes_recvd > 0)
+            {
                 handle_receive(bytes_recvd);
-            } else {
+            }
+            else
+            {
                 std::cerr << "start_receive error: " << ec.message() << std::endl;
                 start_receive();
             }
         });
 }
 
-void UDPClient::handle_receive(std::size_t bytes_recvd) {
+void UDPClient::handle_receive(std::size_t bytes_recvd)
+{
     std::cout << "handle_receive" << std::endl;
 
-    try {
-        if (bytes_recvd < sizeof(uint32_t)) {
+    try
+    {
+        if (bytes_recvd < sizeof(uint32_t))
+        {
             throw std::runtime_error("Received data is too small to include size header");
         }
 
@@ -53,41 +64,55 @@ void UDPClient::handle_receive(std::size_t bytes_recvd) {
         std::memcpy(&message_size, buffer_.data(), sizeof(uint32_t));
         message_size = ntohl(message_size);
 
-        if (bytes_recvd - sizeof(uint32_t) != message_size) {
+        if (bytes_recvd - sizeof(uint32_t) != message_size)
+        {
             throw std::runtime_error("Mismatch between declared and actual message size");
         }
 
-        std::string received_message(buffer_.data() + sizeof(uint32_t), message_size);
+        std::vector<uint8_t> bson_data(buffer_.data() + sizeof(uint32_t),
+                                       buffer_.data() + sizeof(uint32_t) + message_size);
 
-        if (uuid_.empty()) {
-            json parsed_json = json::parse(received_message);
-            uuid_ = parsed_json.at("client_uuid").get<std::string>();
+        json received_json = json::from_bson(bson_data);
 
-            std::cout << "UUID set to: " << uuid_ << std::endl;
-        } else {
-            std::cout << "Received: " << received_message << std::endl;
+        if (uuid_.empty())
+        {
+            try
+            {
+                uuid_ = received_json["client_uuid"];
+                std::cout << "UUID set to: " << uuid_ << std::endl;
+            }
+            catch (const std::exception &e)
+            {
+                std::cerr << "Parsing uuid failed : " << e.what() << std::endl;
+            }
+        }
+        else
+        {
+            std::cout << "Received: " << received_json.dump() << std::endl;
+            parse_request(received_json);
         }
 
         start_receive();
-    } catch (std::exception& e) {
+    }
+    catch (std::exception &e)
+    {
         std::cerr << "Error handling receive: " << e.what() << std::endl;
         start_receive();
     }
 }
 
-void UDPClient::parse_request(const std::string& received_message)
+void UDPClient::parse_request(const json &parsed_json)
 {
-   try {
-            json parsed_json = json::parse(received_message);
+    try
+    {
+        int action_id = parsed_json.at("action_id").get<int>();
+        json payload = parsed_json.at("payload");
 
-            int action_id = parsed_json.at("action_id").get<int>();
-            json payload = parsed_json.at("payload");
-
-            std::cout << "Action ID: " << action_id << std::endl;
-            std::cout << "Payload: " << payload.dump() << std::endl;
-
-            // handle_action(client_uuid, action_id, payload);
-        } catch (const std::exception& e) {
-            std::cerr << "Error parsing message: " << e.what() << std::endl;
-        }
+        std::cout << "Action ID: " << action_id << std::endl;
+        std::cout << "Payload: " << payload.dump() << std::endl;
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << "Error parsing message: " << e.what() << std::endl;
+    }
 }

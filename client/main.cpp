@@ -84,13 +84,8 @@ int main()
     try {
         UDPClient client("127.0.0.1", "4242");
 
-        std::string line;
-        while (std::getline(std::cin, line)) {
-            client.send(line);
-            if (line == "exit") {
-                break;
-            }
-        }
+        client.send({{"action", "connect"}});
+        while(true) {};
     } catch (std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
     }

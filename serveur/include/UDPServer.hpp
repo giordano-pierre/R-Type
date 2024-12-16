@@ -52,6 +52,6 @@ private:
     void start_receive();
     void handle_receive(std::size_t bytes_recvd);
     std::string get_new_uuid();
-    void parse_request(const std::string& received_message);
+    void parse_request(const json& parsed_json);
 
 };
