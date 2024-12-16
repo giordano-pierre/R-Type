@@ -56,11 +56,11 @@ int main(void) {
         }
       });
 
-  // Rtype::Client::createGameEntities(ecs);
-  // Rtype::Client::loadGameSystem(ecs);
-  Rtype::Client::createMenuEntities(ecs);
+  Rtype::Client::createGameEntities(ecs);
+  Rtype::Client::loadGameSystem(ecs);
+  // Rtype::Client::createMenuEntities(ecs);
   //   Rtype::Client::createConfigEntities(ecs);
-  Rtype::Client::loadMenuSystem(ecs);
+  // Rtype::Client::loadMenuSystem(ecs);
 
   const auto FPS = 60;
   const timer::duration<double, std::ratio<1, FPS>> frameRate(1);
