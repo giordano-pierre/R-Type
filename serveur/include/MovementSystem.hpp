@@ -6,18 +6,17 @@
 */
 
 #pragma once
-#include "ECS/ECS.hpp"
 #include "Components.hpp"
+#include "ECS/ECS.hpp"
 
 namespace rtype {
-    namespace systems {
-        class MovementSys {
-            MovementSys() = default;
-            ~MovementSys() = default;
+namespace systems {
+class MovementSys {
+  MovementSys() = default;
+  ~MovementSys() = default;
 
-            auto operator()(ECS &ecs,
-                            SparseArray<Position> &positions,
-                            const SparseArray<Velocity> &velocities) -> void;
-        };
-    }
-}
+  auto operator()(ECS &ecs, SparseArray<Position> &positions,
+                  const SparseArray<Velocity> &velocities) -> void;
+};
+} // namespace systems
+} // namespace rtype
