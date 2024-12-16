@@ -9,7 +9,7 @@
 
 #include "ECS/ECS.hpp"
 
-namespace Rtype::Client{
+namespace Rtype::Client {
 void select(ECS &ecs, Entity i);
 void deselect(ECS &ecs, Entity i);
-}
+} // namespace Rtype::Client

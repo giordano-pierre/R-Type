@@ -99,7 +99,8 @@ void WindowSys::drawSel(SparseArray<Position> &positions,
                         SparseArray<Hitbox> &hitboxs,
                         SparseArray<Selectable> &selectables) {
   for (size_t i = 0;
-       i < positions.size() && i < hitboxs.size() && i < selectables.size(); ++i) {
+       i < positions.size() && i < hitboxs.size() && i < selectables.size();
+       ++i) {
     auto &pos = positions[i];
     auto &box = hitboxs[i];
     auto &sel = selectables[i];

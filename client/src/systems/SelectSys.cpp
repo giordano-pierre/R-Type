@@ -9,9 +9,8 @@
 
 namespace Rtype::Client {
 
-void changeSelect(ECS &ecs,
-                  SparseArray<Selectable> &selectables, size_t newSelect,
-                  size_t oldSelect = -1) {
+void changeSelect(ECS &ecs, SparseArray<Selectable> &selectables,
+                  size_t newSelect, size_t oldSelect = -1) {
   if (newSelect != oldSelect) {
     selectables[newSelect].value()._isSelected = true;
     selectables[newSelect].value()._sel(ecs, Entity(newSelect));
@@ -75,8 +74,8 @@ void SelectSys::operator()(ECS &ecs, const InputEvent &e_input,
     }
   }
 
-  for (size_t i = 0; i < positions.size() && i < sprites.size() &&
-                     i < selectables.size();
+  for (size_t i = 0;
+       i < positions.size() && i < sprites.size() && i < selectables.size();
        ++i) {
     const auto &pos = positions[i];
     auto &sprite = sprites[i];
@@ -115,7 +114,6 @@ void SelectSys::operator()(ECS &ecs, const InputEvent &e_input,
   if (isNewEntity)
     changeSelect(ecs, selectables, newEntity, oldEntity);
 }
-
 
 void SelectSys::operator()(ECS &ecs, const InputEvent &e_input,
                            const SparseArray<Position> &positions,

@@ -7,9 +7,9 @@
 
 #include <iostream>
 
+#include "buttonFunctions.hpp"
 #include "createEntities.hpp"
 #include "ecsObjects.hpp"
-#include "buttonFunctions.hpp"
 
 namespace Rtype::Client {
 
@@ -71,19 +71,22 @@ void createMenuEntities(ECS &ecs) {
   ecs.add_component<Hitbox>(button, {{float(1) / 5, float(1) / 10}});
   ecs.add_component<Text>(
       button, {"START", myWindow._font, {0.5, 0.5}, 0, 40, sf::Color::White});
-  ecs.add_component<Drawable>(button, {myWindow._myTextures.getTexture(
-                                           "assets/images/utils/button_config1.png"),
-                                       {402, 100},
-                                       {402, 100},
-                                       1});
+  ecs.add_component<Drawable>(button,
+                              {myWindow._myTextures.getTexture(
+                                   "assets/images/utils/button_config1.png"),
+                               {402, 100},
+                               {402, 100},
+                               1});
   ecs.add_component<Selectable>(
-      button,
-      {myWindow._myTextures.getTexture("assets/images/utils/button_config1_sel.png"),
-       std::function<void(ECS &, Entity)>(select), std::function<void(ECS &, Entity)>(deselect)});
+      button, {myWindow._myTextures.getTexture(
+                   "assets/images/utils/button_config1_sel.png"),
+               std::function<void(ECS &, Entity)>(select),
+               std::function<void(ECS &, Entity)>(deselect)});
   ecs.add_component<Pressable>(
       button,
-      {myWindow._myTextures.getTexture("assets/images/utils/button_config1_act.png"),
-       [](ECS &ecs, Entity){std::cout << "Start the game!" << std::endl;}});
+      {myWindow._myTextures.getTexture(
+           "assets/images/utils/button_config1_act.png"),
+       [](ECS &ecs, Entity) { std::cout << "Start the game!" << std::endl; }});
 
   Entity button2 = ecs.spawn_entity();
   ecs.add_component<Position>(
@@ -97,19 +100,23 @@ void createMenuEntities(ECS &ecs) {
                                     40,
                                     sf::Color::White,
                                     sf::Text::Style::Regular});
-  ecs.add_component<Drawable>(button2, {myWindow._myTextures.getTexture(
-                                            "assets/images/utils/button_config1.png"),
-                                        {402, 100},
-                                        {402, 100},
-                                        1});
+  ecs.add_component<Drawable>(button2,
+                              {myWindow._myTextures.getTexture(
+                                   "assets/images/utils/button_config1.png"),
+                               {402, 100},
+                               {402, 100},
+                               1});
   ecs.add_component<Selectable>(
-      button2,
-      {myWindow._myTextures.getTexture("assets/images/utils/button_config1_sel.png"),
-       std::function<void(ECS &, Entity)>(select), std::function<void(ECS &, Entity)>(deselect)});
+      button2, {myWindow._myTextures.getTexture(
+                    "assets/images/utils/button_config1_sel.png"),
+                std::function<void(ECS &, Entity)>(select),
+                std::function<void(ECS &, Entity)>(deselect)});
   ecs.add_component<Pressable>(
-      button2,
-      {myWindow._myTextures.getTexture("assets/images/utils/button_config1_act.png"),
-       [](ECS &ecs, Entity){std::cout << "Custom your ship!" << std::endl;}});
+      button2, {myWindow._myTextures.getTexture(
+                    "assets/images/utils/button_config1_act.png"),
+                [](ECS &ecs, Entity) {
+                  std::cout << "Custom your ship!" << std::endl;
+                }});
 
   Entity button3 = ecs.spawn_entity();
   ecs.add_component<Position>(
@@ -123,19 +130,23 @@ void createMenuEntities(ECS &ecs) {
                                     40,
                                     sf::Color::White,
                                     sf::Text::Style::Regular});
-  ecs.add_component<Drawable>(button3, {myWindow._myTextures.getTexture(
-                                            "assets/images/utils/button_config1.png"),
-                                        {402, 100},
-                                        {402, 100},
-                                        1});
+  ecs.add_component<Drawable>(button3,
+                              {myWindow._myTextures.getTexture(
+                                   "assets/images/utils/button_config1.png"),
+                               {402, 100},
+                               {402, 100},
+                               1});
   ecs.add_component<Selectable>(
-      button3,
-      {myWindow._myTextures.getTexture("assets/images/utils/button_config1_sel.png"),
-       std::function<void(ECS &, Entity)>(select), std::function<void(ECS &, Entity)>(deselect)});
+      button3, {myWindow._myTextures.getTexture(
+                    "assets/images/utils/button_config1_sel.png"),
+                std::function<void(ECS &, Entity)>(select),
+                std::function<void(ECS &, Entity)>(deselect)});
   ecs.add_component<Pressable>(
-      button3,
-      {myWindow._myTextures.getTexture("assets/images/utils/button_config1_act.png"),
-       [](ECS &ecs, Entity){std::cout << "Open the parameters!" << std::endl;}});
+      button3, {myWindow._myTextures.getTexture(
+                    "assets/images/utils/button_config1_act.png"),
+                [](ECS &ecs, Entity) {
+                  std::cout << "Open the parameters!" << std::endl;
+                }});
 
   Entity button4 = ecs.spawn_entity();
   ecs.add_component<Position>(
@@ -149,19 +160,23 @@ void createMenuEntities(ECS &ecs) {
                                     40,
                                     sf::Color::White,
                                     sf::Text::Style::Regular});
-  ecs.add_component<Drawable>(button4, {myWindow._myTextures.getTexture(
-                                            "assets/images/utils/button_config1.png"),
-                                        {402, 100},
-                                        {402, 100},
-                                        1});
+  ecs.add_component<Drawable>(button4,
+                              {myWindow._myTextures.getTexture(
+                                   "assets/images/utils/button_config1.png"),
+                               {402, 100},
+                               {402, 100},
+                               1});
   ecs.add_component<Selectable>(
-      button4,
-      {myWindow._myTextures.getTexture("assets/images/utils/button_config1_sel.png"),
-       std::function<void(ECS &, Entity)>(select), std::function<void(ECS &, Entity)>(deselect)});
+      button4, {myWindow._myTextures.getTexture(
+                    "assets/images/utils/button_config1_sel.png"),
+                std::function<void(ECS &, Entity)>(select),
+                std::function<void(ECS &, Entity)>(deselect)});
   ecs.add_component<Pressable>(
-      button4,
-      {myWindow._myTextures.getTexture("assets/images/utils/button_config1_act.png"),
-       [](ECS &ecs, Entity){ecs.post<InputEvent>({sf::Event(), QUIT});}});
+      button4, {myWindow._myTextures.getTexture(
+                    "assets/images/utils/button_config1_act.png"),
+                [](ECS &ecs, Entity) {
+                  ecs.post<InputEvent>({sf::Event(), QUIT});
+                }});
 }
 
 void createConfigEntities(ECS &ecs) {

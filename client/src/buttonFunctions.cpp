@@ -27,4 +27,4 @@ void deselect(ECS &ecs, Entity i) {
   }
 }
 
-}
+} // namespace Rtype::Client

@@ -33,9 +33,9 @@ void PressButtonSys::operator()(ECS &ecs, const InputEvent &e_input,
                                 const SparseArray<Selectable> &selectables,
                                 SparseArray<Pressable> &pressables) {
   if (e_input._event.type == sf::Event::MouseButtonPressed) {
-    for (size_t i = 0;
-          i < selectables.size() && i < positions.size() && i < hitboxs.size() && i < pressables.size();
-          ++i) {
+    for (size_t i = 0; i < selectables.size() && i < positions.size() &&
+                       i < hitboxs.size() && i < pressables.size();
+         ++i) {
       const auto &sel = selectables[i];
       const auto &pos = positions[i];
       const auto &box = hitboxs[i];

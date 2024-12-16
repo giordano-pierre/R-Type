@@ -10,8 +10,8 @@
 #include "ECS/ECS.hpp"
 #include "components/Hitbox.hpp"
 #include "components/Position.hpp"
-#include "components/Selectable.hpp"
 #include "components/Pressable.hpp"
+#include "components/Selectable.hpp"
 #include "events/InputEvent.hpp"
 
 namespace Rtype::Client {
