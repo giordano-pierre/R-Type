@@ -4,7 +4,7 @@ set(SRC
     main.cpp
     src/ServerCore.cpp
     src/GameLogicSystem.cpp
-    src/LevelManager.cpp
+    src/LevelManagement.cpp
     src/ScoreManager.cpp
 )
 
