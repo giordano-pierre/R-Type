@@ -1,11 +1,9 @@
 #include "ServerCore.hpp"
 
 Server::run() {
-    while (true) {
-        update();
-    }
+  while (true) {
+    update();
+  }
 }
 
-Server::update() {
-    gameLogicSystem.update(deltaTime);
-}
+Server::update() { gameLogicSystem.update(deltaTime); }
