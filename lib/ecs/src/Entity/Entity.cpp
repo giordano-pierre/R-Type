@@ -7,7 +7,7 @@
 
 #include "Entity/Entity.hpp"
 
-Entity::Entity(std::size_t size, std::bool permanent)
+Entity::Entity(std::size_t size, bool permanent)
 {
     _size = size;
     _permanent = permanent;
@@ -17,14 +17,9 @@ void Entity::setSize(std::size_t size) { _size = size; }
 
 Entity::operator std::size_t() const { return _size; };
 
-void Entity::setState(std::bool permanent)
+void Entity::setState(bool permanent)
 {
     _permanent = permanent;
-}
-
-Entity::operator std::size_t() const
-{
-    return _size;
 }
 
 bool Entity::isPermanent()const

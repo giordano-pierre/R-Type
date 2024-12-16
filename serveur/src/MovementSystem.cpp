@@ -10,7 +10,7 @@
 namespace rtype {
     namespace systems {
 
-        MovementSys::operator()(ECS &ecs,
+        auto MovementSys::operator()(ECS &ecs,
                             SparseArray<Position> &positions,
                             const SparseArray<Velocity> &velocities) -> void
         {

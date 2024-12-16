@@ -17,7 +17,7 @@ namespace rtype {
 
             auto operator()(ECS &ecs,
                             SparseArray<Position> &positions,
-                            const SparseArray<Hitbox> &hitboxes) -> bool;
+                            const SparseArray<HitBox> &hitboxes) -> bool;
             auto operator()(ECS &ecs,
                             SparseArray<Position> &positions) -> bool;
         };

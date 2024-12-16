@@ -6,6 +6,8 @@ set(SRC
     src/GameLogicSystem.cpp
     src/LevelManagement.cpp
     src/ScoreManager.cpp
+    src/MovementSystem.cpp
+    src/CollisionSystem.cpp
 )
 
 add_executable(r-type_server ${SRC})

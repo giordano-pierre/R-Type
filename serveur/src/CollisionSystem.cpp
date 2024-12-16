@@ -10,9 +10,9 @@
 namespace rtype {
     namespace systems {
 
-        CollisionSys::operator()(ECS &ecs,
+        auto CollisionSys::operator()(ECS &ecs,
                             SparseArray<Position> &positions,
-                            const SparseArray<Hitbox> &hitboxes) -> bool
+                            const SparseArray<HitBox> &hitboxes) -> bool
         {
             for (size_t i = 0; i < positions.size() && i < hitboxes.size(); ++i) {
                 if (positions[i].has_value() && hitboxes[i].has_value()) {
@@ -29,9 +29,10 @@ namespace rtype {
                     return false;
                 }
             }
+            return false;
         }
 
-        CollisionSys::operator()(ECS &ecs,
+        auto CollisionSys::operator()(ECS &ecs,
                             SparseArray<Position> &positions) -> bool
         {
             for (size_t i = 0; i < positions.size(); ++i) {
@@ -45,6 +46,7 @@ namespace rtype {
                     return false;
                 }
             }
+            return false;
         }
     }
 }
