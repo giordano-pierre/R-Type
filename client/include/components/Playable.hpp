@@ -10,8 +10,9 @@
 #include <ostream>
 
 namespace Rtype::Client {
-    struct Playable {
-        int _id;
-    };
-}
-std::ostream &operator<<(std::ostream &out, const Rtype::Client::Playable &player);
+struct Playable {
+  int _id;
+};
+} // namespace Rtype::Client
+std::ostream &operator<<(std::ostream &out,
+                         const Rtype::Client::Playable &player);

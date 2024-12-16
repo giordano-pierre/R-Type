@@ -3,8 +3,74 @@ name: Mirroring
 on: [ push ]
 
 jobs:
+  linting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up Clang-Format
+        run: |
+          sudo apt update
+          sudo apt install -y clang-format
+      - name: Apply Clang-Format to C++ code
+        run: |
+          find . -name "*.cpp" -o -name "*.h" -o -name "*.hpp" | xargs clang-format -i
+      - name: Commit and push formatted code
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add .
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Apply code formatting using Clang-Format"
+          git push origin ${{ github.ref_name }}
+
+  compilation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y python3 make cmake
+      - name: Run install script
+        run: |
+          python3 install.py
+      - name: Compile project
+        run: |
+          make
+
+  documentation:
+    needs: [compilation]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install Doxygen
+        run: |
+          sudo apt update
+          sudo apt install -y doxygen graphviz
+      - name: Generate Documentation
+        run: |
+          doxygen Doxyfile
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+
   mirroring:
     if: github.repository == 'giordano-pierre/R-Type'
+    needs: [linting, compilation, documentation]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

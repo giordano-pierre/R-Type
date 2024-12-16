@@ -9,7 +9,7 @@ set(SRC
     src/components/Position.cpp
     src/components/Velocity.cpp
     src/components/Playable.cpp
-    src/components/Type.cpp
+    src/components/Tag.cpp
     src/components/Window.cpp
     src/components/Hitbox.cpp
     src/components/Text.cpp
@@ -24,6 +24,8 @@ set(SRC
     src/systems/CheatSys.cpp
     src/systems/SelectSys.cpp
     src/systems/PressButtonSys.cpp
+    src/createEntities.cpp
+    src/loadSystems.cpp
     src/tools.cpp
 )
 

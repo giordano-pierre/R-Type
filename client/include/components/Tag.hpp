@@ -2,17 +2,19 @@
 ** EPITECH PROJECT, 2024
 ** R-Type
 ** File description:
-** InputEvent
+** Tag
 */
+
 #pragma once
 
-#include <SFML/Window.hpp>
+#include <ostream>
 
 #include "tools.hpp"
 
 namespace Rtype::Client {
-struct InputEvent {
-  sf::Event _event;
-  UserInput _myEvent;
+struct Tag {
+  ObjectType _type;
+  size_t _id = 0;
 };
 } // namespace Rtype::Client
+std::ostream &operator<<(std::ostream &out, const Rtype::Client::Tag &type);

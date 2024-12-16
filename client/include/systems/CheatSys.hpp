@@ -8,17 +8,16 @@
 #pragma once
 
 #include "ECS/ECS.hpp"
-#include "events/InputEvent.hpp"
 #include "components/Window.hpp"
+#include "events/InputEvent.hpp"
 
 namespace Rtype::Client {
-    class CheatSys {
-        public:
-            CheatSys() = default;
-            ~CheatSys() = default;
+class CheatSys {
+public:
+  CheatSys() = default;
+  ~CheatSys() = default;
 
-            void operator()(ECS &ecs, const InputEvent &e_input,
-                            SparseArray<Window> &windows);
-
-    };
-}
+  void operator()(ECS &ecs, const InputEvent &e_input,
+                  SparseArray<Window> &windows);
+};
+} // namespace Rtype::Client
