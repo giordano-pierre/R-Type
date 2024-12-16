@@ -95,6 +95,26 @@ void WindowSys::drawSprite(SparseArray<Position> &positions,
   }
 }
 
+void WindowSys::drawSel(SparseArray<Position> &positions,
+                        SparseArray<Hitbox> &hitboxs,
+                        SparseArray<Selectable> &selectables) {
+  for (size_t i = 0;
+       i < positions.size() && i < hitboxs.size() && i < selectables.size(); ++i) {
+    auto &pos = positions[i];
+    auto &box = hitboxs[i];
+    auto &sel = selectables[i];
+
+    if (pos && box && sel && sel.value()._display) {
+      sel.value()._sprite.setPosition(
+          {pos.value()._client.x, pos.value()._client.y});
+      sel.value()._sprite.setScale(
+          {box.value()._client.x / sel.value()._size.x,
+           box.value()._client.y / sel.value()._size.y});
+      _window.draw(sel.value()._sprite);
+    }
+  }
+}
+
 void WindowSys::drawText(SparseArray<Position> &positions,
                          SparseArray<Hitbox> &hitboxs, SparseArray<Text> &texts,
                          bool isResize, sf::Vector2u sizeClient,
@@ -169,7 +189,8 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
                            SparseArray<Position> &positions,
                            SparseArray<Hitbox> &hitboxs,
                            SparseArray<Drawable> &sprites,
-                           SparseArray<Text> &texts) {
+                           SparseArray<Text> &texts,
+                           SparseArray<Selectable> &selectables) {
   bool displayHitbox = (windows.size() > 0 && windows[0])
                            ? windows[0].value()._displayHitboxs
                            : false;
@@ -189,6 +210,7 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
 
   updateInfo(positions, hitboxs, isResize, sizeWindow, serverSize);
   drawSprite(positions, hitboxs, sprites);
+  drawSel(positions, hitboxs, selectables);
   drawText(positions, hitboxs, texts, isResize, sizeWindow, serverSize);
   drawHitboxes(positions, hitboxs, displayHitbox);
   _window.display();

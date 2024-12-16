@@ -32,9 +32,11 @@ void loadGameSystem(ECS &ecs) {
 void loadMenuSystem(ECS &ecs) {
   auto selSys = SelectSys();
   ecs.subscribe<InputEvent, Position, Drawable, Hitbox, Selectable>(selSys);
+  ecs.subscribe<InputEvent, Position, Drawable, Selectable>(selSys);
 
   auto pressSys = PressButtonSys();
-  ecs.subscribe<InputEvent, Position, Hitbox, Selectable>(pressSys);
+  ecs.subscribe<InputEvent, Position, Hitbox, Selectable, Pressable>(pressSys);
+  ecs.subscribe<InputEvent, Selectable, Pressable>(pressSys);
 }
 
 } // namespace Rtype::Client

@@ -16,6 +16,7 @@
 #include "components/Position.hpp"
 #include "components/Text.hpp"
 #include "components/Window.hpp"
+#include "components/Selectable.hpp"
 #include "events/FrameEvent.hpp"
 
 namespace Rtype::Client {
@@ -29,7 +30,7 @@ public:
                   const SparseArray<Window> &windows,
                   SparseArray<Position> &positions,
                   SparseArray<Hitbox> &hitboxs, SparseArray<Drawable> &sprites,
-                  SparseArray<Text> &texts);
+                  SparseArray<Text> &texts, SparseArray<Selectable> &selectables);
 
 private:
   sf::RenderWindow _window;
@@ -41,6 +42,8 @@ private:
                   sf::Vector2u sizeClient, TupleUInt serverSize);
   void drawSprite(SparseArray<Position> &positions,
                   SparseArray<Hitbox> &hitboxs, SparseArray<Drawable> &sprites);
+  void drawSel(SparseArray<Position> &positions,
+               SparseArray<Hitbox> &hitboxs, SparseArray<Selectable> &selectables);
   void drawText(SparseArray<Position> &positions, SparseArray<Hitbox> &hitboxs,
                 SparseArray<Text> &texts, bool isResize,
                 sf::Vector2u sizeClient, TupleUInt serverSize);

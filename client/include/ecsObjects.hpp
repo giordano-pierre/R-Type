@@ -12,6 +12,7 @@
 #include "components/Playable.hpp"
 #include "components/Position.hpp"
 #include "components/Selectable.hpp"
+#include "components/Pressable.hpp"
 #include "components/Tag.hpp"
 #include "components/Text.hpp"
 #include "components/Velocity.hpp"
