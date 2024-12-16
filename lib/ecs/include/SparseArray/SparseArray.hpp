@@ -22,11 +22,12 @@ class SparseArray {
         using const_iterator = typename container_t::const_iterator;
 
         SparseArray();
-        SparseArray(const SparseArray &other); // copy constructor
-        SparseArray(SparseArray &&other) noexcept; // move constructor
+        SparseArray(const SparseArray &other);
+        SparseArray(SparseArray &&other) noexcept;
         ~SparseArray() = default;
-        auto operator=(const SparseArray &other) -> SparseArray &; // copy assignment operator
-        auto operator=(SparseArray &&other) noexcept -> SparseArray &; // move assignment operator
+
+        auto operator=(const SparseArray &other) -> SparseArray &;
+        auto operator=(SparseArray &&other) noexcept -> SparseArray &;
         auto operator[](size_t idx) -> reference_type;
         auto operator[](size_t idx) const -> const_reference_type;
         auto begin() -> iterator;
@@ -40,7 +41,7 @@ class SparseArray {
         auto insert_at(size_type pos, Component &&rvalue) -> reference_type;
         auto push_back(const Component &value) -> reference_type;
         template <class ... Params>
-        auto emplace_at(size_type pos, Params &&...args) -> reference_type; // build the component object in-place.
+        auto emplace_at(size_type pos, Params &&...args) -> reference_type;
         auto erase(size_type pos) -> void;
         auto clear(void) -> void;
 
