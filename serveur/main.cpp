@@ -4,10 +4,10 @@
 
 int main() {
     try {
-        UDPServer(4242);
+        UDPServer server(4242);
         while(true) {
             sleep(1);
-            std::cout << "loop" << std::endl;
+            // std::cout << "loop" << std::endl;
         };
     } catch (std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;

@@ -1,4 +1,5 @@
 #pragma once
+
 #include <boost/asio.hpp>
 #include <nlohmann/json.hpp>
 #include <iostream>
@@ -28,7 +29,6 @@ public:
                 std::cerr << e.what() << std::endl;
             }
         });
-        context_thread_.join();
     }
 
     ~UDPServer() {
@@ -37,7 +37,7 @@ public:
         context_thread_.join();
     }
 
-    void start_send(const std::string &client_id, const std::string &message);
+    void start_send(const std::string& client_id, const json& message_json);
 
 private:
     boost::uuids::random_generator uuid_generator_;
@@ -52,4 +52,6 @@ private:
     void start_receive();
     void handle_receive(std::size_t bytes_recvd);
     std::string get_new_uuid();
+    void parse_request(const std::string& received_message);
+
 };

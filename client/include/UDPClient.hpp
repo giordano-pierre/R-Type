@@ -1,3 +1,5 @@
+#pragma once
+
 #include <boost/asio.hpp>
 #include <nlohmann/json.hpp>
 #include <iostream>
@@ -33,7 +35,7 @@ public:
         context_thread_.join();
     }
 
-    void send(const std::string &message);
+    void send(const json& message_json);
 
 private:
     boost::asio::io_context io_context_;
@@ -46,4 +48,5 @@ private:
     void start_receive();
 
     void handle_receive(std::size_t bytes_recvd);
+    void parse_request(const std::string& received_message);
 };
