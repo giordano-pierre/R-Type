@@ -7,6 +7,8 @@ private:
   float deltaTime;
 
 public:
+  Server(ECS &ecs);
+  ~Server() = default;
   void run();
   void update();
 };

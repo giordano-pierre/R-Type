@@ -5,7 +5,7 @@ namespace systems {
 
 GameLogicSystem::GameLogicSystem(ECS &ecs_ref)
     : ecs(ecs_ref), levelManager(ecs_ref),
-      scoreManager(), gameState{false, 0.0f, 0} {
+      gameState{false, 0.0f, 0} {
   initializeComponents();
 }
 
@@ -110,7 +110,7 @@ void GameLogicSystem::handlePlayerDeath(Entity player) {
 void GameLogicSystem::handleEnemyDeath(Entity enemy) {
   auto &enemyData = ecs.get_components<EnemyData>()[enemy];
   if (enemyData.has_value()) {
-    scoreManager.updateScore(enemyData->lastDamageSource,
+    scoreManager.updateScore(Entity(enemyData->lastDamageSource),
                              enemyData->pointValue);
     ecs.kill_entity(enemy);
   }

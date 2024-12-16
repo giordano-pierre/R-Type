@@ -1,10 +1,12 @@
 #include "GameLogicSystem.hpp"
 #include "ScoreManager.hpp"
 #include "ServerCore.hpp"
+#include <iostream>
 
 int main() {
   try {
-    Server server;
+    ECS ecs;
+    Server server(ecs);
     server.run();
   } catch (const std::exception &e) {
     std::cerr << "Server error: " << e.what() << std::endl;

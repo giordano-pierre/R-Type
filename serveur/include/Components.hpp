@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <string>
 #include <vector>
+#include <cstdint>
 
 struct Position {
   float x = 0.0f;

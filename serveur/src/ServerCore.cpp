@@ -1,9 +1,13 @@
 #include "ServerCore.hpp"
 
-Server::run() {
+Server::Server(ECS &ecs) : gameLogicSystem(rtype::systems::GameLogicSystem(ecs))
+{
+}
+
+void Server::run() {
   while (true) {
     update();
   }
 }
 
-Server::update() { gameLogicSystem.update(deltaTime); }
+void Server::update() { gameLogicSystem.update(deltaTime); }

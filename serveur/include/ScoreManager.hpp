@@ -1,7 +1,7 @@
 #pragma once
 #include "Components.hpp"
 #include "ECS/ECS.hpp"
-#include <unordered_map>
+#include <map>
 
 namespace rtype {
 namespace systems {
@@ -20,12 +20,12 @@ public:
 
   const PlayerScore &getPlayerScore(Entity entity) const;
   bool hasPlayer(Entity entity) const;
-  const std::unordered_map<Entity, PlayerScore> &getAllScores() const {
+  const std::map<Entity, PlayerScore> &getAllScores() const {
     return scores;
   }
 
 private:
-  std::unordered_map<Entity, PlayerScore> scores;
+  std::map<Entity, PlayerScore> scores;
   static constexpr int TIME_BONUS_INTERVAL = 30;
   static constexpr int TIME_BONUS_POINTS = 10;
   static constexpr int KILL_BONUS = 100;
