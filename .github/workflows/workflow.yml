@@ -46,8 +46,9 @@ jobs:
       - name: Fix vcpkg paths for CMake
         run: |
           cmake -B build \
-            -DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake \
-            -DVCPKG_TARGET_TRIPLET=x64-linux
+            -DCMAKE_TOOLCHAIN_FILE=$GITHUB_WORKSPACE/vcpkg/scripts/buildsystems/vcpkg.cmake \
+            -DVCPKG_TARGET_TRIPLET=x64-linux \
+            -DCMAKE_PREFIX_PATH=$GITHUB_WORKSPACE/vcpkg/installed/x64-linux
       - name: Compile project
         run: |
           make
