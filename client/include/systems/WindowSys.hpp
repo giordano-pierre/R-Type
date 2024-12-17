@@ -17,8 +17,8 @@
 #include "components/Selectable.hpp"
 #include "components/Text.hpp"
 #include "components/Window.hpp"
-#include "events/FrameEvent.hpp"
 #include "events/ChangeKey.hpp"
+#include "events/FrameEvent.hpp"
 
 namespace Rtype::Client {
 class WindowSys {
