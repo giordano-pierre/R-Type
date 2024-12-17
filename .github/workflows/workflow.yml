@@ -39,11 +39,21 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install -y python3 make cmake
+          sudo apt install -y python3 make cmake g++ git
+      - name: Install vcpkg
+        run: |
+          git clone https://github.com/microsoft/vcpkg.git
+          ./vcpkg/bootstrap-vcpkg.sh
+          ./vcpkg/vcpkg integrate install
+          ./vcpkg/vcpkg install sfml nlohmann-json boost-asio boost-uuid
       - name: Run install script
         run: |
           python3 install.py
       - name: Compile project
+        run: |
+          cmake . -B build -DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake
+          make -C build
+      - name: Run Makefile to finalize
         run: |
           make
 
