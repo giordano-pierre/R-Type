@@ -1,11 +1,8 @@
 #include "ServerCore.hpp"
 
 Server::Server()
-  : gameLogicSystem(ecs)
-  , levelManager(ecs)
-  , isRunning(false)
-  , deltaTime(0.0f) {
-}
+    : gameLogicSystem(ecs), levelManager(ecs), isRunning(false),
+      deltaTime(0.0f) {}
 
 Server::~Server() {
   if (isRunning) {
@@ -19,9 +16,7 @@ void Server::start() {
   run();
 }
 
-void Server::stop() {
-  isRunning = false;
-}
+void Server::stop() { isRunning = false; }
 
 void Server::updateDeltaTime() {
   auto currentTime = std::chrono::steady_clock::now();
@@ -47,17 +42,18 @@ void Server::run() {
       if (levelManager.isLevelComplete()) {
         if (levelManager.hasNextLevel()) {
           levelManager.nextLevel();
-        }
-        else {
+        } else {
           gameLogicSystem.endGame();
         }
       }
     }
 
     auto loopEnd = std::chrono::steady_clock::now();
-    auto loopDuration = std::chrono::duration<float>(loopEnd - loopStart).count();
+    auto loopDuration =
+        std::chrono::duration<float>(loopEnd - loopStart).count();
     if (loopDuration < TICK_DURATION) {
-      std::this_thread::sleep_for(std::chrono::duration<float>(TICK_DURATION - loopDuration));
+      std::this_thread::sleep_for(
+          std::chrono::duration<float>(TICK_DURATION - loopDuration));
     }
   }
 }
