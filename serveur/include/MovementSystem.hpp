@@ -12,6 +12,7 @@
 namespace rtype {
 namespace systems {
 class MovementSys {
+public:
   MovementSys() = default;
   ~MovementSys() = default;
 

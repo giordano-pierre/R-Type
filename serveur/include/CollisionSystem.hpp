@@ -12,6 +12,7 @@
 namespace rtype {
 namespace systems {
 class CollisionSys {
+public:
   CollisionSys() = default;
   ~CollisionSys() = default;
 
