@@ -1,11 +1,10 @@
-#include "GameLogicSystem.hpp"
-#include "ScoreManager.hpp"
-#include "MovementSystem.hpp"
-#include "LevelManagement.hpp"
 #include "CollisionSystem.hpp"
+#include "GameLogicSystem.hpp"
+#include "LevelManagement.hpp"
+#include "MovementSystem.hpp"
+#include "ScoreManager.hpp"
 #include <chrono>
 #include <thread>
-
 
 class Server {
 private:
@@ -20,7 +19,6 @@ private:
   std::chrono::steady_clock::time_point lastUpdate;
   static constexpr int TICKS_PER_SECOND = 60;
   static constexpr float TICK_DURATION = 1.0f / TICKS_PER_SECOND;
-
 
   void run();
   void updateDeltaTime();
