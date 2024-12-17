@@ -5,14 +5,18 @@
 #include <iostream>
 #include <string>
 #include <thread>
+#include "NetworkActions.hpp"
+#include "ECS/ECS.hpp"
+#include "RequestEvent.hpp"
+#include "ReceiveEvent.hpp"
 
 using boost::asio::ip::udp;
 using json = nlohmann::json;
 
 class UDPClient {
 public:
-    UDPClient(const std::string& host, const std::string &port)
-        : io_context_(), socket_(io_context_),
+    UDPClient(ECS &ecs, const std::string& host, const std::string &port)
+        : ecs_(ecs), io_context_(), socket_(io_context_),
         server_endpoint_(*udp::resolver(io_context_).resolve(udp::v4(), host, port).begin()),
             buffer_{}, uuid_("") {
 
@@ -35,9 +39,11 @@ public:
         context_thread_.join();
     }
 
-    void send(const json& message_json);
+    void operator()(ECS &ecs, const RequestEvent &req_event);
+    // void send(const json& message_json);
 
 private:
+    ECS &ecs_;
     boost::asio::io_context io_context_;
     udp::socket socket_;
     udp::endpoint server_endpoint_;
