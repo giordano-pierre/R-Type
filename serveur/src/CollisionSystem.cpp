@@ -30,8 +30,8 @@ auto CollisionSys::operator()(ECS &ecs, SparseArray<Position> &positions,
   return false;
 }
 
-auto CollisionSys::operator()(ECS &ecs, SparseArray<Position> &positions)
-    -> bool {
+auto CollisionSys::operator()(ECS &ecs,
+                              SparseArray<Position> &positions) -> bool {
   for (size_t i = 0; i < positions.size(); ++i) {
     if (positions[i].has_value()) {
 

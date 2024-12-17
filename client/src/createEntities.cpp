@@ -172,11 +172,10 @@ void createMenuEntities(ECS &ecs) {
                 std::function<void(ECS &, Entity)>(select),
                 std::function<void(ECS &, Entity)>(deselect)});
   ecs.add_component<Pressable>(
-      button4, {myWindow._myTextures.getTexture(
-                    "assets/images/utils/button_config1_act.png"),
-                [](ECS &ecs, Entity) {
-                  ecs.post<InputEvent>({sf::Event(), QUIT});
-                }});
+      button4,
+      {myWindow._myTextures.getTexture(
+           "assets/images/utils/button_config1_act.png"),
+       [](ECS &ecs, Entity) { ecs.post<InputEvent>({sf::Event(), QUIT}); }});
 }
 
 void createConfigEntities(ECS &ecs) {
