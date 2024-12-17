@@ -9,21 +9,18 @@ void LevelManager::initializeLevels() {
 
   // {posX, posY, vitesse, type, points, vie, posYmin
   std::vector<EnemySpawn> enemies1 = {
-        {800.0f, 100.0f, 2.0f, "basic", 50, 100, -100.0f},
-        {800.0f, 200.0f, 4.0f, "basic", 50, 100, -100.0f},
-        {800.0f, 300.0f, 6.0f, "basic", 50, 100, -100.0f},
-        {900.0f, 150.0f, 10.0f, "shooter", 100, 200, -80.0f}
-  };
+      {800.0f, 100.0f, 2.0f, "basic", 50, 100, -100.0f},
+      {800.0f, 200.0f, 4.0f, "basic", 50, 100, -100.0f},
+      {800.0f, 300.0f, 6.0f, "basic", 50, 100, -100.0f},
+      {900.0f, 150.0f, 10.0f, "shooter", 100, 200, -80.0f}};
   Level level1(enemies1, 60.0f, 1000);
   levels.push_back(level1);
 
-
   std::vector<EnemySpawn> enemies2 = {
-    {800.0f, 100.0f, 2.0f, "basic", 75, 150, -120.0f},
-    {800.0f, 200.0f, 3.0f, "basic", 75, 150, -120.0f},
-    {900.0f, 150.0f, 5.0f, "shooter", 125, 250, -100.0f},
-    {1000.0f, 300.0f, 8.0f, "boss", 500, 1000, -50.0f}
-  };
+      {800.0f, 100.0f, 2.0f, "basic", 75, 150, -120.0f},
+      {800.0f, 200.0f, 3.0f, "basic", 75, 150, -120.0f},
+      {900.0f, 150.0f, 5.0f, "shooter", 125, 250, -100.0f},
+      {1000.0f, 300.0f, 8.0f, "boss", 500, 1000, -50.0f}};
   Level level2(enemies2, 90.0f, 2000);
   levels.push_back(level2);
 }
