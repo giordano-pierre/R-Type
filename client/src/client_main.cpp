@@ -6,13 +6,13 @@
 */
 #include <iostream>
 
+#include "ClientHandlerSystem.hpp"
 #include "ECS/ECS.hpp"
+#include "UDPClient.hpp"
 #include "createEntities.hpp"
 #include "ecsObjects.hpp"
 #include "loadSystems.hpp"
 #include "tools.hpp"
-#include "ClientHandlerSystem.hpp"
-#include "UDPClient.hpp"
 
 int main(void) {
   // int mainTestGame (void) {
