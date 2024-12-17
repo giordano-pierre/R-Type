@@ -8,7 +8,7 @@ void ScoreManager::registerPlayer(Entity entity) {
   if (scores.find(entity) != scores.end()) {
     return;
   }
-  scores[entity] = PlayerScore{};
+  scores[entity] = PlayerScore(0, 0, 0, 0.0f);
 }
 
 void ScoreManager::removePlayer(Entity entity) { scores.erase(entity); }

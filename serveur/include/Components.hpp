@@ -64,6 +64,8 @@ struct PlayerScore {
   int deaths{0};
   float survivalTime{0.0f};
 
+  PlayerScore() = default;
+
   PlayerScore(int score, int kills, int deaths, float surviTime)
       : score(0), kills(0), deaths(0), survivalTime(0.0) {}
 };
