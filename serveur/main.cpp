@@ -1,10 +1,9 @@
 #include "ServerCore.hpp"
-#include <iostream>
 #include <csignal>
 #include <cstdlib>
+#include <iostream>
 
-static Server* serverInstance = nullptr;
-
+static Server *serverInstance = nullptr;
 
 void signalHandler(int signum) {
   if (serverInstance) {
