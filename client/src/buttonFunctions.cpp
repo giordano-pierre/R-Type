@@ -37,7 +37,6 @@ void press(ECS &ecs, Entity i) {
     else
       draw[i].value()._sprite.setTexture(*draw[i].value()._texture);
     press[i].value()._isPressed = !press[i].value()._isPressed;
-    // ecs.post<Rtype::Client::FrameEvent>({std::chrono::steady_clock::now()});
   }
 }
 

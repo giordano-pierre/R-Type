@@ -83,7 +83,8 @@ void createMenuEntities(ECS &ecs) {
                    "assets/images/utils/button_config1_act.png"),
                [](ECS &ecs, Entity i) {
                  press(ecs, i);
-                 ecs.post<ChangeKey>({DOWN1P});
+                 ecs.post<Rtype::Client::FrameEvent>({std::chrono::steady_clock::now()});
+                 ecs.post<ChangeKey>({DOWN1P, i});
                }});
 
   Entity button2 = ecs.spawn_entity();

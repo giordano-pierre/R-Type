@@ -7,6 +7,8 @@
 
 #include "systems/WindowSys.hpp"
 #include "events/InputEvent.hpp"
+#include "components/Pressable.hpp"
+#include "buttonFunctions.hpp"
 
 namespace Rtype::Client {
 
@@ -227,7 +229,7 @@ bool isBanKey(sf::Keyboard::Key key) { return false; }
 void updateOneMap(
     std::map<Rtype::Client::UserInput, sf::Keyboard::Key> &inputConfig,
     std::map<Rtype::Client::UserInput, sf::Keyboard::Key>::iterator &it,
-    const ChangeKey e_changeK, sf::Keyboard::Key key) {
+    sf::Keyboard::Key key) {
   auto save = it->second;
   for (auto &[keyMap, value] : inputConfig) {
     if (keyMap == ENTER)
@@ -247,12 +249,12 @@ bool updateConfigs(
     return true;
   auto it = inputConfigs.first.find(e_changeK._key);
   if (it != inputConfigs.first.end()) {
-    updateOneMap(inputConfigs.first, it, e_changeK, key);
+    updateOneMap(inputConfigs.first, it, key);
     return false;
   }
   it = inputConfigs.second.find(e_changeK._key);
   if (it != inputConfigs.second.end()) {
-    updateOneMap(inputConfigs.second, it, e_changeK, key);
+    updateOneMap(inputConfigs.second, it, key);
     return false;
   }
   return false;
@@ -272,5 +274,6 @@ void WindowSys::operator()(ECS &ecs, const ChangeKey &e_changeK,
         run = updateConfigs(inputConfig, e_changeK, event.key.code);
     }
   }
+  press(ecs, e_changeK._i);
 }
 } // namespace Rtype::Client
