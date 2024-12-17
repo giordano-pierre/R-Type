@@ -38,33 +38,63 @@ def add_nlohmann_to_cmake(cmake_file):
 
     print("nlohmann-json ajouté dans le CMakeLists.txt.")
 
+def run_vcpkg_linux():
+    """Configure et installe vcpkg avec SFML et autres bibliothèques"""
+    if not os.path.exists("vcpkg"):
+        print("Clonage de vcpkg...")
+        subprocess.run(["git", "clone", "https://github.com/microsoft/vcpkg.git"], check=True)
+        subprocess.run(["./vcpkg/bootstrap-vcpkg.sh"], check=True)
+    else:
+        print("vcpkg existe déjà. Bootstrap vcpkg...")
+        subprocess.run(["./vcpkg/bootstrap-vcpkg.sh"], check=True)
+
+    os.chdir("vcpkg")
+    subprocess.run([
+        "./vcpkg", "install",
+        "sfml:x64-linux",
+        "nlohmann-json:x64-linux",
+        "boost-asio:x64-linux",
+        "boost-uuid:x64-linux"
+    ], check=True)
+    subprocess.run(["./vcpkg", "integrate", "install"], check=True)
+    os.chdir("..")
+
 find_os = get_os_system()
 
 if find_os == "LINUX":
-    subprocess.run(["git", "clone", "https://github.com/microsoft/vcpkg.git"])
-    subprocess.run(["./vcpkg/bootstrap-vcpkg.sh"])
-    os.chdir("vcpkg")
-    subprocess.run(["./vcpkg", "install", "sfml", "nlohmann-json", "boost-asio", "boost-uuid"])
-    subprocess.run(["./vcpkg", "integrate", "install"])
-    os.chdir("..")
+    run_vcpkg_linux()
 
     add_nlohmann_to_cmake("CMakeLists.txt")
 
-    subprocess.run(["cmake", "-B", "./build", "-DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake"])
-    subprocess.run(["cmake", "--build", "build"])
+    subprocess.run([
+        "cmake", "-B", "./build",
+        "-DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake",
+        "-DVCPKG_TARGET_TRIPLET=x64-linux"
+    ], check=True)
+    subprocess.run(["cmake", "--build", "./build"], check=True)
 
 elif find_os == "WINDOWS":
-    subprocess.run(["git", "clone", "https://github.com/microsoft/vcpkg.git"])
-    subprocess.run([".\\vcpkg\\bootstrap-vcpkg.bat"], shell=True)
+    if not os.path.exists("vcpkg"):
+        subprocess.run(["git", "clone", "https://github.com/microsoft/vcpkg.git"], check=True)
+    subprocess.run([".\\vcpkg\\bootstrap-vcpkg.bat"], shell=True, check=True)
     os.chdir("vcpkg")
-    subprocess.run(["./vcpkg", "install", "sfml", "nlohmann-json", "boost-asio", "boost-uuid"])
-    subprocess.run(["./vcpkg", "integrate", "install"])
+    subprocess.run([
+        "./vcpkg", "install",
+        "sfml",
+        "nlohmann-json",
+        "boost-asio",
+        "boost-uuid"
+    ], check=True)
+    subprocess.run(["./vcpkg", "integrate", "install"], check=True)
     os.chdir("..")
 
     add_nlohmann_to_cmake("CMakeLists.txt")
 
-    subprocess.run(["cmake", "-B", "./build", "-DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake"])
-    subprocess.run(["cmake", "--build", "build", "--config", "Release"])
+    subprocess.run([
+        "cmake", "-B", "./build",
+        "-DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake"
+    ], check=True)
+    subprocess.run(["cmake", "--build", "build", "--config", "Release"], check=True)
 
 else:
     print("Unknown OS. Cannot proceed.")
