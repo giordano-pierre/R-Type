@@ -26,7 +26,8 @@ struct HitBox {
   float width = 0.0f;
   float height = 0.0f;
 
-  HitBox(float px, float py, float wd, float ht) : x(px), y(py), width(wd), height(ht) {}
+  HitBox(float px, float py, float wd, float ht)
+      : x(px), y(py), width(wd), height(ht) {}
 };
 
 struct Health {
@@ -53,7 +54,8 @@ struct EnemyData {
   std::size_t lastDamageSource;
   int pointValue;
 
-  EnemyData(std::size_t dam, int pVl) : lastDamageSource(dam), pointValue(pVl) {}
+  EnemyData(std::size_t dam, int pVl)
+      : lastDamageSource(dam), pointValue(pVl) {}
 };
 
 struct PlayerScore {
@@ -62,7 +64,8 @@ struct PlayerScore {
   int deaths{0};
   float survivalTime{0.0f};
 
-  PlayerScore(int score, int kills, int deaths, float surviTime) : score(0), kills(0), deaths(0), survivalTime(0.0) {}
+  PlayerScore(int score, int kills, int deaths, float surviTime)
+      : score(0), kills(0), deaths(0), survivalTime(0.0) {}
 };
 
 struct EnemySpawn {
@@ -74,7 +77,10 @@ struct EnemySpawn {
   int pointValue;
   float speed;
 
-  EnemySpawn(float px, float py, float spTime, std::string type, int health, int ptVl, float speed) : x(px), y(py), spawnTime(spTime), type(type), health(0), pointValue(0), speed(speed) {}
+  EnemySpawn(float px, float py, float spTime, std::string type, int health,
+             int ptVl, float speed)
+      : x(px), y(py), spawnTime(spTime), type(type), health(0), pointValue(0),
+        speed(speed) {}
 };
 
 struct Level {
@@ -84,7 +90,8 @@ struct Level {
 
   Level() : duration(0.0f), minScoreToWin(0) {}
 
-  Level(std::vector<EnemySpawn> enemies, float duration, int minScore) : enemies(enemies), duration(duration), minScoreToWin(minScore) {}
+  Level(std::vector<EnemySpawn> enemies, float duration, int minScore)
+      : enemies(enemies), duration(duration), minScoreToWin(minScore) {}
 };
 
 struct GameState {
@@ -92,5 +99,6 @@ struct GameState {
   float gameTime{0.0f};
   uint32_t playerCount{0};
 
-  GameState(bool isRunning, float gameTime, uint32_t playerCount) : isGameRunning(false), gameTime(gameTime), playerCount(playerCount) {}
+  GameState(bool isRunning, float gameTime, uint32_t playerCount)
+      : isGameRunning(false), gameTime(gameTime), playerCount(playerCount) {}
 };
