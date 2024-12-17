@@ -12,5 +12,6 @@
 namespace Rtype::Client {
 struct ChangeKey {
   UserInput _key;
+  Entity _i;
 };
 } // namespace Rtype::Client
