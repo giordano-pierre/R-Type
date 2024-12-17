@@ -7,7 +7,8 @@ static Server *serverInstance = nullptr;
 
 void signalHandler(int signum) {
   if (serverInstance) {
-    std::cout << "\nSignal d'arrêt reçu :'(. Arrêt du serveur... \n\n" << std::endl;
+    std::cout << "\nSignal d'arrêt reçu :'(. Arrêt du serveur... \n\n"
+              << std::endl;
     serverInstance->stop();
   }
 }
@@ -26,7 +27,9 @@ int main() {
     server.start();
 
     std::cout << "===============================\n" << std::endl;
-    std::cout << "\n... Serveur arrêté avec succès. Bien joué !\n\n\n\n\nN'hésite pas a rejoindre Arts&Crafts ;)" << std::endl;
+    std::cout << "\n... Serveur arrêté avec succès. Bien joué "
+                 "!\n\n\n\n\nN'hésite pas a rejoindre Arts&Crafts ;)"
+              << std::endl;
     return 0;
 
   } catch (const std::exception &e) {
