@@ -222,4 +222,58 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
     extractInput(ecs, event, inputConfig);
 }
 
+bool isBanKey(sf::Keyboard::Key key)
+{
+  return false;
+}
+
+void updateOneMap(std::map<Rtype::Client::UserInput, sf::Keyboard::Key> &inputConfig,
+                  std::map<Rtype::Client::UserInput, sf::Keyboard::Key>::iterator &it,
+                  const ChangeKey e_changeK, sf::Keyboard::Key key)
+{
+  auto save = it->second;
+  for (auto &[keyMap, value] : inputConfig) {
+    if (keyMap == ENTER)
+      continue;
+    if (value == key)
+      value = it->second;
+  }
+  it->second = key;
+}
+
+bool updateConfigs(std::pair<std::map<Rtype::Client::UserInput, sf::Keyboard::Key>,
+                             std::map<Rtype::Client::UserInput, sf::Keyboard::Key>> &inputConfigs,
+                   const ChangeKey e_changeK, sf::Keyboard::Key key)
+{
+  if (isBanKey(key))
+    return true;
+  auto it = inputConfigs.first.find(e_changeK._key);
+  if (it != inputConfigs.first.end()) {
+    updateOneMap(inputConfigs.first, it, e_changeK, key);
+    return false;
+  }
+  it = inputConfigs.second.find(e_changeK._key);
+  if (it != inputConfigs.second.end()) {
+    updateOneMap(inputConfigs.second, it, e_changeK, key);
+    return false;
+  }
+  return false;
+}
+
+void WindowSys::operator()(ECS &ecs, const ChangeKey &e_changeK,
+                           SparseArray<Window> &windows)
+{
+  bool run = true;
+  sf::Event event;
+  if (windows.size() < 1 || !windows[0])
+    return;
+  auto &inputConfig = windows[0].value()._inputConfig;
+
+  while (run) {
+    while (_window.pollEvent(event)) {
+      if (event.type == sf::Event::KeyPressed)
+        run = updateConfigs(inputConfig, e_changeK, event.key.code);
+    }
+  }
+}
 } // namespace Rtype::Client

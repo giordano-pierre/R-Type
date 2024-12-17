@@ -49,15 +49,11 @@ void createGameEntities(ECS &ecs) {
   ecs.add_component<Playable>(player1, {1});
   ecs.add_component<Tag>(player1, {PLAYER});
   ecs.add_component<Hitbox>(player1, {{0.1, 0.12}});
-  // ecs.add_component<Hitbox>(player1, {{-0.1, 0.18}});
   ecs.add_component<Drawable>(player1, {myWindow._myTextures.getTexture(
                                             "assets/images/ship/red_ship.png"),
                                         {395, 250},
                                         {395, 250},
                                         1});
-  // ecs.add_component<Drawable>(player1,
-  // {myWindow._myTextures.getTexture("assets/images/ship/enemy_ship_1.png"),
-  // {2030, 1450}, {290, 290}, 35});
 }
 
 void createMenuEntities(ECS &ecs) {
@@ -86,7 +82,7 @@ void createMenuEntities(ECS &ecs) {
       button,
       {myWindow._myTextures.getTexture(
            "assets/images/utils/button_config1_act.png"),
-       [](ECS &ecs, Entity) { std::cout << "Start the game!" << std::endl; }});
+       [](ECS &ecs, Entity i){press(ecs, i); ecs.post<ChangeKey>({DOWN1P});}});
 
   Entity button2 = ecs.spawn_entity();
   ecs.add_component<Position>(

@@ -27,4 +27,18 @@ void deselect(ECS &ecs, Entity i) {
   }
 }
 
+void press(ECS &ecs, Entity i) {
+  auto &press = ecs.get_components<Pressable>();
+  auto &draw = ecs.get_components<Drawable>();
+
+  if (i < press.size() && press[i] && i < draw.size() && draw[i]) {
+    if (!press[i].value()._isPressed)
+      draw[i].value()._sprite.setTexture(*press[i].value()._texture);
+    else
+      draw[i].value()._sprite.setTexture(*draw[i].value()._texture);
+    press[i].value()._isPressed = !press[i].value()._isPressed;
+    // ecs.post<Rtype::Client::FrameEvent>({std::chrono::steady_clock::now()});
+  }
+}
+
 } // namespace Rtype::Client

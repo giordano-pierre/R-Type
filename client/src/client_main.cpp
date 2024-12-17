@@ -31,6 +31,7 @@ int main(void) {
   ecs.register_event<Rtype::Client::FrameEvent>();
   ecs.register_event<Rtype::Client::InputEvent>();
   ecs.register_event<Rtype::Client::TicEvent>();
+  ecs.register_event<Rtype::Client::ChangeKey>();
 
   Entity window = ecs.spawn_entity();
   ecs.add_component<Rtype::Client::Tag>(window, {Rtype::Client::WINDOW});
@@ -43,6 +44,7 @@ int main(void) {
                 Rtype::Client::Position, Rtype::Client::Hitbox,
                 Rtype::Client::Drawable, Rtype::Client::Text,
                 Rtype::Client::Selectable>(windowSys);
+  ecs.subscribe<Rtype::Client::ChangeKey, Rtype::Client::Window>(windowSys);
 
   auto cheatSys = Rtype::Client::CheatSys();
   ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Window>(cheatSys);
@@ -56,11 +58,11 @@ int main(void) {
         }
       });
 
-  // Rtype::Client::createGameEntities(ecs);
-  // Rtype::Client::loadGameSystem(ecs);
-  Rtype::Client::createMenuEntities(ecs);
+  Rtype::Client::createGameEntities(ecs);
+  Rtype::Client::loadGameSystem(ecs);
+  // Rtype::Client::createMenuEntities(ecs);
   //   Rtype::Client::createConfigEntities(ecs);
-  Rtype::Client::loadMenuSystem(ecs);
+  // Rtype::Client::loadMenuSystem(ecs);
 
   const auto FPS = 60;
   const timer::duration<double, std::ratio<1, FPS>> frameRate(1);

@@ -18,6 +18,7 @@
 #include "components/Text.hpp"
 #include "components/Window.hpp"
 #include "events/FrameEvent.hpp"
+#include "events/ChangeKey.hpp"
 
 namespace Rtype::Client {
 class WindowSys {
@@ -32,6 +33,8 @@ public:
                   SparseArray<Hitbox> &hitboxs, SparseArray<Drawable> &sprites,
                   SparseArray<Text> &texts,
                   SparseArray<Selectable> &selectables);
+  void operator()(ECS &ecs, const ChangeKey &e_changeK,
+                  SparseArray<Window> &windows);
 
 private:
   sf::RenderWindow _window;
