@@ -42,7 +42,7 @@ auto SparseArray<Component>::operator=(SparseArray &&other) noexcept -> SparseAr
 template <typename Component>
 auto SparseArray<Component>::operator[](size_t idx) -> reference_type
 {
-    if (idx > _data.size())
+    if (idx >= _data.size())
         _data.resize(idx+1);
     return _data[idx];
 }
@@ -50,7 +50,7 @@ auto SparseArray<Component>::operator[](size_t idx) -> reference_type
 template <typename Component>
 auto SparseArray<Component>::operator[](size_t idx) const -> const_reference_type
 {
-    if (idx > _data.size()) {
+    if (idx >= _data.size()) {
         static const value_type temp = std::nullopt;
         return temp;
     }

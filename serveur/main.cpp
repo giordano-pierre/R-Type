@@ -1,4 +1,6 @@
-
+#include "GameLogicSystem.hpp"
+#include "ScoreManager.hpp"
+#include "ServerCore.hpp"
 #include <iostream>
 #include "UDPServer.hpp"
 #include "ServerHandlerSystem.hpp"
@@ -25,3 +27,15 @@ int main() {
     }
     return 0;
 }
+
+// int main() {
+//   try {
+//     ECS ecs;
+//     Server server(ecs);
+//     server.run();
+//   } catch (const std::exception &e) {
+//     std::cerr << "Server error: " << e.what() << std::endl;
+//     return 1;
+//   }
+//   return 0;
+// }

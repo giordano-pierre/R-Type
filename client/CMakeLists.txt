@@ -7,13 +7,39 @@ set(SRC
     src/client_file.cpp
     src/UDPClient.cpp
     src/ClientHandlerSystem.cpp
+    src/client_main.cpp
+    src/TextureManager.cpp
+    src/components/Drawable.cpp
+    src/components/Position.cpp
+    src/components/Velocity.cpp
+    src/components/Playable.cpp
+    src/components/Tag.cpp
+    src/components/Window.cpp
+    src/components/Hitbox.cpp
+    src/components/Text.cpp
+    src/components/Selectable.cpp
+    src/events/FrameEvent.cpp
+    src/events/TicEvent.cpp
+    src/systems/FrameSys.cpp
+    src/systems/MoveSys.cpp
+    src/systems/WindowSys.cpp
+    src/systems/PauseSys.cpp
+    src/systems/BorderSys.cpp
+    src/systems/ShootSys.cpp
+    src/systems/CheatSys.cpp
+    src/systems/SelectSys.cpp
+    src/systems/PressButtonSys.cpp
+    src/buttonFunctions.cpp
+    src/createEntities.cpp
+    src/loadSystems.cpp
+    src/tools.cpp
 )
 
 add_executable(r-type_client ${SRC})
 
 find_package(SFML COMPONENTS system window graphics audio CONFIG REQUIRED)
 
-target_link_libraries(r-type_client PRIVATE sfml-system sfml-network sfml-graphics sfml-window sfml-audio)
+target_link_libraries(r-type_client PRIVATE ECS sfml-system sfml-network sfml-graphics sfml-window sfml-audio)
 
 target_link_libraries(r-type_client
     PUBLIC
