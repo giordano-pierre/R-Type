@@ -14,8 +14,7 @@ class ECS {
 public:
   using callback_type = std::function<void(void)>;
 
-  template <class Event>
-  struct EventSystem {
+  template <class Event> struct EventSystem {
     std::function<void(ECS &, const Event &)> lambda;
     bool permanent;
   };
