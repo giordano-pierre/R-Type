@@ -14,9 +14,12 @@ public:
   using callback_type = std::function<void(void)>;
 
   template <class Event>
-  using system_type = std::function<void(ECS &, const Event &)>;
+  struct EventSystem {
+    std::function<void(ECS &, const Event &)> lambda;
+    bool permanent;
+  };
 
-  template <class Event> using systems_type = std::vector<system_type<Event>>;
+  template <class Event> using systems_type = std::vector<EventSystem<Event>>;
 
   using event_type = std::any;
 
