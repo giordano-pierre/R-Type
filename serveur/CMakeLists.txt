@@ -2,7 +2,6 @@ project(r-type_server VERSION 1.0 LANGUAGES CXX)
 
 set(SRC
     main.cpp
-    src/server_file.cpp
     src/ServerHandlerSystem.cpp
     src/UDPServer.cpp
     src/ServerCore.cpp
