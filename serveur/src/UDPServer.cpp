@@ -25,14 +25,13 @@ void UDPServer::parse_request(const json &parsed_json)
     try
     {
         std::string client_uuid = parsed_json.at("client_uuid").get<std::string>();
-        int action_id = parsed_json.at("action_id").get<int>();
+        NetworkActions action_id = parsed_json.at("action_id").get<NetworkActions>();
         json payload = parsed_json.at("payload");
 
         std::cout << "Client UUID: " << client_uuid << std::endl;
         std::cout << "Action ID: " << action_id << std::endl;
         std::cout << "Payload: " << payload.dump() << std::endl;
-
-        // handle_action(client_uuid, action_id, payload);
+        ecs_.post<ReceiveEvent>({action_id, payload, client_uuid});
     }
     catch (const std::exception &e)
     {
@@ -65,14 +64,14 @@ void UDPServer::handle_receive(std::size_t bytes_recvd)
         json received_json = json::from_bson(bson_data);
         std::cout << "RECEIVE [" << received_json.dump() << "]" << std::endl;
 
-        if (received_json.contains("action") && received_json["action"] == "connect")
+        if (received_json.at("action_id").get<NetworkActions>() == NetworkActions::CONNECT)
         {
             std::string new_uuid = get_new_uuid();
             std::cout << "New client with uuid = " << new_uuid << std::endl;
             clients_endpoint_[new_uuid] = remote_endpoint_;
 
             json response_json = {{"client_uuid", new_uuid}};
-            start_send(new_uuid, response_json);
+            ecs_.post<ReceiveEvent>({NetworkActions::NEW_CLIENT, response_json, new_uuid});
         }
         else
         {
@@ -86,11 +85,11 @@ void UDPServer::handle_receive(std::size_t bytes_recvd)
     start_receive();
 }
 
-void UDPServer::start_send(const std::string &client_id, const json &message)
+void UDPServer::operator()(ECS &ecs, const RequestEvent &req_event)
 {
     std::cout << "start_send" << std::endl;
 
-    std::vector<uint8_t> bson_data = json::to_bson(message);
+    std::vector<uint8_t> bson_data = json::to_bson({{"action_id", (int)req_event.action}, {"payload", req_event.payload}});
     uint32_t message_size = static_cast<uint32_t>(bson_data.size());
     uint32_t network_size = htonl(message_size);
 
@@ -100,17 +99,20 @@ void UDPServer::start_send(const std::string &client_id, const json &message)
     std::memcpy(buffer.data(), &network_size, sizeof(network_size));
 
     std::memcpy(buffer.data() + sizeof(network_size), bson_data.data(), bson_data.size());
-    if (clients_endpoint_.find(client_id) == clients_endpoint_.end())
-    {
-        std::cerr << "[NETWORK] client id " << client_id << " not in the database" << std::endl;
-        return;
-    }
-    socket_.async_send_to(
-        boost::asio::buffer(buffer), clients_endpoint_[client_id],
-        [this](boost::system::error_code, std::size_t)
+    if (req_event.receiver_uuid.length() != 0) {
+        if (clients_endpoint_.find(req_event.receiver_uuid) == clients_endpoint_.end())
         {
-            start_receive();
-        });
+            std::cerr << "[NETWORK] client id " << req_event.receiver_uuid << " not in the database" << std::endl;
+            return;
+        }
+        socket_.async_send_to(
+            boost::asio::buffer(buffer), clients_endpoint_[req_event.receiver_uuid],
+            [this](boost::system::error_code, std::size_t)
+            {
+                start_receive();
+            });
+    }
+    // ADD else : send the message to everyone (loop on clients_endpoint_)
 }
 
 std::string UDPServer::get_new_uuid()

@@ -9,14 +9,18 @@
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
+#include "ECS/ECS.hpp"
+#include "RequestEvent.hpp"
+#include "ReceiveEvent.hpp"
+#include "NetworkActions.hpp"
 
 using boost::asio::ip::udp;
 using json = nlohmann::json;
 
 class UDPServer {
 public:
-    UDPServer(const boost::asio::ip::port_type &port)
-        : io_context_(), socket_(io_context_, udp::endpoint(udp::v4(), port)),
+    UDPServer(ECS &ecs, const boost::asio::ip::port_type &port)
+        : ecs_(ecs), io_context_(), socket_(io_context_, udp::endpoint(udp::v4(), port)),
         clients_endpoint_(), buffer_(), port_(port) {
 
         std::cout << "Server running on port: " << port_ << std::endl;
@@ -37,9 +41,11 @@ public:
         context_thread_.join();
     }
 
-    void start_send(const std::string& client_id, const json& message_json);
+    void operator()(ECS &ecs, const RequestEvent &req_event);
+    // void start_send(const std::string& client_id, const json& message_json);
 
 private:
+    ECS &ecs_;
     boost::uuids::random_generator uuid_generator_;
     boost::asio::io_context io_context_;
     udp::socket socket_;
