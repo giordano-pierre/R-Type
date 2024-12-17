@@ -60,14 +60,14 @@ void LevelManager::spawnEnemy(const EnemySpawn &spawn) {
   Entity enemy = ecs.spawn_entity();
 
   ecs.emplace_component<Position>(enemy, spawn.x, spawn.y);
-  ecs.emplace_component<Velocity>(enemy, spawn.speed, 0.0f);
+  ecs.emplace_component<Velocity>(enemy, spawn.speed, 0.0f, true);
   ecs.emplace_component<Health>(enemy, spawn.health, spawn.health);
   ecs.emplace_component<EnemyData>(enemy, 0, spawn.pointValue);
 
   if (spawn.type == "shooter") {
     ecs.emplace_component<Damage>(enemy, 20);
   } else if (spawn.type == "boss") {
-    ecs.emplace_component<Damage>(enemy, "50");
+    ecs.emplace_component<Damage>(enemy, 50);
   }
 }
 
