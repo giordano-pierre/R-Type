@@ -6,9 +6,9 @@
 */
 
 #include "systems/WindowSys.hpp"
-#include "events/InputEvent.hpp"
-#include "components/Pressable.hpp"
 #include "buttonFunctions.hpp"
+#include "components/Pressable.hpp"
+#include "events/InputEvent.hpp"
 
 namespace Rtype::Client {
 
