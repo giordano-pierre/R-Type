@@ -17,13 +17,13 @@
 #include "ecs/implementation/event/InputEvent/InputEvent.hpp"
 
 struct VelocitySys {
-    VelocitySys() = default;
-    ~VelocitySys() = default;
+  VelocitySys() = default;
+  ~VelocitySys() = default;
 
-    auto operator()(ECS &ecs, const FrameEvent &e_frame,
-                    SparseArray<Position> &positions,
-                    const SparseArray<Velocity> &velocities) -> void;
+  auto operator()(ECS &ecs, const FrameEvent &e_frame,
+                  SparseArray<Position> &positions,
+                  const SparseArray<Velocity> &velocities) -> void;
 
-    auto operator()(ECS &ecs, const InputEvent &e_input,
-                    SparseArray<Velocity> &velocities) -> void;
+  auto operator()(ECS &ecs, const InputEvent &e_input,
+                  SparseArray<Velocity> &velocities) -> void;
 };

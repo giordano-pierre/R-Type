@@ -7,8 +7,8 @@
 
 #include "components/Playable.hpp"
 
-auto operator<<(std::ostream &out, const Rtype::Client::Playable &player)
-    -> std::ostream & {
+auto operator<<(std::ostream &out,
+                const Rtype::Client::Playable &player) -> std::ostream & {
   out << "is the Player " << player._id;
   return out;
 }

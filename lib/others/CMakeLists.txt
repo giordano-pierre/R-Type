@@ -2,4 +2,4 @@ add_library(Systems STATIC
     test.cpp
 )
 
-target_include_directories(Systems PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/systems/include)
+target_include_directories(Systems PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/systems/include ${CMAKE_CURRENT_SOURCE_DIR}/events/include)
