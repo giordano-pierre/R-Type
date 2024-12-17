@@ -108,7 +108,7 @@ auto ECS::get_events() const -> const systems_type<Event> &
 }
 
 template <class Event, class ... Components, typename System>
-auto ECS::subscribe(System &&system) -> void
+auto ECS::subscribe(System &&system, bool permanent) -> void
 {
     auto lambda = [this, sys = std::move(system)](ECS &ecs, const Event &ev) {
         sys(ecs, ev, get_components<Components>()...);
@@ -120,7 +120,7 @@ auto ECS::subscribe(System &&system) -> void
 }
 
 template <class Event, class ... Components, typename System>
-auto ECS::subscribe(System &system) -> void
+auto ECS::subscribe(System &system, bool permanent) -> void
 {
     auto lambda = [this, &system](ECS &ecs, const Event &ev) {
         system(ecs, ev, get_components<Components>()...);
@@ -132,7 +132,7 @@ auto ECS::subscribe(System &system) -> void
 }
 
 template <class Event, class ... Components, typename System>
-auto ECS::subscribe(const System &system) -> void
+auto ECS::subscribe(const System &system, bool permanent) -> void
 {
     auto lambda = [this, &system](ECS &ecs, const Event &ev) {
         system(ecs, ev, get_components<Components>()...);
@@ -141,6 +141,20 @@ auto ECS::subscribe(const System &system) -> void
     systems_type<Event> &event_array = get_events<Event>();
 
     event_array.push_back(lambda);
+}
+
+template <class Event>
+auto ECS::clean() -> void
+{
+    auto event = std::type_index(typeid(Event));
+    systems_type<Event> &event_array = get_events<Event>();
+
+    event_array.erase(
+        std::remove_if(event_array.begin(), event_array.end(), [](const auto &system) {
+            return !system.permanent;
+        }),
+        event_array.end()
+    );
 }
 
 template <class Event> auto ECS::post(const Event &event) -> void

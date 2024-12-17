@@ -11,6 +11,8 @@
 #include "ecsObjects.hpp"
 #include "loadSystems.hpp"
 #include "tools.hpp"
+#include "ClientHandlerSystem.hpp"
+#include "UDPClient.hpp"
 
 int main(void) {
   // int mainTestGame (void) {
@@ -89,3 +91,31 @@ int main(void) {
   }
   return 0;
 }
+
+// int main() {
+//   // Gui gui("../assets/graphisme/lunar_pirate.gif", 49, 30);
+//   // gui.run();
+
+//   try {
+//     ECS ecs;
+//     ClientHandlerSystem client_handler;
+//     UDPClient client(ecs, "127.0.0.1", "4242");
+//     ecs.register_event<RequestEvent>();
+//     ecs.register_event<ReceiveEvent>();
+//     ecs.subscribe<RequestEvent>(client);
+//     ecs.subscribe<ReceiveEvent>(client_handler);
+//     ecs.post<RequestEvent>({NetworkActions::CONNECT, {"action", "connect"}});
+//     while (true) {
+//       if (!ecs.empty()) {
+//         auto &callback = ecs.front();
+//         callback();
+//         ecs.pop_front();
+//       }
+//     };
+//     while (true) {
+//     };
+//   } catch (std::exception &e) {
+//     std::cerr << "Error: " << e.what() << std::endl;
+//   }
+//   return 0;
+// }
