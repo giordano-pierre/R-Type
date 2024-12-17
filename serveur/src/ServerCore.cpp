@@ -29,6 +29,14 @@ void Server::update() {
   processNetworkEvents();
 }
 
+void Server::queueCommand(std::function<void()> command) {}
+
+void Server::reset() {}
+
+void Server::handleCollisions() {}
+
+void Server::processNetworkEvents() {}
+
 void Server::run() {
   gameLogicSystem.startGame();
 
@@ -56,4 +64,5 @@ void Server::run() {
           std::chrono::duration<float>(TICK_DURATION - loopDuration));
     }
   }
+
 }
