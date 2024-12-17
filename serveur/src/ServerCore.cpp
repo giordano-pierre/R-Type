@@ -64,5 +64,4 @@ void Server::run() {
           std::chrono::duration<float>(TICK_DURATION - loopDuration));
     }
   }
-
 }
