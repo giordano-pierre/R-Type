@@ -35,7 +35,6 @@ def install_linux_dependencies():
     try:
         if shutil.which("apt"):
             print("Utilisation de apt pour installer les dépendances (Debian/Ubuntu).")
-            subprocess.run(["sudo", "apt", "update"], check=True)
             subprocess.run([
                 "sudo", "apt", "install", "-y",
                 "libx11-dev", "libxrandr-dev", "libxcursor-dev", "libxi-dev",
