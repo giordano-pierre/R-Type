@@ -64,6 +64,12 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y doxygen graphviz
+      - name: Check for Doxyfile
+        run: |
+          if [ ! -f Doxyfile ]; then
+            echo "Doxyfile not found. Generating a default one."
+            doxygen -g
+          fi
       - name: Generate Documentation
         run: |
           doxygen Doxyfile
