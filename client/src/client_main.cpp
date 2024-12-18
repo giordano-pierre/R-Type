@@ -72,10 +72,10 @@ int main(void) {
       },
       true);
 
-  ecs.post<Rtype::Client::CreateEvent>({Rtype::Client::MENU});
+  ecs.post<Rtype::Client::CreateEvent>({Rtype::Client::PLAYER});
 
-  Rtype::Client::loadMenuSystem(ecs);
-  // Rtype::Client::loadGameSystem(ecs);
+  // Rtype::Client::loadMenuSystem(ecs);
+  Rtype::Client::loadGameSystem(ecs);
 
   const auto FPS = 60;
   const timer::duration<double, std::ratio<1, FPS>> frameRate(1);

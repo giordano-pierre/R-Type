@@ -78,14 +78,14 @@ void WindowSys::updateInfo(SparseArray<Position> &positions,
 
 void WindowSys::drawSprite(SparseArray<Position> &positions,
                            SparseArray<Hitbox> &hitboxs,
-                           SparseArray<Drawable> &sprites) {
+                           SparseArray<Drawable> &sprites, int order) {
   for (size_t i = 0;
        i < positions.size() && i < hitboxs.size() && i < sprites.size(); ++i) {
     auto &pos = positions[i];
     auto &box = hitboxs[i];
     auto &sprite = sprites[i];
 
-    if (pos && box && sprite) {
+    if (pos && box && sprite && sprite.value()._order == order) {
       sprite.value()._sprite.setPosition(
           {pos.value()._client.x, pos.value()._client.y});
       sprite.value()._sprite.setTextureRect(sprite.value()._rectangle);
@@ -212,7 +212,8 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
   sf::Vector2u sizeWindow = _window.getSize();
 
   updateInfo(positions, hitboxs, isResize, sizeWindow, serverSize);
-  drawSprite(positions, hitboxs, sprites);
+  for (int i = 0; i <= 3; i++)
+    drawSprite(positions, hitboxs, sprites, i);
   drawSel(positions, hitboxs, selectables);
   drawText(positions, hitboxs, texts, isResize, sizeWindow, serverSize);
   drawHitboxes(positions, hitboxs, displayHitbox);
