@@ -19,7 +19,7 @@ int main() {
         std::signal(SIGTERM, signalHandler);
 
         ECS ecs;
-        Server server;
+        Server server(ecs);
         serverInstance = &server;
 
         std::cout << "Attention!!! \nDémarrage du serveur R-Type...\n"
