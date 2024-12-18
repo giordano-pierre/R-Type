@@ -14,13 +14,13 @@
 
 namespace Rtype::Client {
 struct Pressable {
-  Pressable(std::shared_ptr<sf::Texture> texture,
-            std::function<void(ECS &, Entity)> press, int link = 0)
-      : _texture(texture), _press(press), _link(link){};
-  ~Pressable() = default;
-  std::shared_ptr<sf::Texture> _texture;
-  std::function<void(ECS &, Entity)> _press;
-  int _link;
+    Pressable(std::shared_ptr<sf::Texture> texture,
+              std::function<void(ECS &, Entity)> press, int link = 0)
+        : _texture(texture), _press(press), _link(link){};
+    ~Pressable() = default;
+    std::shared_ptr<sf::Texture> _texture;
+    std::function<void(ECS &, Entity)> _press;
+    int _link;
 
     bool _isPressed = false;
 };

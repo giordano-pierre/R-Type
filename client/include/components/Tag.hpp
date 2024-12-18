@@ -13,10 +13,10 @@
 
 namespace Rtype::Client {
 struct Tag {
-  Tag(ObjectType type, size_t id = 0) : _type(type), _id(id){};
-  ~Tag() = default;
-  ObjectType _type;
-  size_t _id;
+    Tag(ObjectType type, size_t id = 0) : _type(type), _id(id){};
+    ~Tag() = default;
+    ObjectType _type;
+    size_t _id;
 };
 } // namespace Rtype::Client
 std::ostream &operator<<(std::ostream &out, const Rtype::Client::Tag &type);

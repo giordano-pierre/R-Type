@@ -12,12 +12,12 @@ namespace Rtype::Client {
 Window::Window(const std::string &fontPath, TupleUInt size,
                TupleUInt serverSize)
     : _size(size), _serverSize(serverSize) {
-  initGeneralInput(_inputConfig.first);
-  initPlay1Input(_inputConfig);
-  initPlay2Input(_inputConfig);
-  sf::Font tmp = sf::Font();
-  tmp.loadFromFile(fontPath);
-  _font = std::make_shared<sf::Font>(tmp);
+    initGeneralInput(_inputConfig.first);
+    initPlay1Input(_inputConfig);
+    initPlay2Input(_inputConfig);
+    sf::Font tmp = sf::Font();
+    tmp.loadFromFile(fontPath);
+    _font = std::make_shared<sf::Font>(tmp);
 }
 
 } // namespace Rtype::Client

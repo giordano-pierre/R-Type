@@ -7,9 +7,7 @@
 #include <iostream>
 
 #include "ClientHandlerSystem.hpp"
-#include "ClientHandlerSystem.hpp"
 #include "ECS/ECS.hpp"
-#include "UDPClient.hpp"
 #include "UDPClient.hpp"
 #include "createEntities.hpp"
 #include "ecsObjects.hpp"
@@ -17,8 +15,8 @@
 #include "tools.hpp"
 
 int main(void) {
-  Rtype::Client::TupleUInt serverSize = {1920, 1080};
-  ECS ecs;
+    Rtype::Client::TupleUInt serverSize = {1920, 1080};
+    ECS ecs;
 
     ecs.register_component<Rtype::Client::Window>();
     ecs.register_component<Rtype::Client::Tag>();
@@ -31,53 +29,54 @@ int main(void) {
     ecs.register_component<Rtype::Client::Text>();
     ecs.register_component<Rtype::Client::Pressable>();
 
-  ecs.register_event<Rtype::Client::FrameEvent>();
-  ecs.register_event<Rtype::Client::InputEvent>();
-  ecs.register_event<Rtype::Client::TicEvent>();
-  ecs.register_event<Rtype::Client::ChangeKey>();
-  ecs.register_event<Rtype::Client::CreateEvent>();
-  ecs.register_event<Rtype::Client::DeleteEvent>();
+    ecs.register_event<Rtype::Client::FrameEvent>();
+    ecs.register_event<Rtype::Client::InputEvent>();
+    ecs.register_event<Rtype::Client::TicEvent>();
+    ecs.register_event<Rtype::Client::ChangeKey>();
+    ecs.register_event<Rtype::Client::CreateEvent>();
+    ecs.register_event<Rtype::Client::DeleteEvent>();
 
-  Entity window = ecs.spawn_entity();
-  ecs.add_component<Rtype::Client::Tag>(window, {Rtype::Client::WINDOW});
-  ecs.add_component<Rtype::Client::Window>(
-      window, {"assets/font/retro_gaming.ttf", {1440, 810}, serverSize});
+    Entity window = ecs.spawn_entity();
+    ecs.add_component<Rtype::Client::Tag>(window, {Rtype::Client::WINDOW});
+    ecs.add_component<Rtype::Client::Window>(
+        window, {"assets/font/retro_gaming.ttf", {1440, 810}, serverSize});
 
-  auto lifeSys = Rtype::Client::LifeSys();
-  ecs.subscribe<Rtype::Client::CreateEvent>(lifeSys, true);
-  ecs.subscribe<Rtype::Client::DeleteEvent, Rtype::Client::Tag>(lifeSys, true);
-
-  auto windowSys = Rtype::Client::WindowSys(
-      {1920, 1080, 32}, "R-type", sf::Style::Titlebar | sf::Style::Close);
-  ecs.subscribe<Rtype::Client::FrameEvent, Rtype::Client::Window,
-                Rtype::Client::Position, Rtype::Client::Hitbox,
-                Rtype::Client::Drawable, Rtype::Client::Text,
-                Rtype::Client::Selectable>(windowSys, true);
-  ecs.subscribe<Rtype::Client::ChangeKey, Rtype::Client::Window>(windowSys,
-                                                                 true);
-
-  auto cheatSys = Rtype::Client::CheatSys();
-  ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Window>(cheatSys,
+    auto lifeSys = Rtype::Client::LifeSys();
+    ecs.subscribe<Rtype::Client::CreateEvent>(lifeSys, true);
+    ecs.subscribe<Rtype::Client::DeleteEvent, Rtype::Client::Tag>(lifeSys,
                                                                   true);
 
-  auto frameSys = Rtype::Client::FrameSys();
-  ecs.subscribe<Rtype::Client::FrameEvent, Rtype::Client::Drawable>(frameSys,
+    auto windowSys = Rtype::Client::WindowSys(
+        {1920, 1080, 32}, "R-type", sf::Style::Titlebar | sf::Style::Close);
+    ecs.subscribe<Rtype::Client::FrameEvent, Rtype::Client::Window,
+                  Rtype::Client::Position, Rtype::Client::Hitbox,
+                  Rtype::Client::Drawable, Rtype::Client::Text,
+                  Rtype::Client::Selectable>(windowSys, true);
+    ecs.subscribe<Rtype::Client::ChangeKey, Rtype::Client::Window>(windowSys,
+                                                                   true);
+
+    auto cheatSys = Rtype::Client::CheatSys();
+    ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Window>(cheatSys,
                                                                     true);
 
-  bool running = true;
-  ecs.subscribe<Rtype::Client::InputEvent>(
-      [&running](ECS &, const Rtype::Client::InputEvent &e_input) -> void {
-        if (e_input._myEvent == Rtype::Client::QUIT ||
-            e_input._event.type == sf::Event::Closed) {
-          running = false;
-        }
-      },
-      true);
+    auto frameSys = Rtype::Client::FrameSys();
+    ecs.subscribe<Rtype::Client::FrameEvent, Rtype::Client::Drawable>(frameSys,
+                                                                      true);
 
-  ecs.post<Rtype::Client::CreateEvent>({Rtype::Client::MENU});
+    bool running = true;
+    ecs.subscribe<Rtype::Client::InputEvent>(
+        [&running](ECS &, const Rtype::Client::InputEvent &e_input) -> void {
+            if (e_input._myEvent == Rtype::Client::QUIT ||
+                e_input._event.type == sf::Event::Closed) {
+                running = false;
+            }
+        },
+        true);
 
-  Rtype::Client::loadMenuSystem(ecs);
-  // Rtype::Client::loadGameSystem(ecs);
+    ecs.post<Rtype::Client::CreateEvent>({Rtype::Client::MENU});
+
+    Rtype::Client::loadMenuSystem(ecs);
+    // Rtype::Client::loadGameSystem(ecs);
 
     const auto FPS = 60;
     const timer::duration<double, std::ratio<1, FPS>> frameRate(1);

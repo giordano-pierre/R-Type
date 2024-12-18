@@ -79,22 +79,23 @@ void WindowSys::updateInfo(SparseArray<Position> &positions,
 void WindowSys::drawSprite(SparseArray<Position> &positions,
                            SparseArray<Hitbox> &hitboxs,
                            SparseArray<Drawable> &sprites, int order) {
-  for (size_t i = 0;
-       i < positions.size() && i < hitboxs.size() && i < sprites.size(); ++i) {
-    auto &pos = positions[i];
-    auto &box = hitboxs[i];
-    auto &sprite = sprites[i];
+    for (size_t i = 0;
+         i < positions.size() && i < hitboxs.size() && i < sprites.size();
+         ++i) {
+        auto &pos = positions[i];
+        auto &box = hitboxs[i];
+        auto &sprite = sprites[i];
 
-    if (pos && box && sprite && sprite.value()._order == order) {
-      sprite.value()._sprite.setPosition(
-          {pos.value()._client.x, pos.value()._client.y});
-      sprite.value()._sprite.setTextureRect(sprite.value()._rectangle);
-      sprite.value()._sprite.setScale(
-          {box.value()._client.x / sprite.value()._sizeFrame.x,
-           box.value()._client.y / sprite.value()._sizeFrame.y});
-      _window.draw(sprite.value()._sprite);
+        if (pos && box && sprite && sprite.value()._order == order) {
+            sprite.value()._sprite.setPosition(
+                {pos.value()._client.x, pos.value()._client.y});
+            sprite.value()._sprite.setTextureRect(sprite.value()._rectangle);
+            sprite.value()._sprite.setScale(
+                {box.value()._client.x / sprite.value()._sizeFrame.x,
+                 box.value()._client.y / sprite.value()._sizeFrame.y});
+            _window.draw(sprite.value()._sprite);
+        }
     }
-  }
 }
 
 void WindowSys::drawSel(SparseArray<Position> &positions,
@@ -128,43 +129,45 @@ void WindowSys::drawText(SparseArray<Position> &positions,
         auto &box = hitboxs[i];
         auto &tex = texts[i];
 
-    if (pos && box && tex) {
-      if (tex.value()._needUpdate) {
-        tex.value()._text.setFillColor(tex.value()._color);
-        tex.value()._text.setStyle(tex.value()._style);
-      }
-      unsigned int charSize =
-          tex.value()._charSize * sizeClient.x / serverSize.x;
-      tex.value()._text.setCharacterSize(charSize);
-      auto currentSize = tex.value()._text.getLocalBounds();
-      tex.value()._text.setOrigin(
-          {0, (currentSize.top + currentSize.height) / 2});
-      TupleFloat boxOrigine = {
-          pos.value()._client.x - (box.value()._client.x / 2),
-          pos.value()._client.y - (box.value()._client.y / 2)};
-      if (tex.value()._pos == 0.0)
-        tex.value()._text.setPosition(
-            {pos.value()._client.x - (currentSize.left + currentSize.width) / 2,
-             pos.value()._client.y});
-      else if (tex.value()._pos < 0) {
-        auto tmp = std::min(box.value()._client.x * tex.value()._pos * -1,
-                            box.value()._client.x -
-                                (currentSize.left + currentSize.width));
-        tex.value()._text.setPosition(
-            {pos.value()._client.x + (box.value()._client.x / 2) - tmp -
-                 (currentSize.left + currentSize.width),
-             pos.value()._client.y});
-      } else {
-        auto tmp = std::min(box.value()._client.x * tex.value()._pos,
-                            box.value()._client.x -
-                                (currentSize.left + currentSize.width));
-        tex.value()._text.setPosition(
-            {pos.value()._client.x - (box.value()._client.x / 2) + tmp,
-             pos.value()._client.y});
-      }
-      _window.draw(tex.value()._text);
+        if (pos && box && tex) {
+            if (tex.value()._needUpdate) {
+                tex.value()._text.setFillColor(tex.value()._color);
+                tex.value()._text.setStyle(tex.value()._style);
+            }
+            unsigned int charSize =
+                tex.value()._charSize * sizeClient.x / serverSize.x;
+            tex.value()._text.setCharacterSize(charSize);
+            auto currentSize = tex.value()._text.getLocalBounds();
+            tex.value()._text.setOrigin(
+                {0, (currentSize.top + currentSize.height) / 2});
+            TupleFloat boxOrigine = {
+                pos.value()._client.x - (box.value()._client.x / 2),
+                pos.value()._client.y - (box.value()._client.y / 2)};
+            if (tex.value()._pos == 0.0)
+                tex.value()._text.setPosition(
+                    {pos.value()._client.x -
+                         (currentSize.left + currentSize.width) / 2,
+                     pos.value()._client.y});
+            else if (tex.value()._pos < 0) {
+                auto tmp =
+                    std::min(box.value()._client.x * tex.value()._pos * -1,
+                             box.value()._client.x -
+                                 (currentSize.left + currentSize.width));
+                tex.value()._text.setPosition(
+                    {pos.value()._client.x + (box.value()._client.x / 2) - tmp -
+                         (currentSize.left + currentSize.width),
+                     pos.value()._client.y});
+            } else {
+                auto tmp = std::min(box.value()._client.x * tex.value()._pos,
+                                    box.value()._client.x -
+                                        (currentSize.left + currentSize.width));
+                tex.value()._text.setPosition(
+                    {pos.value()._client.x - (box.value()._client.x / 2) + tmp,
+                     pos.value()._client.y});
+            }
+            _window.draw(tex.value()._text);
+        }
     }
-  }
 }
 
 void WindowSys::drawHitboxes(SparseArray<Position> &positions,
@@ -213,13 +216,13 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
         resizeWindow(windows[0].value()._size, isResize);
     sf::Vector2u sizeWindow = _window.getSize();
 
-  updateInfo(positions, hitboxs, isResize, sizeWindow, serverSize);
-  for (int i = 0; i <= 3; i++)
-    drawSprite(positions, hitboxs, sprites, i);
-  drawSel(positions, hitboxs, selectables);
-  drawText(positions, hitboxs, texts, isResize, sizeWindow, serverSize);
-  drawHitboxes(positions, hitboxs, displayHitbox);
-  _window.display();
+    updateInfo(positions, hitboxs, isResize, sizeWindow, serverSize);
+    for (int i = 0; i <= 3; i++)
+        drawSprite(positions, hitboxs, sprites, i);
+    drawSel(positions, hitboxs, selectables);
+    drawText(positions, hitboxs, texts, isResize, sizeWindow, serverSize);
+    drawHitboxes(positions, hitboxs, displayHitbox);
+    _window.display();
 
     sf::Event event;
 
@@ -228,35 +231,35 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
 }
 
 bool isBanKey(sf::Keyboard::Key key) {
-  if (key == sf::Keyboard::H)
-    return true;
-  return false;
+    if (key == sf::Keyboard::H)
+        return true;
+    return false;
 }
 
 void updateMore(std::pair<std::map<Rtype::Client::UserInput, sf::Keyboard::Key>,
                           std::map<Rtype::Client::UserInput, sf::Keyboard::Key>>
                     &inputConfigs,
                 const UserInput &userInput) {
-  switch (userInput) {
-  case UP1P:
-    inputConfigs.second.find(UP1R)->second =
-        inputConfigs.first.find(UP1P)->second;
-    break;
-  case DOWN1P:
-    inputConfigs.second.find(DOWN1R)->second =
-        inputConfigs.first.find(DOWN1P)->second;
-    break;
-  case LEFT1P:
-    inputConfigs.second.find(LEFT1R)->second =
-        inputConfigs.first.find(LEFT1P)->second;
-    break;
-  case RIGHT1P:
-    inputConfigs.second.find(RIGHT1R)->second =
-        inputConfigs.first.find(RIGHT1P)->second;
-    break;
-  default:
-    return;
-  }
+    switch (userInput) {
+    case UP1P:
+        inputConfigs.second.find(UP1R)->second =
+            inputConfigs.first.find(UP1P)->second;
+        break;
+    case DOWN1P:
+        inputConfigs.second.find(DOWN1R)->second =
+            inputConfigs.first.find(DOWN1P)->second;
+        break;
+    case LEFT1P:
+        inputConfigs.second.find(LEFT1R)->second =
+            inputConfigs.first.find(LEFT1P)->second;
+        break;
+    case RIGHT1P:
+        inputConfigs.second.find(RIGHT1R)->second =
+            inputConfigs.first.find(RIGHT1P)->second;
+        break;
+    default:
+        return;
+    }
 }
 
 void updateOneMap(
@@ -265,15 +268,15 @@ void updateOneMap(
         &inputConfig,
     std::map<Rtype::Client::UserInput, sf::Keyboard::Key>::iterator &it,
     sf::Keyboard::Key key) {
-  for (auto &[keyMap, value] : inputConfig.first) {
-    if (keyMap == ENTER)
-      continue;
-    if (value == key)
-      value = it->second;
-    updateMore(inputConfig, keyMap);
-  }
-  it->second = key;
-  updateMore(inputConfig, it->first);
+    for (auto &[keyMap, value] : inputConfig.first) {
+        if (keyMap == ENTER)
+            continue;
+        if (value == key)
+            value = it->second;
+        updateMore(inputConfig, keyMap);
+    }
+    it->second = key;
+    updateMore(inputConfig, it->first);
 }
 
 bool updateConfigs(
@@ -281,36 +284,36 @@ bool updateConfigs(
               std::map<Rtype::Client::UserInput, sf::Keyboard::Key>>
         &inputConfigs,
     const ChangeKey e_changeK, sf::Keyboard::Key key) {
-  if (isBanKey(key))
-    return true;
-  auto it = inputConfigs.first.find(e_changeK._key);
-  if (it != inputConfigs.first.end()) {
-    updateOneMap(inputConfigs, it, key);
-    return false;
-  }
+    if (isBanKey(key))
+        return true;
+    auto it = inputConfigs.first.find(e_changeK._key);
+    if (it != inputConfigs.first.end()) {
+        updateOneMap(inputConfigs, it, key);
+        return false;
+    }
 
-  // it = inputConfigs.second.find(e_changeK._key);
-  // if (it != inputConfigs.second.end()) {
-  //   updateOneMap(inputConfigs.second, it, key);
-  //   return false;
-  // }
-  return false;
+    // it = inputConfigs.second.find(e_changeK._key);
+    // if (it != inputConfigs.second.end()) {
+    //   updateOneMap(inputConfigs.second, it, key);
+    //   return false;
+    // }
+    return false;
 }
 
 void WindowSys::operator()(ECS &ecs, const ChangeKey &e_changeK,
                            SparseArray<Window> &windows) {
-  bool run = true;
-  sf::Event event;
-  if (windows.size() < 1 || !windows[0])
-    return;
-  auto &inputConfig = windows[0].value()._inputConfig;
+    bool run = true;
+    sf::Event event;
+    if (windows.size() < 1 || !windows[0])
+        return;
+    auto &inputConfig = windows[0].value()._inputConfig;
 
-  while (run) {
-    while (_window.pollEvent(event)) {
-      if (event.type == sf::Event::KeyPressed)
-        run = updateConfigs(inputConfig, e_changeK, event.key.code);
+    while (run) {
+        while (_window.pollEvent(event)) {
+            if (event.type == sf::Event::KeyPressed)
+                run = updateConfigs(inputConfig, e_changeK, event.key.code);
+        }
     }
-  }
-  press(ecs, e_changeK._i);
+    press(ecs, e_changeK._i);
 }
 } // namespace Rtype::Client

@@ -17,9 +17,9 @@
 
 namespace Rtype::Client {
 struct Window {
-  Window(const std::string &, TupleUInt = {1920, 1080},
-         TupleUInt = {1920, 1080});
-  ~Window() = default;
+    Window(const std::string &, TupleUInt = {1920, 1080},
+           TupleUInt = {1920, 1080});
+    ~Window() = default;
 
     TupleUInt _size;
     TupleUInt _serverSize;

@@ -14,11 +14,11 @@
 
 namespace Rtype::Client {
 class LifeSys {
-public:
-  LifeSys() = default;
-  ~LifeSys() = default;
+  public:
+    LifeSys() = default;
+    ~LifeSys() = default;
 
-  void operator()(ECS &ecs, const CreateEvent &e_create);
-  void operator()(ECS &ecs, const DeleteEvent &e_del, SparseArray<Tag> &tags);
+    void operator()(ECS &ecs, const CreateEvent &e_create);
+    void operator()(ECS &ecs, const DeleteEvent &e_del, SparseArray<Tag> &tags);
 };
 } // namespace Rtype::Client

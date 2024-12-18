@@ -27,37 +27,37 @@ void deselect(ECS &ecs, Entity i) {
 }
 
 void press(ECS &ecs, Entity i) {
-  auto &press = ecs.get_components<Pressable>();
-  auto &draw = ecs.get_components<Drawable>();
+    auto &press = ecs.get_components<Pressable>();
+    auto &draw = ecs.get_components<Drawable>();
 
-  if (i < press.size() && press[i] && i < draw.size() && draw[i]) {
-    if (!press[i].value()._isPressed)
-      draw[i].value()._sprite.setTexture(*press[i].value()._texture);
-    else
-      draw[i].value()._sprite.setTexture(*draw[i].value()._texture);
-    press[i].value()._isPressed = !press[i].value()._isPressed;
-  }
+    if (i < press.size() && press[i] && i < draw.size() && draw[i]) {
+        if (!press[i].value()._isPressed)
+            draw[i].value()._sprite.setTexture(*press[i].value()._texture);
+        else
+            draw[i].value()._sprite.setTexture(*draw[i].value()._texture);
+        press[i].value()._isPressed = !press[i].value()._isPressed;
+    }
 }
 
 void resize1920(ECS &ecs, Entity i) {
-  auto &myWindow = ecs.get_components<Window>()[0].value();
+    auto &myWindow = ecs.get_components<Window>()[0].value();
 
-  myWindow._size = {1920, 1080};
-  press(ecs, i);
+    myWindow._size = {1920, 1080};
+    press(ecs, i);
 }
 
 void resize1440(ECS &ecs, Entity i) {
-  auto &myWindow = ecs.get_components<Window>()[0].value();
+    auto &myWindow = ecs.get_components<Window>()[0].value();
 
-  myWindow._size = {1440, 810};
-  press(ecs, i);
+    myWindow._size = {1440, 810};
+    press(ecs, i);
 }
 
 void resize960(ECS &ecs, Entity i) {
-  auto &myWindow = ecs.get_components<Window>()[0].value();
+    auto &myWindow = ecs.get_components<Window>()[0].value();
 
-  myWindow._size = {960, 540};
-  press(ecs, i);
+    myWindow._size = {960, 540};
+    press(ecs, i);
 }
 
 } // namespace Rtype::Client

@@ -11,6 +11,6 @@
 
 namespace Rtype::Client {
 struct CreateEvent {
-  ObjectType _type;
+    ObjectType _type;
 };
 } // namespace Rtype::Client
