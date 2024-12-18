@@ -64,16 +64,29 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y doxygen graphviz
+      - name: Ensure necessary directories
+        run: |
+          if [ ! -d client ] || [ ! -d serveur ] || [ ! -d lib ] || [ ! -d doc ]; then
+            echo "Required directories (client, serveur, lib, or doc) are missing."
+            exit 1
+          fi
       - name: Generate Doxyfile if not present
         run: |
           if [ ! -f Doxyfile ]; then
             echo "Doxyfile not found. Generating a default one."
             doxygen -g
             # Update Doxyfile with the correct configuration
-            sed -i 's|^INPUT .*|INPUT = src include doc README.md|' Doxyfile
+            sed -i 's|^INPUT .*|INPUT = client/include client/src serveur/include serveur/src lib/ecs/include lib/ecs/src lib/others/events/include lib/others/systems/physics doc README.md|' Doxyfile
             sed -i 's|^FILE_PATTERNS .*|FILE_PATTERNS = *.cpp *.h *.hpp|' Doxyfile
             sed -i 's|^OUTPUT_DIRECTORY .*|OUTPUT_DIRECTORY = docs|' Doxyfile
           fi
+      - name: Save Doxyfile to repository
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git add Doxyfile
+          git commit -m "Add Doxyfile"
+          git push origin ${{ github.ref_name }}
       - name: Generate Documentation
         run: |
           doxygen Doxyfile
