@@ -12,50 +12,44 @@
 #include "events/TicEvent.hpp"
 #include "loadSystems.hpp"
 
-namespace Rtype::Client
-{
+namespace Rtype::Client {
 
-  void LifeSys::operator()(ECS &ecs, const CreateEvent &e_create)
-  {
-    // ecs.clean<FrameEvent>();
-    // ecs.clean<InputEvent>();
-    // ecs.clean<TicEvent>();
-    switch (e_create._type)
-    {
-    case MENU:
-      // loadMenuSystem(ecs);
-      createMenuEntities(ecs);
-      break;
-    case CONFIG:
-      // loadMenuSystem(ecs);
-      createConfigEntities(ecs);
-      break;
-    case CGENERAL:
-      // loadMenuSystem(ecs);
-      createConfigGeneralEntites(ecs);
-      break;
-    case CPLAYER1:
-      // loadMenuSystem(ecs);
-      createConfigPlayer1Entites(ecs);
-      break;
-    default:
-      // loadGameSystem(ecs);
-      createGameEntities(ecs);
-      return;
+void LifeSys::operator()(ECS &ecs, const CreateEvent &e_create) {
+  // ecs.clean<FrameEvent>();
+  // ecs.clean<InputEvent>();
+  // ecs.clean<TicEvent>();
+  switch (e_create._type) {
+  case MENU:
+    // loadMenuSystem(ecs);
+    createMenuEntities(ecs);
+    break;
+  case CONFIG:
+    // loadMenuSystem(ecs);
+    createConfigEntities(ecs);
+    break;
+  case CGENERAL:
+    // loadMenuSystem(ecs);
+    createConfigGeneralEntites(ecs);
+    break;
+  case CPLAYER1:
+    // loadMenuSystem(ecs);
+    createConfigPlayer1Entites(ecs);
+    break;
+  default:
+    // loadGameSystem(ecs);
+    createGameEntities(ecs);
+    return;
+  }
+}
+
+void LifeSys::operator()(ECS &ecs, const DeleteEvent &e_del,
+                         SparseArray<Tag> &tags) {
+  for (size_t i = 0; i < tags.size(); ++i) {
+    auto &tag = tags[i];
+
+    if (tag && tag.value()._type == e_del._type) {
+      ecs.kill_entity(Entity(i));
     }
   }
-
-  void LifeSys::operator()(ECS &ecs, const DeleteEvent &e_del,
-                           SparseArray<Tag> &tags)
-  {
-    for (size_t i = 0; i < tags.size(); ++i)
-    {
-      auto &tag = tags[i];
-
-      if (tag && tag.value()._type == e_del._type)
-      {
-        ecs.kill_entity(Entity(i));
-      }
-    }
-  }
+}
 } // namespace Rtype::Client
