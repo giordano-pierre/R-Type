@@ -33,7 +33,7 @@ enum ObjectType {
   MENU,
   CONFIG,
   CGENERAL,
-  CPLAYER,
+  CPLAYER1,
 };
 
 enum UserInput {

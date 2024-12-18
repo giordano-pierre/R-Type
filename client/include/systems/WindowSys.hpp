@@ -45,7 +45,7 @@ private:
                   SparseArray<Hitbox> &hitboxs, bool isResize,
                   sf::Vector2u sizeClient, TupleUInt serverSize);
   void drawSprite(SparseArray<Position> &positions,
-                  SparseArray<Hitbox> &hitboxs, SparseArray<Drawable> &sprites);
+                  SparseArray<Hitbox> &hitboxs, SparseArray<Drawable> &sprites, int order);
   void drawSel(SparseArray<Position> &positions, SparseArray<Hitbox> &hitboxs,
                SparseArray<Selectable> &selectables);
   void drawText(SparseArray<Position> &positions, SparseArray<Hitbox> &hitboxs,
