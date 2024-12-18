@@ -52,7 +52,8 @@ class WindowSys {
                  SparseArray<Selectable> &selectables);
     void drawText(SparseArray<Position> &positions,
                   SparseArray<Hitbox> &hitboxs, SparseArray<Text> &texts,
-                  bool isResize, sf::Vector2u sizeClient, TupleUInt serverSize, std::string lang);
+                  bool isResize, sf::Vector2u sizeClient, TupleUInt serverSize,
+                  std::string lang);
     void drawHitboxes(SparseArray<Position> &positions,
                       SparseArray<Hitbox> &hitboxs, bool draw);
 };

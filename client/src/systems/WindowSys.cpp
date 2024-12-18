@@ -29,8 +29,10 @@ void WindowSys::resizeWindow(TupleUInt newSize, bool &isResize) {
 
 void extractInput(
     ECS &ecs, sf::Event event,
-    const std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key, std::shared_ptr<std::string>>>,
-              std::map<UserInput, sf::Keyboard::Key>> &inputConfig) {
+    const std::pair<
+        std::map<UserInput,
+                 std::pair<sf::Keyboard::Key, std::shared_ptr<std::string>>>,
+        std::map<UserInput, sf::Keyboard::Key>> &inputConfig) {
     bool isRegister = false;
 
     if (event.type == sf::Event::KeyPressed) {
@@ -135,9 +137,11 @@ void WindowSys::drawText(SparseArray<Position> &positions,
                 tex.value()._text.setStyle(tex.value()._style);
             }
             if (tex.value()._str.find(lang) != tex.value()._str.end())
-                tex.value()._text.setString(*tex.value()._str.find(lang)->second);
+                tex.value()._text.setString(
+                    *tex.value()._str.find(lang)->second);
             else if (tex.value()._str.find("DEFAULT") != tex.value()._str.end())
-                tex.value()._text.setString(*tex.value()._str.find("DEFAULT")->second);
+                tex.value()._text.setString(
+                    *tex.value()._str.find("DEFAULT")->second);
             else
                 tex.value()._text.setString(*tex.value()._str.begin()->second);
             unsigned int charSize =
@@ -213,8 +217,10 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
     auto inputConfig =
         (windows.size() > 0 && windows[0])
             ? windows[0].value()._inputConfig
-            : std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key, std::shared_ptr<std::string>>>,
-              std::map<UserInput, sf::Keyboard::Key>>();
+            : std::pair<
+                  std::map<UserInput, std::pair<sf::Keyboard::Key,
+                                                std::shared_ptr<std::string>>>,
+                  std::map<UserInput, sf::Keyboard::Key>>();
     auto lang =
         (windows.size() > 0 && windows[0]) ? windows[0].value()._lang : "EN";
     bool isResize = false;
@@ -244,10 +250,11 @@ bool isBanKey(sf::Keyboard::Key key) {
     return false;
 }
 
-void updateMore(std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key, std::shared_ptr<std::string>>>,
-              std::map<UserInput, sf::Keyboard::Key>>
-                    &inputConfigs,
-                const UserInput &userInput) {
+void updateMore(
+    std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key,
+                                            std::shared_ptr<std::string>>>,
+              std::map<UserInput, sf::Keyboard::Key>> &inputConfigs,
+    const UserInput &userInput) {
     switch (userInput) {
     case UP1P:
         inputConfigs.second.find(UP1R)->second =
@@ -271,17 +278,19 @@ void updateMore(std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key, std::
 }
 
 void updateOneMap(
-    std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key, std::shared_ptr<std::string>>>,
-              std::map<UserInput, sf::Keyboard::Key>>
-        &inputConfig,
-    std::map<UserInput, std::pair<sf::Keyboard::Key, std::shared_ptr<std::string>>>::iterator &it,
+    std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key,
+                                            std::shared_ptr<std::string>>>,
+              std::map<UserInput, sf::Keyboard::Key>> &inputConfig,
+    std::map<UserInput, std::pair<sf::Keyboard::Key,
+                                  std::shared_ptr<std::string>>>::iterator &it,
     sf::Keyboard::Key key) {
     for (auto &[keyMap, value] : inputConfig.first) {
         if (keyMap == ENTER)
             continue;
         if (value.first == key) {
             value.first = it->second.first;
-            value.second->replace(0, value.second->size(), convertInput(it->second.first));
+            value.second->replace(0, value.second->size(),
+                                  convertInput(it->second.first));
             updateMore(inputConfig, keyMap);
         }
     }
@@ -291,9 +300,9 @@ void updateOneMap(
 }
 
 bool updateConfigs(
-    std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key, std::shared_ptr<std::string>>>,
-              std::map<UserInput, sf::Keyboard::Key>>
-        &inputConfigs,
+    std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key,
+                                            std::shared_ptr<std::string>>>,
+              std::map<UserInput, sf::Keyboard::Key>> &inputConfigs,
     const ChangeKey e_changeK, sf::Keyboard::Key key) {
     if (isBanKey(key))
         return true;

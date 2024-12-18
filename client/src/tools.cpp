@@ -16,46 +16,90 @@ float computeDist(TupleFloat a, TupleFloat b) {
     return sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
 }
 
-void initGeneralInput(std::map<UserInput, std::pair<sf::Keyboard::Key, std::shared_ptr<std::string>>> &inputConfig) {
+void initGeneralInput(
+    std::map<UserInput,
+             std::pair<sf::Keyboard::Key, std::shared_ptr<std::string>>>
+        &inputConfig) {
     std::cout << "Test" << std::endl;
-    inputConfig.insert({ENTER, {sf::Keyboard::Enter, std::make_shared<std::string>(convertInput(sf::Keyboard::Enter))}});
-    inputConfig.insert({PAUSE, {sf::Keyboard::P, std::make_shared<std::string>(convertInput(sf::Keyboard::P))}});
-    inputConfig.insert({RETURN, {sf::Keyboard::Q, std::make_shared<std::string>(convertInput(sf::Keyboard::Q))}});
-    inputConfig.insert({QUIT, {sf::Keyboard::Escape, std::make_shared<std::string>(convertInput(sf::Keyboard::Escape))}});
+    inputConfig.insert(
+        {ENTER,
+         {sf::Keyboard::Enter,
+          std::make_shared<std::string>(convertInput(sf::Keyboard::Enter))}});
+    inputConfig.insert({PAUSE,
+                        {sf::Keyboard::P, std::make_shared<std::string>(
+                                              convertInput(sf::Keyboard::P))}});
+    inputConfig.insert({RETURN,
+                        {sf::Keyboard::Q, std::make_shared<std::string>(
+                                              convertInput(sf::Keyboard::Q))}});
+    inputConfig.insert(
+        {QUIT,
+         {sf::Keyboard::Escape,
+          std::make_shared<std::string>(convertInput(sf::Keyboard::Escape))}});
 }
 
 void initPlay1Input(
-    std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key, std::shared_ptr<std::string>>>,
+    std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key,
+                                            std::shared_ptr<std::string>>>,
               std::map<UserInput, sf::Keyboard::Key>> &inputConfig) {
     auto &pressed = inputConfig.first;
     auto &released = inputConfig.second;
-    pressed.insert({UP1P, {sf::Keyboard::Up, std::make_shared<std::string>(convertInput(sf::Keyboard::Up))}});
-    pressed.insert({DOWN1P, {sf::Keyboard::Down, std::make_shared<std::string>(convertInput(sf::Keyboard::Down))}});
-    pressed.insert({LEFT1P, {sf::Keyboard::Left, std::make_shared<std::string>(convertInput(sf::Keyboard::Left))}});
-    pressed.insert({RIGHT1P, {sf::Keyboard::Right, std::make_shared<std::string>(convertInput(sf::Keyboard::Right))}});
+    pressed.insert({UP1P,
+                    {sf::Keyboard::Up, std::make_shared<std::string>(
+                                           convertInput(sf::Keyboard::Up))}});
+    pressed.insert(
+        {DOWN1P,
+         {sf::Keyboard::Down,
+          std::make_shared<std::string>(convertInput(sf::Keyboard::Down))}});
+    pressed.insert(
+        {LEFT1P,
+         {sf::Keyboard::Left,
+          std::make_shared<std::string>(convertInput(sf::Keyboard::Left))}});
+    pressed.insert(
+        {RIGHT1P,
+         {sf::Keyboard::Right,
+          std::make_shared<std::string>(convertInput(sf::Keyboard::Right))}});
     released.insert({UP1R, sf::Keyboard::Up});
     released.insert({DOWN1R, sf::Keyboard::Down});
     released.insert({LEFT1R, sf::Keyboard::Left});
     released.insert({RIGHT1R, sf::Keyboard::Right});
-    pressed.insert({SHOOT1, {sf::Keyboard::Enter, std::make_shared<std::string>(convertInput(sf::Keyboard::Enter))}});
-    pressed.insert({SUPERSHOOT1, {sf::Keyboard::M, std::make_shared<std::string>(convertInput(sf::Keyboard::M))}});
+    pressed.insert(
+        {SHOOT1,
+         {sf::Keyboard::Enter,
+          std::make_shared<std::string>(convertInput(sf::Keyboard::Enter))}});
+    pressed.insert({SUPERSHOOT1,
+                    {sf::Keyboard::M, std::make_shared<std::string>(
+                                          convertInput(sf::Keyboard::M))}});
 }
 
 void initPlay2Input(
-    std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key, std::shared_ptr<std::string>>>,
+    std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key,
+                                            std::shared_ptr<std::string>>>,
               std::map<UserInput, sf::Keyboard::Key>> &inputConfig) {
     auto &pressed = inputConfig.first;
     auto &released = inputConfig.second;
-    pressed.insert({UP2P, {sf::Keyboard::Z, std::make_shared<std::string>(convertInput(sf::Keyboard::Z))}});
-    pressed.insert({DOWN2P, {sf::Keyboard::S, std::make_shared<std::string>(convertInput(sf::Keyboard::S))}});
-    pressed.insert({LEFT2P, {sf::Keyboard::Q, std::make_shared<std::string>(convertInput(sf::Keyboard::Q))}});
-    pressed.insert({RIGHT2P, {sf::Keyboard::D, std::make_shared<std::string>(convertInput(sf::Keyboard::D))}});
+    pressed.insert({UP2P,
+                    {sf::Keyboard::Z, std::make_shared<std::string>(
+                                          convertInput(sf::Keyboard::Z))}});
+    pressed.insert({DOWN2P,
+                    {sf::Keyboard::S, std::make_shared<std::string>(
+                                          convertInput(sf::Keyboard::S))}});
+    pressed.insert({LEFT2P,
+                    {sf::Keyboard::Q, std::make_shared<std::string>(
+                                          convertInput(sf::Keyboard::Q))}});
+    pressed.insert({RIGHT2P,
+                    {sf::Keyboard::D, std::make_shared<std::string>(
+                                          convertInput(sf::Keyboard::D))}});
     released.insert({UP2R, sf::Keyboard::Z});
     released.insert({DOWN2R, sf::Keyboard::S});
     released.insert({LEFT2R, sf::Keyboard::Q});
     released.insert({RIGHT2R, sf::Keyboard::D});
-    pressed.insert({SHOOT2, {sf::Keyboard::Space, std::make_shared<std::string>(convertInput(sf::Keyboard::Space))}});
-    pressed.insert({SUPERSHOOT2, {sf::Keyboard::N, std::make_shared<std::string>(convertInput(sf::Keyboard::N))}});
+    pressed.insert(
+        {SHOOT2,
+         {sf::Keyboard::Space,
+          std::make_shared<std::string>(convertInput(sf::Keyboard::Space))}});
+    pressed.insert({SUPERSHOOT2,
+                    {sf::Keyboard::N, std::make_shared<std::string>(
+                                          convertInput(sf::Keyboard::N))}});
 }
 
 std::string convertInputF(const sf::Keyboard::Key &key) {

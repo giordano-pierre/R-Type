@@ -244,8 +244,7 @@ void createConfigEntities(ECS &ecs) {
     texts.insert({"EN", std::make_shared<std::string>("General")});
     texts.insert({"FR", std::make_shared<std::string>("General")});
     ecs.add_component<Text>(
-        generalB,
-        {texts, myWindow._font, {0.5, 0.5}, 0, 40, sf::Color::White});
+        generalB, {texts, myWindow._font, {0.5, 0.5}, 0, 40, sf::Color::White});
     ecs.add_component<Drawable>(generalB,
                                 {myWindow._myTextures.getTexture(
                                      "assets/images/utils/button_config1.png"),
@@ -480,15 +479,16 @@ void createConfigGeneralEntites(ECS &ecs) {
     ecs.add_component<Rtype::Client::Hitbox>(interactB,
                                              {{float(1) / 10, float(1) / 10}});
     texts.clear();
-    texts.insert({"DEFAULT", myWindow._inputConfig.first.find(ENTER)->second.second});
-    ecs.add_component<Rtype::Client::Text>(
-        interactB, {texts,
-                    myWindow._font,
-                    {1, 1},
-                    0,
-                    30,
-                    sf::Color::White,
-                    sf::Text::Style::Regular});
+    texts.insert(
+        {"DEFAULT", myWindow._inputConfig.first.find(ENTER)->second.second});
+    ecs.add_component<Rtype::Client::Text>(interactB,
+                                           {texts,
+                                            myWindow._font,
+                                            {1, 1},
+                                            0,
+                                            30,
+                                            sf::Color::White,
+                                            sf::Text::Style::Regular});
     ecs.add_component<Rtype::Client::Drawable>(
         interactB, {myWindow._myTextures.getTexture(
                         "assets/images/utils/button_config2.png"),
@@ -709,7 +709,7 @@ void createConfigGeneralEntites(ECS &ecs) {
                  std::function<void(ECS &, Entity)>(langEN), 3});
     if (myWindow._lang == "EN")
         press(ecs, lang2B);
-    
+
     Entity resetB = ecs.spawn_entity();
     ecs.add_component<Position>(resetB,
                                 {float(serverSize.x) / 12 * float(2.95),
@@ -739,12 +739,10 @@ void createConfigGeneralEntites(ECS &ecs) {
                  std::function<void(ECS &, Entity)>(select),
                  std::function<void(ECS &, Entity)>(deselect)});
     ecs.add_component<Pressable>(
-        resetB,
-        {myWindow._myTextures.getTexture(
-             "assets/images/utils/button_config1_act.png"),
-         std::function<void(ECS &, Entity)>(resetG)});
+        resetB, {myWindow._myTextures.getTexture(
+                     "assets/images/utils/button_config1_act.png"),
+                 std::function<void(ECS &, Entity)>(resetG)});
 }
-
 
 void createConfigPlayer1Entites(ECS &ecs) {
     auto myWindow = ecs.get_components<Window>()[0].value();
@@ -878,15 +876,15 @@ void createConfigPlayer1Entites(ECS &ecs) {
     ecs.add_component<Rtype::Client::Hitbox>(button1,
                                              {{float(1) / 10, float(1) / 10}});
     texts.clear();
-    texts.insert({"DEFAULT", myWindow._inputConfig.first.find(UP1P)->second.second});
-    ecs.add_component<Rtype::Client::Text>(
-        button1, {texts,
-                  myWindow._font,
-                  {1, 1},
-                  0,
-                  30,
-                  sf::Color::White,
-                  sf::Text::Style::Regular});
+    texts.insert(
+        {"DEFAULT", myWindow._inputConfig.first.find(UP1P)->second.second});
+    ecs.add_component<Rtype::Client::Text>(button1, {texts,
+                                                     myWindow._font,
+                                                     {1, 1},
+                                                     0,
+                                                     30,
+                                                     sf::Color::White,
+                                                     sf::Text::Style::Regular});
     ecs.add_component<Rtype::Client::Drawable>(
         button1, {myWindow._myTextures.getTexture(
                       "assets/images/utils/button_config2.png"),
@@ -917,15 +915,15 @@ void createConfigPlayer1Entites(ECS &ecs) {
     ecs.add_component<Rtype::Client::Hitbox>(button2,
                                              {{float(1) / 10, float(1) / 10}});
     texts.clear();
-    texts.insert({"DEFAULT", myWindow._inputConfig.first.find(DOWN1P)->second.second});
-    ecs.add_component<Rtype::Client::Text>(
-        button2, {texts,
-                  myWindow._font,
-                  {1, 1},
-                  0,
-                  30,
-                  sf::Color::White,
-                  sf::Text::Style::Regular});
+    texts.insert(
+        {"DEFAULT", myWindow._inputConfig.first.find(DOWN1P)->second.second});
+    ecs.add_component<Rtype::Client::Text>(button2, {texts,
+                                                     myWindow._font,
+                                                     {1, 1},
+                                                     0,
+                                                     30,
+                                                     sf::Color::White,
+                                                     sf::Text::Style::Regular});
     ecs.add_component<Rtype::Client::Drawable>(
         button2, {myWindow._myTextures.getTexture(
                       "assets/images/utils/button_config2.png"),
@@ -956,15 +954,15 @@ void createConfigPlayer1Entites(ECS &ecs) {
     ecs.add_component<Rtype::Client::Hitbox>(button3,
                                              {{float(1) / 10, float(1) / 10}});
     texts.clear();
-    texts.insert({"DEFAULT", myWindow._inputConfig.first.find(LEFT1P)->second.second});
-    ecs.add_component<Rtype::Client::Text>(
-        button3, {texts,
-                  myWindow._font,
-                  {1, 1},
-                  0,
-                  30,
-                  sf::Color::White,
-                  sf::Text::Style::Regular});
+    texts.insert(
+        {"DEFAULT", myWindow._inputConfig.first.find(LEFT1P)->second.second});
+    ecs.add_component<Rtype::Client::Text>(button3, {texts,
+                                                     myWindow._font,
+                                                     {1, 1},
+                                                     0,
+                                                     30,
+                                                     sf::Color::White,
+                                                     sf::Text::Style::Regular});
     ecs.add_component<Rtype::Client::Drawable>(
         button3, {myWindow._myTextures.getTexture(
                       "assets/images/utils/button_config2.png"),
@@ -995,15 +993,15 @@ void createConfigPlayer1Entites(ECS &ecs) {
     ecs.add_component<Rtype::Client::Hitbox>(button4,
                                              {{float(1) / 10, float(1) / 10}});
     texts.clear();
-    texts.insert({"DEFAULT", myWindow._inputConfig.first.find(RIGHT1P)->second.second});
-    ecs.add_component<Rtype::Client::Text>(
-        button4, {texts,
-                  myWindow._font,
-                  {1, 1},
-                  0,
-                  30,
-                  sf::Color::White,
-                  sf::Text::Style::Regular});
+    texts.insert(
+        {"DEFAULT", myWindow._inputConfig.first.find(RIGHT1P)->second.second});
+    ecs.add_component<Rtype::Client::Text>(button4, {texts,
+                                                     myWindow._font,
+                                                     {1, 1},
+                                                     0,
+                                                     30,
+                                                     sf::Color::White,
+                                                     sf::Text::Style::Regular});
     ecs.add_component<Rtype::Client::Drawable>(
         button4, {myWindow._myTextures.getTexture(
                       "assets/images/utils/button_config2.png"),
@@ -1034,15 +1032,15 @@ void createConfigPlayer1Entites(ECS &ecs) {
     ecs.add_component<Rtype::Client::Hitbox>(button5,
                                              {{float(1) / 10, float(1) / 10}});
     texts.clear();
-    texts.insert({"DEFAULT", myWindow._inputConfig.first.find(SHOOT1)->second.second});
-    ecs.add_component<Rtype::Client::Text>(
-        button5, {texts,
-                  myWindow._font,
-                  {1, 1},
-                  0,
-                  30,
-                  sf::Color::White,
-                  sf::Text::Style::Regular});
+    texts.insert(
+        {"DEFAULT", myWindow._inputConfig.first.find(SHOOT1)->second.second});
+    ecs.add_component<Rtype::Client::Text>(button5, {texts,
+                                                     myWindow._font,
+                                                     {1, 1},
+                                                     0,
+                                                     30,
+                                                     sf::Color::White,
+                                                     sf::Text::Style::Regular});
     ecs.add_component<Rtype::Client::Drawable>(
         button5, {myWindow._myTextures.getTexture(
                       "assets/images/utils/button_config2.png"),
@@ -1073,15 +1071,16 @@ void createConfigPlayer1Entites(ECS &ecs) {
     ecs.add_component<Rtype::Client::Hitbox>(button6,
                                              {{float(1) / 10, float(1) / 10}});
     texts.clear();
-    texts.insert({"DEFAULT", myWindow._inputConfig.first.find(SUPERSHOOT1)->second.second});
-    ecs.add_component<Rtype::Client::Text>(
-        button6, {texts,
-                  myWindow._font,
-                  {1, 1},
-                  0,
-                  30,
-                  sf::Color::White,
-                  sf::Text::Style::Regular});
+    texts.insert(
+        {"DEFAULT",
+         myWindow._inputConfig.first.find(SUPERSHOOT1)->second.second});
+    ecs.add_component<Rtype::Client::Text>(button6, {texts,
+                                                     myWindow._font,
+                                                     {1, 1},
+                                                     0,
+                                                     30,
+                                                     sf::Color::White,
+                                                     sf::Text::Style::Regular});
     ecs.add_component<Rtype::Client::Drawable>(
         button6, {myWindow._myTextures.getTexture(
                       "assets/images/utils/button_config2.png"),
@@ -1133,10 +1132,9 @@ void createConfigPlayer1Entites(ECS &ecs) {
                  std::function<void(ECS &, Entity)>(select),
                  std::function<void(ECS &, Entity)>(deselect)});
     ecs.add_component<Pressable>(
-        resetB,
-        {myWindow._myTextures.getTexture(
-             "assets/images/utils/button_config1_act.png"),
-         std::function<void(ECS &, Entity)>(resetP1)});
+        resetB, {myWindow._myTextures.getTexture(
+                     "assets/images/utils/button_config1_act.png"),
+                 std::function<void(ECS &, Entity)>(resetP1)});
 }
 
 } // namespace Rtype::Client

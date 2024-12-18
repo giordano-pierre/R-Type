@@ -24,7 +24,8 @@ struct Window {
     std::string _lang = "EN";
     TupleUInt _size;
     TupleUInt _serverSize;
-    std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key, std::shared_ptr<std::string>>>,
+    std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key,
+                                            std::shared_ptr<std::string>>>,
               std::map<UserInput, sf::Keyboard::Key>>
         _inputConfig;
     TextureManager _myTextures;
