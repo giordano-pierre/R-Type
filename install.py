@@ -20,6 +20,22 @@ def install_linux_dependencies():
     try:
         if shutil.which("apt-get"):
             print("Utilisation de apt-get pour installer les dépendances (Debian/Ubuntu).")
+            subprocess.run([
+                "bash", "-c",
+                "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg"
+            ], check=True)
+            subprocess.run([
+                "bash", "-c",
+                "echo \"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null"
+            ], check=True)
+            subprocess.run([
+                "bash", "-c",
+                "curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo gpg --dearmor -o /usr/share/keyrings/yarnkey.gpg"
+            ], check=True)
+            subprocess.run([
+                "bash", "-c",
+                "echo \"deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian/ stable main\" | sudo tee /etc/apt/sources.list.d/yarn.list"
+            ], check=True)
             subprocess.run(["sudo", "apt-get", "update"], check=True)
             subprocess.run([
                 "sudo", "apt-get", "install", "-y",
@@ -43,8 +59,8 @@ def install_linux_dependencies():
         else:
             print("Aucun gestionnaire de paquets compatible trouvé.")
             exit(1)
-    except subprocess.CalledProcessError:
-        print("Erreur lors de l'installation des dépendances système.")
+    except subprocess.CalledProcessError as e:
+        print(f"Erreur lors de l'installation des dépendances système : {e}")
         exit(1)
 
 def run_vcpkg():
