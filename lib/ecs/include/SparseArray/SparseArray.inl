@@ -136,10 +136,9 @@ auto SparseArray<Component>::emplace_at(size_type pos, Params &&...args) -> refe
 template <typename Component>
 auto SparseArray<Component>::erase(size_type pos) -> void
 {
-    if (pos < 0 || pos > _data.size())
+    if (pos < 0 || pos > _data.size() || !_data[pos])
         return;
     _data[pos].reset();
-
 }
 
 template <typename Component>
