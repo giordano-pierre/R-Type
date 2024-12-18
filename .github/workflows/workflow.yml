@@ -64,11 +64,15 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y doxygen graphviz
-      - name: Check for Doxyfile
+      - name: Generate Doxyfile if not present
         run: |
           if [ ! -f Doxyfile ]; then
             echo "Doxyfile not found. Generating a default one."
             doxygen -g
+            # Update Doxyfile with the correct configuration
+            sed -i 's|^INPUT .*|INPUT = src include doc README.md|' Doxyfile
+            sed -i 's|^FILE_PATTERNS .*|FILE_PATTERNS = *.cpp *.h *.hpp|' Doxyfile
+            sed -i 's|^OUTPUT_DIRECTORY .*|OUTPUT_DIRECTORY = docs|' Doxyfile
           fi
       - name: Generate Documentation
         run: |
