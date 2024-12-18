@@ -147,7 +147,7 @@ void WindowSys::drawText(SparseArray<Position> &positions,
             {pos.value()._client.x - (currentSize.left + currentSize.width) / 2,
              pos.value()._client.y});
       else if (tex.value()._pos < 0) {
-        auto tmp = std::max(box.value()._client.x * tex.value()._pos * -1,
+        auto tmp = std::min(box.value()._client.x * tex.value()._pos * -1,
                             box.value()._client.x -
                                 (currentSize.left + currentSize.width));
         tex.value()._text.setPosition(
