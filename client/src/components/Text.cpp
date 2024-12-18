@@ -14,8 +14,8 @@ Text::Text(const std::string &str, const std::shared_ptr<sf::Font> &font,
            const sf::Color &color, const sf::Uint32 &style)
     : _sizeInBox(sizeInBox), _pos(pos), _color(color), _style(style),
       _charSize(charSize) {
-  _text.setString(str);
-  _text.setFont(*font);
+    _text.setString(str);
+    _text.setFont(*font);
 }
 
 } // namespace Rtype::Client

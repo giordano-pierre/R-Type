@@ -10,7 +10,7 @@
 ECS::ECS() { _nb_entities = 0; }
 
 auto ECS::front(void) -> const callback_type & {
-  return *_callback_pool.begin();
+    return *_callback_pool.begin();
 }
 
 auto ECS::pop_front(void) -> void { _callback_pool.pop_front(); }

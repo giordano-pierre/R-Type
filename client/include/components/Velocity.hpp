@@ -13,8 +13,8 @@
 
 namespace Rtype::Client {
 struct Velocity {
-  TupleInt _current;
-  bool _activated = true;
+    TupleInt _current;
+    bool _activated = true;
 };
 } // namespace Rtype::Client
 

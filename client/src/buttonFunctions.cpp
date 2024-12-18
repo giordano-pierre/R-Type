@@ -12,19 +12,19 @@
 namespace Rtype::Client {
 
 void select(ECS &ecs, Entity i) {
-  auto &sel = ecs.get_components<Selectable>();
+    auto &sel = ecs.get_components<Selectable>();
 
-  if (i < sel.size() && sel[i]) {
-    sel[i].value()._display = true;
-  }
+    if (i < sel.size() && sel[i]) {
+        sel[i].value()._display = true;
+    }
 }
 
 void deselect(ECS &ecs, Entity i) {
-  auto &sel = ecs.get_components<Selectable>();
+    auto &sel = ecs.get_components<Selectable>();
 
-  if (i < sel.size() && sel[i]) {
-    sel[i].value()._display = false;
-  }
+    if (i < sel.size() && sel[i]) {
+        sel[i].value()._display = false;
+    }
 }
 
 } // namespace Rtype::Client

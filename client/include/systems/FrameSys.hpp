@@ -13,10 +13,11 @@
 
 namespace Rtype::Client {
 class FrameSys {
-public:
-  FrameSys() = default;
-  ~FrameSys() = default;
+  public:
+    FrameSys() = default;
+    ~FrameSys() = default;
 
-  void operator()(ECS &ecs, const FrameEvent &, SparseArray<Drawable> &sprites);
+    void operator()(ECS &ecs, const FrameEvent &,
+                    SparseArray<Drawable> &sprites);
 };
 } // namespace Rtype::Client

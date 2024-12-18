@@ -11,7 +11,7 @@
 
 namespace Rtype::Client {
 struct Playable {
-  int _id;
+    int _id;
 };
 } // namespace Rtype::Client
 std::ostream &operator<<(std::ostream &out,

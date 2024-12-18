@@ -16,17 +16,17 @@
 
 namespace Rtype::Client {
 class PressButtonSys {
-public:
-  PressButtonSys() = default;
-  ~PressButtonSys() = default;
+  public:
+    PressButtonSys() = default;
+    ~PressButtonSys() = default;
 
-  void operator()(ECS &ecs, const InputEvent &e_input,
-                  const SparseArray<Position> &positions,
-                  const SparseArray<Hitbox> &hitboxs,
-                  const SparseArray<Selectable> &selectables,
-                  SparseArray<Pressable> &pressables);
-  void operator()(ECS &ecs, const InputEvent &e_input,
-                  const SparseArray<Selectable> &selectables,
-                  SparseArray<Pressable> &pressables);
+    void operator()(ECS &ecs, const InputEvent &e_input,
+                    const SparseArray<Position> &positions,
+                    const SparseArray<Hitbox> &hitboxs,
+                    const SparseArray<Selectable> &selectables,
+                    SparseArray<Pressable> &pressables);
+    void operator()(ECS &ecs, const InputEvent &e_input,
+                    const SparseArray<Selectable> &selectables,
+                    SparseArray<Pressable> &pressables);
 };
 } // namespace Rtype::Client
