@@ -39,15 +39,4 @@ void press(ECS &ecs, Entity i) {
   }
 }
 
-// void deleteEntities(ECS &ecs, ObjectType type) {
-//   auto &tags = ecs.get_components<Tag>();
-
-//   for (size_t i = 0; i < tags.size(); ++i) {
-//     auto &tag = tags[i];
-
-//     if (tag && tag.value()._type == type)
-//       tag.value()._toDelete = true;
-//   }
-// }
-
 } // namespace Rtype::Client

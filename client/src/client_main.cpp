@@ -15,7 +15,6 @@
 #include "tools.hpp"
 
 int main(void) {
-  // int mainTestGame (void) {
   Rtype::Client::TupleUInt serverSize = {1920, 1080};
   ECS ecs;
 
@@ -58,6 +57,9 @@ int main(void) {
   auto cheatSys = Rtype::Client::CheatSys();
   ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Window>(cheatSys,
                                                                   true);
+  
+  auto frameSys = Rtype::Client::FrameSys();
+  ecs.subscribe<Rtype::Client::FrameEvent, Rtype::Client::Drawable>(frameSys, true);
 
   bool running = true;
   ecs.subscribe<Rtype::Client::InputEvent>(
@@ -72,6 +74,7 @@ int main(void) {
   ecs.post<Rtype::Client::CreateEvent>({Rtype::Client::MENU});
 
   Rtype::Client::loadMenuSystem(ecs);
+  // Rtype::Client::loadGameSystem(ecs);
 
   const auto FPS = 60;
   const timer::duration<double, std::ratio<1, FPS>> frameRate(1);

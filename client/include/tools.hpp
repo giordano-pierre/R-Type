@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <SFML/Graphics.hpp>
+
 namespace Rtype::Client {
 struct TupleInt {
   int x;
@@ -41,16 +43,18 @@ enum UserInput {
   QUIT,
   RETURN,
   UP1P,
-  DOWN1P,
-  LEFT1P,
-  RIGHT1P,
   UP1R,
+  DOWN1P,
   DOWN1R,
+  LEFT1P,
   LEFT1R,
+  RIGHT1P,
   RIGHT1R,
   SHOOT1,
   SUPERSHOOT1,
 };
 
 float computeDist(TupleFloat a, TupleFloat b);
+std::string convertInput(const sf::Keyboard::Key &key);
+std::string getInput(std::map<UserInput, sf::Keyboard::Key> &input, UserInput search);
 } // namespace Rtype::Client

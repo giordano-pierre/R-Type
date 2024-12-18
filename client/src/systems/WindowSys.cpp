@@ -224,20 +224,49 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
     extractInput(ecs, event, inputConfig);
 }
 
-bool isBanKey(sf::Keyboard::Key key) { return false; }
+bool isBanKey(sf::Keyboard::Key key) {
+  if (key == sf::Keyboard::H)
+    return true;
+  return false;
+}
+
+void updateMore(std::pair<std::map<Rtype::Client::UserInput, sf::Keyboard::Key>,
+                          std::map<Rtype::Client::UserInput, sf::Keyboard::Key>> &inputConfigs,
+                const UserInput &userInput)
+{
+  switch (userInput) {
+    case UP1P:
+      inputConfigs.second.find(UP1R)->second = inputConfigs.first.find(UP1P)->second;
+      break;
+    case DOWN1P:
+      inputConfigs.second.find(DOWN1R)->second = inputConfigs.first.find(DOWN1P)->second;
+      break;
+    case LEFT1P:
+      inputConfigs.second.find(LEFT1R)->second = inputConfigs.first.find(LEFT1P)->second;
+      break;
+    case RIGHT1P:
+      inputConfigs.second.find(RIGHT1R)->second = inputConfigs.first.find(RIGHT1P)->second;
+      break;
+    default:
+      return;
+  }
+  
+}
 
 void updateOneMap(
-    std::map<Rtype::Client::UserInput, sf::Keyboard::Key> &inputConfig,
+    std::pair<std::map<Rtype::Client::UserInput, sf::Keyboard::Key>,
+              std::map<Rtype::Client::UserInput, sf::Keyboard::Key>> &inputConfig,
     std::map<Rtype::Client::UserInput, sf::Keyboard::Key>::iterator &it,
     sf::Keyboard::Key key) {
-  auto save = it->second;
-  for (auto &[keyMap, value] : inputConfig) {
+  for (auto &[keyMap, value] : inputConfig.first) {
     if (keyMap == ENTER)
       continue;
     if (value == key)
       value = it->second;
+      updateMore(inputConfig, keyMap);
   }
   it->second = key;
+  updateMore(inputConfig, it->first);
 }
 
 bool updateConfigs(
@@ -249,14 +278,15 @@ bool updateConfigs(
     return true;
   auto it = inputConfigs.first.find(e_changeK._key);
   if (it != inputConfigs.first.end()) {
-    updateOneMap(inputConfigs.first, it, key);
+    updateOneMap(inputConfigs, it, key);
     return false;
   }
-  it = inputConfigs.second.find(e_changeK._key);
-  if (it != inputConfigs.second.end()) {
-    updateOneMap(inputConfigs.second, it, key);
-    return false;
-  }
+
+  // it = inputConfigs.second.find(e_changeK._key);
+  // if (it != inputConfigs.second.end()) {
+  //   updateOneMap(inputConfigs.second, it, key);
+  //   return false;
+  // }
   return false;
 }
 

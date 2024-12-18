@@ -19,9 +19,6 @@ void loadGameSystem(ECS &ecs) {
   ecs.subscribe<TicEvent, Position, Velocity>(moveSys);
   ecs.subscribe<InputEvent, Playable, Velocity>(moveSys);
 
-  auto frameSys = FrameSys();
-  ecs.subscribe<FrameEvent, Drawable>(frameSys);
-
   auto borderSys = BorderSys();
   ecs.subscribe<TicEvent, Window, Tag, Hitbox, Position>(borderSys);
 
@@ -38,8 +35,6 @@ void loadMenuSystem(ECS &ecs) {
   ecs.subscribe<InputEvent, Position, Hitbox, Selectable, Pressable>(pressSys);
   ecs.subscribe<InputEvent, Selectable, Pressable>(pressSys);
 
-  auto frameSys = FrameSys();
-  ecs.subscribe<FrameEvent, Drawable>(frameSys);
 }
 
 } // namespace Rtype::Client

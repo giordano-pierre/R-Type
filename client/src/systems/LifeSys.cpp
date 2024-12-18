@@ -7,23 +7,36 @@
 
 #include "systems/LifeSys.hpp"
 #include "createEntities.hpp"
+#include "loadSystems.hpp"
+#include "events/FrameEvent.hpp"
+#include "events/InputEvent.hpp"
+#include "events/TicEvent.hpp"
 
 namespace Rtype::Client {
 
 void LifeSys::operator()(ECS &ecs, const CreateEvent &e_create) {
+  // ecs.clean<FrameEvent>();
+  // ecs.clean<InputEvent>();
+  // ecs.clean<TicEvent>();
   switch (e_create._type) {
   case MENU:
+    // loadMenuSystem(ecs);
     createMenuEntities(ecs);
     break;
   case CONFIG:
+    // loadMenuSystem(ecs);
     createConfigEntities(ecs);
     break;
   case CGENERAL:
+    // loadMenuSystem(ecs);
+    createConfigGeneralEntites(ecs);
     break;
   case CPLAYER:
+    // loadMenuSystem(ecs);
     createConfigPlayer1Entites(ecs);
     break;
   default:
+    // loadGameSystem(ecs);
     createGameEntities(ecs);
     return;
   }
