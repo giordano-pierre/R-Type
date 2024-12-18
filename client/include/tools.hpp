@@ -69,8 +69,10 @@ std::string convertInput(const sf::Keyboard::Key &key);
 std::string getInput(std::map<UserInput, sf::Keyboard::Key> &input,
                      UserInput search);
 void initGeneralInput(std::map<UserInput, sf::Keyboard::Key> &inputConfig);
-void initPlay1Input(std::pair<std::map<UserInput, sf::Keyboard::Key>,
-                    std::map<UserInput, sf::Keyboard::Key>> &inputConfig);
-void initPlay2Input(std::pair<std::map<UserInput, sf::Keyboard::Key>,
-                    std::map<UserInput, sf::Keyboard::Key>> &inputConfig);
+void initPlay1Input(
+    std::pair<std::map<UserInput, sf::Keyboard::Key>,
+              std::map<UserInput, sf::Keyboard::Key>> &inputConfig);
+void initPlay2Input(
+    std::pair<std::map<UserInput, sf::Keyboard::Key>,
+              std::map<UserInput, sf::Keyboard::Key>> &inputConfig);
 } // namespace Rtype::Client

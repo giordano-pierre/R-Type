@@ -15,17 +15,16 @@ float computeDist(TupleFloat a, TupleFloat b) {
   return sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
 }
 
-void initGeneralInput(std::map<UserInput, sf::Keyboard::Key> &inputConfig)
-{
+void initGeneralInput(std::map<UserInput, sf::Keyboard::Key> &inputConfig) {
   inputConfig.insert({ENTER, sf::Keyboard::Enter});
   inputConfig.insert({PAUSE, sf::Keyboard::P});
   inputConfig.insert({RETURN, sf::Keyboard::Q});
   inputConfig.insert({QUIT, sf::Keyboard::Escape});
 }
 
-void initPlay1Input(std::pair<std::map<UserInput, sf::Keyboard::Key>,
-                    std::map<UserInput, sf::Keyboard::Key>> &inputConfig)
-{
+void initPlay1Input(
+    std::pair<std::map<UserInput, sf::Keyboard::Key>,
+              std::map<UserInput, sf::Keyboard::Key>> &inputConfig) {
   auto &pressed = inputConfig.first;
   auto &released = inputConfig.second;
   pressed.insert({UP1P, sf::Keyboard::Up});
@@ -40,9 +39,9 @@ void initPlay1Input(std::pair<std::map<UserInput, sf::Keyboard::Key>,
   pressed.insert({SUPERSHOOT1, sf::Keyboard::M});
 }
 
-void initPlay2Input(std::pair<std::map<UserInput, sf::Keyboard::Key>,
-            std::map<UserInput, sf::Keyboard::Key>> &inputConfig)
-{
+void initPlay2Input(
+    std::pair<std::map<UserInput, sf::Keyboard::Key>,
+              std::map<UserInput, sf::Keyboard::Key>> &inputConfig) {
   auto &pressed = inputConfig.first;
   auto &released = inputConfig.second;
   pressed.insert({UP2P, sf::Keyboard::Z});
@@ -56,7 +55,6 @@ void initPlay2Input(std::pair<std::map<UserInput, sf::Keyboard::Key>,
   pressed.insert({SHOOT2, sf::Keyboard::Space});
   pressed.insert({SUPERSHOOT2, sf::Keyboard::N});
 }
-
 
 std::string convertInputF(const sf::Keyboard::Key &key) {
   switch (key) {

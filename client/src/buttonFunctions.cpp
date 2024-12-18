@@ -40,24 +40,24 @@ void press(ECS &ecs, Entity i) {
 }
 
 void resize1920(ECS &ecs, Entity i) {
-    auto &myWindow = ecs.get_components<Window>()[0].value();
+  auto &myWindow = ecs.get_components<Window>()[0].value();
 
-    myWindow._size = {1920, 1080};
-    press(ecs, i);
+  myWindow._size = {1920, 1080};
+  press(ecs, i);
 }
 
 void resize1440(ECS &ecs, Entity i) {
-    auto &myWindow = ecs.get_components<Window>()[0].value();
+  auto &myWindow = ecs.get_components<Window>()[0].value();
 
-    myWindow._size = {1440, 810};
-    press(ecs, i);
+  myWindow._size = {1440, 810};
+  press(ecs, i);
 }
 
 void resize960(ECS &ecs, Entity i) {
-    auto &myWindow = ecs.get_components<Window>()[0].value();
+  auto &myWindow = ecs.get_components<Window>()[0].value();
 
-    myWindow._size = {960, 540};
-    press(ecs, i);
+  myWindow._size = {960, 540};
+  press(ecs, i);
 }
 
 } // namespace Rtype::Client

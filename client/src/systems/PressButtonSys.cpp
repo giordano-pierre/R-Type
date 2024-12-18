@@ -17,7 +17,8 @@ void checkLink(ECS &ecs, SparseArray<Pressable> &pressables, Entity ent) {
   for (size_t i = 0; i < pressables.size(); ++i) {
     auto &myPress = pressables[i];
 
-    if (myPress && myPress.value()._link == currentLink && myPress.value()._isPressed)
+    if (myPress && myPress.value()._link == currentLink &&
+        myPress.value()._isPressed)
       press(ecs, Entity(i));
   }
 }
