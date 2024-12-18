@@ -37,6 +37,9 @@ void loadMenuSystem(ECS &ecs) {
   auto pressSys = PressButtonSys();
   ecs.subscribe<InputEvent, Position, Hitbox, Selectable, Pressable>(pressSys);
   ecs.subscribe<InputEvent, Selectable, Pressable>(pressSys);
+
+  auto frameSys = FrameSys();
+  ecs.subscribe<FrameEvent, Drawable>(frameSys);
 }
 
 } // namespace Rtype::Client

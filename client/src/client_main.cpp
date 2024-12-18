@@ -34,22 +34,28 @@ int main(void) {
   ecs.register_event<Rtype::Client::InputEvent>();
   ecs.register_event<Rtype::Client::TicEvent>();
   ecs.register_event<Rtype::Client::ChangeKey>();
+  ecs.register_event<Rtype::Client::CreateEvent>();
+  ecs.register_event<Rtype::Client::DeleteEvent>();
 
   Entity window = ecs.spawn_entity();
   ecs.add_component<Rtype::Client::Tag>(window, {Rtype::Client::WINDOW});
   ecs.add_component<Rtype::Client::Window>(
       window, {"assets/font/retro_gaming.ttf", {1280, 720}, serverSize});
 
+  auto lifeSys = Rtype::Client::LifeSys();
+  ecs.subscribe<Rtype::Client::CreateEvent>(lifeSys, true);
+  ecs.subscribe<Rtype::Client::DeleteEvent, Rtype::Client::Tag>(lifeSys, true);
+
   auto windowSys = Rtype::Client::WindowSys(
       {1920, 1080, 32}, "R-type", sf::Style::Titlebar | sf::Style::Close);
   ecs.subscribe<Rtype::Client::FrameEvent, Rtype::Client::Window,
                 Rtype::Client::Position, Rtype::Client::Hitbox,
                 Rtype::Client::Drawable, Rtype::Client::Text,
-                Rtype::Client::Selectable>(windowSys);
-  ecs.subscribe<Rtype::Client::ChangeKey, Rtype::Client::Window>(windowSys);
+                Rtype::Client::Selectable>(windowSys, true);
+  ecs.subscribe<Rtype::Client::ChangeKey, Rtype::Client::Window>(windowSys, true);
 
   auto cheatSys = Rtype::Client::CheatSys();
-  ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Window>(cheatSys);
+  ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Window>(cheatSys, true);
 
   bool running = true;
   ecs.subscribe<Rtype::Client::InputEvent>(
@@ -58,12 +64,10 @@ int main(void) {
             e_input._event.type == sf::Event::Closed) {
           running = false;
         }
-      });
+      }, true);
 
-  // Rtype::Client::createGameEntities(ecs);
-  // Rtype::Client::loadGameSystem(ecs);
-  Rtype::Client::createMenuEntities(ecs);
-  //   Rtype::Client::createConfigEntities(ecs);
+  ecs.post<Rtype::Client::CreateEvent>({Rtype::Client::MENU});
+
   Rtype::Client::loadMenuSystem(ecs);
 
   const auto FPS = 60;
