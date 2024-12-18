@@ -39,7 +39,7 @@ int main(void) {
   Entity window = ecs.spawn_entity();
   ecs.add_component<Rtype::Client::Tag>(window, {Rtype::Client::WINDOW});
   ecs.add_component<Rtype::Client::Window>(
-      window, {"assets/font/retro_gaming.ttf", {1280, 720}, serverSize});
+      window, {"assets/font/retro_gaming.ttf", {1440, 810}, serverSize});
 
   auto lifeSys = Rtype::Client::LifeSys();
   ecs.subscribe<Rtype::Client::CreateEvent>(lifeSys, true);
