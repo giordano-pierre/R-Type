@@ -46,14 +46,13 @@ void Server::handleCollisions() {}
 void Server::processNetworkEvents() {
 
   ecs.post<ReceiveEvent>({});
-        // while(true) {
-        //     if (!ecs.empty()) {
-        //         auto &callback = ecs.front();
-        //         callback();
-        //         ecs.pop_front();
-        //     }
-        // };
-
+  // while(true) {
+  //     if (!ecs.empty()) {
+  //         auto &callback = ecs.front();
+  //         callback();
+  //         ecs.pop_front();
+  //     }
+  // };
 }
 
 void Server::run() {
