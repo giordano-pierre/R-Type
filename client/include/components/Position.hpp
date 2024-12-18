@@ -13,9 +13,9 @@
 
 namespace Rtype::Client {
 struct Position {
-  TupleFloat _server;
-  TupleFloat _client = {0, 0};
-  bool _needUpdate = true;
+    TupleFloat _server;
+    TupleFloat _client = {0, 0};
+    bool _needUpdate = true;
 };
 } // namespace Rtype::Client
 std::ostream &operator<<(std::ostream &out,

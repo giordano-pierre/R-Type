@@ -17,16 +17,16 @@
 
 namespace Rtype::Client {
 class MoveSys {
-public:
-  MoveSys() = default;
-  ~MoveSys() = default;
+  public:
+    MoveSys() = default;
+    ~MoveSys() = default;
 
-  void operator()(ECS &ecs, const InputEvent &e_input,
-                  const SparseArray<Playable> &players,
-                  SparseArray<Velocity> &velocities);
+    void operator()(ECS &ecs, const InputEvent &e_input,
+                    const SparseArray<Playable> &players,
+                    SparseArray<Velocity> &velocities);
 
-  void operator()(ECS &ecs, const TicEvent &e_tic,
-                  SparseArray<Position> &positions,
-                  const SparseArray<Velocity> &velocities);
+    void operator()(ECS &ecs, const TicEvent &e_tic,
+                    SparseArray<Position> &positions,
+                    const SparseArray<Velocity> &velocities);
 };
 } // namespace Rtype::Client

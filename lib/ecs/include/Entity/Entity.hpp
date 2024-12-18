@@ -9,16 +9,16 @@
 #include <cstddef>
 
 class Entity {
-private:
-  std::size_t _size;
-  bool _permanent;
+  private:
+    std::size_t _size;
+    bool _permanent;
 
-public:
-  explicit Entity(std::size_t size, bool permanent = false);
-  ~Entity() = default;
+  public:
+    explicit Entity(std::size_t size, bool permanent = false);
+    ~Entity() = default;
 
-  void setSize(std::size_t size);
-  void setState(bool permanent);
-  operator std::size_t() const;
-  bool isPermanent() const;
+    void setSize(std::size_t size);
+    void setState(bool permanent);
+    operator std::size_t() const;
+    bool isPermanent() const;
 };

@@ -15,14 +15,14 @@
 
 namespace Rtype::Client {
 class PauseSys {
-public:
-  PauseSys() = default;
-  ~PauseSys() = default;
+  public:
+    PauseSys() = default;
+    ~PauseSys() = default;
 
-  void operator()(ECS &ecs, const InputEvent &e_input,
-                  SparseArray<Drawable> &sprites);
+    void operator()(ECS &ecs, const InputEvent &e_input,
+                    SparseArray<Drawable> &sprites);
 
-  void operator()(ECS &ecs, const InputEvent &e_input,
-                  SparseArray<Velocity> &velocities);
+    void operator()(ECS &ecs, const InputEvent &e_input,
+                    SparseArray<Velocity> &velocities);
 };
 } // namespace Rtype::Client

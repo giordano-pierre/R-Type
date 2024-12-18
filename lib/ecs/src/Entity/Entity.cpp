@@ -8,8 +8,8 @@
 #include "Entity/Entity.hpp"
 
 Entity::Entity(std::size_t size, bool permanent) {
-  _size = size;
-  _permanent = permanent;
+    _size = size;
+    _permanent = permanent;
 }
 
 void Entity::setSize(std::size_t size) { _size = size; }

@@ -12,12 +12,12 @@
 namespace rtype {
 namespace systems {
 class MovementSys {
-public:
-  MovementSys() = default;
-  ~MovementSys() = default;
+  public:
+    MovementSys() = default;
+    ~MovementSys() = default;
 
-  auto operator()(ECS &ecs, SparseArray<Position> &positions,
-                  const SparseArray<Velocity> &velocities) -> void;
+    auto operator()(ECS &ecs, SparseArray<Position> &positions,
+                    const SparseArray<Velocity> &velocities) -> void;
 };
 } // namespace systems
 } // namespace rtype

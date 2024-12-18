@@ -16,14 +16,14 @@
 
 namespace Rtype::Client {
 class ShootSys {
-public:
-  ShootSys() = default;
-  ~ShootSys() = default;
+  public:
+    ShootSys() = default;
+    ~ShootSys() = default;
 
-  void operator()(ECS &ecs, const InputEvent &e_input,
-                  SparseArray<Window> &windows,
-                  const SparseArray<Playable> &players,
-                  const SparseArray<Position> &positions,
-                  const SparseArray<Hitbox> &hitboxs);
+    void operator()(ECS &ecs, const InputEvent &e_input,
+                    SparseArray<Window> &windows,
+                    const SparseArray<Playable> &players,
+                    const SparseArray<Position> &positions,
+                    const SparseArray<Hitbox> &hitboxs);
 };
 } // namespace Rtype::Client

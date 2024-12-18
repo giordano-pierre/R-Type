@@ -14,9 +14,9 @@
 
 namespace Rtype::Client {
 struct Pressable {
-  std::shared_ptr<sf::Texture> _texture;
-  std::function<void(ECS &, Entity)> _press;
+    std::shared_ptr<sf::Texture> _texture;
+    std::function<void(ECS &, Entity)> _press;
 
-  bool _isPressed = false;
+    bool _isPressed = false;
 };
 } // namespace Rtype::Client

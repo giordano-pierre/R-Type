@@ -14,11 +14,11 @@
 
 namespace Rtype::Client {
 struct Hitbox {
-  TupleFloat _coefSize;
-  bool _display = true;
-  TupleFloat _client = {0, 0};
-  TupleFloat _server = {0, 0};
-  bool _needUpdate = true;
+    TupleFloat _coefSize;
+    bool _display = true;
+    TupleFloat _client = {0, 0};
+    TupleFloat _server = {0, 0};
+    bool _needUpdate = true;
 };
 } // namespace Rtype::Client
 std::ostream &operator<<(std::ostream &out,
