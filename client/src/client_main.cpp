@@ -57,9 +57,10 @@ int main(void) {
   auto cheatSys = Rtype::Client::CheatSys();
   ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Window>(cheatSys,
                                                                   true);
-  
+
   auto frameSys = Rtype::Client::FrameSys();
-  ecs.subscribe<Rtype::Client::FrameEvent, Rtype::Client::Drawable>(frameSys, true);
+  ecs.subscribe<Rtype::Client::FrameEvent, Rtype::Client::Drawable>(frameSys,
+                                                                    true);
 
   bool running = true;
   ecs.subscribe<Rtype::Client::InputEvent>(

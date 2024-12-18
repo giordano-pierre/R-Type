@@ -56,5 +56,6 @@ enum UserInput {
 
 float computeDist(TupleFloat a, TupleFloat b);
 std::string convertInput(const sf::Keyboard::Key &key);
-std::string getInput(std::map<UserInput, sf::Keyboard::Key> &input, UserInput search);
+std::string getInput(std::map<UserInput, sf::Keyboard::Key> &input,
+                     UserInput search);
 } // namespace Rtype::Client

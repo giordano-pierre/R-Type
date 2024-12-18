@@ -7,10 +7,10 @@
 
 #include "systems/LifeSys.hpp"
 #include "createEntities.hpp"
-#include "loadSystems.hpp"
 #include "events/FrameEvent.hpp"
 #include "events/InputEvent.hpp"
 #include "events/TicEvent.hpp"
+#include "loadSystems.hpp"
 
 namespace Rtype::Client {
 

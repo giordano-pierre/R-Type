@@ -231,31 +231,35 @@ bool isBanKey(sf::Keyboard::Key key) {
 }
 
 void updateMore(std::pair<std::map<Rtype::Client::UserInput, sf::Keyboard::Key>,
-                          std::map<Rtype::Client::UserInput, sf::Keyboard::Key>> &inputConfigs,
-                const UserInput &userInput)
-{
+                          std::map<Rtype::Client::UserInput, sf::Keyboard::Key>>
+                    &inputConfigs,
+                const UserInput &userInput) {
   switch (userInput) {
-    case UP1P:
-      inputConfigs.second.find(UP1R)->second = inputConfigs.first.find(UP1P)->second;
-      break;
-    case DOWN1P:
-      inputConfigs.second.find(DOWN1R)->second = inputConfigs.first.find(DOWN1P)->second;
-      break;
-    case LEFT1P:
-      inputConfigs.second.find(LEFT1R)->second = inputConfigs.first.find(LEFT1P)->second;
-      break;
-    case RIGHT1P:
-      inputConfigs.second.find(RIGHT1R)->second = inputConfigs.first.find(RIGHT1P)->second;
-      break;
-    default:
-      return;
+  case UP1P:
+    inputConfigs.second.find(UP1R)->second =
+        inputConfigs.first.find(UP1P)->second;
+    break;
+  case DOWN1P:
+    inputConfigs.second.find(DOWN1R)->second =
+        inputConfigs.first.find(DOWN1P)->second;
+    break;
+  case LEFT1P:
+    inputConfigs.second.find(LEFT1R)->second =
+        inputConfigs.first.find(LEFT1P)->second;
+    break;
+  case RIGHT1P:
+    inputConfigs.second.find(RIGHT1R)->second =
+        inputConfigs.first.find(RIGHT1P)->second;
+    break;
+  default:
+    return;
   }
-  
 }
 
 void updateOneMap(
     std::pair<std::map<Rtype::Client::UserInput, sf::Keyboard::Key>,
-              std::map<Rtype::Client::UserInput, sf::Keyboard::Key>> &inputConfig,
+              std::map<Rtype::Client::UserInput, sf::Keyboard::Key>>
+        &inputConfig,
     std::map<Rtype::Client::UserInput, sf::Keyboard::Key>::iterator &it,
     sf::Keyboard::Key key) {
   for (auto &[keyMap, value] : inputConfig.first) {
@@ -263,7 +267,7 @@ void updateOneMap(
       continue;
     if (value == key)
       value = it->second;
-      updateMore(inputConfig, keyMap);
+    updateMore(inputConfig, keyMap);
   }
   it->second = key;
   updateMore(inputConfig, it->first);

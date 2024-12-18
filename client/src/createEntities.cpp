@@ -239,8 +239,8 @@ void createConfigEntities(ECS &ecs) {
       generalB, {myWindow._myTextures.getTexture(
                      "assets/images/utils/button_config1_act.png"),
                  [](ECS &ecs, Entity i) {
-                  ecs.post<DeleteEvent>({CPLAYER});
-                  ecs.post<CreateEvent>({CGENERAL});
+                   ecs.post<DeleteEvent>({CPLAYER});
+                   ecs.post<CreateEvent>({CGENERAL});
                  }});
 
   Entity player1B = ecs.spawn_entity();
@@ -271,8 +271,8 @@ void createConfigEntities(ECS &ecs) {
       player1B, {myWindow._myTextures.getTexture(
                      "assets/images/utils/button_config1_act.png"),
                  [](ECS &ecs, Entity) {
-                    ecs.post<DeleteEvent>({CGENERAL});
-                    ecs.post<CreateEvent>({CPLAYER});
+                   ecs.post<DeleteEvent>({CGENERAL});
+                   ecs.post<CreateEvent>({CPLAYER});
                  }});
 
   Entity player2B = ecs.spawn_entity();
@@ -307,18 +307,17 @@ void createConfigEntities(ECS &ecs) {
                  }});
 
   Entity backB = ecs.spawn_entity();
-  ecs.add_component<Position>(backB,
-                              {float(serverSize.x) / 12 * float(4.2),
-                               float(serverSize.y) / 10 * float(6.5)});
+  ecs.add_component<Position>(backB, {float(serverSize.x) / 12 * float(4.2),
+                                      float(serverSize.y) / 10 * float(6.5)});
   ecs.add_component<Tag>(backB, {CONFIG});
   ecs.add_component<Hitbox>(backB, {{float(1) / 4, float(1) / 10}});
   ecs.add_component<Text>(backB, {"Back",
-                                     myWindow._font,
-                                     {0.5, 0.5},
-                                     0,
-                                     40,
-                                     sf::Color::White,
-                                     sf::Text::Style::Regular});
+                                  myWindow._font,
+                                  {0.5, 0.5},
+                                  0,
+                                  40,
+                                  sf::Color::White,
+                                  sf::Text::Style::Regular});
   ecs.add_component<Drawable>(backB,
                               {myWindow._myTextures.getTexture(
                                    "assets/images/utils/button_config1.png"),
@@ -327,32 +326,30 @@ void createConfigEntities(ECS &ecs) {
                                1});
   ecs.add_component<Selectable>(
       backB, {myWindow._myTextures.getTexture(
-                     "assets/images/utils/button_config1_sel.png"),
-                 std::function<void(ECS &, Entity)>(select),
-                 std::function<void(ECS &, Entity)>(deselect)});
+                  "assets/images/utils/button_config1_sel.png"),
+              std::function<void(ECS &, Entity)>(select),
+              std::function<void(ECS &, Entity)>(deselect)});
   ecs.add_component<Pressable>(
-      backB,
-      {myWindow._myTextures.getTexture(
-           "assets/images/utils/button_config1_act.png"),
-       [](ECS &ecs, Entity) {
-        ecs.post<DeleteEvent>({CGENERAL});
-        ecs.post<DeleteEvent>({CONFIG});
-        ecs.post<CreateEvent>({MENU});
-       }});
+      backB, {myWindow._myTextures.getTexture(
+                  "assets/images/utils/button_config1_act.png"),
+              [](ECS &ecs, Entity) {
+                ecs.post<DeleteEvent>({CGENERAL});
+                ecs.post<DeleteEvent>({CONFIG});
+                ecs.post<CreateEvent>({MENU});
+              }});
 
   Entity resetB = ecs.spawn_entity();
-  ecs.add_component<Position>(resetB,
-                              {float(serverSize.x) / 12 * float(2.95),
-                               float(serverSize.y) / 10 * float(8.2)});
+  ecs.add_component<Position>(resetB, {float(serverSize.x) / 12 * float(2.95),
+                                       float(serverSize.y) / 10 * float(8.2)});
   ecs.add_component<Tag>(resetB, {CONFIG});
   ecs.add_component<Hitbox>(resetB, {{float(1) / 4, float(1) / 10}});
   ecs.add_component<Text>(resetB, {"Reset",
-                                        myWindow._font,
-                                        {0.5, 0.5},
-                                        0,
-                                        40,
-                                        sf::Color::White,
-                                        sf::Text::Style::Regular});
+                                   myWindow._font,
+                                   {0.5, 0.5},
+                                   0,
+                                   40,
+                                   sf::Color::White,
+                                   sf::Text::Style::Regular});
   ecs.add_component<Drawable>(resetB,
                               {myWindow._myTextures.getTexture(
                                    "assets/images/utils/button_config1.png"),
@@ -361,9 +358,9 @@ void createConfigEntities(ECS &ecs) {
                                1});
   ecs.add_component<Selectable>(
       resetB, {myWindow._myTextures.getTexture(
-                        "assets/images/utils/button_config1_sel.png"),
-                    std::function<void(ECS &, Entity)>(select),
-                    std::function<void(ECS &, Entity)>(deselect)});
+                   "assets/images/utils/button_config1_sel.png"),
+               std::function<void(ECS &, Entity)>(select),
+               std::function<void(ECS &, Entity)>(deselect)});
   ecs.add_component<Pressable>(
       resetB,
       {myWindow._myTextures.getTexture(
@@ -481,13 +478,14 @@ void createConfigPlayer1Entites(ECS &ecs) {
   ecs.add_component<Rtype::Client::Tag>(button1, {CPLAYER});
   ecs.add_component<Rtype::Client::Hitbox>(button1,
                                            {{float(1) / 10, float(1) / 10}});
-  ecs.add_component<Rtype::Client::Text>(button1, {getInput(myWindow._inputConfig.first, UP1P),
-                                                   myWindow._font,
-                                                   {1, 1},
-                                                   0,
-                                                   30,
-                                                   sf::Color::White,
-                                                   sf::Text::Style::Regular});
+  ecs.add_component<Rtype::Client::Text>(
+      button1, {getInput(myWindow._inputConfig.first, UP1P),
+                myWindow._font,
+                {1, 1},
+                0,
+                30,
+                sf::Color::White,
+                sf::Text::Style::Regular});
   ecs.add_component<Rtype::Client::Drawable>(
       button1, {myWindow._myTextures.getTexture(
                     "assets/images/utils/button_config2.png"),
@@ -501,12 +499,13 @@ void createConfigPlayer1Entites(ECS &ecs) {
                 std::function<void(ECS &, Entity)>(deselect)});
   ecs.add_component<Pressable>(
       button1, {myWindow._myTextures.getTexture(
-                   "assets/images/utils/button_config2_act.png"),
-               [](ECS &ecs, Entity i) {
-                 press(ecs, i);
-                 ecs.post<Rtype::Client::FrameEvent>({std::chrono::steady_clock::now()});
-                 ecs.post<ChangeKey>({UP1P, i});
-               }});
+                    "assets/images/utils/button_config2_act.png"),
+                [](ECS &ecs, Entity i) {
+                  press(ecs, i);
+                  ecs.post<Rtype::Client::FrameEvent>(
+                      {std::chrono::steady_clock::now()});
+                  ecs.post<ChangeKey>({UP1P, i});
+                }});
 
   Entity button2 = ecs.spawn_entity();
   ecs.add_component<Rtype::Client::Position>(
@@ -515,13 +514,14 @@ void createConfigPlayer1Entites(ECS &ecs) {
   ecs.add_component<Rtype::Client::Tag>(button2, {CPLAYER});
   ecs.add_component<Rtype::Client::Hitbox>(button2,
                                            {{float(1) / 10, float(1) / 10}});
-  ecs.add_component<Rtype::Client::Text>(button2, {getInput(myWindow._inputConfig.first, DOWN1P),
-                                                   myWindow._font,
-                                                   {1, 1},
-                                                   0,
-                                                   30,
-                                                   sf::Color::White,
-                                                   sf::Text::Style::Regular});
+  ecs.add_component<Rtype::Client::Text>(
+      button2, {getInput(myWindow._inputConfig.first, DOWN1P),
+                myWindow._font,
+                {1, 1},
+                0,
+                30,
+                sf::Color::White,
+                sf::Text::Style::Regular});
   ecs.add_component<Rtype::Client::Drawable>(
       button2, {myWindow._myTextures.getTexture(
                     "assets/images/utils/button_config2.png"),
@@ -535,12 +535,13 @@ void createConfigPlayer1Entites(ECS &ecs) {
                 std::function<void(ECS &, Entity)>(deselect)});
   ecs.add_component<Pressable>(
       button2, {myWindow._myTextures.getTexture(
-                   "assets/images/utils/button_config2_act.png"),
-               [](ECS &ecs, Entity i) {
-                 press(ecs, i);
-                 ecs.post<Rtype::Client::FrameEvent>({std::chrono::steady_clock::now()});
-                 ecs.post<ChangeKey>({DOWN1P, i});
-               }});
+                    "assets/images/utils/button_config2_act.png"),
+                [](ECS &ecs, Entity i) {
+                  press(ecs, i);
+                  ecs.post<Rtype::Client::FrameEvent>(
+                      {std::chrono::steady_clock::now()});
+                  ecs.post<ChangeKey>({DOWN1P, i});
+                }});
 
   Entity button3 = ecs.spawn_entity();
   ecs.add_component<Rtype::Client::Position>(
@@ -549,13 +550,14 @@ void createConfigPlayer1Entites(ECS &ecs) {
   ecs.add_component<Rtype::Client::Tag>(button3, {CPLAYER});
   ecs.add_component<Rtype::Client::Hitbox>(button3,
                                            {{float(1) / 10, float(1) / 10}});
-  ecs.add_component<Rtype::Client::Text>(button3, {getInput(myWindow._inputConfig.first, LEFT1P),
-                                                   myWindow._font,
-                                                   {1, 1},
-                                                   0,
-                                                   30,
-                                                   sf::Color::White,
-                                                   sf::Text::Style::Regular});
+  ecs.add_component<Rtype::Client::Text>(
+      button3, {getInput(myWindow._inputConfig.first, LEFT1P),
+                myWindow._font,
+                {1, 1},
+                0,
+                30,
+                sf::Color::White,
+                sf::Text::Style::Regular});
   ecs.add_component<Rtype::Client::Drawable>(
       button3, {myWindow._myTextures.getTexture(
                     "assets/images/utils/button_config2.png"),
@@ -572,7 +574,8 @@ void createConfigPlayer1Entites(ECS &ecs) {
                     "assets/images/utils/button_config2_act.png"),
                 [](ECS &ecs, Entity i) {
                   press(ecs, i);
-                  ecs.post<Rtype::Client::FrameEvent>({std::chrono::steady_clock::now()});
+                  ecs.post<Rtype::Client::FrameEvent>(
+                      {std::chrono::steady_clock::now()});
                   ecs.post<ChangeKey>({LEFT1P, i});
                 }});
 
@@ -583,13 +586,14 @@ void createConfigPlayer1Entites(ECS &ecs) {
   ecs.add_component<Rtype::Client::Tag>(button4, {CPLAYER});
   ecs.add_component<Rtype::Client::Hitbox>(button4,
                                            {{float(1) / 10, float(1) / 10}});
-  ecs.add_component<Rtype::Client::Text>(button4, {getInput(myWindow._inputConfig.first, RIGHT1P),
-                                                   myWindow._font,
-                                                   {1, 1},
-                                                   0,
-                                                   30,
-                                                   sf::Color::White,
-                                                   sf::Text::Style::Regular});
+  ecs.add_component<Rtype::Client::Text>(
+      button4, {getInput(myWindow._inputConfig.first, RIGHT1P),
+                myWindow._font,
+                {1, 1},
+                0,
+                30,
+                sf::Color::White,
+                sf::Text::Style::Regular});
   ecs.add_component<Rtype::Client::Drawable>(
       button4, {myWindow._myTextures.getTexture(
                     "assets/images/utils/button_config2.png"),
@@ -603,12 +607,13 @@ void createConfigPlayer1Entites(ECS &ecs) {
                 std::function<void(ECS &, Entity)>(deselect)});
   ecs.add_component<Pressable>(
       button4, {myWindow._myTextures.getTexture(
-                   "assets/images/utils/button_config2_act.png"),
-               [](ECS &ecs, Entity i) {
-                 press(ecs, i);
-                 ecs.post<Rtype::Client::FrameEvent>({std::chrono::steady_clock::now()});
-                 ecs.post<ChangeKey>({RIGHT1P, i});
-               }});
+                    "assets/images/utils/button_config2_act.png"),
+                [](ECS &ecs, Entity i) {
+                  press(ecs, i);
+                  ecs.post<Rtype::Client::FrameEvent>(
+                      {std::chrono::steady_clock::now()});
+                  ecs.post<ChangeKey>({RIGHT1P, i});
+                }});
 
   Entity button5 = ecs.spawn_entity();
   ecs.add_component<Rtype::Client::Position>(
@@ -617,13 +622,14 @@ void createConfigPlayer1Entites(ECS &ecs) {
   ecs.add_component<Rtype::Client::Tag>(button5, {CPLAYER});
   ecs.add_component<Rtype::Client::Hitbox>(button5,
                                            {{float(1) / 10, float(1) / 10}});
-  ecs.add_component<Rtype::Client::Text>(button5, {getInput(myWindow._inputConfig.first, SHOOT1),
-                                                   myWindow._font,
-                                                   {1, 1},
-                                                   0,
-                                                   30,
-                                                   sf::Color::White,
-                                                   sf::Text::Style::Regular});
+  ecs.add_component<Rtype::Client::Text>(
+      button5, {getInput(myWindow._inputConfig.first, SHOOT1),
+                myWindow._font,
+                {1, 1},
+                0,
+                30,
+                sf::Color::White,
+                sf::Text::Style::Regular});
   ecs.add_component<Rtype::Client::Drawable>(
       button5, {myWindow._myTextures.getTexture(
                     "assets/images/utils/button_config2.png"),
@@ -637,12 +643,13 @@ void createConfigPlayer1Entites(ECS &ecs) {
                 std::function<void(ECS &, Entity)>(deselect)});
   ecs.add_component<Pressable>(
       button5, {myWindow._myTextures.getTexture(
-                   "assets/images/utils/button_config2_act.png"),
-               [](ECS &ecs, Entity i) {
-                 press(ecs, i);
-                 ecs.post<Rtype::Client::FrameEvent>({std::chrono::steady_clock::now()});
-                 ecs.post<ChangeKey>({SHOOT1, i});
-               }});
+                    "assets/images/utils/button_config2_act.png"),
+                [](ECS &ecs, Entity i) {
+                  press(ecs, i);
+                  ecs.post<Rtype::Client::FrameEvent>(
+                      {std::chrono::steady_clock::now()});
+                  ecs.post<ChangeKey>({SHOOT1, i});
+                }});
 
   Entity button6 = ecs.spawn_entity();
   ecs.add_component<Rtype::Client::Position>(
@@ -651,13 +658,14 @@ void createConfigPlayer1Entites(ECS &ecs) {
   ecs.add_component<Rtype::Client::Tag>(button6, {CPLAYER});
   ecs.add_component<Rtype::Client::Hitbox>(button6,
                                            {{float(1) / 10, float(1) / 10}});
-  ecs.add_component<Rtype::Client::Text>(button6, {getInput(myWindow._inputConfig.first, SUPERSHOOT1),
-                                                   myWindow._font,
-                                                   {1, 1},
-                                                   0,
-                                                   30,
-                                                   sf::Color::White,
-                                                   sf::Text::Style::Regular});
+  ecs.add_component<Rtype::Client::Text>(
+      button6, {getInput(myWindow._inputConfig.first, SUPERSHOOT1),
+                myWindow._font,
+                {1, 1},
+                0,
+                30,
+                sf::Color::White,
+                sf::Text::Style::Regular});
   ecs.add_component<Rtype::Client::Drawable>(
       button6, {myWindow._myTextures.getTexture(
                     "assets/images/utils/button_config2.png"),
@@ -671,14 +679,14 @@ void createConfigPlayer1Entites(ECS &ecs) {
                 std::function<void(ECS &, Entity)>(deselect)});
   ecs.add_component<Pressable>(
       button6, {myWindow._myTextures.getTexture(
-                   "assets/images/utils/button_config2_act.png"),
-               [](ECS &ecs, Entity i) {
-                 press(ecs, i);
-                 ecs.post<Rtype::Client::FrameEvent>({std::chrono::steady_clock::now()});
-                 ecs.post<ChangeKey>({SUPERSHOOT1, i});
-               }});
+                    "assets/images/utils/button_config2_act.png"),
+                [](ECS &ecs, Entity i) {
+                  press(ecs, i);
+                  ecs.post<Rtype::Client::FrameEvent>(
+                      {std::chrono::steady_clock::now()});
+                  ecs.post<ChangeKey>({SUPERSHOOT1, i});
+                }});
 }
-
 
 void createConfigGeneralEntites(ECS &ecs) {
   auto myWindow = ecs.get_components<Window>()[0].value();
@@ -695,8 +703,8 @@ void createConfigGeneralEntites(ECS &ecs) {
 
   Entity param1 = ecs.spawn_entity();
   ecs.add_component<Rtype::Client::Position>(
-      param1,
-      {float(serverSize.x) / 8 * float(5.5), float(serverSize.y) / 15 * float(5.5)});
+      param1, {float(serverSize.x) / 8 * float(5.5),
+               float(serverSize.y) / 15 * float(5.5)});
   ecs.add_component<Rtype::Client::Tag>(param1, {CGENERAL});
   ecs.add_component<Rtype::Client::Hitbox>(param1,
                                            {{float(1) / 4, float(1) / 15}});
@@ -710,8 +718,8 @@ void createConfigGeneralEntites(ECS &ecs) {
 
   Entity param2 = ecs.spawn_entity();
   ecs.add_component<Rtype::Client::Position>(
-      param2,
-      {float(serverSize.x) / 8 * float(5.5), float(serverSize.y) / 15 * float(8.5)});
+      param2, {float(serverSize.x) / 8 * float(5.5),
+               float(serverSize.y) / 15 * float(8.5)});
   ecs.add_component<Rtype::Client::Tag>(param2, {CGENERAL});
   ecs.add_component<Rtype::Client::Hitbox>(param2,
                                            {{float(1) / 4, float(1) / 15}});
@@ -745,13 +753,14 @@ void createConfigGeneralEntites(ECS &ecs) {
   ecs.add_component<Rtype::Client::Tag>(button1, {CGENERAL});
   ecs.add_component<Rtype::Client::Hitbox>(button1,
                                            {{float(1) / 10, float(1) / 10}});
-  ecs.add_component<Rtype::Client::Text>(button1, {getInput(myWindow._inputConfig.first, ENTER),
-                                                   myWindow._font,
-                                                   {1, 1},
-                                                   0,
-                                                   30,
-                                                   sf::Color::White,
-                                                   sf::Text::Style::Regular});
+  ecs.add_component<Rtype::Client::Text>(
+      button1, {getInput(myWindow._inputConfig.first, ENTER),
+                myWindow._font,
+                {1, 1},
+                0,
+                30,
+                sf::Color::White,
+                sf::Text::Style::Regular});
   ecs.add_component<Rtype::Client::Drawable>(
       button1, {myWindow._myTextures.getTexture(
                     "assets/images/utils/button_config2.png"),
@@ -765,12 +774,13 @@ void createConfigGeneralEntites(ECS &ecs) {
                 std::function<void(ECS &, Entity)>(deselect)});
   ecs.add_component<Pressable>(
       button1, {myWindow._myTextures.getTexture(
-                   "assets/images/utils/button_config2_act.png"),
-               [](ECS &ecs, Entity i) {
-                 press(ecs, i);
-                 ecs.post<Rtype::Client::FrameEvent>({std::chrono::steady_clock::now()});
-                 ecs.post<ChangeKey>({ENTER, i});
-               }});
+                    "assets/images/utils/button_config2_act.png"),
+                [](ECS &ecs, Entity i) {
+                  press(ecs, i);
+                  ecs.post<Rtype::Client::FrameEvent>(
+                      {std::chrono::steady_clock::now()});
+                  ecs.post<ChangeKey>({ENTER, i});
+                }});
 
   Entity button2 = ecs.spawn_entity();
   ecs.add_component<Rtype::Client::Position>(
@@ -780,11 +790,11 @@ void createConfigGeneralEntites(ECS &ecs) {
   ecs.add_component<Rtype::Client::Hitbox>(button2,
                                            {{float(1) / 10, float(1) / 10}});
   ecs.add_component<Rtype::Client::Drawable>(
-      button2, {myWindow._myTextures.getTexture(
-                    "assets/images/utils/toggle_config.png"),
-                {128, 64},
-                {128, 64},
-                1});
+      button2,
+      {myWindow._myTextures.getTexture("assets/images/utils/toggle_config.png"),
+       {128, 64},
+       {128, 64},
+       1});
   ecs.add_component<Selectable>(
       button2, {myWindow._myTextures.getTexture(
                     "assets/images/utils/toggle_config_sel.png"),
@@ -792,9 +802,8 @@ void createConfigGeneralEntites(ECS &ecs) {
                 std::function<void(ECS &, Entity)>(deselect)});
   ecs.add_component<Pressable>(
       button2, {myWindow._myTextures.getTexture(
-                   "assets/images/utils/toggle_config_act.png"),
-               [](ECS &ecs, Entity i) {
-               }});
+                    "assets/images/utils/toggle_config_act.png"),
+                [](ECS &ecs, Entity i) {}});
 
   Entity res1B = ecs.spawn_entity();
   ecs.add_component<Rtype::Client::Position>(
@@ -804,62 +813,61 @@ void createConfigGeneralEntites(ECS &ecs) {
   ecs.add_component<Rtype::Client::Hitbox>(res1B,
                                            {{float(1) / 10, float(1) / 10}});
   ecs.add_component<Rtype::Client::Text>(res1B, {"1920 x 1080",
-                                                   myWindow._font,
-                                                   {1, 1},
-                                                   0,
-                                                   20,
-                                                   sf::Color::White,
-                                                   sf::Text::Style::Regular});
+                                                 myWindow._font,
+                                                 {1, 1},
+                                                 0,
+                                                 20,
+                                                 sf::Color::White,
+                                                 sf::Text::Style::Regular});
   ecs.add_component<Rtype::Client::Drawable>(
       res1B, {myWindow._myTextures.getTexture(
-                    "assets/images/utils/button_config2.png"),
-                {128, 64},
-                {128, 64},
-                1});
+                  "assets/images/utils/button_config2.png"),
+              {128, 64},
+              {128, 64},
+              1});
   ecs.add_component<Selectable>(
       res1B, {myWindow._myTextures.getTexture(
-                    "assets/images/utils/button_config2_sel.png"),
-                std::function<void(ECS &, Entity)>(select),
-                std::function<void(ECS &, Entity)>(deselect)});
+                  "assets/images/utils/button_config2_sel.png"),
+              std::function<void(ECS &, Entity)>(select),
+              std::function<void(ECS &, Entity)>(deselect)});
   ecs.add_component<Pressable>(
       res1B, {myWindow._myTextures.getTexture(
-                    "assets/images/utils/button_config2_act.png"),
-                [](ECS &ecs, Entity i) {
-                  
-                }});
-  
+                  "assets/images/utils/button_config2_act.png"),
+              [](ECS &ecs, Entity i) {
+
+              }});
+
   Entity res2B = ecs.spawn_entity();
   ecs.add_component<Rtype::Client::Position>(
-      res2B,
-      {float(serverSize.x) / 8 * float(6), float(serverSize.y) / 15 * float(11.5)});
+      res2B, {float(serverSize.x) / 8 * float(6),
+              float(serverSize.y) / 15 * float(11.5)});
   ecs.add_component<Rtype::Client::Tag>(res2B, {CGENERAL});
   ecs.add_component<Rtype::Client::Hitbox>(res2B,
                                            {{float(1) / 10, float(1) / 10}});
   ecs.add_component<Rtype::Client::Text>(res2B, {"1280 x 720",
-                                                   myWindow._font,
-                                                   {1, 1},
-                                                   0,
-                                                   20,
-                                                   sf::Color::White,
-                                                   sf::Text::Style::Regular});
+                                                 myWindow._font,
+                                                 {1, 1},
+                                                 0,
+                                                 20,
+                                                 sf::Color::White,
+                                                 sf::Text::Style::Regular});
   ecs.add_component<Rtype::Client::Drawable>(
       res2B, {myWindow._myTextures.getTexture(
-                    "assets/images/utils/button_config2.png"),
-                {128, 64},
-                {128, 64},
-                1});
+                  "assets/images/utils/button_config2.png"),
+              {128, 64},
+              {128, 64},
+              1});
   ecs.add_component<Selectable>(
       res2B, {myWindow._myTextures.getTexture(
-                    "assets/images/utils/button_config2_sel.png"),
-                std::function<void(ECS &, Entity)>(select),
-                std::function<void(ECS &, Entity)>(deselect)});
+                  "assets/images/utils/button_config2_sel.png"),
+              std::function<void(ECS &, Entity)>(select),
+              std::function<void(ECS &, Entity)>(deselect)});
   ecs.add_component<Pressable>(
       res2B, {myWindow._myTextures.getTexture(
-                    "assets/images/utils/button_config2_act.png"),
-                [](ECS &ecs, Entity i) {
-                  
-                }});
+                  "assets/images/utils/button_config2_act.png"),
+              [](ECS &ecs, Entity i) {
 
+              }});
 
   // Entity button4 = ecs.spawn_entity();
   // ecs.add_component<Rtype::Client::Position>(
@@ -868,7 +876,8 @@ void createConfigGeneralEntites(ECS &ecs) {
   // ecs.add_component<Rtype::Client::Tag>(button4, {CPLAYER});
   // ecs.add_component<Rtype::Client::Hitbox>(button4,
   //                                          {{float(1) / 10, float(1) / 10}});
-  // ecs.add_component<Rtype::Client::Text>(button4, {getInput(myWindow._inputConfig.first, RIGHT1P),
+  // ecs.add_component<Rtype::Client::Text>(button4,
+  // {getInput(myWindow._inputConfig.first, RIGHT1P),
   //                                                  myWindow._font,
   //                                                  {1, 1},
   //                                                  0,
@@ -902,7 +911,8 @@ void createConfigGeneralEntites(ECS &ecs) {
   // ecs.add_component<Rtype::Client::Tag>(button5, {CPLAYER});
   // ecs.add_component<Rtype::Client::Hitbox>(button5,
   //                                          {{float(1) / 10, float(1) / 10}});
-  // ecs.add_component<Rtype::Client::Text>(button5, {getInput(myWindow._inputConfig.first, SHOOT1),
+  // ecs.add_component<Rtype::Client::Text>(button5,
+  // {getInput(myWindow._inputConfig.first, SHOOT1),
   //                                                  myWindow._font,
   //                                                  {1, 1},
   //                                                  0,
@@ -936,7 +946,8 @@ void createConfigGeneralEntites(ECS &ecs) {
   // ecs.add_component<Rtype::Client::Tag>(button6, {CPLAYER});
   // ecs.add_component<Rtype::Client::Hitbox>(button6,
   //                                          {{float(1) / 10, float(1) / 10}});
-  // ecs.add_component<Rtype::Client::Text>(button6, {getInput(myWindow._inputConfig.first, SUPERSHOOT1),
+  // ecs.add_component<Rtype::Client::Text>(button6,
+  // {getInput(myWindow._inputConfig.first, SUPERSHOOT1),
   //                                                  myWindow._font,
   //                                                  {1, 1},
   //                                                  0,
