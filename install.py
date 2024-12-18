@@ -53,10 +53,10 @@ def install_linux_dependencies():
             subprocess.run([
                 "sudo", "pacman", "-S", "--noconfirm",
                 "libx11", "libxrandr", "libxcursor", "libxi",
-                "libudev0-shim", "mesa", "ninja"
+                "libsystemd", "mesa", "ninja"
             ], check=True)
         else:
-            print("Aucun gestionnaire de paquets compatible trouvé.")
+            print("Aucun gestionnaire de paquets compatible trouvé. Système non pris en charge.")
             exit(1)
     except subprocess.CalledProcessError as e:
         print(f"Erreur lors de l'installation des dépendances système : {e}")
