@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include"tools.hpp"
+#include "tools.hpp"
 
 namespace Rtype::Client {
 struct CreateEvent {

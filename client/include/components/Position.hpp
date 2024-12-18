@@ -14,7 +14,7 @@
 namespace Rtype::Client {
 struct Position {
   Position(float x, float y, TupleFloat client = {0, 0}, bool needUpdate = true)
-    : _server({x, y}), _client(client), _needUpdate(needUpdate) {};
+      : _server({x, y}), _client(client), _needUpdate(needUpdate){};
   ~Position() = default;
   TupleFloat _server;
   TupleFloat _client;

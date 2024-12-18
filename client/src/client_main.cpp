@@ -52,10 +52,12 @@ int main(void) {
                 Rtype::Client::Position, Rtype::Client::Hitbox,
                 Rtype::Client::Drawable, Rtype::Client::Text,
                 Rtype::Client::Selectable>(windowSys, true);
-  ecs.subscribe<Rtype::Client::ChangeKey, Rtype::Client::Window>(windowSys, true);
+  ecs.subscribe<Rtype::Client::ChangeKey, Rtype::Client::Window>(windowSys,
+                                                                 true);
 
   auto cheatSys = Rtype::Client::CheatSys();
-  ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Window>(cheatSys, true);
+  ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Window>(cheatSys,
+                                                                  true);
 
   bool running = true;
   ecs.subscribe<Rtype::Client::InputEvent>(
@@ -64,7 +66,8 @@ int main(void) {
             e_input._event.type == sf::Event::Closed) {
           running = false;
         }
-      }, true);
+      },
+      true);
 
   ecs.post<Rtype::Client::CreateEvent>({Rtype::Client::MENU});
 

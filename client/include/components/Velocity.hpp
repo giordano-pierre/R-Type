@@ -13,7 +13,7 @@
 
 namespace Rtype::Client {
 struct Velocity {
-  Velocity(int x, int y) : _current({x, y}) {};
+  Velocity(int x, int y) : _current({x, y}){};
   ~Velocity() = default;
 
   TupleInt _current;

@@ -10,29 +10,27 @@
 
 namespace Rtype::Client {
 
-void LifeSys::operator()(ECS &ecs, const CreateEvent &e_create)
-{
+void LifeSys::operator()(ECS &ecs, const CreateEvent &e_create) {
   switch (e_create._type) {
-    case MENU:
-      createMenuEntities(ecs);
-      break;
-    case CONFIG:
-      createConfigEntities(ecs);
-      break;
-    case CGENERAL:
-      break;
-    case CPLAYER:
-      createConfigPlayer1Entites(ecs);
-      break;
-    default:
-      createGameEntities(ecs);
-      return;
+  case MENU:
+    createMenuEntities(ecs);
+    break;
+  case CONFIG:
+    createConfigEntities(ecs);
+    break;
+  case CGENERAL:
+    break;
+  case CPLAYER:
+    createConfigPlayer1Entites(ecs);
+    break;
+  default:
+    createGameEntities(ecs);
+    return;
   }
 }
 
 void LifeSys::operator()(ECS &ecs, const DeleteEvent &e_del,
-                         SparseArray<Tag> &tags)
-{
+                         SparseArray<Tag> &tags) {
   for (size_t i = 0; i < tags.size(); ++i) {
     auto &tag = tags[i];
 
@@ -41,4 +39,4 @@ void LifeSys::operator()(ECS &ecs, const DeleteEvent &e_del,
     }
   }
 }
-}
+} // namespace Rtype::Client
