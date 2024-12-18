@@ -51,7 +51,8 @@ void createGameEntities(ECS &ecs) {
                                             "assets/images/ship/red_ship.png"),
                                         {395, 250},
                                         {395, 250},
-                                        1, 1});
+                                        1,
+                                        1});
 }
 
 void createMenuEntities(ECS &ecs) {
@@ -82,7 +83,8 @@ void createMenuEntities(ECS &ecs) {
                                    "assets/images/utils/button_config1.png"),
                                {402, 100},
                                {402, 100},
-                               1, 1});
+                               1,
+                               1});
   ecs.add_component<Selectable>(
       startB, {myWindow._myTextures.getTexture(
                    "assets/images/utils/button_config1_sel.png"),
@@ -113,7 +115,8 @@ void createMenuEntities(ECS &ecs) {
                                    "assets/images/utils/button_config1.png"),
                                {402, 100},
                                {402, 100},
-                               1, 1});
+                               1,
+                               1});
   ecs.add_component<Selectable>(
       customB, {myWindow._myTextures.getTexture(
                     "assets/images/utils/button_config1_sel.png"),
@@ -143,7 +146,8 @@ void createMenuEntities(ECS &ecs) {
                                    "assets/images/utils/button_config1.png"),
                                {402, 100},
                                {402, 100},
-                               1, 1});
+                               1,
+                               1});
   ecs.add_component<Selectable>(
       configB, {myWindow._myTextures.getTexture(
                     "assets/images/utils/button_config1_sel.png"),
@@ -175,7 +179,8 @@ void createMenuEntities(ECS &ecs) {
                                    "assets/images/utils/button_config1.png"),
                                {402, 100},
                                {402, 100},
-                               1, 1});
+                               1,
+                               1});
   ecs.add_component<Selectable>(
       quitB, {myWindow._myTextures.getTexture(
                   "assets/images/utils/button_config1_sel.png"),
@@ -213,7 +218,8 @@ void createConfigEntities(ECS &ecs) {
                                    "assets/images/background/back_config.png"),
                                {512, 288},
                                {512, 288},
-                               1, 1});
+                               1,
+                               1});
 
   Entity generalB = ecs.spawn_entity();
   ecs.add_component<Position>(generalB,
@@ -229,7 +235,8 @@ void createConfigEntities(ECS &ecs) {
                                    "assets/images/utils/button_config1.png"),
                                {402, 100},
                                {402, 100},
-                               1, 2});
+                               1,
+                               2});
   ecs.add_component<Selectable>(
       generalB, {myWindow._myTextures.getTexture(
                      "assets/images/utils/button_config1_sel.png"),
@@ -261,7 +268,8 @@ void createConfigEntities(ECS &ecs) {
                                    "assets/images/utils/button_config1.png"),
                                {402, 100},
                                {402, 100},
-                               1, 2});
+                               1,
+                               2});
   ecs.add_component<Selectable>(
       player1B, {myWindow._myTextures.getTexture(
                      "assets/images/utils/button_config1_sel.png"),
@@ -293,7 +301,8 @@ void createConfigEntities(ECS &ecs) {
                                    "assets/images/utils/button_config1.png"),
                                {402, 100},
                                {402, 100},
-                               1, 2});
+                               1,
+                               2});
   ecs.add_component<Selectable>(
       player2B, {myWindow._myTextures.getTexture(
                      "assets/images/utils/button_config1_sel.png"),
@@ -323,7 +332,8 @@ void createConfigEntities(ECS &ecs) {
                                    "assets/images/utils/button_config1.png"),
                                {402, 100},
                                {402, 100},
-                               1, 2});
+                               1,
+                               2});
   ecs.add_component<Selectable>(
       backB, {myWindow._myTextures.getTexture(
                   "assets/images/utils/button_config1_sel.png"),
@@ -356,7 +366,8 @@ void createConfigEntities(ECS &ecs) {
                                    "assets/images/utils/button_config1.png"),
                                {402, 100},
                                {402, 100},
-                               1, 2});
+                               1,
+                               2});
   ecs.add_component<Selectable>(
       resetB, {myWindow._myTextures.getTexture(
                    "assets/images/utils/button_config1_sel.png"),
@@ -492,7 +503,8 @@ void createConfigPlayer1Entites(ECS &ecs) {
                     "assets/images/utils/button_config2.png"),
                 {128, 64},
                 {128, 64},
-                1, 2});
+                1,
+                2});
   ecs.add_component<Selectable>(
       button1, {myWindow._myTextures.getTexture(
                     "assets/images/utils/button_config2_sel.png"),
@@ -528,7 +540,8 @@ void createConfigPlayer1Entites(ECS &ecs) {
                     "assets/images/utils/button_config2.png"),
                 {128, 64},
                 {128, 64},
-                1, 2});
+                1,
+                2});
   ecs.add_component<Selectable>(
       button2, {myWindow._myTextures.getTexture(
                     "assets/images/utils/button_config2_sel.png"),
@@ -564,7 +577,8 @@ void createConfigPlayer1Entites(ECS &ecs) {
                     "assets/images/utils/button_config2.png"),
                 {128, 64},
                 {128, 64},
-                1, 2});
+                1,
+                2});
   ecs.add_component<Selectable>(
       button3, {myWindow._myTextures.getTexture(
                     "assets/images/utils/button_config2_sel.png"),
@@ -600,7 +614,8 @@ void createConfigPlayer1Entites(ECS &ecs) {
                     "assets/images/utils/button_config2.png"),
                 {128, 64},
                 {128, 64},
-                1, 2});
+                1,
+                2});
   ecs.add_component<Selectable>(
       button4, {myWindow._myTextures.getTexture(
                     "assets/images/utils/button_config2_sel.png"),
@@ -636,7 +651,8 @@ void createConfigPlayer1Entites(ECS &ecs) {
                     "assets/images/utils/button_config2.png"),
                 {128, 64},
                 {128, 64},
-                1, 2});
+                1,
+                2});
   ecs.add_component<Selectable>(
       button5, {myWindow._myTextures.getTexture(
                     "assets/images/utils/button_config2_sel.png"),
@@ -672,7 +688,8 @@ void createConfigPlayer1Entites(ECS &ecs) {
                     "assets/images/utils/button_config2.png"),
                 {128, 64},
                 {128, 64},
-                1, 2});
+                1,
+                2});
   ecs.add_component<Selectable>(
       button6, {myWindow._myTextures.getTexture(
                     "assets/images/utils/button_config2_sel.png"),
@@ -767,7 +784,8 @@ void createConfigGeneralEntites(ECS &ecs) {
                     "assets/images/utils/button_config2.png"),
                 {128, 64},
                 {128, 64},
-                1, 2});
+                1,
+                2});
   ecs.add_component<Selectable>(
       button1, {myWindow._myTextures.getTexture(
                     "assets/images/utils/button_config2_sel.png"),
@@ -795,7 +813,8 @@ void createConfigGeneralEntites(ECS &ecs) {
       {myWindow._myTextures.getTexture("assets/images/utils/toggle_config.png"),
        {128, 64},
        {128, 64},
-       1, 2});
+       1,
+       2});
   ecs.add_component<Selectable>(
       button2, {myWindow._myTextures.getTexture(
                     "assets/images/utils/toggle_config_sel.png"),
@@ -825,7 +844,8 @@ void createConfigGeneralEntites(ECS &ecs) {
                   "assets/images/utils/button_config2.png"),
               {128, 64},
               {128, 64},
-              1, 2});
+              1,
+              2});
   ecs.add_component<Selectable>(
       res1B, {myWindow._myTextures.getTexture(
                   "assets/images/utils/button_config2_sel.png"),
@@ -857,7 +877,8 @@ void createConfigGeneralEntites(ECS &ecs) {
                   "assets/images/utils/button_config2.png"),
               {128, 64},
               {128, 64},
-              1, 2});
+              1,
+              2});
   ecs.add_component<Selectable>(
       res2B, {myWindow._myTextures.getTexture(
                   "assets/images/utils/button_config2_sel.png"),
