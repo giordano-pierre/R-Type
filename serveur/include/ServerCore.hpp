@@ -28,7 +28,7 @@ private:
   void reset();
 
 public:
-  Server();
+  Server(ECS _ecs);
   ~Server();
 
   void start();

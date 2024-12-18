@@ -1,7 +1,7 @@
 #include "ServerCore.hpp"
 
-Server::Server()
-    : gameLogicSystem(ecs), levelManager(ecs), isRunning(false),
+Server::Server(ECS _ecs)
+    : ecs(_ecs), gameLogicSystem(_ecs), levelManager(_ecs), isRunning(_ecs),
       deltaTime(0.0f) {}
 
 Server::~Server() {
@@ -13,6 +13,14 @@ Server::~Server() {
 void Server::start() {
   isRunning = true;
   lastUpdate = std::chrono::steady_clock::now();
+
+  ServerHandlerSystem server_handler;
+  UDPServer server(ecs, 4242);
+  ecs.register_event<RequestEvent>();
+  ecs.register_event<ReceiveEvent>();
+  ecs.subscribe<RequestEvent>(server);
+  ecs.subscribe<ReceiveEvent>(server_handler);
+
   run();
 }
 
@@ -35,7 +43,18 @@ void Server::reset() {}
 
 void Server::handleCollisions() {}
 
-void Server::processNetworkEvents() {}
+void Server::processNetworkEvents() {
+
+  ecs.post<ReceiveEvent>({});
+        // while(true) {
+        //     if (!ecs.empty()) {
+        //         auto &callback = ecs.front();
+        //         callback();
+        //         ecs.pop_front();
+        //     }
+        // };
+
+}
 
 void Server::run() {
   gameLogicSystem.startGame();
