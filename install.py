@@ -14,15 +14,30 @@ def get_os_system():
     else:
         return "NONE"
 
+def remove_docker_repo():
+    """Supprime le dépôt Docker s'il existe."""
+    docker_repo_path = "/etc/apt/sources.list.d/docker.list"
+    docker_key_path = "/usr/share/keyrings/docker-archive-keyring.gpg"
+    try:
+        if os.path.exists(docker_repo_path):
+            print("Suppression du dépôt Docker inutile...")
+            subprocess.run(["sudo", "rm", "-f", docker_repo_path], check=True)
+        if os.path.exists(docker_key_path):
+            print("Suppression de la clé GPG Docker inutile...")
+            subprocess.run(["sudo", "rm", "-f", docker_key_path], check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Erreur lors de la suppression du dépôt Docker : {e}")
+
 def install_linux_dependencies():
     """Installe les dépendances système requises pour SFML selon le gestionnaire de paquets."""
     print("Installation des dépendances système requises...")
+    remove_docker_repo()
     try:
-        if shutil.which("apt-get"):
-            print("Utilisation de apt-get pour installer les dépendances (Debian/Ubuntu).")
-            subprocess.run(["sudo", "apt-get", "update"], check=True)
+        if shutil.which("apt"):
+            print("Utilisation de apt pour installer les dépendances (Debian/Ubuntu).")
+            subprocess.run(["sudo", "apt", "update"], check=True)
             subprocess.run([
-                "sudo", "apt-get", "install", "-y",
+                "sudo", "apt", "install", "-y",
                 "libx11-dev", "libxrandr-dev", "libxcursor-dev", "libxi-dev",
                 "libudev-dev", "libgl1-mesa-dev", "ninja-build"
             ], check=True)
