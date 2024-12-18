@@ -60,4 +60,36 @@ void resize960(ECS &ecs, Entity i) {
     press(ecs, i);
 }
 
+void langFR(ECS &ecs, Entity i) {
+    auto &myWindow = ecs.get_components<Window>()[0].value();
+
+    myWindow._lang = "FR";
+    press(ecs, i);
+}
+
+void langEN(ECS &ecs, Entity i) {
+    auto &myWindow = ecs.get_components<Window>()[0].value();
+
+    myWindow._lang = "EN";
+    press(ecs, i);
+}
+
+void resetG(ECS &ecs, Entity i) {
+    auto &myWindow = ecs.get_components<Window>()[0].value();
+
+    initGeneralInput(myWindow._inputConfig.first);
+}
+
+void resetP1(ECS &ecs, Entity i) {
+    auto &myWindow = ecs.get_components<Window>()[0].value();
+
+    initPlay1Input(myWindow._inputConfig);
+}
+
+void resetP2(ECS &ecs, Entity i) {
+    auto &myWindow = ecs.get_components<Window>()[0].value();
+
+    initPlay2Input(myWindow._inputConfig);
+}
+
 } // namespace Rtype::Client

@@ -8,6 +8,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <memory>
 
 namespace Rtype::Client {
 struct TupleInt {
@@ -68,11 +69,11 @@ float computeDist(TupleFloat a, TupleFloat b);
 std::string convertInput(const sf::Keyboard::Key &key);
 std::string getInput(std::map<UserInput, sf::Keyboard::Key> &input,
                      UserInput search);
-void initGeneralInput(std::map<UserInput, sf::Keyboard::Key> &inputConfig);
+void initGeneralInput(std::map<UserInput, std::pair<sf::Keyboard::Key, std::shared_ptr<std::string>>> &inputConfig);
 void initPlay1Input(
-    std::pair<std::map<UserInput, sf::Keyboard::Key>,
+    std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key, std::shared_ptr<std::string>>>,
               std::map<UserInput, sf::Keyboard::Key>> &inputConfig);
 void initPlay2Input(
-    std::pair<std::map<UserInput, sf::Keyboard::Key>,
+    std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key, std::shared_ptr<std::string>>>,
               std::map<UserInput, sf::Keyboard::Key>> &inputConfig);
 } // namespace Rtype::Client
