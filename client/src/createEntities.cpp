@@ -12,34 +12,34 @@
 namespace Rtype::Client {
 
 void createGameEntities(ECS &ecs) {
-  auto myWindow = ecs.get_components<Window>()[0].value();
-  auto serverSize = myWindow._serverSize;
+    auto myWindow = ecs.get_components<Window>()[0].value();
+    auto serverSize = myWindow._serverSize;
 
-  Entity back1 = ecs.spawn_entity();
-  ecs.add_component<Position>(
-      back1, {serverSize.x / float(2), serverSize.y / float(2)});
-  ecs.add_component<Velocity>(back1, {-1, 0});
-  ecs.add_component<Tag>(back1, {BACKGROUND});
-  ecs.add_component<Hitbox>(back1, {{1, 1}, false});
-  ecs.add_component<Drawable>(
-      back1, {myWindow._myTextures.getTexture(
-                  "assets/images/background/background_mountain.jpg"),
-              {675, 360},
-              {675, 360},
-              1});
+    Entity back1 = ecs.spawn_entity();
+    ecs.add_component<Position>(
+        back1, {serverSize.x / float(2), serverSize.y / float(2)});
+    ecs.add_component<Velocity>(back1, {-1, 0});
+    ecs.add_component<Tag>(back1, {BACKGROUND});
+    ecs.add_component<Hitbox>(back1, {{1, 1}, false});
+    ecs.add_component<Drawable>(
+        back1, {myWindow._myTextures.getTexture(
+                    "assets/images/background/background_mountain.jpg"),
+                {675, 360},
+                {675, 360},
+                1});
 
-  Entity back2 = ecs.spawn_entity();
-  ecs.add_component<Position>(
-      back2, {serverSize.x / float(2) + serverSize.x, serverSize.y / float(2)});
-  ecs.add_component<Velocity>(back2, {-1, 0});
-  ecs.add_component<Tag>(back2, {BACKGROUND});
-  ecs.add_component<Hitbox>(back2, {{1, 1}, false});
-  ecs.add_component<Drawable>(
-      back2, {myWindow._myTextures.getTexture(
-                  "assets/images/background/background_mountain.jpg"),
-              {675, 360},
-              {675, 360},
-              1});
+    Entity back2 = ecs.spawn_entity();
+    ecs.add_component<Position>(back2, {serverSize.x / float(2) + serverSize.x,
+                                        serverSize.y / float(2)});
+    ecs.add_component<Velocity>(back2, {-1, 0});
+    ecs.add_component<Tag>(back2, {BACKGROUND});
+    ecs.add_component<Hitbox>(back2, {{1, 1}, false});
+    ecs.add_component<Drawable>(
+        back2, {myWindow._myTextures.getTexture(
+                    "assets/images/background/background_mountain.jpg"),
+                {675, 360},
+                {675, 360},
+                1});
 
   Entity player1 = ecs.spawn_entity();
   ecs.add_component<Position>(player1, {float(100), serverSize.y / float(2)});
@@ -56,8 +56,8 @@ void createGameEntities(ECS &ecs) {
 }
 
 void createMenuEntities(ECS &ecs) {
-  auto myWindow = ecs.get_components<Window>()[0].value();
-  auto serverSize = myWindow._serverSize;
+    auto myWindow = ecs.get_components<Window>()[0].value();
+    auto serverSize = myWindow._serverSize;
 
   Entity back1 = ecs.spawn_entity();
   ecs.add_component<Position>(
@@ -194,8 +194,8 @@ void createMenuEntities(ECS &ecs) {
 }
 
 void createConfigEntities(ECS &ecs) {
-  auto myWindow = ecs.get_components<Window>()[0].value();
-  auto serverSize = myWindow._serverSize;
+    auto myWindow = ecs.get_components<Window>()[0].value();
+    auto serverSize = myWindow._serverSize;
 
   Entity back1 = ecs.spawn_entity();
   ecs.add_component<Position>(

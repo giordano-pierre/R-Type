@@ -1,41 +1,41 @@
-#include "ECS/ECS.hpp"
-#include "GameLogicSystem.hpp"
-#include "ScoreManager.hpp"
 #include "ServerCore.hpp"
-#include "ServerHandlerSystem.hpp"
-#include "UDPServer.hpp"
+#include <csignal>
+#include <cstdlib>
 #include <iostream>
 
-int main() {
-  try {
-    ECS ecs;
-    ServerHandlerSystem server_handler;
-    UDPServer server(ecs, 4242);
-    ecs.register_event<RequestEvent>();
-    ecs.register_event<ReceiveEvent>();
-    ecs.subscribe<RequestEvent>(server);
-    ecs.subscribe<ReceiveEvent>(server_handler);
-    while (true) {
-      if (!ecs.empty()) {
-        auto &callback = ecs.front();
-        callback();
-        ecs.pop_front();
-      }
-    };
-  } catch (std::exception &e) {
-    std::cerr << "Error: " << e.what() << std::endl;
-  }
-  return 0;
+static Server *serverInstance = nullptr;
+
+void signalHandler(int signum) {
+    if (serverInstance) {
+        std::cout << "\nSignal d'arrêt reçu :'(. Arrêt du serveur... \n\n"
+                  << std::endl;
+        serverInstance->stop();
+    }
 }
 
-// int main() {
-//   try {
-//     ECS ecs;
-//     Server server(ecs);
-//     server.run();
-//   } catch (const std::exception &e) {
-//     std::cerr << "Server error: " << e.what() << std::endl;
-//     return 1;
-//   }
-//   return 0;
-// }
+int main() {
+    try {
+        std::signal(SIGINT, signalHandler);
+        std::signal(SIGTERM, signalHandler);
+
+        ECS ecs;
+        Server server(ecs);
+        serverInstance = &server;
+
+        std::cout << "Attention!!! \nDémarrage du serveur R-Type...\n"
+                  << std::endl;
+
+        server.start();
+
+        std::cout << "===============================\n" << std::endl;
+        std::cout << "\n... Serveur arrêté avec succès. Bien joué "
+                     "!\n\n\n\n\nN'hésite pas a rejoindre Arts&Crafts ;)"
+                  << std::endl;
+        return 0;
+
+    } catch (const std::exception &e) {
+        std::cerr << "Aie aie aie... \nServer error: " << e.what() << std::endl;
+        return 1;
+    }
+    return 0;
+}

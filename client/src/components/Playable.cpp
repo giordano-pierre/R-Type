@@ -9,6 +9,6 @@
 
 auto operator<<(std::ostream &out,
                 const Rtype::Client::Playable &player) -> std::ostream & {
-  out << "is the Player " << player._id;
-  return out;
+    out << "is the Player " << player._id;
+    return out;
 }

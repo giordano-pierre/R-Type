@@ -24,8 +24,8 @@ struct Drawable {
   bool _activated = true;
   int _order;
 
-  std::shared_ptr<sf::Texture> _texture;
-  sf::IntRect _rectangle;
-  sf::Sprite _sprite;
+    std::shared_ptr<sf::Texture> _texture;
+    sf::IntRect _rectangle;
+    sf::Sprite _sprite;
 };
 } // namespace Rtype::Client

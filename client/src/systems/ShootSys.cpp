@@ -17,21 +17,22 @@ void ShootSys::operator()(ECS &ecs, const InputEvent &e_input,
                           const SparseArray<Playable> &players,
                           const SparseArray<Position> &positions,
                           const SparseArray<Hitbox> &hitboxs) {
-  bool player1Shoot = false;
+    bool player1Shoot = false;
 
-  switch (e_input._myEvent) {
-  case SHOOT1:
-    player1Shoot = true;
-    break;
-  default:
-    return;
-  }
+    switch (e_input._myEvent) {
+    case SHOOT1:
+        player1Shoot = true;
+        break;
+    default:
+        return;
+    }
 
-  for (size_t i = 0;
-       i < players.size() && i < positions.size() && i < hitboxs.size(); ++i) {
-    const auto &play = players[i];
-    const auto &pos = positions[i];
-    const auto &box = hitboxs[i];
+    for (size_t i = 0;
+         i < players.size() && i < positions.size() && i < hitboxs.size();
+         ++i) {
+        const auto &play = players[i];
+        const auto &pos = positions[i];
+        const auto &box = hitboxs[i];
 
     if (play && pos && box && player1Shoot) {
       Entity shot = ecs.spawn_entity();

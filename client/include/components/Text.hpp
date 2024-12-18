@@ -20,12 +20,12 @@ struct Text {
        const sf::Uint32 & = sf::Text::Style::Regular);
   ~Text() = default;
 
-  TupleFloat _sizeInBox;
-  float _pos;
-  sf::Color _color;
-  sf::Uint32 _style;
-  sf::Text _text;
-  int _charSize;
-  bool _needUpdate = true;
+    TupleFloat _sizeInBox;
+    float _pos;
+    sf::Color _color;
+    sf::Uint32 _style;
+    sf::Text _text;
+    int _charSize;
+    bool _needUpdate = true;
 };
 } // namespace Rtype::Client

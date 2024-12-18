@@ -7,7 +7,9 @@
 #include <iostream>
 
 #include "ClientHandlerSystem.hpp"
+#include "ClientHandlerSystem.hpp"
 #include "ECS/ECS.hpp"
+#include "UDPClient.hpp"
 #include "UDPClient.hpp"
 #include "createEntities.hpp"
 #include "ecsObjects.hpp"
@@ -18,16 +20,16 @@ int main(void) {
   Rtype::Client::TupleUInt serverSize = {1920, 1080};
   ECS ecs;
 
-  ecs.register_component<Rtype::Client::Window>();
-  ecs.register_component<Rtype::Client::Tag>();
-  ecs.register_component<Rtype::Client::Position>();
-  ecs.register_component<Rtype::Client::Velocity>();
-  ecs.register_component<Rtype::Client::Drawable>();
-  ecs.register_component<Rtype::Client::Playable>();
-  ecs.register_component<Rtype::Client::Hitbox>();
-  ecs.register_component<Rtype::Client::Selectable>();
-  ecs.register_component<Rtype::Client::Text>();
-  ecs.register_component<Rtype::Client::Pressable>();
+    ecs.register_component<Rtype::Client::Window>();
+    ecs.register_component<Rtype::Client::Tag>();
+    ecs.register_component<Rtype::Client::Position>();
+    ecs.register_component<Rtype::Client::Velocity>();
+    ecs.register_component<Rtype::Client::Drawable>();
+    ecs.register_component<Rtype::Client::Playable>();
+    ecs.register_component<Rtype::Client::Hitbox>();
+    ecs.register_component<Rtype::Client::Selectable>();
+    ecs.register_component<Rtype::Client::Text>();
+    ecs.register_component<Rtype::Client::Pressable>();
 
   ecs.register_event<Rtype::Client::FrameEvent>();
   ecs.register_event<Rtype::Client::InputEvent>();
@@ -77,30 +79,32 @@ int main(void) {
   Rtype::Client::loadMenuSystem(ecs);
   // Rtype::Client::loadGameSystem(ecs);
 
-  const auto FPS = 60;
-  const timer::duration<double, std::ratio<1, FPS>> frameRate(1);
-  timer::time_point<timer::steady_clock> frameStart;
-  timer::time_point<timer::steady_clock> newTime;
-  timer::duration<double> dtime = timer::duration<double>::zero();
+    const auto FPS = 60;
+    const timer::duration<double, std::ratio<1, FPS>> frameRate(1);
+    timer::time_point<timer::steady_clock> frameStart;
+    timer::time_point<timer::steady_clock> newTime;
+    timer::duration<double> dtime = timer::duration<double>::zero();
 
-  while (running) {
-    newTime = timer::steady_clock::now();
-    dtime += newTime - frameStart;
-    frameStart = newTime;
+    while (running) {
+        newTime = timer::steady_clock::now();
+        dtime += newTime - frameStart;
+        frameStart = newTime;
 
-    if (dtime >= frameRate) {
-      ecs.post<Rtype::Client::TicEvent>({std::chrono::steady_clock::now()});
-      ecs.post<Rtype::Client::FrameEvent>({std::chrono::steady_clock::now()});
+        if (dtime >= frameRate) {
+            ecs.post<Rtype::Client::TicEvent>(
+                {std::chrono::steady_clock::now()});
+            ecs.post<Rtype::Client::FrameEvent>(
+                {std::chrono::steady_clock::now()});
 
-      while (!ecs.empty()) {
-        auto evt = ecs.front();
-        evt();
-        ecs.pop_front();
-      }
-      dtime = std::chrono::duration<double>::zero();
+            while (!ecs.empty()) {
+                auto evt = ecs.front();
+                evt();
+                ecs.pop_front();
+            }
+            dtime = std::chrono::duration<double>::zero();
+        }
     }
-  }
-  return 0;
+    return 0;
 }
 
 // int main() {

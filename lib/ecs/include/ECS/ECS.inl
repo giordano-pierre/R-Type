@@ -116,7 +116,7 @@ auto ECS::subscribe(System &&system, bool permanent) -> void
 
     systems_type<Event> &event_array = get_events<Event>();
 
-    event_array.push_back(lambda);
+    event_array.push_back({lambda, permanent});
 }
 
 template <class Event, class ... Components, typename System>
@@ -128,7 +128,7 @@ auto ECS::subscribe(System &system, bool permanent) -> void
 
     systems_type<Event> &event_array = get_events<Event>();
 
-    event_array.push_back(lambda);
+    event_array.push_back({lambda, permanent});
 }
 
 template <class Event, class ... Components, typename System>
@@ -140,7 +140,7 @@ auto ECS::subscribe(const System &system, bool permanent) -> void
 
     systems_type<Event> &event_array = get_events<Event>();
 
-    event_array.push_back(lambda);
+    event_array.push_back({lambda, permanent});
 }
 
 template <class Event>
@@ -162,7 +162,7 @@ template <class Event> auto ECS::post(const Event &event) -> void
     auto lambda = [this, event]() {
         systems_type<Event> &event_array = get_events<Event>();
         for (long unsigned int i = 0; i < event_array.size(); i++)
-            event_array[i](*this, std::move(event));
+            event_array[i].lambda(*this, std::move(event));
     };
 
     _callback_pool.push_back(lambda);

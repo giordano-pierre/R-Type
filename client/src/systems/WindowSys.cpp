@@ -17,63 +17,63 @@ WindowSys::WindowSys(sf::VideoMode mode, const sf::String &title,
     : _window(mode, title, style, settings), _title(title) {}
 
 void WindowSys::resizeWindow(TupleUInt newSize, bool &isResize) {
-  sf::Vector2u sizeWindow = _window.getSize();
+    sf::Vector2u sizeWindow = _window.getSize();
 
-  if (sizeWindow.x == newSize.x && sizeWindow.y == newSize.y)
-    return;
-  _window.close();
-  _window.create({newSize.x, newSize.y, 32}, _title,
-                 sf::Style::Titlebar | sf::Style::Close);
-  isResize = true;
+    if (sizeWindow.x == newSize.x && sizeWindow.y == newSize.y)
+        return;
+    _window.close();
+    _window.create({newSize.x, newSize.y, 32}, _title,
+                   sf::Style::Titlebar | sf::Style::Close);
+    isResize = true;
 }
 
 void extractInput(
     ECS &ecs, sf::Event event,
     const std::pair<std::map<UserInput, sf::Keyboard::Key>,
                     std::map<UserInput, sf::Keyboard::Key>> &inputConfig) {
-  bool isRegister = false;
+    bool isRegister = false;
 
-  if (event.type == sf::Event::KeyPressed) {
-    for (const auto [key, value] : inputConfig.first) {
-      if (value == event.key.code) {
-        ecs.post<InputEvent>({event, key});
-        isRegister = true;
-      }
+    if (event.type == sf::Event::KeyPressed) {
+        for (const auto [key, value] : inputConfig.first) {
+            if (value == event.key.code) {
+                ecs.post<InputEvent>({event, key});
+                isRegister = true;
+            }
+        }
     }
-  }
-  if (event.type == sf::Event::KeyReleased) {
-    for (const auto [key, value] : inputConfig.second) {
-      if (value == event.key.code) {
-        ecs.post<InputEvent>({event, key});
-        isRegister = true;
-      }
+    if (event.type == sf::Event::KeyReleased) {
+        for (const auto [key, value] : inputConfig.second) {
+            if (value == event.key.code) {
+                ecs.post<InputEvent>({event, key});
+                isRegister = true;
+            }
+        }
     }
-  }
-  if (!isRegister)
-    ecs.post<InputEvent>({event, NOTHING});
+    if (!isRegister)
+        ecs.post<InputEvent>({event, NOTHING});
 }
 
 void WindowSys::updateInfo(SparseArray<Position> &positions,
                            SparseArray<Hitbox> &hitboxs, bool isResize,
                            sf::Vector2u sizeClient, TupleUInt serverSize) {
-  for (size_t i = 0; i < positions.size() && i < hitboxs.size(); ++i) {
-    auto &pos = positions[i];
-    auto &box = hitboxs[i];
+    for (size_t i = 0; i < positions.size() && i < hitboxs.size(); ++i) {
+        auto &pos = positions[i];
+        auto &box = hitboxs[i];
 
-    if (box && (box.value()._needUpdate || isResize)) {
-      box.value()._server = {box.value()._coefSize.x * serverSize.x,
-                             box.value()._coefSize.y * serverSize.y};
-      box.value()._client = {box.value()._coefSize.x * sizeClient.x,
-                             box.value()._coefSize.y * sizeClient.y};
-      box.value()._needUpdate = false;
+        if (box && (box.value()._needUpdate || isResize)) {
+            box.value()._server = {box.value()._coefSize.x * serverSize.x,
+                                   box.value()._coefSize.y * serverSize.y};
+            box.value()._client = {box.value()._coefSize.x * sizeClient.x,
+                                   box.value()._coefSize.y * sizeClient.y};
+            box.value()._needUpdate = false;
+        }
+        if (pos && (pos.value()._needUpdate || isResize)) {
+            pos.value()._client = {
+                pos.value()._server.x * sizeClient.x / serverSize.x,
+                pos.value()._server.y * sizeClient.y / serverSize.y};
+            pos.value()._needUpdate = false;
+        }
     }
-    if (pos && (pos.value()._needUpdate || isResize)) {
-      pos.value()._client = {
-          pos.value()._server.x * sizeClient.x / serverSize.x,
-          pos.value()._server.y * sizeClient.y / serverSize.y};
-      pos.value()._needUpdate = false;
-    }
-  }
 }
 
 void WindowSys::drawSprite(SparseArray<Position> &positions,
@@ -100,33 +100,33 @@ void WindowSys::drawSprite(SparseArray<Position> &positions,
 void WindowSys::drawSel(SparseArray<Position> &positions,
                         SparseArray<Hitbox> &hitboxs,
                         SparseArray<Selectable> &selectables) {
-  for (size_t i = 0;
-       i < positions.size() && i < hitboxs.size() && i < selectables.size();
-       ++i) {
-    auto &pos = positions[i];
-    auto &box = hitboxs[i];
-    auto &sel = selectables[i];
+    for (size_t i = 0;
+         i < positions.size() && i < hitboxs.size() && i < selectables.size();
+         ++i) {
+        auto &pos = positions[i];
+        auto &box = hitboxs[i];
+        auto &sel = selectables[i];
 
-    if (pos && box && sel && sel.value()._display) {
-      sel.value()._sprite.setPosition(
-          {pos.value()._client.x, pos.value()._client.y});
-      sel.value()._sprite.setScale(
-          {box.value()._client.x / sel.value()._size.x,
-           box.value()._client.y / sel.value()._size.y});
-      _window.draw(sel.value()._sprite);
+        if (pos && box && sel && sel.value()._display) {
+            sel.value()._sprite.setPosition(
+                {pos.value()._client.x, pos.value()._client.y});
+            sel.value()._sprite.setScale(
+                {box.value()._client.x / sel.value()._size.x,
+                 box.value()._client.y / sel.value()._size.y});
+            _window.draw(sel.value()._sprite);
+        }
     }
-  }
 }
 
 void WindowSys::drawText(SparseArray<Position> &positions,
                          SparseArray<Hitbox> &hitboxs, SparseArray<Text> &texts,
                          bool isResize, sf::Vector2u sizeClient,
                          TupleUInt serverSize) {
-  for (size_t i = 0;
-       i < positions.size() && i < hitboxs.size() && i < texts.size(); ++i) {
-    auto &pos = positions[i];
-    auto &box = hitboxs[i];
-    auto &tex = texts[i];
+    for (size_t i = 0;
+         i < positions.size() && i < hitboxs.size() && i < texts.size(); ++i) {
+        auto &pos = positions[i];
+        auto &box = hitboxs[i];
+        auto &tex = texts[i];
 
     if (pos && box && tex) {
       if (tex.value()._needUpdate) {
@@ -169,22 +169,23 @@ void WindowSys::drawText(SparseArray<Position> &positions,
 
 void WindowSys::drawHitboxes(SparseArray<Position> &positions,
                              SparseArray<Hitbox> &hitboxs, bool draw) {
-  for (size_t i = 0; i < positions.size() && i < hitboxs.size(); ++i) {
-    auto &pos = positions[i];
-    auto &box = hitboxs[i];
+    for (size_t i = 0; i < positions.size() && i < hitboxs.size(); ++i) {
+        auto &pos = positions[i];
+        auto &box = hitboxs[i];
 
-    if (pos && box && box.value()._display && draw) {
-      sf::RectangleShape borderRect(
-          sf::Vector2f({box.value()._client.x, box.value()._client.y}));
-      borderRect.setOrigin(box.value()._client.x / 2,
-                           box.value()._client.y / 2);
-      borderRect.setFillColor(sf::Color::Transparent);
-      borderRect.setOutlineColor(sf::Color::Red);
-      borderRect.setOutlineThickness(2.0);
-      borderRect.setPosition({pos.value()._client.x, pos.value()._client.y});
-      _window.draw(borderRect);
+        if (pos && box && box.value()._display && draw) {
+            sf::RectangleShape borderRect(
+                sf::Vector2f({box.value()._client.x, box.value()._client.y}));
+            borderRect.setOrigin(box.value()._client.x / 2,
+                                 box.value()._client.y / 2);
+            borderRect.setFillColor(sf::Color::Transparent);
+            borderRect.setOutlineColor(sf::Color::Red);
+            borderRect.setOutlineThickness(2.0);
+            borderRect.setPosition(
+                {pos.value()._client.x, pos.value()._client.y});
+            _window.draw(borderRect);
+        }
     }
-  }
 }
 
 void WindowSys::operator()(ECS &ecs, const FrameEvent &,
@@ -194,22 +195,23 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
                            SparseArray<Drawable> &sprites,
                            SparseArray<Text> &texts,
                            SparseArray<Selectable> &selectables) {
-  bool displayHitbox = (windows.size() > 0 && windows[0])
-                           ? windows[0].value()._displayHitboxs
-                           : false;
-  TupleUInt serverSize = (windows.size() > 0 && windows[0])
-                             ? windows[0].value()._serverSize
-                             : TupleUInt{1920, 1080};
-  auto inputConfig = (windows.size() > 0 && windows[0])
-                         ? windows[0].value()._inputConfig
-                         : std::pair<std::map<UserInput, sf::Keyboard::Key>,
-                                     std::map<UserInput, sf::Keyboard::Key>>();
-  bool isResize = false;
+    bool displayHitbox = (windows.size() > 0 && windows[0])
+                             ? windows[0].value()._displayHitboxs
+                             : false;
+    TupleUInt serverSize = (windows.size() > 0 && windows[0])
+                               ? windows[0].value()._serverSize
+                               : TupleUInt{1920, 1080};
+    auto inputConfig =
+        (windows.size() > 0 && windows[0])
+            ? windows[0].value()._inputConfig
+            : std::pair<std::map<UserInput, sf::Keyboard::Key>,
+                        std::map<UserInput, sf::Keyboard::Key>>();
+    bool isResize = false;
 
-  _window.clear();
-  if (windows.size() > 0 && windows[0])
-    resizeWindow(windows[0].value()._size, isResize);
-  sf::Vector2u sizeWindow = _window.getSize();
+    _window.clear();
+    if (windows.size() > 0 && windows[0])
+        resizeWindow(windows[0].value()._size, isResize);
+    sf::Vector2u sizeWindow = _window.getSize();
 
   updateInfo(positions, hitboxs, isResize, sizeWindow, serverSize);
   for (int i = 0; i <= 3; i++)
@@ -219,10 +221,10 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
   drawHitboxes(positions, hitboxs, displayHitbox);
   _window.display();
 
-  sf::Event event;
+    sf::Event event;
 
-  while (_window.pollEvent(event))
-    extractInput(ecs, event, inputConfig);
+    while (_window.pollEvent(event))
+        extractInput(ecs, event, inputConfig);
 }
 
 bool isBanKey(sf::Keyboard::Key key) {

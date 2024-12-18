@@ -22,10 +22,11 @@
 
 namespace Rtype::Client {
 class WindowSys {
-public:
-  WindowSys(sf::VideoMode mode, const sf::String &title, sf::Uint32 style = 7U,
-            const sf::ContextSettings &settings = sf::ContextSettings());
-  ~WindowSys() = default;
+  public:
+    WindowSys(sf::VideoMode mode, const sf::String &title,
+              sf::Uint32 style = 7U,
+              const sf::ContextSettings &settings = sf::ContextSettings());
+    ~WindowSys() = default;
 
   void operator()(ECS &ecs, const FrameEvent &e_frame,
                   const SparseArray<Window> &windows,
@@ -36,9 +37,9 @@ public:
   void operator()(ECS &ecs, const ChangeKey &e_changeK,
                   SparseArray<Window> &windows);
 
-private:
-  sf::RenderWindow _window;
-  sf::String _title;
+  private:
+    sf::RenderWindow _window;
+    sf::String _title;
 
   void resizeWindow(TupleUInt, bool &);
   void updateInfo(SparseArray<Position> &positions,

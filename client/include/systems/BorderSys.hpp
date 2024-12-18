@@ -16,14 +16,14 @@
 
 namespace Rtype::Client {
 class BorderSys {
-public:
-  BorderSys() = default;
-  ~BorderSys() = default;
+  public:
+    BorderSys() = default;
+    ~BorderSys() = default;
 
-  void operator()(ECS &ecs, const TicEvent &e_tic,
-                  const SparseArray<Window> &windows,
-                  const SparseArray<Tag> &tags,
-                  const SparseArray<Hitbox> &hitboxs,
-                  SparseArray<Position> &positions);
+    void operator()(ECS &ecs, const TicEvent &e_tic,
+                    const SparseArray<Window> &windows,
+                    const SparseArray<Tag> &tags,
+                    const SparseArray<Hitbox> &hitboxs,
+                    SparseArray<Position> &positions);
 };
 } // namespace Rtype::Client

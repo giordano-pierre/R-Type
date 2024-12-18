@@ -13,11 +13,11 @@
 
 namespace Rtype::Client {
 class CheatSys {
-public:
-  CheatSys() = default;
-  ~CheatSys() = default;
+  public:
+    CheatSys() = default;
+    ~CheatSys() = default;
 
-  void operator()(ECS &ecs, const InputEvent &e_input,
-                  SparseArray<Window> &windows);
+    void operator()(ECS &ecs, const InputEvent &e_input,
+                    SparseArray<Window> &windows);
 };
 } // namespace Rtype::Client

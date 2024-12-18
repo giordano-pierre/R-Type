@@ -12,7 +12,7 @@
 
 namespace Rtype::Client {
 struct InputEvent {
-  sf::Event _event;
-  UserInput _myEvent;
+    sf::Event _event;
+    UserInput _myEvent;
 };
 } // namespace Rtype::Client

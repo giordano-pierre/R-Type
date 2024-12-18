@@ -11,18 +11,18 @@
 
 namespace Rtype::Client {
 struct TupleInt {
-  int x;
-  int y;
+    int x;
+    int y;
 };
 
 struct TupleUInt {
-  unsigned int x;
-  unsigned int y;
+    unsigned int x;
+    unsigned int y;
 };
 
 struct TupleFloat {
-  float x;
-  float y;
+    float x;
+    float y;
 };
 
 enum ObjectType {

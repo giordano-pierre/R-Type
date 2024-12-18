@@ -21,9 +21,9 @@ struct Selectable {
   std::function<void(ECS &, Entity)> _sel;
   std::function<void(ECS &, Entity)> _desel;
 
-  sf::Sprite _sprite;
-  TupleUInt _size;
-  bool _isSelected = false;
-  bool _display = false;
+    sf::Sprite _sprite;
+    TupleUInt _size;
+    bool _isSelected = false;
+    bool _display = false;
 };
 } // namespace Rtype::Client

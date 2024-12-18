@@ -22,6 +22,6 @@ struct Pressable {
   std::function<void(ECS &, Entity)> _press;
   int _link;
 
-  bool _isPressed = false;
+    bool _isPressed = false;
 };
 } // namespace Rtype::Client

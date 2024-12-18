@@ -129,7 +129,7 @@ auto SparseArray<Component>::emplace_at(size_type pos, Params &&...args) -> refe
 {
     if (pos >= _data.size())
         _data.resize(pos+1);
-    _data[pos].emplace(std::forward<Params>(args)...);
+    _data[pos].emplace(args...);
     return _data[pos];
 }
 

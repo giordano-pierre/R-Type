@@ -12,11 +12,11 @@
 #include "RequestEvent.hpp"
 
 class ClientHandlerSystem {
-private:
-  /* data */
-public:
-  ClientHandlerSystem(){};
-  ~ClientHandlerSystem(){};
+  private:
+    /* data */
+  public:
+    ClientHandlerSystem(){};
+    ~ClientHandlerSystem(){};
 
-  void operator()(ECS &ecs, const ReceiveEvent &rec_event);
+    void operator()(ECS &ecs, const ReceiveEvent &rec_event);
 };

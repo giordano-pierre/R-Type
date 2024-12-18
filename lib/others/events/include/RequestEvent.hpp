@@ -12,11 +12,11 @@
 #include <string>
 
 struct RequestEvent {
-  // RequestEvent(NetworkActions action, const nlohmann::json &payload, const
-  // std::string &receiver_uuid=""):
-  //     action(action), payload(payload), receiver_uuid(receiver_uuid) {};
+    // RequestEvent(NetworkActions action, const nlohmann::json &payload, const
+    // std::string &receiver_uuid=""):
+    //     action(action), payload(payload), receiver_uuid(receiver_uuid) {};
 
-  const NetworkActions action;
-  const nlohmann::json payload;
-  const std::string receiver_uuid = "";
+    const NetworkActions action;
+    const nlohmann::json payload;
+    const std::string receiver_uuid = "";
 };

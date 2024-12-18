@@ -16,17 +16,18 @@
 
 namespace Rtype::Client {
 class SelectSys {
-public:
-  SelectSys() = default;
-  ~SelectSys() = default;
+  public:
+    SelectSys() = default;
+    ~SelectSys() = default;
 
-  void operator()(ECS &ecs, const InputEvent &e_input,
-                  const SparseArray<Position> &positions,
-                  SparseArray<Drawable> &sprites, SparseArray<Hitbox> &hitboxes,
-                  SparseArray<Selectable> &selectables);
-  void operator()(ECS &ecs, const InputEvent &e_input,
-                  const SparseArray<Position> &positions,
-                  SparseArray<Drawable> &sprites,
-                  SparseArray<Selectable> &selectables);
+    void operator()(ECS &ecs, const InputEvent &e_input,
+                    const SparseArray<Position> &positions,
+                    SparseArray<Drawable> &sprites,
+                    SparseArray<Hitbox> &hitboxes,
+                    SparseArray<Selectable> &selectables);
+    void operator()(ECS &ecs, const InputEvent &e_input,
+                    const SparseArray<Position> &positions,
+                    SparseArray<Drawable> &sprites,
+                    SparseArray<Selectable> &selectables);
 };
 } // namespace Rtype::Client
