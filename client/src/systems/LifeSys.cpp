@@ -15,28 +15,28 @@
 namespace Rtype::Client {
 
 void LifeSys::operator()(ECS &ecs, const CreateEvent &e_create) {
-    // ecs.clean<FrameEvent>();
-    // ecs.clean<InputEvent>();
-    // ecs.clean<TicEvent>();
+    ecs.clean<FrameEvent>();
+    ecs.clean<InputEvent>();
+    ecs.clean<TicEvent>();
     switch (e_create._type) {
     case MENU:
-        // loadMenuSystem(ecs);
+        loadMenuSystem(ecs);
         createMenuEntities(ecs);
         break;
     case CONFIG:
-        // loadMenuSystem(ecs);
+        loadMenuSystem(ecs);
         createConfigEntities(ecs);
         break;
     case CGENERAL:
-        // loadMenuSystem(ecs);
+        loadMenuSystem(ecs);
         createConfigGeneralEntites(ecs);
         break;
     case CPLAYER1:
-        // loadMenuSystem(ecs);
+        loadMenuSystem(ecs);
         createConfigPlayer1Entites(ecs);
         break;
     default:
-        // loadGameSystem(ecs);
+        loadGameSystem(ecs);
         createGameEntities(ecs);
         return;
     }
