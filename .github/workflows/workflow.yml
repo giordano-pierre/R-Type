@@ -55,6 +55,7 @@ jobs:
           make
 
   documentation:
+    if: github.ref == 'refs/heads/main'
     needs: [compilation]
     runs-on: ubuntu-latest
     steps:
