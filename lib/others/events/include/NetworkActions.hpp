@@ -11,6 +11,10 @@ enum NetworkActions {
     CONNECT = 1,
     NEW_CLIENT,
     SEND_UUID,
+    READY_SIGNAL,
     ENVOI_SERV,
-    ENVOI_CLIENT
+    ENVOI_CLIENT,
+    PLAYER_INPUT,
+    CREATE_ENTITY,
+    UPDATE_CLIENTS,
 };

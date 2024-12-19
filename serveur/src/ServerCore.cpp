@@ -16,10 +16,11 @@ void Server::start() {
 
     // ServerHandlerSystem server_handler;
     // UDPServer server(ecs, 4242);
+
     // ecs.register_event<RequestEvent>();
     // ecs.register_event<ReceiveEvent>();
-    // ecs.subscribe<RequestEvent>(server);
-    // ecs.subscribe<ReceiveEvent>(server_handler);
+    // ecs.subscribe<RequestEvent>(server, true);
+    // ecs.subscribe<ReceiveEvent>(server_handler, true);
 
     run();
 }
@@ -45,14 +46,7 @@ void Server::handleCollisions() {}
 
 void Server::processNetworkEvents() {
 
-    // ecs.post<ReceiveEvent>({});
-    // while(true) {
-    //     if (!ecs.empty()) {
-    //         auto &callback = ecs.front();
-    //         callback();
-    //         ecs.pop_front();
-    //     }
-    // };
+
 }
 
 void Server::run() {
