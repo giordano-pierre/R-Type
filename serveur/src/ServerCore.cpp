@@ -43,10 +43,7 @@ void Server::reset() {}
 
 void Server::handleCollisions() {}
 
-void Server::processNetworkEvents() {
-
-
-}
+void Server::processNetworkEvents() {}
 
 void Server::run() {
     gameLogicSystem.startGame();
