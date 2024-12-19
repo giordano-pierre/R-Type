@@ -11,7 +11,7 @@
 
 namespace timer = std::chrono;
 
-namespace Rtype::Client {
+namespace rtype::client {
 struct AnimeEvent {
     AnimeEvent(const timer::time_point<timer::steady_clock> &time_stamp)
         : time_stamp(time_stamp){};
@@ -19,4 +19,4 @@ struct AnimeEvent {
 
     timer::time_point<timer::steady_clock> time_stamp;
 };
-} // namespace Rtype::Client
+} // namespace rtype::client

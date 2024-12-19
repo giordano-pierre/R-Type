@@ -9,7 +9,7 @@
 
 #include "ECS/ECS.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 void loadGameSystem(ECS &ecs);
 void loadMenuSystem(ECS &ecs);
-} // namespace Rtype::Client
+} // namespace rtype::client

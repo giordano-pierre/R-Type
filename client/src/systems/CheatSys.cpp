@@ -7,7 +7,7 @@
 
 #include "systems/CheatSys.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 
 void CheatSys::operator()(ECS &ecs, const InputEvent &e_input,
                           SparseArray<Window> &window) {
@@ -28,4 +28,4 @@ void CheatSys::operator()(ECS &ecs, const InputEvent &e_input,
         window[0].value()._displayHitboxs = !window[0].value()._displayHitboxs;
 }
 
-} // namespace Rtype::Client
+} // namespace rtype::client

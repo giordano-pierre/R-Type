@@ -12,7 +12,7 @@
 #include "events/TicEvent.hpp"
 #include "loadSystems.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 
 void LifeSys::operator()(ECS &ecs, const CreateEvent &e_create) {
     ecs.clean<FrameEvent>();
@@ -52,4 +52,4 @@ void LifeSys::operator()(ECS &ecs, const DeleteEvent &e_del,
         }
     }
 }
-} // namespace Rtype::Client
+} // namespace rtype::client

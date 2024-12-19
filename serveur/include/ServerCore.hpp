@@ -8,11 +8,11 @@
 
 class Server {
   private:
-    ECS ecs;
-    rtype::systems::GameLogicSystem gameLogicSystem;
-    rtype::systems::MovementSys movementSystem;
-    rtype::systems::CollisionSys collisionSystem;
-    rtype::systems::LevelManager levelManager;
+    ECS &ecs;
+    rtype::server::systems::GameLogicSystem gameLogicSystem;
+    rtype::server::systems::MovementSys movementSystem;
+    rtype::server::systems::CollisionSys collisionSystem;
+    rtype::server::systems::LevelManager levelManager;
 
     bool isRunning;
     float deltaTime;
@@ -28,7 +28,7 @@ class Server {
     void reset();
 
   public:
-    Server(ECS _ecs);
+    Server(ECS &_ecs);
     ~Server();
 
     void start();

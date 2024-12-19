@@ -12,7 +12,7 @@
 #include "ECS/ECS.hpp"
 #include "tools.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 struct Hitbox {
     Hitbox(TupleFloat, bool = true, TupleFloat = {0, 0}, TupleFloat = {0, 0},
            bool = true);
@@ -23,6 +23,6 @@ struct Hitbox {
     TupleFloat _server;
     bool _needUpdate;
 };
-} // namespace Rtype::Client
+} // namespace rtype::client
 std::ostream &operator<<(std::ostream &out,
-                         const Rtype::Client::Hitbox &hitbox);
+                         const rtype::client::Hitbox &hitbox);

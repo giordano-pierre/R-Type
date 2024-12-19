@@ -9,9 +9,9 @@
 
 #include "tools.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 struct ChangeKey {
     UserInput _key;
     Entity _i;
 };
-} // namespace Rtype::Client
+} // namespace rtype::client

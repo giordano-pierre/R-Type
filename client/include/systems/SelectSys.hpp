@@ -14,7 +14,7 @@
 #include "components/Selectable.hpp"
 #include "events/InputEvent.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 class SelectSys {
   public:
     SelectSys() = default;
@@ -30,4 +30,4 @@ class SelectSys {
                     SparseArray<Drawable> &sprites,
                     SparseArray<Selectable> &selectables);
 };
-} // namespace Rtype::Client
+} // namespace rtype::client

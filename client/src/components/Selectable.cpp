@@ -7,7 +7,7 @@
 
 #include "components/Selectable.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 
 Selectable::Selectable(std::shared_ptr<sf::Texture> texture,
                        std::function<void(ECS &, Entity)> sel,
@@ -19,4 +19,4 @@ Selectable::Selectable(std::shared_ptr<sf::Texture> texture,
     _sprite.setOrigin(tmp.x / 2, tmp.y / 2);
 }
 
-} // namespace Rtype::Client
+} // namespace rtype::client

@@ -10,7 +10,7 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 
-namespace Rtype::Client {
+namespace rtype::client {
 struct TupleInt {
     int x;
     int y;
@@ -81,4 +81,4 @@ void initPlay2Input(
     std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key,
                                             std::shared_ptr<std::string>>>,
               std::map<UserInput, sf::Keyboard::Key>> &inputConfig);
-} // namespace Rtype::Client
+} // namespace rtype::client

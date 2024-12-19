@@ -11,7 +11,7 @@
 #include "components/Window.hpp"
 #include "events/InputEvent.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 class CheatSys {
   public:
     CheatSys() = default;
@@ -20,4 +20,4 @@ class CheatSys {
     void operator()(ECS &ecs, const InputEvent &e_input,
                     SparseArray<Window> &windows);
 };
-} // namespace Rtype::Client
+} // namespace rtype::client

@@ -11,7 +11,7 @@
 
 #include "tools.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 struct Position {
     Position(float x, float y, TupleFloat client = {0, 0},
              bool needUpdate = true)
@@ -21,6 +21,6 @@ struct Position {
     TupleFloat _client;
     bool _needUpdate;
 };
-} // namespace Rtype::Client
+} // namespace rtype::client
 std::ostream &operator<<(std::ostream &out,
-                         const Rtype::Client::Position &position);
+                         const rtype::client::Position &position);

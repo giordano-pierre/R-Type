@@ -7,7 +7,7 @@
 
 #include "components/Text.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 
 Text::Text(const std::map<std::string, std::shared_ptr<std::string>> &str,
            const std::shared_ptr<sf::Font> &font, const TupleFloat &sizeInBox,
@@ -18,4 +18,4 @@ Text::Text(const std::map<std::string, std::shared_ptr<std::string>> &str,
     _text.setFont(*font);
 }
 
-} // namespace Rtype::Client
+} // namespace rtype::client

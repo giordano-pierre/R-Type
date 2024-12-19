@@ -20,7 +20,7 @@
 #include "events/ChangeKey.hpp"
 #include "events/FrameEvent.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 class WindowSys {
   public:
     WindowSys(sf::VideoMode mode, const sf::String &title,
@@ -57,4 +57,4 @@ class WindowSys {
     void drawHitboxes(SparseArray<Position> &positions,
                       SparseArray<Hitbox> &hitboxs, bool draw);
 };
-} // namespace Rtype::Client
+} // namespace rtype::client

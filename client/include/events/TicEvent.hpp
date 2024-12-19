@@ -10,11 +10,11 @@
 
 namespace timer = std::chrono;
 
-namespace Rtype::Client {
+namespace rtype::client {
 struct TicEvent {
     TicEvent(const timer::time_point<timer::steady_clock> &time_stamp);
     ~TicEvent() = default;
 
     timer::time_point<timer::steady_clock> time_stamp;
 };
-} // namespace Rtype::Client
+} // namespace rtype::client

@@ -11,7 +11,7 @@
 #include "components/Drawable.hpp"
 #include "events/AnimeEvent.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 class FrameSys {
   public:
     FrameSys() = default;
@@ -20,4 +20,4 @@ class FrameSys {
     void operator()(ECS &ecs, const AnimeEvent &,
                     SparseArray<Drawable> &sprites);
 };
-} // namespace Rtype::Client
+} // namespace rtype::client

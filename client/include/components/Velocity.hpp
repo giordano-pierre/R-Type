@@ -11,7 +11,7 @@
 
 #include <ostream>
 
-namespace Rtype::Client {
+namespace rtype::client {
 struct Velocity {
     Velocity(int x, int y) : _current({x, y}){};
     ~Velocity() = default;
@@ -19,7 +19,7 @@ struct Velocity {
     TupleInt _current;
     bool _activated = true;
 };
-} // namespace Rtype::Client
+} // namespace rtype::client
 
 std::ostream &operator<<(std::ostream &out,
-                         const Rtype::Client::Velocity &position);
+                         const rtype::client::Velocity &position);

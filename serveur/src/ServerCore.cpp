@@ -1,6 +1,6 @@
 #include "ServerCore.hpp"
 
-Server::Server(ECS _ecs)
+Server::Server(ECS &_ecs)
     : ecs(_ecs), gameLogicSystem(_ecs), levelManager(_ecs), isRunning(true),
       deltaTime(0.0f) {}
 
@@ -13,7 +13,6 @@ Server::~Server() {
 void Server::start() {
     isRunning = true;
     lastUpdate = std::chrono::steady_clock::now();
-
     // ServerHandlerSystem server_handler;
     // UDPServer server(ecs, 4242);
     // ecs.register_event<RequestEvent>();
@@ -57,7 +56,6 @@ void Server::processNetworkEvents() {
 
 void Server::run() {
     gameLogicSystem.startGame();
-
     while (isRunning) {
         auto loopStart = std::chrono::steady_clock::now();
 

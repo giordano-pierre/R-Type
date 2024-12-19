@@ -8,7 +8,7 @@
 #include "loadSystems.hpp"
 #include "ecsObjects.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 
 void loadGameSystem(ECS &ecs) {
     auto pauseSys = PauseSys();
@@ -37,4 +37,4 @@ void loadMenuSystem(ECS &ecs) {
     ecs.subscribe<InputEvent, Selectable, Pressable>(pressSys);
 }
 
-} // namespace Rtype::Client
+} // namespace rtype::client

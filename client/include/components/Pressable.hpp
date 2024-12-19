@@ -12,7 +12,7 @@
 #include <functional>
 #include <memory>
 
-namespace Rtype::Client {
+namespace rtype::client {
 struct Pressable {
     Pressable(std::shared_ptr<sf::Texture> texture,
               std::function<void(ECS &, Entity)> press, int link = 0)
@@ -24,4 +24,4 @@ struct Pressable {
 
     bool _isPressed = false;
 };
-} // namespace Rtype::Client
+} // namespace rtype::client

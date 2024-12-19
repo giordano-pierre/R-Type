@@ -8,7 +8,7 @@
 #include "ECS/ECS.hpp"
 #include "ecsObjects.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 
 void select(ECS &ecs, Entity i) {
     auto &sel = ecs.get_components<Selectable>();
@@ -96,4 +96,4 @@ void resetP2(ECS &ecs, Entity i) {
     initPlay2Input(myWindow._inputConfig);
 }
 
-} // namespace Rtype::Client
+} // namespace rtype::client

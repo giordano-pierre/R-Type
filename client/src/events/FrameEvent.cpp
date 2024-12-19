@@ -6,9 +6,9 @@
 */
 #include "events/FrameEvent.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 
 FrameEvent::FrameEvent(const timer::time_point<timer::steady_clock> &time_stamp)
     : time_stamp(time_stamp) {}
 
-} // namespace Rtype::Client
+} // namespace rtype::client

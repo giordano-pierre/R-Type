@@ -9,8 +9,8 @@
 
 #include "tools.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 struct DeleteEvent {
     ObjectType _type;
 };
-} // namespace Rtype::Client
+} // namespace rtype::client

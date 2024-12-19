@@ -7,7 +7,7 @@
 
 #include "MovementSystem.hpp"
 
-namespace rtype {
+namespace rtype::server {
 namespace systems {
 
 auto MovementSys::operator()(ECS &ecs, SparseArray<Position> &positions,
@@ -21,4 +21,4 @@ auto MovementSys::operator()(ECS &ecs, SparseArray<Position> &positions,
     }
 }
 } // namespace systems
-} // namespace rtype
+} // namespace rtype::server

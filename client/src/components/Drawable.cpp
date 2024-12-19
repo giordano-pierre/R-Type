@@ -7,7 +7,7 @@
 
 #include "components/Drawable.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 
 Drawable::Drawable(const std::shared_ptr<sf::Texture> texture,
                    const TupleInt sizeTexture, const TupleInt sizeFrame,
@@ -20,4 +20,4 @@ Drawable::Drawable(const std::shared_ptr<sf::Texture> texture,
     _sprite.setOrigin({_sizeFrame.x / float(2.0), _sizeFrame.y / float(2.0)});
 }
 
-} // namespace Rtype::Client
+} // namespace rtype::client

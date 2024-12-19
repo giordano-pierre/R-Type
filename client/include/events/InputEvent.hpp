@@ -10,9 +10,9 @@
 
 #include "tools.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 struct InputEvent {
     sf::Event _event;
     UserInput _myEvent;
 };
-} // namespace Rtype::Client
+} // namespace rtype::client

@@ -7,7 +7,7 @@
 
 #include "systems/MoveSys.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 
 void MoveSys::operator()(ECS &ecs, const InputEvent &e_input,
                          const SparseArray<Playable> &players,
@@ -69,4 +69,4 @@ void MoveSys::operator()(ECS &ecs, const TicEvent &e_tic,
     }
 }
 
-} // namespace Rtype::Client
+} // namespace rtype::client
