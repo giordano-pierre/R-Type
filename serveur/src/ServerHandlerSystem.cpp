@@ -30,7 +30,7 @@ void ServerHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
                                 {{"value", "bozo"}},
                                 rec_event.sender_uuid});
     case NetworkActions::CLIENT_INPUT:
-        auto input = rec_event.payload; 
+        auto input = rec_event.payload;
         bool is_valid = true; // validate_input(input);
         json response = {{"action", input["action"]}};
         if (is_valid) {
@@ -40,11 +40,8 @@ void ServerHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
             response["status"] = "rollback";
         }
 
-        ecs.post<RequestEvent>({
-            NetworkActions::INPUT_RESPONSE,
-            response,
-            rec_event.sender_uuid
-        });
+        ecs.post<RequestEvent>(
+            {NetworkActions::INPUT_RESPONSE, response, rec_event.sender_uuid});
     // case NetworkActions::CREATE_ENTITY: {
     //     json new_entity_data = {
     //         {"old_id", id_got_from_client_payload},
