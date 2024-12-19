@@ -43,8 +43,8 @@ void createGameEntities(ECS &ecs) {
                 1});
 
     // Entity player1 = ecs.spawn_entity();
-    // ecs.add_component<Position>(player1, {float(100), serverSize.y / float(2)});
-    // ecs.add_component<Velocity>(player1, {0, 0});
+    // ecs.add_component<Position>(player1, {float(100), serverSize.y /
+    // float(2)}); ecs.add_component<Velocity>(player1, {0, 0});
     // ecs.add_component<Playable>(player1, {1});
     // ecs.add_component<Tag>(player1, {PLAYER});
     // ecs.add_component<Hitbox>(player1, {{0.1, 0.12}});
@@ -96,15 +96,18 @@ void createMenuEntities(ECS &ecs) {
                  std::function<void(ECS &, Entity)>(select),
                  std::function<void(ECS &, Entity)>(deselect)});
     ecs.add_component<Pressable>(
-        startB,
-        {myWindow._myTextures.getTexture(
-             "assets/images/utils/button_config1_act.png"),
-         [](ECS &ecs, Entity) {
-             //  ecs.post<DeleteEvent>({MENU});
-             //  ecs.post<CreateEvent>({PLAYER});
-             const auto &tmp = ecs.get_components<Playable>();
-             ecs.post<RequestEvent>({CLIENT_READY, {{"nb_player_max", 1}, {"name", }}});
-         }});
+        startB, {myWindow._myTextures.getTexture(
+                     "assets/images/utils/button_config1_act.png"),
+                 [](ECS &ecs, Entity) {
+                     //  ecs.post<DeleteEvent>({MENU});
+                     //  ecs.post<CreateEvent>({PLAYER});
+                     const auto &tmp = ecs.get_components<Playable>();
+                     ecs.post<RequestEvent>({CLIENT_READY,
+                                             {{"nb_player_max", 1},
+                                              {
+                                                  "name",
+                                              }}});
+                 }});
 
     Entity customB = ecs.spawn_entity();
     ecs.add_component<Position>(
