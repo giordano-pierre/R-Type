@@ -55,7 +55,7 @@ jobs:
           make
 
   documentation:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/main'
     needs: [compilation]
     runs-on: ubuntu-latest
     steps:
@@ -104,7 +104,7 @@ jobs:
 
   mirroring:
     if: github.repository == 'giordano-pierre/R-Type'
-    needs: ${{ github.ref == 'refs/heads/main' && ['linting', 'compilation', 'documentation'] || ['linting', 'compilation'] }}
+    needs: ['linting', 'compilation', 'documentation']
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
