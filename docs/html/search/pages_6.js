@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['study_20r_20type_0',['Technical and Comparative Study - R-Type',['../md_doc_2TechnicalStudy.html',1,'']]]
+  ['network_20module_20documentation_0',['Network Module Documentation',['../md_doc_2NETWORK.html',1,'']]]
 ];

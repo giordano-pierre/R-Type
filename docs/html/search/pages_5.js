@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['r_20type_0',['r type',['../md_README.html',1,'R-Type'],['../md_doc_2TechnicalStudy.html',1,'Technical and Comparative Study - R-Type']]]
+  ['module_20documentation_0',['Network Module Documentation',['../md_doc_2NETWORK.html',1,'']]]
 ];
