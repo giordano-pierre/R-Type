@@ -101,15 +101,19 @@ void UDPServer::operator()(ECS &ecs, const RequestEvent &req_event) {
                               [this](boost::system::error_code, std::size_t) {
                                   start_receive();
                               });
-    } else { // ADD else : send the message to everyone (loop on clients_endpoint_)
+    } else { // ADD else : send the message to everyone (loop on
+             // clients_endpoint_)
         for (const auto &client : clients_endpoint_) {
             socket_.async_send_to(
                 boost::asio::buffer(buffer), client.second,
                 [this](boost::system::error_code ec, std::size_t bytes_sent) {
                     if (ec) {
-                        std::cerr << "Error broadcasting to client: " << ec.message() << std::endl;
+                        std::cerr
+                            << "Error broadcasting to client: " << ec.message()
+                            << std::endl;
                     } else {
-                        std::cout << "Message sent to client: " << bytes_sent << " bytes" << std::endl;
+                        std::cout << "Message sent to client: " << bytes_sent
+                                  << " bytes" << std::endl;
                     }
                 });
         }
