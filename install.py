@@ -35,17 +35,17 @@ def install_linux_dependencies():
     try:
         if shutil.which("apt"):
             print("Utilisation de apt pour installer les dépendances (Debian/Ubuntu).")
+            subprocess.run(["sudo", "apt", "update"], check=True)
             subprocess.run([
                 "sudo", "apt", "install", "-y",
                 "libx11-dev", "libxrandr-dev", "libxcursor-dev", "libxi-dev",
-                "libudev-dev", "libgl1-mesa-dev", "libasound2-dev", "ninja-build"
+                "libudev-dev", "libgl1-mesa-dev", "ninja-build"
             ], check=True)
         elif shutil.which("dnf"):
             print("Utilisation de dnf pour installer les dépendances (Fedora/RedHat).")
             subprocess.run(["sudo", "dnf", "install", "-y",
                             "libX11-devel", "libXrandr-devel", "libXcursor-devel",
-                            "libXi-devel", "systemd-devel", "mesa-libGL-devel",
-                            "alsa-lib-devel", "ninja-build"
+                            "libXi-devel", "systemd-devel", "mesa-libGL-devel", "ninja-build"
             ], check=True)
         elif shutil.which("pacman"):
             print("Utilisation de pacman pour installer les dépendances (Arch Linux).")
@@ -53,7 +53,7 @@ def install_linux_dependencies():
             subprocess.run([
                 "sudo", "pacman", "-S", "--noconfirm",
                 "libx11", "libxrandr", "libxcursor", "libxi",
-                "libsystemd", "mesa", "alsa-lib", "ninja"
+                "libsystemd", "mesa", "ninja"
             ], check=True)
         else:
             print("Aucun gestionnaire de paquets compatible trouvé. Système non pris en charge.")
