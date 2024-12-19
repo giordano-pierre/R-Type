@@ -3,7 +3,6 @@
 #include "LevelManagement.hpp"
 #include "MovementSystem.hpp"
 #include "ScoreManager.hpp"
-#include "MovementSystem.hpp"
 #include <chrono>
 #include <thread>
 
