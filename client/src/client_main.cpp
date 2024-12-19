@@ -36,6 +36,16 @@ int main(void) {
     ecs.register_event<rtype::client::CreateEvent>();
     ecs.register_event<rtype::client::DeleteEvent>();
     ecs.register_event<rtype::client::AnimeEvent>();
+    ecs.register_event<RequestEvent>();
+    ecs.register_event<ReceiveEvent>();
+
+    UDPClient client(ecs, "127.0.0.1", "4242");
+    ecs.subscribe<RequestEvent>(client, true);
+
+    ClientHandlerSystem client_handler;
+    ecs.subscribe<ReceiveEvent>(client_handler, true);
+
+    ecs.post<RequestEvent>({NetworkActions::CONNECT, {"action", "connect"}});
 
     Entity window = ecs.spawn_entity();
     ecs.add_component<rtype::client::Tag>(window, {rtype::client::WINDOW});

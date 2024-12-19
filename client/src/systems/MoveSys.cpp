@@ -6,6 +6,7 @@
 */
 
 #include "systems/MoveSys.hpp"
+#include "RequestEvent.hpp"
 
 namespace rtype::client {
 
@@ -54,14 +55,32 @@ void MoveSys::operator()(ECS &ecs, const InputEvent &e_input,
     }
 }
 
+void sendUpdateToServer(ECS &ecs, const std::optional<Velocity> &vel, std::string id)
+{
+    if (vel.value()._current.x > 0)
+        ecs.post<RequestEvent>({CLIENT_INPUT, {{"id", id}, {"type_event", "Right"}}});
+    if (vel.value()._current.x < 0)
+        ecs.post<RequestEvent>({CLIENT_INPUT, {{"id", id}, {"type_event", "Left"}}});
+    if (vel.value()._current.y > 0)
+        ecs.post<RequestEvent>({CLIENT_INPUT, {{"id", id}, {"type_event", "Down"}}});
+    if (vel.value()._current.y < 0)
+        ecs.post<RequestEvent>({CLIENT_INPUT, {{"id", id}, {"type_event", "Up"}}});
+}
+
 void MoveSys::operator()(ECS &ecs, const TicEvent &e_tic,
                          SparseArray<Position> &positions,
-                         const SparseArray<Velocity> &velocities) {
+                         const SparseArray<Velocity> &velocities,
+                         const SparseArray<Playable> &players,
+                         const SparseArray<Tag> &tags) {
     for (size_t i = 0; i < positions.size() && i < velocities.size(); ++i) {
         auto &pos = positions[i];
         const auto &vel = velocities[i];
 
         if (pos && vel && vel.value()._activated) {
+            if (i < players.size() && players[i]) {
+                auto id = tags[i].value()._id;
+                sendUpdateToServer(ecs, vel, id);
+            }
             pos.value()._server.x += vel.value()._current.x;
             pos.value()._server.y += vel.value()._current.y;
             pos.value()._needUpdate = true;

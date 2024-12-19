@@ -29,6 +29,7 @@ struct TupleFloat {
 enum ObjectType {
     WINDOW,
     PLAYER,
+    ENEMY,
     BACKGROUND,
     SHOT,
     MENU,

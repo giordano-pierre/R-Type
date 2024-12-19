@@ -9,6 +9,7 @@
 #include "components/Drawable.hpp"
 #include "components/Tag.hpp"
 #include "components/Velocity.hpp"
+#include "RequestEvent.hpp"
 
 namespace rtype::client {
 
@@ -35,6 +36,24 @@ void ShootSys::operator()(ECS &ecs, const InputEvent &e_input,
         const auto &box = hitboxs[i];
 
         if (play && pos && box && player1Shoot) {
+            nlohmann::json tmp = {
+                {"tmp_id", fetch_new_uuid()},
+                {"type", EntityType::SHOT},
+                {"pos", {
+                    {"x", pos.value()._server.x + (box.value()._server.x / 2)},
+                    {"y", pos.value()._server.y},
+                }},
+                {"velocity", {
+                    {"x", 15},
+                    {"y", 0},
+                }},
+                {"hitbox", {
+                    {"x", 0.07},
+                    {"y", 0.05},
+                }},
+            };
+
+            ecs.post<RequestEvent>({CLIENT_CREATE, tmp});
             Entity shot = ecs.spawn_entity();
             ecs.add_component<Position>(
                 shot, {pos.value()._server.x + (box.value()._server.x / 2),
