@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['networking_0',['5. Boost.Asio for Networking',['../md_doc_2TechnicalStudy.html#autotoc_md38',1,'']]]
+  ['network_20module_20documentation_0',['Network Module Documentation',['../md_doc_2NETWORK.html',1,'']]],
+  ['networking_1',['5. Boost.Asio for Networking',['../md_doc_2TechnicalStudy.html#autotoc_md64',1,'']]]
 ];
