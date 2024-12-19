@@ -77,11 +77,12 @@ jobs:
           if [ ! -f Doxyfile ]; then
             echo "Doxyfile not found. Generating a default one."
             doxygen -g
-            # Update Doxyfile with the correct configuration
-            sed -i 's|^INPUT .*|INPUT = client/include client/include/components client/include/events client/include/systems client/src client/src/components client/src/events client/src/systems serveur/include serveur/src lib/ecs/include lib/ecs/src lib/others/events/include lib/others/systems/physics doc README.md|' Doxyfile
-            sed -i 's|^FILE_PATTERNS .*|FILE_PATTERNS = *.cpp *.h *.hpp *.inl|' Doxyfile
-            sed -i 's|^OUTPUT_DIRECTORY .*|OUTPUT_DIRECTORY = docs|' Doxyfile
           fi
+          # Update Doxyfile for recursive scanning from the root directory
+          sed -i 's|^INPUT .*|INPUT = .|' Doxyfile
+          sed -i 's|^RECURSIVE .*|RECURSIVE = YES|' Doxyfile
+          sed -i 's|^FILE_PATTERNS .*|FILE_PATTERNS = *.cpp *.h *.hpp *.md *.inl|' Doxyfile
+          sed -i 's|^OUTPUT_DIRECTORY .*|OUTPUT_DIRECTORY = docs|' Doxyfile
       - name: Generate Documentation
         run: |
           doxygen Doxyfile
