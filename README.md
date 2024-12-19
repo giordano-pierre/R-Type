@@ -121,3 +121,5 @@ Feel free to check our [Technical and Comparative study](doc/TechnicalStudy)!
 - **Escape key:** Quit the game
 
 The keys can be modified in the settings.
+
+[Documentation for the Game Engine](doc/ECS.md)
