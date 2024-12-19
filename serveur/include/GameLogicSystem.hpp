@@ -5,6 +5,7 @@
 #include "LevelManagement.hpp"
 #include "ScoreManager.hpp"
 #include <cstdint>
+#include <vector>
 
 namespace rtype::server {
 namespace systems {

@@ -10,6 +10,7 @@
 #include "ECS/ECS.hpp"
 #include "ReceiveEvent.hpp"
 #include "RequestEvent.hpp"
+#include "Components.hpp"
 
 class ServerHandlerSystem {
   private:

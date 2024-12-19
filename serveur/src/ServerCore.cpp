@@ -13,13 +13,13 @@ Server::~Server() {
 void Server::start() {
     isRunning = true;
     lastUpdate = std::chrono::steady_clock::now();
-    // ServerHandlerSystem server_handler;
-    // UDPServer server(ecs, 4242);
+    ServerHandlerSystem server_handler;
+    UDPServer server(ecs, 4242);
 
-    // ecs.register_event<RequestEvent>();
-    // ecs.register_event<ReceiveEvent>();
-    // ecs.subscribe<RequestEvent>(server, true);
-    // ecs.subscribe<ReceiveEvent>(server_handler, true);
+    ecs.register_event<RequestEvent>();
+    ecs.register_event<ReceiveEvent>();
+    ecs.subscribe<RequestEvent>(server, true);
+    ecs.subscribe<ReceiveEvent>(server_handler, true);
 
     run();
 }
