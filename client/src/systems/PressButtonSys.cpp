@@ -6,8 +6,22 @@
 */
 
 #include "systems/PressButtonSys.hpp"
+#include "buttonFunctions.hpp"
 
 namespace Rtype::Client {
+
+void checkLink(ECS &ecs, SparseArray<Pressable> &pressables, Entity ent) {
+    if (pressables[ent].value()._link == 0)
+        return;
+    int currentLink = pressables[ent].value()._link;
+    for (size_t i = 0; i < pressables.size(); ++i) {
+        auto &myPress = pressables[i];
+
+        if (myPress && myPress.value()._link == currentLink &&
+            myPress.value()._isPressed)
+            press(ecs, Entity(i));
+    }
+}
 
 void PressButtonSys::operator()(ECS &ecs, const InputEvent &e_input,
                                 const SparseArray<Selectable> &selectables,
@@ -19,8 +33,10 @@ void PressButtonSys::operator()(ECS &ecs, const InputEvent &e_input,
             const auto &sel = selectables[i];
             auto &press = pressables[i];
 
-            if (sel && press && sel.value()._isSelected)
+            if (sel && press && sel.value()._isSelected) {
+                checkLink(ecs, pressables, Entity(i));
                 press.value()._press(ecs, Entity(i));
+            }
         }
         break;
     default:
@@ -50,8 +66,10 @@ void PressButtonSys::operator()(ECS &ecs, const InputEvent &e_input,
                 e_input._event.mouseButton.y >
                     pos.value()._client.y - (box.value()._client.y / 2) &&
                 e_input._event.mouseButton.y <
-                    pos.value()._client.y + (box.value()._client.y / 2))
+                    pos.value()._client.y + (box.value()._client.y / 2)) {
+                checkLink(ecs, pressables, Entity(i));
                 press.value()._press(ecs, Entity(i));
+            }
         }
     }
 }

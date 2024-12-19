@@ -7,6 +7,9 @@
 
 #pragma once
 
+#include <SFML/Graphics.hpp>
+#include <memory>
+
 namespace Rtype::Client {
 struct TupleInt {
     int x;
@@ -31,7 +34,7 @@ enum ObjectType {
     MENU,
     CONFIG,
     CGENERAL,
-    CPLAYER,
+    CPLAYER1,
 };
 
 enum UserInput {
@@ -41,16 +44,41 @@ enum UserInput {
     QUIT,
     RETURN,
     UP1P,
-    DOWN1P,
-    LEFT1P,
-    RIGHT1P,
     UP1R,
+    DOWN1P,
     DOWN1R,
+    LEFT1P,
     LEFT1R,
+    RIGHT1P,
     RIGHT1R,
     SHOOT1,
     SUPERSHOOT1,
+    UP2P,
+    UP2R,
+    DOWN2P,
+    DOWN2R,
+    LEFT2P,
+    LEFT2R,
+    RIGHT2P,
+    RIGHT2R,
+    SHOOT2,
+    SUPERSHOOT2,
 };
 
 float computeDist(TupleFloat a, TupleFloat b);
+std::string convertInput(const sf::Keyboard::Key &key);
+std::string getInput(std::map<UserInput, sf::Keyboard::Key> &input,
+                     UserInput search);
+void initGeneralInput(
+    std::map<UserInput,
+             std::pair<sf::Keyboard::Key, std::shared_ptr<std::string>>>
+        &inputConfig);
+void initPlay1Input(
+    std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key,
+                                            std::shared_ptr<std::string>>>,
+              std::map<UserInput, sf::Keyboard::Key>> &inputConfig);
+void initPlay2Input(
+    std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key,
+                                            std::shared_ptr<std::string>>>,
+              std::map<UserInput, sf::Keyboard::Key>> &inputConfig);
 } // namespace Rtype::Client

@@ -4,12 +4,10 @@
 ** File description:
 ** createEntities
 */
-
-#include <iostream>
-
-#include "buttonFunctions.hpp"
 #include "createEntities.hpp"
+#include "buttonFunctions.hpp"
 #include "ecsObjects.hpp"
+#include <iostream>
 
 namespace Rtype::Client {
 
@@ -49,132 +47,160 @@ void createGameEntities(ECS &ecs) {
     ecs.add_component<Playable>(player1, {1});
     ecs.add_component<Tag>(player1, {PLAYER});
     ecs.add_component<Hitbox>(player1, {{0.1, 0.12}});
-    // ecs.add_component<Hitbox>(player1, {{-0.1, 0.18}});
     ecs.add_component<Drawable>(
         player1,
         {myWindow._myTextures.getTexture("assets/images/ship/red_ship.png"),
          {395, 250},
          {395, 250},
+         1,
          1});
-    // ecs.add_component<Drawable>(player1,
-    // {myWindow._myTextures.getTexture("assets/images/ship/enemy_ship_1.png"),
-    // {2030, 1450}, {290, 290}, 35});
 }
 
 void createMenuEntities(ECS &ecs) {
     auto myWindow = ecs.get_components<Window>()[0].value();
     auto serverSize = myWindow._serverSize;
 
-    Entity button = ecs.spawn_entity();
+    Entity back1 = ecs.spawn_entity();
     ecs.add_component<Position>(
-        button, {float(serverSize.x) / 2, float(serverSize.y) / 7 * 2});
-    ecs.add_component<Tag>(button, {MENU});
-    ecs.add_component<Hitbox>(button, {{float(1) / 5, float(1) / 10}});
+        back1, {serverSize.x / float(2), serverSize.y / float(2)});
+    ecs.add_component<Tag>(back1, {MENU});
+    ecs.add_component<Hitbox>(back1, {{1, 1}, false});
+    ecs.add_component<Drawable>(back1,
+                                {myWindow._myTextures.getTexture(
+                                     "assets/images/background/back_menu.jpg"),
+                                 {4608, 3456},
+                                 {768, 432},
+                                 48});
+
+    Entity startB = ecs.spawn_entity();
+    ecs.add_component<Position>(
+        startB, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 3});
+    ecs.add_component<Tag>(startB, {MENU});
+    ecs.add_component<Hitbox>(startB, {{float(1) / 3, float(1) / 10}});
+    std::map<std::string, std::shared_ptr<std::string>> texts;
+    texts.insert({"EN", std::make_shared<std::string>("START")});
+    texts.insert({"FR", std::make_shared<std::string>("COMENCER")});
     ecs.add_component<Text>(
-        button, {"START", myWindow._font, {0.5, 0.5}, 0, 40, sf::Color::White});
-    ecs.add_component<Drawable>(button,
+        startB, {texts, myWindow._font, {0.5, 0.5}, 0, 40, sf::Color::White});
+    ecs.add_component<Drawable>(startB,
                                 {myWindow._myTextures.getTexture(
                                      "assets/images/utils/button_config1.png"),
                                  {402, 100},
                                  {402, 100},
+                                 1,
                                  1});
     ecs.add_component<Selectable>(
-        button, {myWindow._myTextures.getTexture(
+        startB, {myWindow._myTextures.getTexture(
                      "assets/images/utils/button_config1_sel.png"),
                  std::function<void(ECS &, Entity)>(select),
                  std::function<void(ECS &, Entity)>(deselect)});
     ecs.add_component<Pressable>(
-        button, {myWindow._myTextures.getTexture(
+        startB, {myWindow._myTextures.getTexture(
                      "assets/images/utils/button_config1_act.png"),
                  [](ECS &ecs, Entity) {
-                     std::cout << "Start the game!" << std::endl;
+                     ecs.post<DeleteEvent>({MENU});
+                     ecs.post<CreateEvent>({PLAYER});
                  }});
 
-    Entity button2 = ecs.spawn_entity();
+    Entity customB = ecs.spawn_entity();
     ecs.add_component<Position>(
-        button2, {float(serverSize.x) / 2, float(serverSize.y) / 7 * 3});
-    ecs.add_component<Tag>(button2, {MENU});
-    ecs.add_component<Hitbox>(button2, {{float(1) / 4, float(1) / 10}});
-    ecs.add_component<Text>(button2, {"CUSTOM",
+        customB, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 4});
+    ecs.add_component<Tag>(customB, {MENU});
+    ecs.add_component<Hitbox>(customB, {{float(1) / 3, float(1) / 10}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("CUSTOM")});
+    texts.insert({"FR", std::make_shared<std::string>("PERSONNALISER")});
+    ecs.add_component<Text>(customB, {texts,
                                       myWindow._font,
                                       {0.5, 0.5},
                                       0,
                                       40,
                                       sf::Color::White,
                                       sf::Text::Style::Regular});
-    ecs.add_component<Drawable>(button2,
+    ecs.add_component<Drawable>(customB,
                                 {myWindow._myTextures.getTexture(
                                      "assets/images/utils/button_config1.png"),
                                  {402, 100},
                                  {402, 100},
+                                 1,
                                  1});
     ecs.add_component<Selectable>(
-        button2, {myWindow._myTextures.getTexture(
+        customB, {myWindow._myTextures.getTexture(
                       "assets/images/utils/button_config1_sel.png"),
                   std::function<void(ECS &, Entity)>(select),
                   std::function<void(ECS &, Entity)>(deselect)});
     ecs.add_component<Pressable>(
-        button2, {myWindow._myTextures.getTexture(
+        customB, {myWindow._myTextures.getTexture(
                       "assets/images/utils/button_config1_act.png"),
                   [](ECS &ecs, Entity) {
                       std::cout << "Custom your ship!" << std::endl;
                   }});
 
-    Entity button3 = ecs.spawn_entity();
+    Entity configB = ecs.spawn_entity();
     ecs.add_component<Position>(
-        button3, {float(serverSize.x) / 2, float(serverSize.y) / 7 * 4});
-    ecs.add_component<Tag>(button3, {MENU});
-    ecs.add_component<Hitbox>(button3, {{float(1) / 3, float(1) / 10}});
-    ecs.add_component<Text>(button3, {"CONFIGS",
+        configB, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 5});
+    ecs.add_component<Tag>(configB, {MENU});
+    ecs.add_component<Hitbox>(configB, {{float(1) / 3, float(1) / 10}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("CONFIGS")});
+    texts.insert({"FR", std::make_shared<std::string>("PARAMETRES")});
+    ecs.add_component<Text>(configB, {texts,
                                       myWindow._font,
                                       {0.5, 0.5},
                                       0,
                                       40,
                                       sf::Color::White,
                                       sf::Text::Style::Regular});
-    ecs.add_component<Drawable>(button3,
+    ecs.add_component<Drawable>(configB,
                                 {myWindow._myTextures.getTexture(
                                      "assets/images/utils/button_config1.png"),
                                  {402, 100},
                                  {402, 100},
+                                 1,
                                  1});
     ecs.add_component<Selectable>(
-        button3, {myWindow._myTextures.getTexture(
+        configB, {myWindow._myTextures.getTexture(
                       "assets/images/utils/button_config1_sel.png"),
                   std::function<void(ECS &, Entity)>(select),
                   std::function<void(ECS &, Entity)>(deselect)});
     ecs.add_component<Pressable>(
-        button3, {myWindow._myTextures.getTexture(
+        configB, {myWindow._myTextures.getTexture(
                       "assets/images/utils/button_config1_act.png"),
                   [](ECS &ecs, Entity) {
-                      std::cout << "Open the parameters!" << std::endl;
+                      ecs.post<DeleteEvent>({MENU});
+                      ecs.post<CreateEvent>({CONFIG});
+                      ecs.post<CreateEvent>({CGENERAL});
                   }});
 
-    Entity button4 = ecs.spawn_entity();
+    Entity quitB = ecs.spawn_entity();
     ecs.add_component<Position>(
-        button4, {float(serverSize.x) / 2, float(serverSize.y) / 7 * 5});
-    ecs.add_component<Tag>(button4, {MENU});
-    ecs.add_component<Hitbox>(button4, {{float(1) / 2.5, float(1) / 10}});
-    ecs.add_component<Text>(button4, {"QUIT",
-                                      myWindow._font,
-                                      {0.5, 0.5},
-                                      0,
-                                      40,
-                                      sf::Color::White,
-                                      sf::Text::Style::Regular});
-    ecs.add_component<Drawable>(button4,
+        quitB, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 6});
+    ecs.add_component<Tag>(quitB, {MENU});
+    ecs.add_component<Hitbox>(quitB, {{float(1) / 3, float(1) / 10}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("QUIT")});
+    texts.insert({"FR", std::make_shared<std::string>("QUITTER")});
+    ecs.add_component<Text>(quitB, {texts,
+                                    myWindow._font,
+                                    {0.5, 0.5},
+                                    0,
+                                    40,
+                                    sf::Color::White,
+                                    sf::Text::Style::Regular});
+    ecs.add_component<Drawable>(quitB,
                                 {myWindow._myTextures.getTexture(
                                      "assets/images/utils/button_config1.png"),
                                  {402, 100},
                                  {402, 100},
+                                 1,
                                  1});
     ecs.add_component<Selectable>(
-        button4, {myWindow._myTextures.getTexture(
-                      "assets/images/utils/button_config1_sel.png"),
-                  std::function<void(ECS &, Entity)>(select),
-                  std::function<void(ECS &, Entity)>(deselect)});
+        quitB, {myWindow._myTextures.getTexture(
+                    "assets/images/utils/button_config1_sel.png"),
+                std::function<void(ECS &, Entity)>(select),
+                std::function<void(ECS &, Entity)>(deselect)});
     ecs.add_component<Pressable>(
-        button4,
+        quitB,
         {myWindow._myTextures.getTexture(
              "assets/images/utils/button_config1_act.png"),
          [](ECS &ecs, Entity) { ecs.post<InputEvent>({sf::Event(), QUIT}); }});
@@ -184,194 +210,931 @@ void createConfigEntities(ECS &ecs) {
     auto myWindow = ecs.get_components<Window>()[0].value();
     auto serverSize = myWindow._serverSize;
 
+    Entity back1 = ecs.spawn_entity();
+    ecs.add_component<Position>(
+        back1, {serverSize.x / float(2), serverSize.y / float(2)});
+    ecs.add_component<Tag>(back1, {CONFIG});
+    ecs.add_component<Hitbox>(back1, {{1, 1}, false});
+    ecs.add_component<Drawable>(back1,
+                                {myWindow._myTextures.getTexture(
+                                     "assets/images/background/back_menu.jpg"),
+                                 {4608, 3456},
+                                 {768, 432},
+                                 48});
+    Entity back2 = ecs.spawn_entity();
+    ecs.add_component<Position>(
+        back2, {serverSize.x / float(2), serverSize.y * float(0.9) / float(2)});
+    ecs.add_component<Tag>(back2, {CONFIG});
+    ecs.add_component<Hitbox>(back2, {{1, 0.9}, false});
+    ecs.add_component<Drawable>(
+        back2, {myWindow._myTextures.getTexture(
+                    "assets/images/background/back_config.png"),
+                {512, 288},
+                {512, 288},
+                1,
+                1});
+
+    Entity generalB = ecs.spawn_entity();
+    ecs.add_component<Position>(generalB,
+                                {float(serverSize.x) / 12 * float(7.11),
+                                 float(serverSize.y) / 10 * float(2.6)});
+    ecs.add_component<Tag>(generalB, {CONFIG});
+    ecs.add_component<Hitbox>(generalB, {{float(1) / 4, float(1) / 10}});
+    std::map<std::string, std::shared_ptr<std::string>> texts;
+    texts.insert({"EN", std::make_shared<std::string>("General")});
+    texts.insert({"FR", std::make_shared<std::string>("General")});
+    ecs.add_component<Text>(
+        generalB, {texts, myWindow._font, {0.5, 0.5}, 0, 40, sf::Color::White});
+    ecs.add_component<Drawable>(generalB,
+                                {myWindow._myTextures.getTexture(
+                                     "assets/images/utils/button_config1.png"),
+                                 {402, 100},
+                                 {402, 100},
+                                 1,
+                                 2});
+    ecs.add_component<Selectable>(
+        generalB, {myWindow._myTextures.getTexture(
+                       "assets/images/utils/button_config1_sel.png"),
+                   std::function<void(ECS &, Entity)>(select),
+                   std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        generalB, {myWindow._myTextures.getTexture(
+                       "assets/images/utils/button_config1_act.png"),
+                   [](ECS &ecs, Entity i) {
+                       press(ecs, i);
+                       ecs.post<DeleteEvent>({CPLAYER1});
+                       ecs.post<CreateEvent>({CGENERAL});
+                   },
+                   1});
+    press(ecs, generalB);
+
+    Entity player1B = ecs.spawn_entity();
+    ecs.add_component<Position>(player1B,
+                                {float(serverSize.x) / 12 * float(6.14),
+                                 float(serverSize.y) / 10 * float(3.9)});
+    ecs.add_component<Tag>(player1B, {CONFIG});
+    ecs.add_component<Hitbox>(player1B, {{float(1) / 4, float(1) / 10}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("Player 1")});
+    texts.insert({"FR", std::make_shared<std::string>("Joueur 1")});
+    ecs.add_component<Text>(player1B, {texts,
+                                       myWindow._font,
+                                       {0.5, 0.5},
+                                       0,
+                                       40,
+                                       sf::Color::White,
+                                       sf::Text::Style::Regular});
+    ecs.add_component<Drawable>(player1B,
+                                {myWindow._myTextures.getTexture(
+                                     "assets/images/utils/button_config1.png"),
+                                 {402, 100},
+                                 {402, 100},
+                                 1,
+                                 2});
+    ecs.add_component<Selectable>(
+        player1B, {myWindow._myTextures.getTexture(
+                       "assets/images/utils/button_config1_sel.png"),
+                   std::function<void(ECS &, Entity)>(select),
+                   std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        player1B, {myWindow._myTextures.getTexture(
+                       "assets/images/utils/button_config1_act.png"),
+                   [](ECS &ecs, Entity i) {
+                       press(ecs, i);
+                       ecs.post<DeleteEvent>({CGENERAL});
+                       ecs.post<CreateEvent>({CPLAYER1});
+                   },
+                   1});
+
+    Entity player2B = ecs.spawn_entity();
+    ecs.add_component<Position>(player2B,
+                                {float(serverSize.x) / 12 * float(5.17),
+                                 float(serverSize.y) / 10 * float(5.2)});
+    ecs.add_component<Tag>(player2B, {CONFIG});
+    ecs.add_component<Hitbox>(player2B, {{float(1) / 4, float(1) / 10}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("Player 2")});
+    texts.insert({"FR", std::make_shared<std::string>("Joueur 2")});
+    ecs.add_component<Text>(player2B, {texts,
+                                       myWindow._font,
+                                       {0.5, 0.5},
+                                       0,
+                                       40,
+                                       sf::Color::White,
+                                       sf::Text::Style::Regular});
+    ecs.add_component<Drawable>(player2B,
+                                {myWindow._myTextures.getTexture(
+                                     "assets/images/utils/button_config1.png"),
+                                 {402, 100},
+                                 {402, 100},
+                                 1,
+                                 2});
+    ecs.add_component<Selectable>(
+        player2B, {myWindow._myTextures.getTexture(
+                       "assets/images/utils/button_config1_sel.png"),
+                   std::function<void(ECS &, Entity)>(select),
+                   std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        player2B, {myWindow._myTextures.getTexture(
+                       "assets/images/utils/button_config1_act.png"),
+                   [](ECS &ecs, Entity i) {
+                       press(ecs, i);
+                       std::cout << "Draw player 2 configs" << std::endl;
+                   },
+                   1});
+
+    Entity backB = ecs.spawn_entity();
+    ecs.add_component<Position>(backB, {float(serverSize.x) / 12 * float(4.2),
+                                        float(serverSize.y) / 10 * float(6.5)});
+    ecs.add_component<Tag>(backB, {CONFIG});
+    ecs.add_component<Hitbox>(backB, {{float(1) / 4, float(1) / 10}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("Back")});
+    texts.insert({"FR", std::make_shared<std::string>("Retour")});
+    ecs.add_component<Text>(backB, {texts,
+                                    myWindow._font,
+                                    {0.5, 0.5},
+                                    0,
+                                    40,
+                                    sf::Color::White,
+                                    sf::Text::Style::Regular});
+    ecs.add_component<Drawable>(backB,
+                                {myWindow._myTextures.getTexture(
+                                     "assets/images/utils/button_config1.png"),
+                                 {402, 100},
+                                 {402, 100},
+                                 1,
+                                 2});
+    ecs.add_component<Selectable>(
+        backB, {myWindow._myTextures.getTexture(
+                    "assets/images/utils/button_config1_sel.png"),
+                std::function<void(ECS &, Entity)>(select),
+                std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        backB, {myWindow._myTextures.getTexture(
+                    "assets/images/utils/button_config1_act.png"),
+                [](ECS &ecs, Entity) {
+                    ecs.post<DeleteEvent>({CONFIG});
+                    ecs.post<DeleteEvent>({CGENERAL});
+                    ecs.post<DeleteEvent>({CPLAYER1});
+                    ecs.post<CreateEvent>({MENU});
+                }});
+}
+
+void createConfigGeneralEntites(ECS &ecs) {
+    auto myWindow = ecs.get_components<Window>()[0].value();
+    auto serverSize = myWindow._serverSize;
+
+    Entity title = ecs.spawn_entity();
+    ecs.add_component<Rtype::Client::Position>(
+        title, {float(serverSize.x) / 8 * 7, float(serverSize.y) / 15 * 3});
+    ecs.add_component<Rtype::Client::Tag>(title, {CGENERAL});
+    ecs.add_component<Rtype::Client::Hitbox>(title,
+                                             {{float(1) / 4, float(1) / 15}});
+    std::map<std::string, std::shared_ptr<std::string>> texts;
+    texts.insert({"EN", std::make_shared<std::string>("General")});
+    texts.insert({"FR", std::make_shared<std::string>("General")});
+    ecs.add_component<Rtype::Client::Text>(
+        title, {texts, myWindow._font, {1, 1}, 0, 30, sf::Color::White});
+
+    Entity interactP = ecs.spawn_entity();
+    ecs.add_component<Rtype::Client::Position>(
+        interactP, {float(serverSize.x) / 8 * float(5.5),
+                    float(serverSize.y) / 15 * float(5.5)});
+    ecs.add_component<Rtype::Client::Tag>(interactP, {CGENERAL});
+    ecs.add_component<Rtype::Client::Hitbox>(interactP,
+                                             {{float(1) / 4, float(1) / 15}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("Interact")});
+    texts.insert({"FR", std::make_shared<std::string>("Interagir")});
+    ecs.add_component<Rtype::Client::Text>(interactP,
+                                           {texts,
+                                            myWindow._font,
+                                            {1, 1},
+                                            -0.1,
+                                            30,
+                                            sf::Color::White,
+                                            sf::Text::Style::Regular});
+
+    Entity colorP = ecs.spawn_entity();
+    ecs.add_component<Rtype::Client::Position>(
+        colorP, {float(serverSize.x) / 8 * float(5.5),
+                 float(serverSize.y) / 15 * float(7.6)});
+    ecs.add_component<Rtype::Client::Tag>(colorP, {CGENERAL});
+    ecs.add_component<Rtype::Client::Hitbox>(colorP,
+                                             {{float(1) / 4, float(1) / 15}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("Colorblind mode")});
+    texts.insert({"FR", std::make_shared<std::string>("Mode daltonien")});
+    ecs.add_component<Rtype::Client::Text>(colorP, {texts,
+                                                    myWindow._font,
+                                                    {1, 1},
+                                                    -0.1,
+                                                    30,
+                                                    sf::Color::White,
+                                                    sf::Text::Style::Regular});
+
+    Entity languageP = ecs.spawn_entity();
+    ecs.add_component<Rtype::Client::Position>(
+        languageP, {float(serverSize.x) / 8 * float(5.1),
+                    float(serverSize.y) / 15 * float(9.7)});
+    ecs.add_component<Rtype::Client::Tag>(languageP, {CGENERAL});
+    ecs.add_component<Rtype::Client::Hitbox>(languageP,
+                                             {{float(1) / 4, float(1) / 15}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("Language")});
+    texts.insert({"FR", std::make_shared<std::string>("Langue")});
+    ecs.add_component<Rtype::Client::Text>(languageP,
+                                           {texts,
+                                            myWindow._font,
+                                            {1, 1},
+                                            -0.1,
+                                            30,
+                                            sf::Color::White,
+                                            sf::Text::Style::Regular});
+
+    Entity resP = ecs.spawn_entity();
+    ecs.add_component<Rtype::Client::Position>(
+        resP, {float(serverSize.x) / 8 * float(4.3),
+               float(serverSize.y) / 15 * float(11.8)});
+    ecs.add_component<Rtype::Client::Tag>(resP, {CGENERAL});
+    ecs.add_component<Rtype::Client::Hitbox>(resP,
+                                             {{float(1) / 4, float(1) / 15}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("Window resolution")});
+    texts.insert({"FR", std::make_shared<std::string>("taille de la fenetre")});
+    ecs.add_component<Rtype::Client::Text>(resP, {texts,
+                                                  myWindow._font,
+                                                  {1, 1},
+                                                  -0.1,
+                                                  30,
+                                                  sf::Color::White,
+                                                  sf::Text::Style::Regular});
+
+    Entity interactB = ecs.spawn_entity();
+    ecs.add_component<Rtype::Client::Position>(
+        interactB,
+        {float(serverSize.x) / 8 * 7, float(serverSize.y) / 15 * float(5.5)});
+    ecs.add_component<Rtype::Client::Tag>(interactB, {CGENERAL});
+    ecs.add_component<Rtype::Client::Hitbox>(interactB,
+                                             {{float(1) / 10, float(1) / 10}});
+    texts.clear();
+    texts.insert(
+        {"DEFAULT", myWindow._inputConfig.first.find(ENTER)->second.second});
+    ecs.add_component<Rtype::Client::Text>(interactB,
+                                           {texts,
+                                            myWindow._font,
+                                            {1, 1},
+                                            0,
+                                            30,
+                                            sf::Color::White,
+                                            sf::Text::Style::Regular});
+    ecs.add_component<Rtype::Client::Drawable>(
+        interactB, {myWindow._myTextures.getTexture(
+                        "assets/images/utils/button_config2.png"),
+                    {128, 64},
+                    {128, 64},
+                    1,
+                    2});
+    ecs.add_component<Selectable>(
+        interactB, {myWindow._myTextures.getTexture(
+                        "assets/images/utils/button_config2_sel.png"),
+                    std::function<void(ECS &, Entity)>(select),
+                    std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        interactB, {myWindow._myTextures.getTexture(
+                        "assets/images/utils/button_config2_act.png"),
+                    [](ECS &ecs, Entity i) {
+                        press(ecs, i);
+                        ecs.post<Rtype::Client::FrameEvent>(
+                            {std::chrono::steady_clock::now()});
+                        ecs.post<ChangeKey>({ENTER, i});
+                    }});
+
+    Entity colorB = ecs.spawn_entity();
+    ecs.add_component<Rtype::Client::Position>(
+        colorB,
+        {float(serverSize.x) / 8 * 7, float(serverSize.y) / 15 * float(7.6)});
+    ecs.add_component<Rtype::Client::Tag>(colorB, {CGENERAL});
+    ecs.add_component<Rtype::Client::Hitbox>(colorB,
+                                             {{float(1) / 10, float(1) / 10}});
+    ecs.add_component<Rtype::Client::Drawable>(
+        colorB, {myWindow._myTextures.getTexture(
+                     "assets/images/utils/toggle_config.png"),
+                 {128, 64},
+                 {128, 64},
+                 1,
+                 2});
+    ecs.add_component<Selectable>(
+        colorB, {myWindow._myTextures.getTexture(
+                     "assets/images/utils/toggle_config_sel.png"),
+                 std::function<void(ECS &, Entity)>(select),
+                 std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        colorB, {myWindow._myTextures.getTexture(
+                     "assets/images/utils/toggle_config_act.png"),
+                 [](ECS &ecs, Entity i) { press(ecs, i); }});
+
+    Entity res1B = ecs.spawn_entity();
+    ecs.add_component<Rtype::Client::Position>(
+        res1B, {float(serverSize.x) / 8 * float(7.3),
+                float(serverSize.y) / 15 * float(11.8)});
+    ecs.add_component<Rtype::Client::Tag>(res1B, {CGENERAL});
+    ecs.add_component<Rtype::Client::Hitbox>(res1B,
+                                             {{float(1) / 10, float(1) / 10}});
+    texts.clear();
+    texts.insert({"DEFAULT", std::make_shared<std::string>("1920 x 1080")});
+    ecs.add_component<Rtype::Client::Text>(res1B, {texts,
+                                                   myWindow._font,
+                                                   {1, 1},
+                                                   0,
+                                                   20,
+                                                   sf::Color::White,
+                                                   sf::Text::Style::Regular});
+    ecs.add_component<Rtype::Client::Drawable>(
+        res1B, {myWindow._myTextures.getTexture(
+                    "assets/images/utils/button_config2.png"),
+                {128, 64},
+                {128, 64},
+                1,
+                2});
+    ecs.add_component<Selectable>(
+        res1B, {myWindow._myTextures.getTexture(
+                    "assets/images/utils/button_config2_sel.png"),
+                std::function<void(ECS &, Entity)>(select),
+                std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        res1B, {myWindow._myTextures.getTexture(
+                    "assets/images/utils/button_config2_act.png"),
+                std::function<void(ECS &, Entity)>(resize1920), 2});
+    if (myWindow._size.x == 1920)
+        press(ecs, res1B);
+
+    Entity res2B = ecs.spawn_entity();
+    ecs.add_component<Rtype::Client::Position>(
+        res2B, {float(serverSize.x) / 8 * float(6.5),
+                float(serverSize.y) / 15 * float(11.8)});
+    ecs.add_component<Rtype::Client::Tag>(res2B, {CGENERAL});
+    ecs.add_component<Rtype::Client::Hitbox>(res2B,
+                                             {{float(1) / 10, float(1) / 10}});
+    texts.clear();
+    texts.insert({"DEFAULT", std::make_shared<std::string>("1440 x 810")});
+    ecs.add_component<Rtype::Client::Text>(res2B, {texts,
+                                                   myWindow._font,
+                                                   {1, 1},
+                                                   0,
+                                                   20,
+                                                   sf::Color::White,
+                                                   sf::Text::Style::Regular});
+    ecs.add_component<Rtype::Client::Drawable>(
+        res2B, {myWindow._myTextures.getTexture(
+                    "assets/images/utils/button_config2.png"),
+                {128, 64},
+                {128, 64},
+                1,
+                2});
+    ecs.add_component<Selectable>(
+        res2B, {myWindow._myTextures.getTexture(
+                    "assets/images/utils/button_config2_sel.png"),
+                std::function<void(ECS &, Entity)>(select),
+                std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        res2B, {myWindow._myTextures.getTexture(
+                    "assets/images/utils/button_config2_act.png"),
+                std::function<void(ECS &, Entity)>(resize1440), 2});
+    if (myWindow._size.x == 1440)
+        press(ecs, res2B);
+
+    Entity res3B = ecs.spawn_entity();
+    ecs.add_component<Rtype::Client::Position>(
+        res3B, {float(serverSize.x) / 8 * float(5.7),
+                float(serverSize.y) / 15 * float(11.8)});
+    ecs.add_component<Rtype::Client::Tag>(res3B, {CGENERAL});
+    ecs.add_component<Rtype::Client::Hitbox>(res3B,
+                                             {{float(1) / 10, float(1) / 10}});
+    texts.clear();
+    texts.insert({"DEFAULT", std::make_shared<std::string>("960 x 540")});
+    ecs.add_component<Rtype::Client::Text>(res3B, {texts,
+                                                   myWindow._font,
+                                                   {1, 1},
+                                                   0,
+                                                   20,
+                                                   sf::Color::White,
+                                                   sf::Text::Style::Regular});
+    ecs.add_component<Rtype::Client::Drawable>(
+        res3B, {myWindow._myTextures.getTexture(
+                    "assets/images/utils/button_config2.png"),
+                {128, 64},
+                {128, 64},
+                1,
+                2});
+    ecs.add_component<Selectable>(
+        res3B, {myWindow._myTextures.getTexture(
+                    "assets/images/utils/button_config2_sel.png"),
+                std::function<void(ECS &, Entity)>(select),
+                std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        res3B, {myWindow._myTextures.getTexture(
+                    "assets/images/utils/button_config2_act.png"),
+                std::function<void(ECS &, Entity)>(resize960), 2});
+    if (myWindow._size.x == 960)
+        press(ecs, res3B);
+
+    Entity lang1B = ecs.spawn_entity();
+    ecs.add_component<Rtype::Client::Position>(
+        lang1B, {float(serverSize.x) / 8 * float(7.3),
+                 float(serverSize.y) / 15 * float(9.7)});
+    ecs.add_component<Rtype::Client::Tag>(lang1B, {CGENERAL});
+    ecs.add_component<Rtype::Client::Hitbox>(lang1B,
+                                             {{float(1) / 10, float(1) / 10}});
+    texts.clear();
+    texts.insert({"DEFAULT", std::make_shared<std::string>("FR")});
+    ecs.add_component<Rtype::Client::Text>(lang1B, {texts,
+                                                    myWindow._font,
+                                                    {1, 1},
+                                                    0,
+                                                    20,
+                                                    sf::Color::White,
+                                                    sf::Text::Style::Regular});
+    ecs.add_component<Rtype::Client::Drawable>(
+        lang1B, {myWindow._myTextures.getTexture(
+                     "assets/images/utils/button_config2.png"),
+                 {128, 64},
+                 {128, 64},
+                 1,
+                 2});
+    ecs.add_component<Selectable>(
+        lang1B, {myWindow._myTextures.getTexture(
+                     "assets/images/utils/button_config2_sel.png"),
+                 std::function<void(ECS &, Entity)>(select),
+                 std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        lang1B, {myWindow._myTextures.getTexture(
+                     "assets/images/utils/button_config2_act.png"),
+                 std::function<void(ECS &, Entity)>(langFR), 3});
+    if (myWindow._lang == "FR")
+        press(ecs, lang1B);
+
+    Entity lang2B = ecs.spawn_entity();
+    ecs.add_component<Rtype::Client::Position>(
+        lang2B, {float(serverSize.x) / 8 * float(6.5),
+                 float(serverSize.y) / 15 * float(9.7)});
+    ecs.add_component<Rtype::Client::Tag>(lang2B, {CGENERAL});
+    ecs.add_component<Rtype::Client::Hitbox>(lang2B,
+                                             {{float(1) / 10, float(1) / 10}});
+    texts.clear();
+    texts.insert({"DEFAULT", std::make_shared<std::string>("EN")});
+    ecs.add_component<Rtype::Client::Text>(lang2B, {texts,
+                                                    myWindow._font,
+                                                    {1, 1},
+                                                    0,
+                                                    20,
+                                                    sf::Color::White,
+                                                    sf::Text::Style::Regular});
+    ecs.add_component<Rtype::Client::Drawable>(
+        lang2B, {myWindow._myTextures.getTexture(
+                     "assets/images/utils/button_config2.png"),
+                 {128, 64},
+                 {128, 64},
+                 1,
+                 2});
+    ecs.add_component<Selectable>(
+        lang2B, {myWindow._myTextures.getTexture(
+                     "assets/images/utils/button_config2_sel.png"),
+                 std::function<void(ECS &, Entity)>(select),
+                 std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        lang2B, {myWindow._myTextures.getTexture(
+                     "assets/images/utils/button_config2_act.png"),
+                 std::function<void(ECS &, Entity)>(langEN), 3});
+    if (myWindow._lang == "EN")
+        press(ecs, lang2B);
+
+    Entity resetB = ecs.spawn_entity();
+    ecs.add_component<Position>(resetB,
+                                {float(serverSize.x) / 12 * float(2.95),
+                                 float(serverSize.y) / 10 * float(8.2)});
+    ecs.add_component<Tag>(resetB, {CGENERAL});
+    ecs.add_component<Hitbox>(resetB, {{float(1) / 4, float(1) / 10}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("Reset")});
+    texts.insert({"FR", std::make_shared<std::string>("Reinitialiser")});
+    ecs.add_component<Text>(resetB, {texts,
+                                     myWindow._font,
+                                     {0.5, 0.5},
+                                     0,
+                                     40,
+                                     sf::Color::White,
+                                     sf::Text::Style::Regular});
+    ecs.add_component<Drawable>(resetB,
+                                {myWindow._myTextures.getTexture(
+                                     "assets/images/utils/button_config1.png"),
+                                 {402, 100},
+                                 {402, 100},
+                                 1,
+                                 2});
+    ecs.add_component<Selectable>(
+        resetB, {myWindow._myTextures.getTexture(
+                     "assets/images/utils/button_config1_sel.png"),
+                 std::function<void(ECS &, Entity)>(select),
+                 std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        resetB, {myWindow._myTextures.getTexture(
+                     "assets/images/utils/button_config1_act.png"),
+                 std::function<void(ECS &, Entity)>(resetG)});
+}
+
+void createConfigPlayer1Entites(ECS &ecs) {
+    auto myWindow = ecs.get_components<Window>()[0].value();
+    auto serverSize = myWindow._serverSize;
+
+    Entity title = ecs.spawn_entity();
+    ecs.add_component<Rtype::Client::Position>(
+        title, {float(serverSize.x) / 8 * 7, float(serverSize.y) / 15 * 3});
+    ecs.add_component<Rtype::Client::Tag>(title, {CPLAYER1});
+    ecs.add_component<Rtype::Client::Hitbox>(title,
+                                             {{float(1) / 4, float(1) / 15}});
+    std::map<std::string, std::shared_ptr<std::string>> texts;
+    texts.insert({"EN", std::make_shared<std::string>("Keyboard")});
+    texts.insert({"FR", std::make_shared<std::string>("Clavier")});
+    ecs.add_component<Rtype::Client::Text>(
+        title, {texts, myWindow._font, {1, 1}, 0, 30, sf::Color::White});
+
     Entity param1 = ecs.spawn_entity();
     ecs.add_component<Rtype::Client::Position>(
-        param1, {float(serverSize.x) / 4 * 3, float(serverSize.y) / 15 * 2});
-    ecs.add_component<Rtype::Client::Tag>(param1, {Rtype::Client::CGENERAL});
-    ecs.add_component<Rtype::Client::Hitbox>(param1, {{0.48, float(1) / 18}});
-    ecs.add_component<Rtype::Client::Text>(param1, {"Press a button: ",
-                                                    myWindow._font,
-                                                    {0.5, 0.5},
-                                                    0.05,
-                                                    30,
-                                                    sf::Color::White});
-    ecs.add_component<Rtype::Client::Drawable>(
         param1,
-        {myWindow._myTextures.getTexture("assets/images/utils/Btn_V03.png"),
-         {366, 67},
-         {366, 67},
-         1});
+        {float(serverSize.x) / 8 * 6, float(serverSize.y) / 15 * float(4.5)});
+    ecs.add_component<Rtype::Client::Tag>(param1, {CPLAYER1});
+    ecs.add_component<Rtype::Client::Hitbox>(param1,
+                                             {{float(1) / 8, float(1) / 15}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("Top")});
+    texts.insert({"FR", std::make_shared<std::string>("Haut")});
+    ecs.add_component<Rtype::Client::Text>(param1, {texts,
+                                                    myWindow._font,
+                                                    {1, 1},
+                                                    -0.1,
+                                                    30,
+                                                    sf::Color::White,
+                                                    sf::Text::Style::Regular});
 
     Entity param2 = ecs.spawn_entity();
     ecs.add_component<Rtype::Client::Position>(
-        param2, {float(serverSize.x) / 4 * 3, float(serverSize.y) / 15 * 3});
-    ecs.add_component<Rtype::Client::Tag>(param2, {Rtype::Client::CGENERAL});
-    ecs.add_component<Rtype::Client::Hitbox>(param2, {{0.48, float(1) / 18}});
-    ecs.add_component<Rtype::Client::Text>(param2, {"Pause the game: ",
+        param2,
+        {float(serverSize.x) / 8 * 6, float(serverSize.y) / 15 * float(6)});
+    ecs.add_component<Rtype::Client::Tag>(param2, {CPLAYER1});
+    ecs.add_component<Rtype::Client::Hitbox>(param2,
+                                             {{float(1) / 8, float(1) / 15}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("Down")});
+    texts.insert({"FR", std::make_shared<std::string>("Bas")});
+    ecs.add_component<Rtype::Client::Text>(param2, {texts,
                                                     myWindow._font,
-                                                    {0.5, 0.5},
-                                                    0.05,
+                                                    {1, 1},
+                                                    -0.1,
                                                     30,
                                                     sf::Color::White,
                                                     sf::Text::Style::Regular});
-    ecs.add_component<Rtype::Client::Drawable>(
-        param2,
-        {myWindow._myTextures.getTexture("assets/images/utils/Btn_V03.png"),
-         {366, 67},
-         {366, 67},
-         1});
 
     Entity param3 = ecs.spawn_entity();
     ecs.add_component<Rtype::Client::Position>(
-        param3, {float(serverSize.x) / 4 * 3, float(serverSize.y) / 15 * 4});
-    ecs.add_component<Rtype::Client::Tag>(param3, {Rtype::Client::CGENERAL});
-    ecs.add_component<Rtype::Client::Hitbox>(param3, {{0.48, float(1) / 18}});
-    ecs.add_component<Rtype::Client::Text>(param3, {"Quit the game: ",
+        param3,
+        {float(serverSize.x) / 8 * 6, float(serverSize.y) / 15 * float(7.5)});
+    ecs.add_component<Rtype::Client::Tag>(param3, {CPLAYER1});
+    ecs.add_component<Rtype::Client::Hitbox>(param3,
+                                             {{float(1) / 8, float(1) / 15}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("Left")});
+    texts.insert({"FR", std::make_shared<std::string>("Gauche")});
+    ecs.add_component<Rtype::Client::Text>(param3, {texts,
                                                     myWindow._font,
-                                                    {0.5, 0.5},
-                                                    0.05,
+                                                    {1, 1},
+                                                    -0.1,
                                                     30,
                                                     sf::Color::White,
                                                     sf::Text::Style::Regular});
-    ecs.add_component<Rtype::Client::Drawable>(
-        param3,
-        {myWindow._myTextures.getTexture("assets/images/utils/Btn_V03.png"),
-         {366, 67},
-         {366, 67},
-         1});
 
     Entity param4 = ecs.spawn_entity();
     ecs.add_component<Rtype::Client::Position>(
-        param4, {float(serverSize.x) / 4 * 3, float(serverSize.y) / 15 * 5});
-    ecs.add_component<Rtype::Client::Tag>(param4, {Rtype::Client::CGENERAL});
-    ecs.add_component<Rtype::Client::Hitbox>(param4, {{0.48, float(1) / 18}});
-    ecs.add_component<Rtype::Client::Text>(param4, {"Go back to menu: ",
+        param4,
+        {float(serverSize.x) / 8 * 6, float(serverSize.y) / 15 * float(9)});
+    ecs.add_component<Rtype::Client::Tag>(param4, {CPLAYER1});
+    ecs.add_component<Rtype::Client::Hitbox>(param4,
+                                             {{float(1) / 8, float(1) / 15}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("Right")});
+    texts.insert({"FR", std::make_shared<std::string>("Droite")});
+    ecs.add_component<Rtype::Client::Text>(param4, {texts,
                                                     myWindow._font,
-                                                    {0.5, 0.5},
-                                                    0.05,
+                                                    {1, 1},
+                                                    -0.1,
                                                     30,
                                                     sf::Color::White,
                                                     sf::Text::Style::Regular});
-    ecs.add_component<Rtype::Client::Drawable>(
-        param4,
-        {myWindow._myTextures.getTexture("assets/images/utils/Btn_V03.png"),
-         {366, 67},
-         {366, 67},
-         1});
 
     Entity param5 = ecs.spawn_entity();
     ecs.add_component<Rtype::Client::Position>(
-        param5, {float(serverSize.x) / 4 * 3, float(serverSize.y) / 15 * 6});
-    ecs.add_component<Rtype::Client::Tag>(param5, {Rtype::Client::CPLAYER});
-    ecs.add_component<Rtype::Client::Hitbox>(param5, {{0.48, float(1) / 18}});
-    ecs.add_component<Rtype::Client::Text>(param5, {"Move Up: ",
+        param5,
+        {float(serverSize.x) / 8 * 6, float(serverSize.y) / 15 * float(10.5)});
+    ecs.add_component<Rtype::Client::Tag>(param5, {CPLAYER1});
+    ecs.add_component<Rtype::Client::Hitbox>(param5,
+                                             {{float(1) / 8, float(1) / 15}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("Shoot")});
+    texts.insert({"FR", std::make_shared<std::string>("Tir")});
+    ecs.add_component<Rtype::Client::Text>(param5, {texts,
                                                     myWindow._font,
-                                                    {0.5, 0.5},
-                                                    0.05,
+                                                    {1, 1},
+                                                    -0.1,
                                                     30,
                                                     sf::Color::White,
                                                     sf::Text::Style::Regular});
-    ecs.add_component<Rtype::Client::Drawable>(
-        param5,
-        {myWindow._myTextures.getTexture("assets/images/utils/Btn_V03.png"),
-         {366, 67},
-         {366, 67},
-         1});
 
     Entity param6 = ecs.spawn_entity();
     ecs.add_component<Rtype::Client::Position>(
-        param6, {float(serverSize.x) / 4 * 3, float(serverSize.y) / 15 * 7});
-    ecs.add_component<Rtype::Client::Tag>(param6, {Rtype::Client::CPLAYER});
-    ecs.add_component<Rtype::Client::Hitbox>(param6, {{0.48, float(1) / 18}});
-    ecs.add_component<Rtype::Client::Text>(param6, {"Move Down: ",
-                                                    myWindow._font,
-                                                    {0.5, 0.5},
-                                                    0.05,
-                                                    30,
-                                                    sf::Color::White,
-                                                    sf::Text::Style::Regular});
-    ecs.add_component<Rtype::Client::Drawable>(
         param6,
-        {myWindow._myTextures.getTexture("assets/images/utils/Btn_V03.png"),
-         {366, 67},
-         {366, 67},
-         1});
-
-    Entity param7 = ecs.spawn_entity();
-    ecs.add_component<Rtype::Client::Position>(
-        param7, {float(serverSize.x) / 4 * 3, float(serverSize.y) / 15 * 8});
-    ecs.add_component<Rtype::Client::Tag>(param7, {Rtype::Client::CPLAYER});
-    ecs.add_component<Rtype::Client::Hitbox>(param7, {{0.48, float(1) / 18}});
-    ecs.add_component<Rtype::Client::Text>(param7, {"Move Left: ",
+        {float(serverSize.x) / 8 * 6, float(serverSize.y) / 15 * float(12)});
+    ecs.add_component<Rtype::Client::Tag>(param6, {CPLAYER1});
+    ecs.add_component<Rtype::Client::Hitbox>(param6,
+                                             {{float(1) / 8, float(1) / 15}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("Super shoot")});
+    texts.insert({"FR", std::make_shared<std::string>("Super tir")});
+    ecs.add_component<Rtype::Client::Text>(param6, {texts,
                                                     myWindow._font,
-                                                    {0.5, 0.5},
-                                                    0.05,
+                                                    {1, 1},
+                                                    -0.1,
                                                     30,
                                                     sf::Color::White,
                                                     sf::Text::Style::Regular});
-    ecs.add_component<Rtype::Client::Drawable>(
-        param7,
-        {myWindow._myTextures.getTexture("assets/images/utils/Btn_V03.png"),
-         {366, 67},
-         {366, 67},
-         1});
 
-    Entity param8 = ecs.spawn_entity();
+    Entity button1 = ecs.spawn_entity();
     ecs.add_component<Rtype::Client::Position>(
-        param8, {float(serverSize.x) / 4 * 3, float(serverSize.y) / 15 * 9});
-    ecs.add_component<Rtype::Client::Tag>(param8, {Rtype::Client::CPLAYER});
-    ecs.add_component<Rtype::Client::Hitbox>(param8, {{0.48, float(1) / 18}});
-    ecs.add_component<Rtype::Client::Text>(param8, {"Move Right: ",
-                                                    myWindow._font,
-                                                    {0.5, 0.5},
-                                                    0.05,
-                                                    30,
-                                                    sf::Color::White,
-                                                    sf::Text::Style::Regular});
-    ecs.add_component<Rtype::Client::Drawable>(
-        param8,
-        {myWindow._myTextures.getTexture("assets/images/utils/Btn_V03.png"),
-         {366, 67},
-         {366, 67},
-         1});
-
-    Entity param9 = ecs.spawn_entity();
-    ecs.add_component<Rtype::Client::Position>(
-        param9, {float(serverSize.x) / 4 * 3, float(serverSize.y) / 15 * 10});
-    ecs.add_component<Rtype::Client::Tag>(param9, {Rtype::Client::CPLAYER});
-    ecs.add_component<Rtype::Client::Hitbox>(param9, {{0.48, float(1) / 18}});
-    ecs.add_component<Rtype::Client::Text>(param9, {"Shoot: ",
-                                                    myWindow._font,
-                                                    {0.5, 0.5},
-                                                    0.05,
-                                                    30,
-                                                    sf::Color::White,
-                                                    sf::Text::Style::Regular});
-    ecs.add_component<Rtype::Client::Drawable>(
-        param9,
-        {myWindow._myTextures.getTexture("assets/images/utils/Btn_V03.png"),
-         {366, 67},
-         {366, 67},
-         1});
-
-    Entity param10 = ecs.spawn_entity();
-    ecs.add_component<Rtype::Client::Position>(
-        param10, {float(serverSize.x) / 4 * 3, float(serverSize.y) / 15 * 11});
-    ecs.add_component<Rtype::Client::Tag>(param10, {Rtype::Client::CPLAYER});
-    ecs.add_component<Rtype::Client::Hitbox>(param10, {{0.48, float(1) / 18}});
-    ecs.add_component<Rtype::Client::Text>(param10, {"Super Shoot: ",
+        button1,
+        {float(serverSize.x) / 8 * 7, float(serverSize.y) / 15 * float(4.5)});
+    ecs.add_component<Rtype::Client::Tag>(button1, {CPLAYER1});
+    ecs.add_component<Rtype::Client::Hitbox>(button1,
+                                             {{float(1) / 10, float(1) / 10}});
+    texts.clear();
+    texts.insert(
+        {"DEFAULT", myWindow._inputConfig.first.find(UP1P)->second.second});
+    ecs.add_component<Rtype::Client::Text>(button1, {texts,
                                                      myWindow._font,
-                                                     {0.5, 0.5},
-                                                     0.05,
+                                                     {1, 1},
+                                                     0,
                                                      30,
                                                      sf::Color::White,
                                                      sf::Text::Style::Regular});
     ecs.add_component<Rtype::Client::Drawable>(
-        param10,
-        {myWindow._myTextures.getTexture("assets/images/utils/Btn_V03.png"),
-         {366, 67},
-         {366, 67},
-         1});
+        button1, {myWindow._myTextures.getTexture(
+                      "assets/images/utils/button_config2.png"),
+                  {128, 64},
+                  {128, 64},
+                  1,
+                  2});
+    ecs.add_component<Selectable>(
+        button1, {myWindow._myTextures.getTexture(
+                      "assets/images/utils/button_config2_sel.png"),
+                  std::function<void(ECS &, Entity)>(select),
+                  std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        button1, {myWindow._myTextures.getTexture(
+                      "assets/images/utils/button_config2_act.png"),
+                  [](ECS &ecs, Entity i) {
+                      press(ecs, i);
+                      ecs.post<Rtype::Client::FrameEvent>(
+                          {std::chrono::steady_clock::now()});
+                      ecs.post<ChangeKey>({UP1P, i});
+                  }});
+
+    Entity button2 = ecs.spawn_entity();
+    ecs.add_component<Rtype::Client::Position>(
+        button2,
+        {float(serverSize.x) / 8 * 7, float(serverSize.y) / 15 * float(6)});
+    ecs.add_component<Rtype::Client::Tag>(button2, {CPLAYER1});
+    ecs.add_component<Rtype::Client::Hitbox>(button2,
+                                             {{float(1) / 10, float(1) / 10}});
+    texts.clear();
+    texts.insert(
+        {"DEFAULT", myWindow._inputConfig.first.find(DOWN1P)->second.second});
+    ecs.add_component<Rtype::Client::Text>(button2, {texts,
+                                                     myWindow._font,
+                                                     {1, 1},
+                                                     0,
+                                                     30,
+                                                     sf::Color::White,
+                                                     sf::Text::Style::Regular});
+    ecs.add_component<Rtype::Client::Drawable>(
+        button2, {myWindow._myTextures.getTexture(
+                      "assets/images/utils/button_config2.png"),
+                  {128, 64},
+                  {128, 64},
+                  1,
+                  2});
+    ecs.add_component<Selectable>(
+        button2, {myWindow._myTextures.getTexture(
+                      "assets/images/utils/button_config2_sel.png"),
+                  std::function<void(ECS &, Entity)>(select),
+                  std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        button2, {myWindow._myTextures.getTexture(
+                      "assets/images/utils/button_config2_act.png"),
+                  [](ECS &ecs, Entity i) {
+                      press(ecs, i);
+                      ecs.post<Rtype::Client::FrameEvent>(
+                          {std::chrono::steady_clock::now()});
+                      ecs.post<ChangeKey>({DOWN1P, i});
+                  }});
+
+    Entity button3 = ecs.spawn_entity();
+    ecs.add_component<Rtype::Client::Position>(
+        button3,
+        {float(serverSize.x) / 8 * 7, float(serverSize.y) / 15 * float(7.5)});
+    ecs.add_component<Rtype::Client::Tag>(button3, {CPLAYER1});
+    ecs.add_component<Rtype::Client::Hitbox>(button3,
+                                             {{float(1) / 10, float(1) / 10}});
+    texts.clear();
+    texts.insert(
+        {"DEFAULT", myWindow._inputConfig.first.find(LEFT1P)->second.second});
+    ecs.add_component<Rtype::Client::Text>(button3, {texts,
+                                                     myWindow._font,
+                                                     {1, 1},
+                                                     0,
+                                                     30,
+                                                     sf::Color::White,
+                                                     sf::Text::Style::Regular});
+    ecs.add_component<Rtype::Client::Drawable>(
+        button3, {myWindow._myTextures.getTexture(
+                      "assets/images/utils/button_config2.png"),
+                  {128, 64},
+                  {128, 64},
+                  1,
+                  2});
+    ecs.add_component<Selectable>(
+        button3, {myWindow._myTextures.getTexture(
+                      "assets/images/utils/button_config2_sel.png"),
+                  std::function<void(ECS &, Entity)>(select),
+                  std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        button3, {myWindow._myTextures.getTexture(
+                      "assets/images/utils/button_config2_act.png"),
+                  [](ECS &ecs, Entity i) {
+                      press(ecs, i);
+                      ecs.post<Rtype::Client::FrameEvent>(
+                          {std::chrono::steady_clock::now()});
+                      ecs.post<ChangeKey>({LEFT1P, i});
+                  }});
+
+    Entity button4 = ecs.spawn_entity();
+    ecs.add_component<Rtype::Client::Position>(
+        button4,
+        {float(serverSize.x) / 8 * 7, float(serverSize.y) / 15 * float(9)});
+    ecs.add_component<Rtype::Client::Tag>(button4, {CPLAYER1});
+    ecs.add_component<Rtype::Client::Hitbox>(button4,
+                                             {{float(1) / 10, float(1) / 10}});
+    texts.clear();
+    texts.insert(
+        {"DEFAULT", myWindow._inputConfig.first.find(RIGHT1P)->second.second});
+    ecs.add_component<Rtype::Client::Text>(button4, {texts,
+                                                     myWindow._font,
+                                                     {1, 1},
+                                                     0,
+                                                     30,
+                                                     sf::Color::White,
+                                                     sf::Text::Style::Regular});
+    ecs.add_component<Rtype::Client::Drawable>(
+        button4, {myWindow._myTextures.getTexture(
+                      "assets/images/utils/button_config2.png"),
+                  {128, 64},
+                  {128, 64},
+                  1,
+                  2});
+    ecs.add_component<Selectable>(
+        button4, {myWindow._myTextures.getTexture(
+                      "assets/images/utils/button_config2_sel.png"),
+                  std::function<void(ECS &, Entity)>(select),
+                  std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        button4, {myWindow._myTextures.getTexture(
+                      "assets/images/utils/button_config2_act.png"),
+                  [](ECS &ecs, Entity i) {
+                      press(ecs, i);
+                      ecs.post<Rtype::Client::FrameEvent>(
+                          {std::chrono::steady_clock::now()});
+                      ecs.post<ChangeKey>({RIGHT1P, i});
+                  }});
+
+    Entity button5 = ecs.spawn_entity();
+    ecs.add_component<Rtype::Client::Position>(
+        button5,
+        {float(serverSize.x) / 8 * 7, float(serverSize.y) / 15 * float(10.5)});
+    ecs.add_component<Rtype::Client::Tag>(button5, {CPLAYER1});
+    ecs.add_component<Rtype::Client::Hitbox>(button5,
+                                             {{float(1) / 10, float(1) / 10}});
+    texts.clear();
+    texts.insert(
+        {"DEFAULT", myWindow._inputConfig.first.find(SHOOT1)->second.second});
+    ecs.add_component<Rtype::Client::Text>(button5, {texts,
+                                                     myWindow._font,
+                                                     {1, 1},
+                                                     0,
+                                                     30,
+                                                     sf::Color::White,
+                                                     sf::Text::Style::Regular});
+    ecs.add_component<Rtype::Client::Drawable>(
+        button5, {myWindow._myTextures.getTexture(
+                      "assets/images/utils/button_config2.png"),
+                  {128, 64},
+                  {128, 64},
+                  1,
+                  2});
+    ecs.add_component<Selectable>(
+        button5, {myWindow._myTextures.getTexture(
+                      "assets/images/utils/button_config2_sel.png"),
+                  std::function<void(ECS &, Entity)>(select),
+                  std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        button5, {myWindow._myTextures.getTexture(
+                      "assets/images/utils/button_config2_act.png"),
+                  [](ECS &ecs, Entity i) {
+                      press(ecs, i);
+                      ecs.post<Rtype::Client::FrameEvent>(
+                          {std::chrono::steady_clock::now()});
+                      ecs.post<ChangeKey>({SHOOT1, i});
+                  }});
+
+    Entity button6 = ecs.spawn_entity();
+    ecs.add_component<Rtype::Client::Position>(
+        button6,
+        {float(serverSize.x) / 8 * 7, float(serverSize.y) / 15 * float(12)});
+    ecs.add_component<Rtype::Client::Tag>(button6, {CPLAYER1});
+    ecs.add_component<Rtype::Client::Hitbox>(button6,
+                                             {{float(1) / 10, float(1) / 10}});
+    texts.clear();
+    texts.insert(
+        {"DEFAULT",
+         myWindow._inputConfig.first.find(SUPERSHOOT1)->second.second});
+    ecs.add_component<Rtype::Client::Text>(button6, {texts,
+                                                     myWindow._font,
+                                                     {1, 1},
+                                                     0,
+                                                     30,
+                                                     sf::Color::White,
+                                                     sf::Text::Style::Regular});
+    ecs.add_component<Rtype::Client::Drawable>(
+        button6, {myWindow._myTextures.getTexture(
+                      "assets/images/utils/button_config2.png"),
+                  {128, 64},
+                  {128, 64},
+                  1,
+                  2});
+    ecs.add_component<Selectable>(
+        button6, {myWindow._myTextures.getTexture(
+                      "assets/images/utils/button_config2_sel.png"),
+                  std::function<void(ECS &, Entity)>(select),
+                  std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        button6, {myWindow._myTextures.getTexture(
+                      "assets/images/utils/button_config2_act.png"),
+                  [](ECS &ecs, Entity i) {
+                      press(ecs, i);
+                      ecs.post<Rtype::Client::FrameEvent>(
+                          {std::chrono::steady_clock::now()});
+                      ecs.post<ChangeKey>({SUPERSHOOT1, i});
+                  }});
+
+    Entity resetB = ecs.spawn_entity();
+    ecs.add_component<Position>(resetB,
+                                {float(serverSize.x) / 12 * float(2.95),
+                                 float(serverSize.y) / 10 * float(8.2)});
+    ecs.add_component<Tag>(resetB, {CPLAYER1});
+    ecs.add_component<Hitbox>(resetB, {{float(1) / 4, float(1) / 10}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("Reset")});
+    texts.insert({"FR", std::make_shared<std::string>("Reinitialiser")});
+    ecs.add_component<Text>(resetB, {texts,
+                                     myWindow._font,
+                                     {0.5, 0.5},
+                                     0,
+                                     40,
+                                     sf::Color::White,
+                                     sf::Text::Style::Regular});
+    ecs.add_component<Drawable>(resetB,
+                                {myWindow._myTextures.getTexture(
+                                     "assets/images/utils/button_config1.png"),
+                                 {402, 100},
+                                 {402, 100},
+                                 1,
+                                 2});
+    ecs.add_component<Selectable>(
+        resetB, {myWindow._myTextures.getTexture(
+                     "assets/images/utils/button_config1_sel.png"),
+                 std::function<void(ECS &, Entity)>(select),
+                 std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        resetB, {myWindow._myTextures.getTexture(
+                     "assets/images/utils/button_config1_act.png"),
+                 std::function<void(ECS &, Entity)>(resetP1)});
 }
 
 } // namespace Rtype::Client

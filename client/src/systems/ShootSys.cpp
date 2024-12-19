@@ -47,7 +47,8 @@ void ShootSys::operator()(ECS &ecs, const InputEvent &e_input,
                            "assets/images/shot/purple_shot.png"),
                        {251, 144},
                        {251, 144},
-                       1});
+                       1,
+                       2});
         }
     }
 }

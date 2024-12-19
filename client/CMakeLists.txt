@@ -26,6 +26,7 @@ set(SRC
     src/systems/ShootSys.cpp
     src/systems/CheatSys.cpp
     src/systems/SelectSys.cpp
+    src/systems/LifeSys.cpp
     src/systems/PressButtonSys.cpp
     src/buttonFunctions.cpp
     src/createEntities.cpp

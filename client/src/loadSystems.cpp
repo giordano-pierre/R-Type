@@ -19,9 +19,6 @@ void loadGameSystem(ECS &ecs) {
     ecs.subscribe<TicEvent, Position, Velocity>(moveSys);
     ecs.subscribe<InputEvent, Playable, Velocity>(moveSys);
 
-    auto frameSys = FrameSys();
-    ecs.subscribe<FrameEvent, Drawable>(frameSys);
-
     auto borderSys = BorderSys();
     ecs.subscribe<TicEvent, Window, Tag, Hitbox, Position>(borderSys);
 

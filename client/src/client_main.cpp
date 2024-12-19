@@ -15,7 +15,6 @@
 #include "tools.hpp"
 
 int main(void) {
-    // int mainTestGame (void) {
     Rtype::Client::TupleUInt serverSize = {1920, 1080};
     ECS ecs;
 
@@ -33,21 +32,37 @@ int main(void) {
     ecs.register_event<Rtype::Client::FrameEvent>();
     ecs.register_event<Rtype::Client::InputEvent>();
     ecs.register_event<Rtype::Client::TicEvent>();
+    ecs.register_event<Rtype::Client::ChangeKey>();
+    ecs.register_event<Rtype::Client::CreateEvent>();
+    ecs.register_event<Rtype::Client::DeleteEvent>();
+    ecs.register_event<Rtype::Client::AnimeEvent>();
 
     Entity window = ecs.spawn_entity();
     ecs.add_component<Rtype::Client::Tag>(window, {Rtype::Client::WINDOW});
     ecs.add_component<Rtype::Client::Window>(
-        window, {"assets/font/retro_gaming.ttf", {1280, 720}, serverSize});
+        window, {"assets/font/retro_gaming.ttf", {1440, 810}, serverSize});
+
+    auto lifeSys = Rtype::Client::LifeSys();
+    ecs.subscribe<Rtype::Client::CreateEvent>(lifeSys, true);
+    ecs.subscribe<Rtype::Client::DeleteEvent, Rtype::Client::Tag>(lifeSys,
+                                                                  true);
 
     auto windowSys = Rtype::Client::WindowSys(
         {1920, 1080, 32}, "R-type", sf::Style::Titlebar | sf::Style::Close);
     ecs.subscribe<Rtype::Client::FrameEvent, Rtype::Client::Window,
                   Rtype::Client::Position, Rtype::Client::Hitbox,
                   Rtype::Client::Drawable, Rtype::Client::Text,
-                  Rtype::Client::Selectable>(windowSys);
+                  Rtype::Client::Selectable>(windowSys, true);
+    ecs.subscribe<Rtype::Client::ChangeKey, Rtype::Client::Window>(windowSys,
+                                                                   true);
 
     auto cheatSys = Rtype::Client::CheatSys();
-    ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Window>(cheatSys);
+    ecs.subscribe<Rtype::Client::InputEvent, Rtype::Client::Window>(cheatSys,
+                                                                    true);
+
+    auto frameSys = Rtype::Client::FrameSys();
+    ecs.subscribe<Rtype::Client::AnimeEvent, Rtype::Client::Drawable>(frameSys,
+                                                                      true);
 
     bool running = true;
     ecs.subscribe<Rtype::Client::InputEvent>(
@@ -56,37 +71,52 @@ int main(void) {
                 e_input._event.type == sf::Event::Closed) {
                 running = false;
             }
-        });
+        },
+        true);
 
-    Rtype::Client::createGameEntities(ecs);
-    Rtype::Client::loadGameSystem(ecs);
-    // Rtype::Client::createMenuEntities(ecs);
-    //   Rtype::Client::createConfigEntities(ecs);
-    // Rtype::Client::loadMenuSystem(ecs);
+    ecs.post<Rtype::Client::CreateEvent>({Rtype::Client::MENU});
 
     const auto FPS = 60;
     const timer::duration<double, std::ratio<1, FPS>> frameRate(1);
     timer::time_point<timer::steady_clock> frameStart;
+    timer::duration<double> dtimeF = timer::duration<double>::zero();
+
+    const auto Animation = 25;
+    const timer::duration<double, std::ratio<1, Animation>> animeRate(1);
+    timer::time_point<timer::steady_clock> animeStart;
+    timer::duration<double> dtimeA = timer::duration<double>::zero();
+
     timer::time_point<timer::steady_clock> newTime;
-    timer::duration<double> dtime = timer::duration<double>::zero();
 
     while (running) {
+        bool trigger = false;
         newTime = timer::steady_clock::now();
-        dtime += newTime - frameStart;
+        dtimeF += newTime - frameStart;
         frameStart = newTime;
+        dtimeA += newTime - animeStart;
+        animeStart = newTime;
 
-        if (dtime >= frameRate) {
+        if (dtimeF >= frameRate) {
             ecs.post<Rtype::Client::TicEvent>(
                 {std::chrono::steady_clock::now()});
             ecs.post<Rtype::Client::FrameEvent>(
                 {std::chrono::steady_clock::now()});
+            dtimeF = std::chrono::duration<double>::zero();
+            trigger = true;
+        }
 
+        if (dtimeA >= animeRate) {
+            ecs.post<Rtype::Client::AnimeEvent>(
+                {std::chrono::steady_clock::now()});
+            dtimeA = std::chrono::duration<double>::zero();
+            trigger = true;
+        }
+        if (trigger) {
             while (!ecs.empty()) {
                 auto evt = ecs.front();
                 evt();
                 ecs.pop_front();
             }
-            dtime = std::chrono::duration<double>::zero();
         }
     }
     return 0;

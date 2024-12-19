@@ -17,6 +17,7 @@
 #include "components/Selectable.hpp"
 #include "components/Text.hpp"
 #include "components/Window.hpp"
+#include "events/ChangeKey.hpp"
 #include "events/FrameEvent.hpp"
 
 namespace Rtype::Client {
@@ -33,6 +34,8 @@ class WindowSys {
                     SparseArray<Hitbox> &hitboxs,
                     SparseArray<Drawable> &sprites, SparseArray<Text> &texts,
                     SparseArray<Selectable> &selectables);
+    void operator()(ECS &ecs, const ChangeKey &e_changeK,
+                    SparseArray<Window> &windows);
 
   private:
     sf::RenderWindow _window;
@@ -44,12 +47,13 @@ class WindowSys {
                     sf::Vector2u sizeClient, TupleUInt serverSize);
     void drawSprite(SparseArray<Position> &positions,
                     SparseArray<Hitbox> &hitboxs,
-                    SparseArray<Drawable> &sprites);
+                    SparseArray<Drawable> &sprites, int order);
     void drawSel(SparseArray<Position> &positions, SparseArray<Hitbox> &hitboxs,
                  SparseArray<Selectable> &selectables);
     void drawText(SparseArray<Position> &positions,
                   SparseArray<Hitbox> &hitboxs, SparseArray<Text> &texts,
-                  bool isResize, sf::Vector2u sizeClient, TupleUInt serverSize);
+                  bool isResize, sf::Vector2u sizeClient, TupleUInt serverSize,
+                  std::string lang);
     void drawHitboxes(SparseArray<Position> &positions,
                       SparseArray<Hitbox> &hitboxs, bool draw);
 };

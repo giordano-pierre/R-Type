@@ -7,6 +7,13 @@
 
 #include "components/Hitbox.hpp"
 
+namespace Rtype::Client {
+Hitbox::Hitbox(TupleFloat coefSize, bool display, TupleFloat client,
+               TupleFloat server, bool needUpdate)
+    : _coefSize(coefSize), _display(display), _client(client), _server(server),
+      _needUpdate(needUpdate) {}
+} // namespace Rtype::Client
+
 auto operator<<(std::ostream &out,
                 const Rtype::Client::Hitbox &hitbox) -> std::ostream & {
     out << "server: " << hitbox._server.x << " pixel of width and ";
