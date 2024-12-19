@@ -11,7 +11,7 @@
 
 namespace rtype::client {
 struct Playable {
-    Playable(int id, std::string name = "Player 1") : _id(id), _name(name) {};
+    Playable(int id, std::string name = "Player 1") : _id(id), _name(name){};
     ~Playable() = default;
     int _id;
     std::string _name;

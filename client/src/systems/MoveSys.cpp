@@ -55,16 +55,20 @@ void MoveSys::operator()(ECS &ecs, const InputEvent &e_input,
     }
 }
 
-void sendUpdateToServer(ECS &ecs, const std::optional<Velocity> &vel, std::string id)
-{
+void sendUpdateToServer(ECS &ecs, const std::optional<Velocity> &vel,
+                        std::string id) {
     if (vel.value()._current.x > 0)
-        ecs.post<RequestEvent>({CLIENT_INPUT, {{"id", id}, {"type_event", "Right"}}});
+        ecs.post<RequestEvent>(
+            {CLIENT_INPUT, {{"id", id}, {"type_event", "Right"}}});
     if (vel.value()._current.x < 0)
-        ecs.post<RequestEvent>({CLIENT_INPUT, {{"id", id}, {"type_event", "Left"}}});
+        ecs.post<RequestEvent>(
+            {CLIENT_INPUT, {{"id", id}, {"type_event", "Left"}}});
     if (vel.value()._current.y > 0)
-        ecs.post<RequestEvent>({CLIENT_INPUT, {{"id", id}, {"type_event", "Down"}}});
+        ecs.post<RequestEvent>(
+            {CLIENT_INPUT, {{"id", id}, {"type_event", "Down"}}});
     if (vel.value()._current.y < 0)
-        ecs.post<RequestEvent>({CLIENT_INPUT, {{"id", id}, {"type_event", "Up"}}});
+        ecs.post<RequestEvent>(
+            {CLIENT_INPUT, {{"id", id}, {"type_event", "Up"}}});
 }
 
 void MoveSys::operator()(ECS &ecs, const TicEvent &e_tic,

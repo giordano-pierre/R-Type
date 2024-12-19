@@ -11,8 +11,8 @@
 #include "components/Drawable.hpp"
 #include "components/Playable.hpp"
 #include "components/Position.hpp"
-#include "components/Velocity.hpp"
 #include "components/Tag.hpp"
+#include "components/Velocity.hpp"
 #include "events/InputEvent.hpp"
 #include "events/TicEvent.hpp"
 
