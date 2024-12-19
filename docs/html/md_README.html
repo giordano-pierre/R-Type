@@ -74,103 +74,103 @@ $(function() {
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="autotoc_md47"></a> </p>
 <h1><a class="anchor" id="autotoc_md48"></a>
-Qu'est-ce que R-Type ?</h1>
-<p>Le <b>R-Type</b> est un jeu d'arcade emblématique développé par Irem en 1987. Ce <b>shoot 'em up à défilement horizontal</b> place le joueur dans le cockpit d'un vaisseau spatial, le <b>R-9 Arrowhead</b>, pour combattre la menace extraterrestre connue sous le nom de <b>Bydo Empire</b>.</p>
+What is R-Type?</h1>
+<p><b>R-Type</b> is an iconic arcade game developed by Irem in 1987. This <b>horizontal scrolling shoot 'em up</b> places the player in the cockpit of a spacecraft, the <b>R-9 Arrowhead</b>, to combat the extraterrestrial threat known as the <b>Bydo Empire</b>.</p>
 <h1><a class="anchor" id="autotoc_md49"></a>
-Technologies utilisées</h1>
+Technologies Used</h1>
 <ul>
-<li><b>Langages de programmation :</b> Python et C++</li>
-<li><b>Bibliothèque graphique :</b> <a href="https://www.sfml-dev.org/">SFML</a></li>
-<li><b>Gestion audio :</b> Intégrée via SFML</li>
+<li><b>Programming Languages:</b> Python and C++</li>
+<li><b>Graphics Library:</b> <a href="https://www.sfml-dev.org/">SFML</a></li>
+<li><b>Audio Management:</b> Integrated via SFML</li>
 </ul>
-<p>N'hésitez pas a consulter notre <a href="doc/TechnicalStudy">Technical and Comparative study</a> !</p>
+<p>Feel free to check our <a href="doc/TechnicalStudy">Technical and Comparative study</a>!</p>
 <h1><a class="anchor" id="autotoc_md50"></a>
-Architecture du projet</h1>
+Project Architecture</h1>
 <p><img src="/doc/archi.png" alt="Alt text" title="project architecture" class="inline"/></p>
 <h1><a class="anchor" id="autotoc_md51"></a>
-Comment jouer ?</h1>
+How to Play?</h1>
 <h2><a class="anchor" id="autotoc_md52"></a>
-Pré-requis</h2>
+Prerequisites</h2>
 <ul>
-<li><b>Avoir Python installé</b><ul>
-<li><b>Ubuntu</b> : <div class="fragment"><div class="line">sudo apt update &amp;&amp; sudo apt install python3</div>
+<li><b>Install Python</b><ul>
+<li><b>Ubuntu</b>: <div class="fragment"><div class="line">sudo apt update &amp;&amp; sudo apt install python3</div>
 </div><!-- fragment --></li>
-<li><b>Fedora</b> : <div class="fragment"><div class="line">sudo dnf install python3</div>
+<li><b>Fedora</b>: <div class="fragment"><div class="line">sudo dnf install python3</div>
 </div><!-- fragment --></li>
-<li><b>Arch Linux</b> : <code>bash sudo pacman -S python </code></li>
-<li><b>Windows</b> :<ul>
-<li>Rendez-vous sur le site officiel <a href="https://www.python.org/">Python</a> et téléchargez le programme d'installation.</li>
+<li><b>Arch Linux</b>: <code>bash sudo pacman -S python </code></li>
+<li><b>Windows</b>:<ul>
+<li>Visit the official <a href="https://www.python.org/">Python</a> website and download the installer.</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><b>Avoir Make installé</b><ul>
-<li><b>Ubuntu</b> : <div class="fragment"><div class="line">sudo apt install make</div>
+<li><b>Install Make</b><ul>
+<li><b>Ubuntu</b>: <div class="fragment"><div class="line">sudo apt install make</div>
 </div><!-- fragment --></li>
-<li><b>Fedora</b> : <div class="fragment"><div class="line">sudo dnf install make</div>
+<li><b>Fedora</b>: <div class="fragment"><div class="line">sudo dnf install make</div>
 </div><!-- fragment --></li>
-<li><b>Arch Linux</b> : <code>bash sudo pacman -S make </code></li>
-<li><b>Windows</b> :<ul>
-<li>Installez <a href="http://gnuwin32.sourceforge.net/packages/make.htm">Make for Windows</a> ou utilisez une plateforme comme MinGW.</li>
+<li><b>Arch Linux</b>: <code>bash sudo pacman -S make </code></li>
+<li><b>Windows</b>:<ul>
+<li>Install <a href="http://gnuwin32.sourceforge.net/packages/make.htm">Make for Windows</a> or use a platform like MinGW.</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><b>Avoir CMake installé</b><ul>
-<li><b>Ubuntu</b> : <div class="fragment"><div class="line">sudo apt install cmake</div>
+<li><b>Install CMake</b><ul>
+<li><b>Ubuntu</b>: <div class="fragment"><div class="line">sudo apt install cmake</div>
 </div><!-- fragment --></li>
-<li><b>Fedora</b> : <div class="fragment"><div class="line">sudo dnf install cmake</div>
+<li><b>Fedora</b>: <div class="fragment"><div class="line">sudo dnf install cmake</div>
 </div><!-- fragment --></li>
-<li><b>Arch Linux</b> : <code>bash sudo pacman -S cmake </code></li>
-<li><b>Windows</b> :<ul>
-<li>Téléchargez CMake à partir du site officiel <a href="https://cmake.org/download/">CMake</a> et suivez les instructions d'installation.</li>
+<li><b>Arch Linux</b>: <code>bash sudo pacman -S cmake </code></li>
+<li><b>Windows</b>:<ul>
+<li>Download CMake from the official <a href="https://cmake.org/download/">CMake</a> website and follow the installation instructions.</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><b>Avoir Boost:Asio installé</b><ul>
-<li><b>Ubuntu</b> : <div class="fragment"><div class="line">sudo apt install libboost-all-dev</div>
+<li><b>Install Boost:Asio</b><ul>
+<li><b>Ubuntu</b>: <div class="fragment"><div class="line">sudo apt install libboost-all-dev</div>
 </div><!-- fragment --></li>
-<li><b>Fedora</b> : <div class="fragment"><div class="line">sudo dnf install boost-devel</div>
+<li><b>Fedora</b>: <div class="fragment"><div class="line">sudo dnf install boost-devel</div>
 </div><!-- fragment --></li>
-<li><b>Arch Linux</b> : <code>bash sudo pacman -S boost </code></li>
-<li><b>Windows</b> :<ul>
-<li>Téléchargez Boost à partir du site officiel <a href="https://www.boost.org/users/download/">Boost</a> et suivez les instructions d'installation.</li>
+<li><b>Arch Linux</b>: <code>bash sudo pacman -S boost </code></li>
+<li><b>Windows</b>:<ul>
+<li>Download Boost from the official <a href="https://www.boost.org/users/download/">Boost</a> website and follow the installation instructions.</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 <h2><a class="anchor" id="autotoc_md53"></a>
-Installation et lancement</h2>
+Installation and Launch</h2>
 <ol type="1">
-<li><b>Clonez le dépôt :</b> <div class="fragment"><div class="line">git clone https://github.com/votre-repo/rtype-remake.git</div>
+<li><b>Clone the repository:</b> <div class="fragment"><div class="line">git clone https://github.com/your-repo/rtype-remake.git</div>
 </div><!-- fragment --></li>
-<li><b>Installez les dépendances :</b> <div class="fragment"><div class="line">python3 install.py</div>
+<li><b>Install dependencies:</b> <div class="fragment"><div class="line">python3 install.py</div>
 </div><!-- fragment --></li>
-<li><b>Compilation (Linux uniquement) :</b> <div class="fragment"><div class="line">make</div>
+<li><b>Compilation (Linux only):</b> <div class="fragment"><div class="line">make</div>
 </div><!-- fragment --><ul>
-<li>Sur Windows, le fichier compilé se trouvera directement à la racine du projet.</li>
+<li>On Windows, the compiled file will be located directly at the root of the project.</li>
 </ul>
 </li>
-<li><b>Exécutez le serveur et le client :</b><ul>
-<li><b>Serveur :</b> <div class="fragment"><div class="line">./server</div>
+<li><b>Run the server and client:</b><ul>
+<li><b><a class="el" href="classServer.html">Server</a>:</b> <div class="fragment"><div class="line">./server</div>
 </div><!-- fragment --></li>
-<li><b>Client :</b> <div class="fragment"><div class="line">./client</div>
+<li><b>Client:</b> <div class="fragment"><div class="line">./client</div>
 </div><!-- fragment --></li>
-<li>Si le serveur est sur un autre PC, indiquez l'adresse IP du serveur lors du lancement du client.</li>
+<li>If the server is on another PC, specify the server's IP address when launching the client.</li>
 </ul>
 </li>
 </ol>
 <h2><a class="anchor" id="autotoc_md54"></a>
-Commandes dans le jeu</h2>
+In-Game Commands</h2>
 <ul>
-<li><b>Flèches directionnelles :</b> Déplacer le vaisseau</li>
-<li><b>Barre d'espace :</b> Tirer</li>
-<li><b>Touche D :</b> Activer/désactiver le mode pour daltoniens</li>
-<li><b>Touche Échap :</b> Quitter le jeu</li>
+<li><b>Arrow keys:</b> Move the spacecraft</li>
+<li><b>Spacebar:</b> Fire</li>
+<li><b>D key:</b> Toggle colorblind mode</li>
+<li><b>Escape key:</b> Quit the game</li>
 </ul>
-<p>Les touches sont modifiables dans les paramètres. </p>
+<p>The keys can be modified in the settings. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['velocity_0',['velocity',['../structrtype_1_1client_1_1Velocity.html',1,'rtype::client::Velocity'],['../structVelocity.html',1,'Velocity']]],
-  ['velocitysys_1',['VelocitySys',['../structVelocitySys.html',1,'']]],
-  ['vulnérabilités_2',['7.1 Analyse des Vulnérabilités',['../md_doc_2TechnicalStudy.html#autotoc_md45',1,'']]]
+  ['what_20is_20r_20type_0',['What is R-Type?',['../md_README.html#autotoc_md48',1,'']]],
+  ['window_1',['Window',['../structrtype_1_1client_1_1Window.html',1,'rtype::client']]],
+  ['windowsys_2',['WindowSys',['../classrtype_1_1client_1_1WindowSys.html',1,'rtype::client']]]
 ];

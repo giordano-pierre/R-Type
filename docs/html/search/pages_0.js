@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['comparative_20r_20type_0',['Étude Technique et Comparative - R-Type',['../md_doc_2TechnicalStudy.html',1,'']]]
+  ['and_20comparative_20study_20r_20type_0',['Technical and Comparative Study - R-Type',['../md_doc_2TechnicalStudy.html',1,'']]]
 ];

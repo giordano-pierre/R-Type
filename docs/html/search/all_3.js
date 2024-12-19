@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['4_201_20justification_20du_20choix_0',['4.1 Justification du Choix',['../md_doc_2TechnicalStudy.html#autotoc_md36',1,'']]],
-  ['4_202_20étude_20comparative_1',['4.2 Étude Comparative',['../md_doc_2TechnicalStudy.html#autotoc_md37',1,'']]],
-  ['4_20format_20bson_20pour_20la_20sérialisation_2',['4. Format BSON pour la Sérialisation',['../md_doc_2TechnicalStudy.html#autotoc_md35',1,'']]]
+  ['4_201_20justification_20of_20the_20choice_0',['4.1 Justification of the Choice',['../md_doc_2TechnicalStudy.html#autotoc_md36',1,'']]],
+  ['4_202_20comparative_20study_1',['4.2 Comparative Study',['../md_doc_2TechnicalStudy.html#autotoc_md37',1,'']]],
+  ['4_20bson_20format_20for_20serialization_2',['4. BSON Format for Serialization',['../md_doc_2TechnicalStudy.html#autotoc_md35',1,'']]]
 ];
