@@ -45,10 +45,11 @@ struct Damage {
 };
 
 struct PlayerData {
-    std::size_t id;
+    std::string id;
     std::string name;
+    Position pos;
 
-    PlayerData(std::size_t id, std::string name) : id(id), name(name) {}
+    PlayerData(std::string id, std::string name) : id(id), name(name) {}
 };
 
 struct EnemyData {

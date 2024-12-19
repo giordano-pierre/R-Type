@@ -15,6 +15,10 @@ void Server::start() {
     lastUpdate = std::chrono::steady_clock::now();
     ServerHandlerSystem server_handler;
     UDPServer server(ecs, 4242);
+    MovementSys movSys;
+
+    ecs.register_event<MovementSys>();
+    ecs.subscribe<MovementSys>(movSys, true);
 
     ecs.register_event<RequestEvent>();
     ecs.register_event<ReceiveEvent>();
