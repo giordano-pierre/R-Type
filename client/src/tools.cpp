@@ -23,29 +23,35 @@ void initGeneralInput(
     if (inputConfig.find(ENTER) == inputConfig.end())
         inputConfig.insert(
             {ENTER,
-            {sf::Keyboard::Enter,
-            std::make_shared<std::string>(convertInput(sf::Keyboard::Enter))}});
+             {sf::Keyboard::Enter, std::make_shared<std::string>(
+                                       convertInput(sf::Keyboard::Enter))}});
     else {
         inputConfig.find(ENTER)->second.first = sf::Keyboard::Enter;
-        inputConfig.find(ENTER)->second.second->replace(0, inputConfig.find(ENTER)->second.second->size(), convertInput(sf::Keyboard::Enter));
+        inputConfig.find(ENTER)->second.second->replace(
+            0, inputConfig.find(ENTER)->second.second->size(),
+            convertInput(sf::Keyboard::Enter));
     }
     if (inputConfig.find(PAUSE) == inputConfig.end())
         inputConfig.insert(
             {PAUSE,
-            {sf::Keyboard::P,
-            std::make_shared<std::string>(convertInput(sf::Keyboard::Enter))}});
+             {sf::Keyboard::P, std::make_shared<std::string>(
+                                   convertInput(sf::Keyboard::Enter))}});
     else {
         inputConfig.find(PAUSE)->second.first = sf::Keyboard::P;
-        inputConfig.find(PAUSE)->second.second->replace(0, inputConfig.find(PAUSE)->second.second->size(), convertInput(sf::Keyboard::P));
+        inputConfig.find(PAUSE)->second.second->replace(
+            0, inputConfig.find(PAUSE)->second.second->size(),
+            convertInput(sf::Keyboard::P));
     }
     if (inputConfig.find(QUIT) == inputConfig.end())
         inputConfig.insert(
             {QUIT,
-            {sf::Keyboard::Escape,
-            std::make_shared<std::string>(convertInput(sf::Keyboard::Escape))}});
+             {sf::Keyboard::Escape, std::make_shared<std::string>(
+                                        convertInput(sf::Keyboard::Escape))}});
     else {
         inputConfig.find(QUIT)->second.first = sf::Keyboard::Escape;
-        inputConfig.find(QUIT)->second.second->replace(0, inputConfig.find(QUIT)->second.second->size(), convertInput(sf::Keyboard::Escape));
+        inputConfig.find(QUIT)->second.second->replace(
+            0, inputConfig.find(QUIT)->second.second->size(),
+            convertInput(sf::Keyboard::Escape));
     }
 }
 
@@ -59,38 +65,46 @@ void initPlay1Input(
     if (pressed.find(UP1P) == pressed.end())
         pressed.insert(
             {UP1P,
-            {sf::Keyboard::Up,
-            std::make_shared<std::string>(convertInput(sf::Keyboard::Up))}});
+             {sf::Keyboard::Up,
+              std::make_shared<std::string>(convertInput(sf::Keyboard::Up))}});
     else {
         pressed.find(UP1P)->second.first = sf::Keyboard::Up;
-        pressed.find(UP1P)->second.second->replace(0, pressed.find(UP1P)->second.second->size(), convertInput(sf::Keyboard::Up));
+        pressed.find(UP1P)->second.second->replace(
+            0, pressed.find(UP1P)->second.second->size(),
+            convertInput(sf::Keyboard::Up));
     }
     if (pressed.find(DOWN1P) == pressed.end())
         pressed.insert(
             {DOWN1P,
-            {sf::Keyboard::Down,
-            std::make_shared<std::string>(convertInput(sf::Keyboard::Down))}});
+             {sf::Keyboard::Down, std::make_shared<std::string>(
+                                      convertInput(sf::Keyboard::Down))}});
     else {
         pressed.find(DOWN1P)->second.first = sf::Keyboard::Down;
-        pressed.find(DOWN1P)->second.second->replace(0, pressed.find(DOWN1P)->second.second->size(), convertInput(sf::Keyboard::Down));
+        pressed.find(DOWN1P)->second.second->replace(
+            0, pressed.find(DOWN1P)->second.second->size(),
+            convertInput(sf::Keyboard::Down));
     }
     if (pressed.find(LEFT1P) == pressed.end())
         pressed.insert(
             {LEFT1P,
-            {sf::Keyboard::Left,
-            std::make_shared<std::string>(convertInput(sf::Keyboard::Left))}});
+             {sf::Keyboard::Left, std::make_shared<std::string>(
+                                      convertInput(sf::Keyboard::Left))}});
     else {
         pressed.find(LEFT1P)->second.first = sf::Keyboard::Left;
-        pressed.find(LEFT1P)->second.second->replace(0, pressed.find(LEFT1P)->second.second->size(), convertInput(sf::Keyboard::Left));
+        pressed.find(LEFT1P)->second.second->replace(
+            0, pressed.find(LEFT1P)->second.second->size(),
+            convertInput(sf::Keyboard::Left));
     }
     if (pressed.find(RIGHT1P) == pressed.end())
         pressed.insert(
             {RIGHT1P,
-            {sf::Keyboard::Right,
-            std::make_shared<std::string>(convertInput(sf::Keyboard::Right))}});
+             {sf::Keyboard::Right, std::make_shared<std::string>(
+                                       convertInput(sf::Keyboard::Right))}});
     else {
         pressed.find(RIGHT1P)->second.first = sf::Keyboard::Right;
-        pressed.find(RIGHT1P)->second.second->replace(0, pressed.find(RIGHT1P)->second.second->size(), convertInput(sf::Keyboard::Right));
+        pressed.find(RIGHT1P)->second.second->replace(
+            0, pressed.find(RIGHT1P)->second.second->size(),
+            convertInput(sf::Keyboard::Right));
     }
     released.insert({UP1R, sf::Keyboard::Up});
     released.insert({DOWN1R, sf::Keyboard::Down});
@@ -99,20 +113,24 @@ void initPlay1Input(
     if (pressed.find(SHOOT1) == pressed.end())
         pressed.insert(
             {SHOOT1,
-            {sf::Keyboard::Enter,
-            std::make_shared<std::string>(convertInput(sf::Keyboard::Enter))}});
+             {sf::Keyboard::Enter, std::make_shared<std::string>(
+                                       convertInput(sf::Keyboard::Enter))}});
     else {
         pressed.find(SHOOT1)->second.first = sf::Keyboard::Enter;
-        pressed.find(SHOOT1)->second.second->replace(0, pressed.find(SHOOT1)->second.second->size(), convertInput(sf::Keyboard::Enter));
+        pressed.find(SHOOT1)->second.second->replace(
+            0, pressed.find(SHOOT1)->second.second->size(),
+            convertInput(sf::Keyboard::Enter));
     }
     if (pressed.find(SUPERSHOOT1) == pressed.end())
-        pressed.insert(
-            {SUPERSHOOT1,
-            {sf::Keyboard::M,
-            std::make_shared<std::string>(convertInput(sf::Keyboard::M))}});
+        pressed.insert({SUPERSHOOT1,
+                        {sf::Keyboard::M, std::make_shared<std::string>(
+                                              convertInput(sf::Keyboard::M))}});
     else {
         pressed.find(SUPERSHOOT1)->second.first = sf::Keyboard::M;
-        pressed.find(SUPERSHOOT1)->second.second->replace(0, pressed.find(SUPERSHOOT1)->second.second->size(), convertInput(sf::Keyboard::M));
+        pressed.find(SUPERSHOOT1)
+            ->second.second->replace(
+                0, pressed.find(SUPERSHOOT1)->second.second->size(),
+                convertInput(sf::Keyboard::M));
     }
 }
 
@@ -124,40 +142,44 @@ void initPlay2Input(
     auto &released = inputConfig.second;
 
     if (pressed.find(UP2P) == pressed.end())
-        pressed.insert(
-            {UP2P,
-            {sf::Keyboard::Z,
-            std::make_shared<std::string>(convertInput(sf::Keyboard::Z))}});
+        pressed.insert({UP2P,
+                        {sf::Keyboard::Z, std::make_shared<std::string>(
+                                              convertInput(sf::Keyboard::Z))}});
     else {
         pressed.find(UP2P)->second.first = sf::Keyboard::Z;
-        pressed.find(UP2P)->second.second->replace(0, pressed.find(UP2P)->second.second->size(), convertInput(sf::Keyboard::Z));
+        pressed.find(UP2P)->second.second->replace(
+            0, pressed.find(UP2P)->second.second->size(),
+            convertInput(sf::Keyboard::Z));
     }
     if (pressed.find(DOWN2P) == pressed.end())
-        pressed.insert(
-            {DOWN2P,
-            {sf::Keyboard::S,
-            std::make_shared<std::string>(convertInput(sf::Keyboard::S))}});
+        pressed.insert({DOWN2P,
+                        {sf::Keyboard::S, std::make_shared<std::string>(
+                                              convertInput(sf::Keyboard::S))}});
     else {
         pressed.find(DOWN2P)->second.first = sf::Keyboard::S;
-        pressed.find(DOWN2P)->second.second->replace(0, pressed.find(DOWN2P)->second.second->size(), convertInput(sf::Keyboard::S));
+        pressed.find(DOWN2P)->second.second->replace(
+            0, pressed.find(DOWN2P)->second.second->size(),
+            convertInput(sf::Keyboard::S));
     }
     if (pressed.find(LEFT2P) == pressed.end())
-        pressed.insert(
-            {LEFT2P,
-            {sf::Keyboard::Q,
-            std::make_shared<std::string>(convertInput(sf::Keyboard::Q))}});
+        pressed.insert({LEFT2P,
+                        {sf::Keyboard::Q, std::make_shared<std::string>(
+                                              convertInput(sf::Keyboard::Q))}});
     else {
         pressed.find(LEFT2P)->second.first = sf::Keyboard::Q;
-        pressed.find(LEFT2P)->second.second->replace(0, pressed.find(LEFT2P)->second.second->size(), convertInput(sf::Keyboard::Q));
+        pressed.find(LEFT2P)->second.second->replace(
+            0, pressed.find(LEFT2P)->second.second->size(),
+            convertInput(sf::Keyboard::Q));
     }
     if (pressed.find(RIGHT2P) == pressed.end())
-        pressed.insert(
-            {RIGHT2P,
-            {sf::Keyboard::D,
-            std::make_shared<std::string>(convertInput(sf::Keyboard::D))}});
+        pressed.insert({RIGHT2P,
+                        {sf::Keyboard::D, std::make_shared<std::string>(
+                                              convertInput(sf::Keyboard::D))}});
     else {
         pressed.find(RIGHT2P)->second.first = sf::Keyboard::D;
-        pressed.find(RIGHT2P)->second.second->replace(0, pressed.find(RIGHT2P)->second.second->size(), convertInput(sf::Keyboard::D));
+        pressed.find(RIGHT2P)->second.second->replace(
+            0, pressed.find(RIGHT2P)->second.second->size(),
+            convertInput(sf::Keyboard::D));
     }
     released.insert({UP2R, sf::Keyboard::Z});
     released.insert({DOWN2R, sf::Keyboard::S});
@@ -166,20 +188,24 @@ void initPlay2Input(
     if (pressed.find(SHOOT2) == pressed.end())
         pressed.insert(
             {SHOOT2,
-            {sf::Keyboard::Space,
-            std::make_shared<std::string>(convertInput(sf::Keyboard::Space))}});
+             {sf::Keyboard::Space, std::make_shared<std::string>(
+                                       convertInput(sf::Keyboard::Space))}});
     else {
         pressed.find(SHOOT2)->second.first = sf::Keyboard::Space;
-        pressed.find(SHOOT2)->second.second->replace(0, pressed.find(SHOOT2)->second.second->size(), convertInput(sf::Keyboard::Space));
+        pressed.find(SHOOT2)->second.second->replace(
+            0, pressed.find(SHOOT2)->second.second->size(),
+            convertInput(sf::Keyboard::Space));
     }
     if (pressed.find(SUPERSHOOT2) == pressed.end())
-        pressed.insert(
-            {SUPERSHOOT2,
-            {sf::Keyboard::N,
-            std::make_shared<std::string>(convertInput(sf::Keyboard::N))}});
+        pressed.insert({SUPERSHOOT2,
+                        {sf::Keyboard::N, std::make_shared<std::string>(
+                                              convertInput(sf::Keyboard::N))}});
     else {
         pressed.find(SUPERSHOOT2)->second.first = sf::Keyboard::N;
-        pressed.find(SUPERSHOOT2)->second.second->replace(0, pressed.find(SUPERSHOOT2)->second.second->size(), convertInput(sf::Keyboard::N));
+        pressed.find(SUPERSHOOT2)
+            ->second.second->replace(
+                0, pressed.find(SUPERSHOOT2)->second.second->size(),
+                convertInput(sf::Keyboard::N));
     }
 }
 
