@@ -1,10 +1,10 @@
 #pragma once
 
+#include "ServerCore.hpp"
 #include <cstddef>
 #include <cstdint>
 #include <string>
 #include <vector>
-#include "ServerCore.hpp"
 
 struct Position {
     float x = 0.0f;
@@ -106,8 +106,7 @@ struct GameState {
         : isGameRunning(false), gameTime(gameTime), playerCount(playerCount) {}
 };
 
-struct RefServer
-{
+struct RefServer {
     Server &refToServer;
 
     RefServer(Server &_refToServer) : refToServer(_refToServer) {}
