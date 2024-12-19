@@ -286,7 +286,7 @@ void updateOneMap(
     sf::Keyboard::Key key) {
     for (auto &[keyMap, value] : inputConfig.first) {
         if (keyMap == ENTER)
-            continue;
+            break;
         if (value.first == key) {
             value.first = it->second.first;
             value.second->replace(0, value.second->size(),
@@ -311,12 +311,6 @@ bool updateConfigs(
         updateOneMap(inputConfigs, it, key);
         return false;
     }
-
-    // it = inputConfigs.second.find(e_changeK._key);
-    // if (it != inputConfigs.second.end()) {
-    //   updateOneMap(inputConfigs.second, it, key);
-    //   return false;
-    // }
     return false;
 }
 

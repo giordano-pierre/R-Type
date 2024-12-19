@@ -714,7 +714,7 @@ void createConfigGeneralEntites(ECS &ecs) {
     ecs.add_component<Position>(resetB,
                                 {float(serverSize.x) / 12 * float(2.95),
                                  float(serverSize.y) / 10 * float(8.2)});
-    ecs.add_component<Tag>(resetB, {CPLAYER1});
+    ecs.add_component<Tag>(resetB, {CGENERAL});
     ecs.add_component<Hitbox>(resetB, {{float(1) / 4, float(1) / 10}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("Reset")});

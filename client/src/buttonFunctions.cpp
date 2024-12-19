@@ -77,7 +77,11 @@ void langEN(ECS &ecs, Entity i) {
 void resetG(ECS &ecs, Entity i) {
     auto &myWindow = ecs.get_components<Window>()[0].value();
 
+    myWindow._lang = "EN";
+    myWindow._size = {1440, 810};
     initGeneralInput(myWindow._inputConfig.first);
+    ecs.post<DeleteEvent>({CGENERAL});
+    ecs.post<CreateEvent>({CGENERAL});
 }
 
 void resetP1(ECS &ecs, Entity i) {
