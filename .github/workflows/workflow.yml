@@ -78,8 +78,8 @@ jobs:
             echo "Doxyfile not found. Generating a default one."
             doxygen -g
             # Update Doxyfile with the correct configuration
-            sed -i 's|^INPUT .*|INPUT = client/include client/src serveur/include serveur/src lib/ecs/include lib/ecs/src lib/others/events/include lib/others/systems/physics doc README.md|' Doxyfile
-            sed -i 's|^FILE_PATTERNS .*|FILE_PATTERNS = *.cpp *.h *.hpp|' Doxyfile
+            sed -i 's|^INPUT .*|INPUT = client/include client/include/components client/include/events client/include/systems client/src client/src/components client/src/events client/src/systems serveur/include serveur/src lib/ecs/include lib/ecs/src lib/others/events/include lib/others/systems/physics doc README.md|' Doxyfile
+            sed -i 's|^FILE_PATTERNS .*|FILE_PATTERNS = *.cpp *.h *.hpp *.inl|' Doxyfile
             sed -i 's|^OUTPUT_DIRECTORY .*|OUTPUT_DIRECTORY = docs|' Doxyfile
           fi
       - name: Generate Documentation
