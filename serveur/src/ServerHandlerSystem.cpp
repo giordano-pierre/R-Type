@@ -97,6 +97,5 @@ void ServerHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
         std::cout << rec_event.payload << std::endl;
         // remove player from player_list
         break;
-
     }
 }
