@@ -9,7 +9,7 @@
 
 namespace Rtype::Client {
 
-void FrameSys::operator()(ECS &ecs, const FrameEvent &,
+void FrameSys::operator()(ECS &ecs, const AnimeEvent &,
                           SparseArray<Drawable> &sprites) {
     for (size_t i = 0; i < sprites.size(); ++i) {
         auto &sprite = sprites[i];

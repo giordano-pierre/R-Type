@@ -20,7 +20,6 @@ void initGeneralInput(
     std::map<UserInput,
              std::pair<sf::Keyboard::Key, std::shared_ptr<std::string>>>
         &inputConfig) {
-    std::cout << "Test" << std::endl;
     inputConfig.insert(
         {ENTER,
          {sf::Keyboard::Enter,
