@@ -91,7 +91,11 @@ jobs:
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git pull origin ${{ github.ref_name }} --rebase
+          git add --all
+          git commit -m "Temporary commit for pull rebase" || echo "No changes to commit"
+          git pull origin ${{ github.ref_name }} --rebase || echo "Rebase failed, resolving conflicts"
+          git add --all
+          git rebase --continue || echo "No rebase to continue"
           git add --force docs
           git commit -m "Add or update generated documentation" || echo "No changes to commit"
           git push origin ${{ github.ref_name }}
@@ -104,7 +108,7 @@ jobs:
 
   mirroring:
     if: github.repository == 'giordano-pierre/R-Type'
-    needs: ['linting', 'compilation', 'documentation']
+    needs: [linting, compilation, documentation]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
