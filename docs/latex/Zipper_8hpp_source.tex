@@ -1,0 +1,46 @@
+\doxysection{Zipper.\+hpp}
+\hypertarget{Zipper_8hpp_source}{}\label{Zipper_8hpp_source}\index{lib/ecs/include/Zipper/Zipper.hpp@{lib/ecs/include/Zipper/Zipper.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ EPITECH\ PROJECT,\ 2024}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**\ piscine\_hub}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**\ File\ description:}}
+\DoxyCodeLine{00005\ \textcolor{comment}{**\ Zipper.hpp}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}Iterator.hpp"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <optional>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}...\ Containers>\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classZipper}{Zipper}}\ \{}
+\DoxyCodeLine{00013\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classZipperIterator}{iterator}}\ =\ \mbox{\hyperlink{classZipperIterator}{ZipperIterator}}<Containers...>;}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{using\ }iterator\_tuple\ =\ \textcolor{keyword}{typename}\ iterator::iterator\_tuple;}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ =\ \textcolor{keyword}{typename}\ iterator::value\_type;}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{using\ }pred\_type\ =\ \textcolor{keyword}{typename}\ iterator::pred\_type;}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{classZipper}{Zipper}}(Containers\ \&...cs);}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{classZipper}{Zipper}}(pred\_type\ \&\&pred,\ Containers\ \&...cs);}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classZipper}{\string~Zipper}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{auto}\ begin()\ -\/>\ \mbox{\hyperlink{classZipperIterator}{iterator}};}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{auto}\ end()\ -\/>\ \mbox{\hyperlink{classZipperIterator}{iterator}};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//\ helper\ function\ to\ know\ the\ maximum\ index\ of\ our\ iterators.}}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{auto}\ \_compute\_size(Containers\ \&...containers)\ -\/>\ std::size\_t;}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{comment}{//\ helper\ function\ to\ compute\ an\ iterator\_tuple\ that\ will\ allow\ us\ to\ build}}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{comment}{//\ our\ end\ iterator.}}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{auto}\ \_compute\_end(Containers\ \&...containers)\ -\/>\ iterator\_tuple;}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00034\ \ \ \ \ iterator\_tuple\ \_begin;}
+\DoxyCodeLine{00035\ \ \ \ \ iterator\_tuple\ \_end;}
+\DoxyCodeLine{00036\ \ \ \ \ std::size\_t\ \_size;}
+\DoxyCodeLine{00037\ \ \ \ \ std::optional<pred\_type>\ \_pred;}
+\DoxyCodeLine{00038\ \};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ "{}Zipper.inl"{}}}
+
+\end{DoxyCode}

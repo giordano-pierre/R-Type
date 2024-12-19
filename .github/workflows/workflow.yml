@@ -77,11 +77,12 @@ jobs:
           if [ ! -f Doxyfile ]; then
             echo "Doxyfile not found. Generating a default one."
             doxygen -g
-            # Update Doxyfile with the correct configuration
-            sed -i 's|^INPUT .*|INPUT = client/include client/src serveur/include serveur/src lib/ecs/include lib/ecs/src lib/others/events/include lib/others/systems/physics doc README.md|' Doxyfile
-            sed -i 's|^FILE_PATTERNS .*|FILE_PATTERNS = *.cpp *.h *.hpp|' Doxyfile
-            sed -i 's|^OUTPUT_DIRECTORY .*|OUTPUT_DIRECTORY = docs|' Doxyfile
           fi
+          # Update Doxyfile for recursive scanning from the root directory
+          sed -i 's|^INPUT .*|INPUT = .|' Doxyfile
+          sed -i 's|^RECURSIVE .*|RECURSIVE = YES|' Doxyfile
+          sed -i 's|^FILE_PATTERNS .*|FILE_PATTERNS = *.cpp *.h *.hpp *.md *.inl|' Doxyfile
+          sed -i 's|^OUTPUT_DIRECTORY .*|OUTPUT_DIRECTORY = docs|' Doxyfile
       - name: Generate Documentation
         run: |
           doxygen Doxyfile
@@ -91,7 +92,11 @@ jobs:
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git pull origin ${{ github.ref_name }} --rebase
+          git add --all
+          git commit -m "Temporary commit for pull rebase" || echo "No changes to commit"
+          git pull origin ${{ github.ref_name }} --rebase || echo "Rebase failed, resolving conflicts"
+          git add --all
+          git rebase --continue || echo "No rebase to continue"
           git add --force docs
           git commit -m "Add or update generated documentation" || echo "No changes to commit"
           git push origin ${{ github.ref_name }}
@@ -104,7 +109,7 @@ jobs:
 
   mirroring:
     if: github.repository == 'giordano-pierre/R-Type'
-    needs: ['linting', 'compilation', 'documentation']
+    needs: [linting, compilation, documentation]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

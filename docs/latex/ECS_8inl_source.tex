@@ -1,0 +1,175 @@
+\doxysection{ECS.\+inl}
+\hypertarget{ECS_8inl_source}{}\label{ECS_8inl_source}\index{lib/ecs/include/ECS/ECS.inl@{lib/ecs/include/ECS/ECS.inl}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ EPITECH\ PROJECT,\ 2024}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**\ piscine}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**\ File\ description:}}
+\DoxyCodeLine{00005\ \textcolor{comment}{**\ ECS.inl}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}ECS.hpp"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ Component>}
+\DoxyCodeLine{00012\ \textcolor{keyword}{auto}\ ECS::register\_component()\ -\/>\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>}}\ \&}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{auto}\ type\ =\ std::type\_index(\textcolor{keyword}{typeid}(Component));}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{auto}\ lambda\ =\ [\textcolor{keyword}{this}](\textcolor{keyword}{const}\ \mbox{\hyperlink{classEntity}{Entity}}\ \&ent)\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ remove\_component<Component>(ent);}
+\DoxyCodeLine{00017\ \ \ \ \ \};}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \_components\_arrays[type]\ =\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>}}\ ();}
+\DoxyCodeLine{00020\ \ \ \ \ \_freset\_entity\_components.push\_back(lambda);}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordflow}{return}\ std::any\_cast<SparseArray<Component>\ \&>(\_components\_arrays[type]);}
+\DoxyCodeLine{00022\ \}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ Component>}
+\DoxyCodeLine{00025\ \textcolor{keyword}{auto}\ ECS::get\_components()\ -\/>\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>}}\ \&}
+\DoxyCodeLine{00026\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{auto}\ type\ =\ std::type\_index(\textcolor{keyword}{typeid}(Component));}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordflow}{return}\ std::any\_cast<SparseArray<Component>\ \&>(\_components\_arrays.at(type));}
+\DoxyCodeLine{00030\ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ Component>}
+\DoxyCodeLine{00033\ \textcolor{keyword}{auto}\ ECS::get\_components()\ const\ -\/>\ const\ \mbox{\hyperlink{classSparseArray}{SparseArray}}<Component>\ \&}
+\DoxyCodeLine{00034\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{auto}\ type\ =\ std::type\_index(\textcolor{keyword}{typeid}(Component));}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordflow}{return}\ std::any\_cast<const\ SparseArray<Component>\ \&>(\_components\_arrays.at(type));}
+\DoxyCodeLine{00038\ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{inline}\ \textcolor{keyword}{auto}\ ECS::spawn\_entity()\ -\/>\ \mbox{\hyperlink{classEntity}{Entity}}}
+\DoxyCodeLine{00041\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{if}\ (\_dead\_entities.empty())}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classEntity}{Entity}}(\_nb\_entities++);}
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{classEntity}{Entity}}\ res\ =\ *\_dead\_entities.begin();}
+\DoxyCodeLine{00045\ \ \ \ \ \_dead\_entities.pop\_front();}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00047\ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{inline}\ \textcolor{keyword}{auto}\ ECS::entity\_from\_index(std::size\_t\ idx)\ -\/>\ \mbox{\hyperlink{classEntity}{Entity}}}
+\DoxyCodeLine{00050\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classEntity}{Entity}}(idx);}
+\DoxyCodeLine{00052\ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{inline}\ \textcolor{keyword}{auto}\ ECS::kill\_entity(\textcolor{keyword}{const}\ \mbox{\hyperlink{classEntity}{Entity}}\ \&entity)\ -\/>\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00055\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \_freset\_entity\_components.size();\ i++)\ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \_freset\_entity\_components[i](entity);}
+\DoxyCodeLine{00058\ \ \ \ \ \}}
+\DoxyCodeLine{00059\ \ \ \ \ \_dead\_entities.push\_back(entity);}
+\DoxyCodeLine{00060\ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Component>}
+\DoxyCodeLine{00063\ \textcolor{keyword}{auto}\ ECS::add\_component(\mbox{\hyperlink{classEntity}{Entity}}\ \textcolor{keyword}{const}\ \&to,\ Component\ \&\&c)\ -\/>}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{typename}\ SparseArray<Component>::reference\_type}
+\DoxyCodeLine{00065\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>}}\ \&component\_array\ =\ get\_components<Component>();}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordflow}{return}\ component\_array.insert\_at(to,\ c);}
+\DoxyCodeLine{00069\ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Component,\ \textcolor{keyword}{typename}\ ...\ Params>}
+\DoxyCodeLine{00072\ \textcolor{keyword}{auto}\ ECS::emplace\_component(\mbox{\hyperlink{classEntity}{Entity}}\ \textcolor{keyword}{const}\ \&to,\ Params\ \&\&...p)\ -\/>}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{typename}\ SparseArray<Component>::reference\_type}
+\DoxyCodeLine{00074\ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>}}\ \&component\_array\ =\ get\_components<Component>();}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordflow}{return}\ component\_array.emplace\_at(to,\ p...);}
+\DoxyCodeLine{00078\ \}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Component>}
+\DoxyCodeLine{00081\ \textcolor{keyword}{auto}\ ECS::remove\_component(\mbox{\hyperlink{classEntity}{Entity}}\ \textcolor{keyword}{const}\ \&from)\ -\/>\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00082\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>}}\ \&component\_array\ =\ get\_components<Component>();}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ component\_array.erase(from);}
+\DoxyCodeLine{00086\ \}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ Event>\ \textcolor{keyword}{auto}\ ECS::register\_event()\ -\/>\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00089\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{event}\ =\ std::type\_index(\textcolor{keyword}{typeid}(Event));}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \_events[event]\ =\ systems\_type<Event>();}
+\DoxyCodeLine{00093\ \}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ Event>\ \textcolor{keyword}{auto}\ ECS::get\_events()\ -\/>\ systems\_type<Event>\ \&}
+\DoxyCodeLine{00096\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{event}\ =\ std::type\_index(\textcolor{keyword}{typeid}(Event));}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordflow}{return}\ std::any\_cast<systems\_type<Event>\ \&>(\_events.at(event));}
+\DoxyCodeLine{00100\ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ Event>}
+\DoxyCodeLine{00103\ \textcolor{keyword}{auto}\ ECS::get\_events()\ const\ -\/>\ const\ systems\_type<Event>\ \&}
+\DoxyCodeLine{00104\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{event}\ =\ std::type\_index(\textcolor{keyword}{typeid}(Event));}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordflow}{return}\ std::any\_cast<const\ systems\_type<Event>\ \&>(\_events.at(event));}
+\DoxyCodeLine{00108\ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class\ }Event,\ \textcolor{keyword}{class\ }...\ Components,\ \textcolor{keyword}{typename}\ System>}
+\DoxyCodeLine{00111\ \textcolor{keyword}{auto}\ ECS::subscribe(System\ \&\&system,\ \textcolor{keywordtype}{bool}\ permanent)\ -\/>\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00112\ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{auto}\ lambda\ =\ [\textcolor{keyword}{this},\ sys\ =\ std::move(system)](\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ Event\ \&ev)\ \{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ sys(ecs,\ ev,\ get\_components<Components>()...);}
+\DoxyCodeLine{00115\ \ \ \ \ \};}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ systems\_type<Event>\ \&event\_array\ =\ get\_events<Event>();}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ event\_array.push\_back(\{lambda,\ permanent\});}
+\DoxyCodeLine{00120\ \}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class\ }Event,\ \textcolor{keyword}{class\ }...\ Components,\ \textcolor{keyword}{typename}\ System>}
+\DoxyCodeLine{00123\ \textcolor{keyword}{auto}\ ECS::subscribe(System\ \&system,\ \textcolor{keywordtype}{bool}\ permanent)\ -\/>\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00124\ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keyword}{auto}\ lambda\ =\ [\textcolor{keyword}{this},\ \&system](\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ Event\ \&ev)\ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ system(ecs,\ ev,\ get\_components<Components>()...);}
+\DoxyCodeLine{00127\ \ \ \ \ \};}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ systems\_type<Event>\ \&event\_array\ =\ get\_events<Event>();}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ event\_array.push\_back(\{lambda,\ permanent\});}
+\DoxyCodeLine{00132\ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class\ }Event,\ \textcolor{keyword}{class\ }...\ Components,\ \textcolor{keyword}{typename}\ System>}
+\DoxyCodeLine{00135\ \textcolor{keyword}{auto}\ ECS::subscribe(\textcolor{keyword}{const}\ System\ \&system,\ \textcolor{keywordtype}{bool}\ permanent)\ -\/>\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00136\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keyword}{auto}\ lambda\ =\ [\textcolor{keyword}{this},\ \&system](\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ Event\ \&ev)\ \{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ system(ecs,\ ev,\ get\_components<Components>()...);}
+\DoxyCodeLine{00139\ \ \ \ \ \};}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ systems\_type<Event>\ \&event\_array\ =\ get\_events<Event>();}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ event\_array.push\_back(\{lambda,\ permanent\});}
+\DoxyCodeLine{00144\ \}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ Event>}
+\DoxyCodeLine{00147\ \textcolor{keyword}{auto}\ ECS::clean()\ -\/>\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00148\ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{event}\ =\ std::type\_index(\textcolor{keyword}{typeid}(Event));}
+\DoxyCodeLine{00150\ \ \ \ \ systems\_type<Event>\ \&event\_array\ =\ get\_events<Event>();}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ event\_array.erase(}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ std::remove\_if(event\_array.begin(),\ event\_array.end(),\ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&system)\ \{}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ return\ !system.permanent;}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \}),}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ event\_array.end()}
+\DoxyCodeLine{00157\ \ \ \ \ );}
+\DoxyCodeLine{00158\ \}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ Event>\ \textcolor{keyword}{auto}\ ECS::post(\textcolor{keyword}{const}\ Event\ \&event)\ -\/>\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00161\ \{}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keyword}{auto}\ lambda\ =\ [\textcolor{keyword}{this},\ event]()\ \{}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ systems\_type<Event>\ \&event\_array\ =\ get\_events<Event>();}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ event\_array.size();\ i++)}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ event\_array[i].lambda(*\textcolor{keyword}{this},\ std::move(event));}
+\DoxyCodeLine{00166\ \ \ \ \ \};}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ \ \ \_callback\_pool.push\_back(lambda);}
+\DoxyCodeLine{00169\ \}}
+
+\end{DoxyCode}

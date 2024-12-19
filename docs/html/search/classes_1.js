@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['damage_0',['Damage',['../structDamage.html',1,'']]]
+  ['bordersys_0',['BorderSys',['../classrtype_1_1client_1_1BorderSys.html',1,'rtype::client']]]
 ];

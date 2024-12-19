@@ -11,6 +11,7 @@
 #include "components/Drawable.hpp"
 #include "components/Playable.hpp"
 #include "components/Position.hpp"
+#include "components/Tag.hpp"
 #include "components/Velocity.hpp"
 #include "events/InputEvent.hpp"
 #include "events/TicEvent.hpp"
@@ -27,6 +28,8 @@ class MoveSys {
 
     void operator()(ECS &ecs, const TicEvent &e_tic,
                     SparseArray<Position> &positions,
-                    const SparseArray<Velocity> &velocities);
+                    const SparseArray<Velocity> &velocities,
+                    const SparseArray<Playable> &players,
+                    const SparseArray<Tag> &tags);
 };
 } // namespace rtype::client

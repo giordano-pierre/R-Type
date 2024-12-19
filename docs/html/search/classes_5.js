@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['level_0',['Level',['../structLevel.html',1,'']]],
-  ['levelmanager_1',['LevelManager',['../classrtype_1_1systems_1_1LevelManager.html',1,'rtype::systems']]]
+  ['frameevent_0',['FrameEvent',['../structrtype_1_1client_1_1FrameEvent.html',1,'rtype::client']]],
+  ['framesys_1',['FrameSys',['../classrtype_1_1client_1_1FrameSys.html',1,'rtype::client']]]
 ];

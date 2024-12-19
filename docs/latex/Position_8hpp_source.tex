@@ -1,0 +1,32 @@
+\doxysection{Position.\+hpp}
+\hypertarget{Position_8hpp_source}{}\label{Position_8hpp_source}\index{client/include/components/Position.hpp@{client/include/components/Position.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ EPITECH\ PROJECT,\ 2024}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**\ R-\/Type}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**\ File\ description:}}
+\DoxyCodeLine{00005\ \textcolor{comment}{**\ Position}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <ostream>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}tools.hpp"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }rtype::client\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrtype_1_1client_1_1Position}{Position}}\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1Position}{Position}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \mbox{\hyperlink{structrtype_1_1client_1_1TupleFloat}{TupleFloat}}\ client\ =\ \{0,\ 0\},}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ needUpdate\ =\ \textcolor{keyword}{true})}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ :\ \_server(\{x,\ y\}),\ \_client(client),\ \_needUpdate(needUpdate)\{\};}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1Position}{\string~Position}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1TupleFloat}{TupleFloat}}\ \_server;}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1TupleFloat}{TupleFloat}}\ \_client;}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_needUpdate;}
+\DoxyCodeLine{00023\ \};}
+\DoxyCodeLine{00024\ \}\ \textcolor{comment}{//\ namespace\ rtype::client}}
+\DoxyCodeLine{00025\ std::ostream\ \&operator<<(std::ostream\ \&out,}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1Position}{rtype::client::Position}}\ \&position);}
+
+\end{DoxyCode}

@@ -1,0 +1,37 @@
+\doxysection{Drawable.\+hpp}
+\hypertarget{Drawable_8hpp_source}{}\label{Drawable_8hpp_source}\index{client/include/components/Drawable.hpp@{client/include/components/Drawable.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ EPITECH\ PROJECT,\ 2024}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**\ R-\/Type}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**\ File\ description:}}
+\DoxyCodeLine{00005\ \textcolor{comment}{**\ Drawable}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <SFML/Graphics.hpp>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}tools.hpp"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }rtype::client\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrtype_1_1client_1_1Drawable}{Drawable}}\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1Drawable}{Drawable}}(\textcolor{keyword}{const}\ std::shared\_ptr<sf::Texture>\ texture,}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1TupleInt}{TupleInt}}\ sizeTexture,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1TupleInt}{TupleInt}}\ sizeFrame,\ \textcolor{keywordtype}{int}\ nbFrame,}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ order\ =\ 0);}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1Drawable}{\string~Drawable}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{int}\ \_nbFrame;}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{int}\ \_currentFrame;}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1TupleInt}{TupleInt}}\ \_sizeTexture;}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1TupleInt}{TupleInt}}\ \_sizeFrame;}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_activated\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{int}\ \_order;}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ std::shared\_ptr<sf::Texture>\ \_texture;}
+\DoxyCodeLine{00028\ \ \ \ \ sf::IntRect\ \_rectangle;}
+\DoxyCodeLine{00029\ \ \ \ \ sf::Sprite\ \_sprite;}
+\DoxyCodeLine{00030\ \};}
+\DoxyCodeLine{00031\ \}\ \textcolor{comment}{//\ namespace\ rtype::client}}
+
+\end{DoxyCode}

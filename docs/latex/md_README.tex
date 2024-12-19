@@ -1,148 +1,150 @@
 \chapter{R-\/\+Type}
 \hypertarget{md_README}{}\label{md_README}\index{R-\/Type@{R-\/Type}}
-\label{md_README_autotoc_md0}%
-\Hypertarget{md_README_autotoc_md0}%
- \hypertarget{md_README_autotoc_md1}{}\doxysection{\texorpdfstring{Qu\textquotesingle{}est-\/ce que R-\/\+Type ?}{Qu'est-ce que R-Type ?}}\label{md_README_autotoc_md1}
-Le {\bfseries{R-\/\+Type}} est un jeu d\textquotesingle{}arcade emblématique développé par Irem en 1987. Ce {\bfseries{shoot \textquotesingle{}em up à défilement horizontal}} place le joueur dans le cockpit d\textquotesingle{}un vaisseau spatial, le {\bfseries{R-\/9 Arrowhead}}, pour combattre la menace extraterrestre connue sous le nom de {\bfseries{Bydo Empire}}.\hypertarget{md_README_autotoc_md2}{}\doxysection{\texorpdfstring{Technologies utilisées}{Technologies utilisées}}\label{md_README_autotoc_md2}
+\label{md_README_autotoc_md73}%
+\Hypertarget{md_README_autotoc_md73}%
+ \hypertarget{md_README_autotoc_md74}{}\doxysection{\texorpdfstring{What is R-\/\+Type?}{What is R-Type?}}\label{md_README_autotoc_md74}
+{\bfseries{R-\/\+Type}} is an iconic arcade game developed by Irem in 1987. This {\bfseries{horizontal scrolling shoot \textquotesingle{}em up}} places the player in the cockpit of a spacecraft, the {\bfseries{R-\/9 Arrowhead}}, to combat the extraterrestrial threat known as the {\bfseries{Bydo Empire}}.\hypertarget{md_README_autotoc_md75}{}\doxysection{\texorpdfstring{Technologies Used}{Technologies Used}}\label{md_README_autotoc_md75}
 
 \begin{DoxyItemize}
-\item {\bfseries{Langages de programmation \+:}} Python et C++
-\item {\bfseries{Bibliothèque graphique \+:}} \href{https://www.sfml-dev.org/}{\texttt{ SFML}}
-\item {\bfseries{Gestion audio \+:}} Intégrée via SFML
+\item {\bfseries{Programming Languages\+:}} Python and C++
+\item {\bfseries{Graphics Library\+:}} \href{https://www.sfml-dev.org/}{\texttt{ SFML}}
+\item {\bfseries{Audio Management\+:}} Integrated via SFML
 \end{DoxyItemize}
 
-N\textquotesingle{}hésitez pas a consulter notre comparative study !\hypertarget{md_README_autotoc_md3}{}\doxysection{\texorpdfstring{Architecture du projet}{Architecture du projet}}\label{md_README_autotoc_md3}
-\hypertarget{md_README_autotoc_md4}{}\doxysection{\texorpdfstring{Comment jouer ?}{Comment jouer ?}}\label{md_README_autotoc_md4}
-\hypertarget{md_README_autotoc_md5}{}\doxysubsection{\texorpdfstring{Pré-\/requis}{Pré-requis}}\label{md_README_autotoc_md5}
+Feel free to check our \href{doc/TechnicalStudy}{\texttt{ Technical and Comparative study}}!\hypertarget{md_README_autotoc_md76}{}\doxysection{\texorpdfstring{Project Architecture}{Project Architecture}}\label{md_README_autotoc_md76}
+\hypertarget{md_README_autotoc_md77}{}\doxysection{\texorpdfstring{How to Play?}{How to Play?}}\label{md_README_autotoc_md77}
+\hypertarget{md_README_autotoc_md78}{}\doxysubsection{\texorpdfstring{Prerequisites}{Prerequisites}}\label{md_README_autotoc_md78}
 
 \begin{DoxyItemize}
-\item {\bfseries{Avoir Python installé}}
+\item {\bfseries{Install Python}}
 \begin{DoxyItemize}
-\item {\bfseries{Ubuntu}} \+: 
+\item {\bfseries{Ubuntu}}\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{sudo\ apt\ update\ \&\&\ sudo\ apt\ install\ python3}
 
 \end{DoxyCode}
 
-\item {\bfseries{Fedora}} \+: 
+\item {\bfseries{Fedora}}\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{sudo\ dnf\ install\ python3}
 
 \end{DoxyCode}
 
-\item {\bfseries{Arch Linux}} \+: {\ttfamily bash sudo pacman -\/S python }
-\item {\bfseries{Windows}} \+:
+\item {\bfseries{Arch Linux}}\+: {\ttfamily bash sudo pacman -\/S python }
+\item {\bfseries{Windows}}\+:
 \begin{DoxyItemize}
-\item Rendez-\/vous sur le site officiel \href{https://www.python.org/}{\texttt{ Python}} et téléchargez le programme d\textquotesingle{}installation.
+\item Visit the official \href{https://www.python.org/}{\texttt{ Python}} website and download the installer.
 \end{DoxyItemize}
 \end{DoxyItemize}
-\item {\bfseries{Avoir Make installé}}
+\item {\bfseries{Install Make}}
 \begin{DoxyItemize}
-\item {\bfseries{Ubuntu}} \+: 
+\item {\bfseries{Ubuntu}}\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{sudo\ apt\ install\ make}
 
 \end{DoxyCode}
 
-\item {\bfseries{Fedora}} \+: 
+\item {\bfseries{Fedora}}\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{sudo\ dnf\ install\ make}
 
 \end{DoxyCode}
 
-\item {\bfseries{Arch Linux}} \+: {\ttfamily bash sudo pacman -\/S make }
-\item {\bfseries{Windows}} \+:
+\item {\bfseries{Arch Linux}}\+: {\ttfamily bash sudo pacman -\/S make }
+\item {\bfseries{Windows}}\+:
 \begin{DoxyItemize}
-\item Installez \href{http://gnuwin32.sourceforge.net/packages/make.htm}{\texttt{ Make for Windows}} ou utilisez une plateforme comme Min\+GW.
+\item Install \href{http://gnuwin32.sourceforge.net/packages/make.htm}{\texttt{ Make for Windows}} or use a platform like Min\+GW.
 \end{DoxyItemize}
 \end{DoxyItemize}
-\item {\bfseries{Avoir CMake installé}}
+\item {\bfseries{Install CMake}}
 \begin{DoxyItemize}
-\item {\bfseries{Ubuntu}} \+: 
+\item {\bfseries{Ubuntu}}\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{sudo\ apt\ install\ cmake}
 
 \end{DoxyCode}
 
-\item {\bfseries{Fedora}} \+: 
+\item {\bfseries{Fedora}}\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{sudo\ dnf\ install\ cmake}
 
 \end{DoxyCode}
 
-\item {\bfseries{Arch Linux}} \+: {\ttfamily bash sudo pacman -\/S cmake }
-\item {\bfseries{Windows}} \+:
+\item {\bfseries{Arch Linux}}\+: {\ttfamily bash sudo pacman -\/S cmake }
+\item {\bfseries{Windows}}\+:
 \begin{DoxyItemize}
-\item Téléchargez CMake à partir du site officiel \href{https://cmake.org/download/}{\texttt{ CMake}} et suivez les instructions d\textquotesingle{}installation.
+\item Download CMake from the official \href{https://cmake.org/download/}{\texttt{ CMake}} website and follow the installation instructions.
 \end{DoxyItemize}
 \end{DoxyItemize}
-\item {\bfseries{Avoir Boost\+:Asio installé}}
+\item {\bfseries{Install Boost\+:Asio}}
 \begin{DoxyItemize}
-\item {\bfseries{Ubuntu}} \+: 
+\item {\bfseries{Ubuntu}}\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{sudo\ apt\ install\ libboost-\/all-\/dev}
 
 \end{DoxyCode}
 
-\item {\bfseries{Fedora}} \+: 
+\item {\bfseries{Fedora}}\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{sudo\ dnf\ install\ boost-\/devel}
 
 \end{DoxyCode}
 
-\item {\bfseries{Arch Linux}} \+: {\ttfamily bash sudo pacman -\/S boost }
-\item {\bfseries{Windows}} \+:
+\item {\bfseries{Arch Linux}}\+: {\ttfamily bash sudo pacman -\/S boost }
+\item {\bfseries{Windows}}\+:
 \begin{DoxyItemize}
-\item Téléchargez Boost à partir du site officiel \href{https://www.boost.org/users/download/}{\texttt{ Boost}} et suivez les instructions d\textquotesingle{}installation.
+\item Download Boost from the official \href{https://www.boost.org/users/download/}{\texttt{ Boost}} website and follow the installation instructions.
 \end{DoxyItemize}
 \end{DoxyItemize}
-\end{DoxyItemize}\hypertarget{md_README_autotoc_md6}{}\doxysubsection{\texorpdfstring{Installation et lancement}{Installation et lancement}}\label{md_README_autotoc_md6}
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md79}{}\doxysubsection{\texorpdfstring{Installation and Launch}{Installation and Launch}}\label{md_README_autotoc_md79}
 
 \begin{DoxyEnumerate}
-\item {\bfseries{Clonez le dépôt \+:}} 
+\item {\bfseries{Clone the repository\+:}} 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{git\ clone\ https://github.com/votre-\/repo/rtype-\/remake.git}
+\DoxyCodeLine{git\ clone\ https://github.com/your-\/repo/rtype-\/remake.git}
 
 \end{DoxyCode}
 
-\item {\bfseries{Installez les dépendances \+:}} 
+\item {\bfseries{Install dependencies\+:}} 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{python3\ install.py}
 
 \end{DoxyCode}
 
-\item {\bfseries{Compilation (Linux uniquement) \+:}} 
+\item {\bfseries{Compilation (Linux only)\+:}} 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{make}
 
 \end{DoxyCode}
 
 \begin{DoxyItemize}
-\item Sur Windows, le fichier compilé se trouvera directement à la racine du projet.
+\item On Windows, the compiled file will be located directly at the root of the project.
 \end{DoxyItemize}
-\item {\bfseries{Exécutez le serveur et le client \+:}}
+\item {\bfseries{Run the server and client\+:}}
 \begin{DoxyItemize}
-\item {\bfseries{Serveur \+:}} 
+\item {\bfseries{\doxylink{classServer}{Server}\+:}} 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{./server}
 
 \end{DoxyCode}
 
-\item {\bfseries{Client \+:}} 
+\item {\bfseries{Client\+:}} 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{./client}
 
 \end{DoxyCode}
 
-\item Si le serveur est sur un autre PC, indiquez l\textquotesingle{}adresse IP du serveur lors du lancement du client.
+\item If the server is on another PC, specify the server\textquotesingle{}s IP address when launching the client.
 \end{DoxyItemize}
-\end{DoxyEnumerate}\hypertarget{md_README_autotoc_md7}{}\doxysubsection{\texorpdfstring{Commandes dans le jeu}{Commandes dans le jeu}}\label{md_README_autotoc_md7}
+\end{DoxyEnumerate}\hypertarget{md_README_autotoc_md80}{}\doxysubsection{\texorpdfstring{In-\/\+Game Commands}{In-Game Commands}}\label{md_README_autotoc_md80}
 
 \begin{DoxyItemize}
-\item {\bfseries{Flèches directionnelles \+:}} Déplacer le vaisseau
-\item {\bfseries{Barre d\textquotesingle{}espace \+:}} Tirer
-\item {\bfseries{Touche D \+:}} Activer/désactiver le mode pour daltoniens
-\item {\bfseries{Touche Échap \+:}} Quitter le jeu
+\item {\bfseries{Arrow keys\+:}} Move the spacecraft
+\item {\bfseries{Spacebar\+:}} Fire
+\item {\bfseries{D key\+:}} Toggle colorblind mode
+\item {\bfseries{Escape key\+:}} Quit the game
 \end{DoxyItemize}
 
-Les touches sont modifiables dans les paramètres. 
+The keys can be modified in the settings.
+
+\doxysectlink{md_doc_2ECS}{Documentation for the Game Engine}{0} 

@@ -1,0 +1,96 @@
+\doxysection{ECS.\+hpp}
+\hypertarget{ECS_8hpp_source}{}\label{ECS_8hpp_source}\index{lib/ecs/include/ECS/ECS.hpp@{lib/ecs/include/ECS/ECS.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}Entity/Entity.hpp"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}SparseArray/SparseArray.hpp"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <any>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <list>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <typeindex>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <typeinfo>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classECS}{ECS}}\ \{}
+\DoxyCodeLine{00014\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{using\ }callback\_type\ =\ std::function<void(\textcolor{keywordtype}{void})>;}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ Event>\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structECS_1_1EventSystem}{EventSystem}}\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ std::function<void(\mbox{\hyperlink{classECS}{ECS}}\ \&,\ \textcolor{keyword}{const}\ Event\ \&)>\ lambda;}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ permanent;}
+\DoxyCodeLine{00020\ \ \ \ \ \};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ Event>\ \textcolor{keyword}{using\ }systems\_type\ =\ std::vector<EventSystem<Event>>;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{using\ }event\_type\ =\ std::any;}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{using\ }freset\_type\ =\ std::function<void(\textcolor{keyword}{const}\ \mbox{\hyperlink{classEntity}{Entity}}\ \&)>;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{classECS}{ECS}}();}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{classECS}{\string~ECS}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ Component>}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{auto}\ register\_component()\ -\/>\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>}}\ \&;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ Component>}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{auto}\ get\_components()\ -\/>\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>}}\ \&;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ Component>}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{auto}\ get\_components()\ const\ -\/>\ const\ \mbox{\hyperlink{classSparseArray}{SparseArray}}<Component>\ \&;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ auto\ spawn\_entity()\ -\/>\ \mbox{\hyperlink{classEntity}{Entity}};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ auto\ entity\_from\_index(std::\textcolor{keywordtype}{size\_t}\ idx)\ -\/>\ \mbox{\hyperlink{classEntity}{Entity}};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ auto\ kill\_entity(const\ \mbox{\hyperlink{classEntity}{Entity}}\ \&entity)\ -\/>\ \textcolor{keywordtype}{void};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ template\ <typename\ Component>}
+\DoxyCodeLine{00047\ \ \ \ \ auto\ add\_component(\mbox{\hyperlink{classEntity}{Entity}}\ const\ \&to,\ Component\ \&\&c)\ -\/>}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ typename\ \mbox{\hyperlink{classSparseArray}{SparseArray}}<Component>::reference\_type;}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ template\ <typename\ Component,\ typename...\ Params>}
+\DoxyCodeLine{00051\ \ \ \ \ auto\ emplace\_component(\mbox{\hyperlink{classEntity}{Entity}}\ const\ \&to,\ Params\ \&\&...p)\ -\/>}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ typename\ \mbox{\hyperlink{classSparseArray}{SparseArray}}<Component>::reference\_type;}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ template\ <typename\ Component>}
+\DoxyCodeLine{00055\ \ \ \ \ auto\ remove\_component(\mbox{\hyperlink{classEntity}{Entity}}\ const\ \&from)\ -\/>\ \textcolor{keywordtype}{void};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ template\ <class\ Event>\ auto\ register\_event()\ -\/>\ \textcolor{keywordtype}{void};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ template\ <class\ Event>\ auto\ get\_events()\ -\/>\ systems\_type<Event>\ \&;}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ template\ <class\ Event>}
+\DoxyCodeLine{00062\ \ \ \ \ auto\ get\_events()\ const\ -\/>\ const\ systems\_type<Event>\ \&;}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ template\ <class\ Event,\ class...\ Components,\ typename\ System>}
+\DoxyCodeLine{00065\ \ \ \ \ auto\ subscribe(System\ \&\&system,\ \textcolor{keywordtype}{bool}\ permanent\ =\ false)\ -\/>\ \textcolor{keywordtype}{void};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ template\ <class\ Event,\ class...\ Components,\ typename\ System>}
+\DoxyCodeLine{00068\ \ \ \ \ auto\ subscribe(System\ \&system,\ \textcolor{keywordtype}{bool}\ permanent\ =\ false)\ -\/>\ \textcolor{keywordtype}{void};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ template\ <class\ Event,\ class...\ Components,\ typename\ System>}
+\DoxyCodeLine{00071\ \ \ \ \ auto\ subscribe(const\ System\ \&system,\ \textcolor{keywordtype}{bool}\ permanent\ =\ false)\ -\/>\ \textcolor{keywordtype}{void};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ template\ <class\ Event>\ auto\ clean()\ -\/>\ \textcolor{keywordtype}{void};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ template\ <class\ Event>\ auto\ post(const\ Event\ \&event)\ -\/>\ \textcolor{keywordtype}{void};}
+\DoxyCodeLine{00076\ \ \ \ \ auto\ front(\textcolor{keywordtype}{void})\ -\/>\ const\ callback\_type\ \&;}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ auto\ pop\_front(\textcolor{keywordtype}{void})\ -\/>\ \textcolor{keywordtype}{void};}
+\DoxyCodeLine{00079\ \ \ \ \ auto\ empty(\textcolor{keywordtype}{void})\ const\ -\/>\ \textcolor{keywordtype}{bool};}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ private:}
+\DoxyCodeLine{00082\ \ \ \ \ std::\textcolor{keywordtype}{size\_t}\ \_nb\_entities;}
+\DoxyCodeLine{00083\ \ \ \ \ std::unordered\_map<std::type\_index,\ std::any>\ \_components\_arrays;}
+\DoxyCodeLine{00084\ \ \ \ \ std::list<\mbox{\hyperlink{classEntity}{Entity}}>\ \_dead\_entities;}
+\DoxyCodeLine{00085\ \ \ \ \ std::vector<freset\_type>\ \_freset\_entity\_components;}
+\DoxyCodeLine{00086\ \ \ \ \ std::unordered\_map<std::type\_index,\ event\_type>\ \_events;}
+\DoxyCodeLine{00087\ \ \ \ \ std::list<callback\_type>\ \_callback\_pool;}
+\DoxyCodeLine{00088\ \};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#include\ "{}ECS.inl"{}}}
+
+\end{DoxyCode}
