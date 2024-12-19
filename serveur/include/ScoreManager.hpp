@@ -3,7 +3,7 @@
 #include "ECS/ECS.hpp"
 #include <map>
 
-namespace rtype {
+namespace rtype::server {
 namespace systems {
 
 class ScoreManager {
@@ -31,4 +31,4 @@ class ScoreManager {
 };
 
 } // namespace systems
-} // namespace rtype
+} // namespace rtype::server

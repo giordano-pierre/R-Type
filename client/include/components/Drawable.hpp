@@ -10,10 +10,11 @@
 #include "tools.hpp"
 
 #pragma once
-namespace Rtype::Client {
+namespace rtype::client {
 struct Drawable {
     Drawable(const std::shared_ptr<sf::Texture> texture,
-             const TupleInt sizeTexture, const TupleInt sizeFrame, int nbFrame);
+             const TupleInt sizeTexture, const TupleInt sizeFrame, int nbFrame,
+             int order = 0);
     ~Drawable() = default;
 
     int _nbFrame;
@@ -21,9 +22,10 @@ struct Drawable {
     TupleInt _sizeTexture;
     TupleInt _sizeFrame;
     bool _activated = true;
+    int _order;
 
     std::shared_ptr<sf::Texture> _texture;
     sf::IntRect _rectangle;
     sf::Sprite _sprite;
 };
-} // namespace Rtype::Client
+} // namespace rtype::client

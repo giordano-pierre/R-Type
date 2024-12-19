@@ -12,14 +12,17 @@
 #include "ECS/ECS.hpp"
 #include "tools.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 struct Hitbox {
+    Hitbox(TupleFloat, bool = true, TupleFloat = {0, 0}, TupleFloat = {0, 0},
+           bool = true);
+    ~Hitbox() = default;
     TupleFloat _coefSize;
-    bool _display = true;
-    TupleFloat _client = {0, 0};
-    TupleFloat _server = {0, 0};
-    bool _needUpdate = true;
+    bool _display;
+    TupleFloat _client;
+    TupleFloat _server;
+    bool _needUpdate;
 };
-} // namespace Rtype::Client
+} // namespace rtype::client
 std::ostream &operator<<(std::ostream &out,
-                         const Rtype::Client::Hitbox &hitbox);
+                         const rtype::client::Hitbox &hitbox);

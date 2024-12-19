@@ -6,9 +6,11 @@
 */
 
 #include "systems/WindowSys.hpp"
+#include "buttonFunctions.hpp"
+#include "components/Pressable.hpp"
 #include "events/InputEvent.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 
 WindowSys::WindowSys(sf::VideoMode mode, const sf::String &title,
                      sf::Uint32 style, const sf::ContextSettings &settings)
@@ -27,13 +29,15 @@ void WindowSys::resizeWindow(TupleUInt newSize, bool &isResize) {
 
 void extractInput(
     ECS &ecs, sf::Event event,
-    const std::pair<std::map<UserInput, sf::Keyboard::Key>,
-                    std::map<UserInput, sf::Keyboard::Key>> &inputConfig) {
+    const std::pair<
+        std::map<UserInput,
+                 std::pair<sf::Keyboard::Key, std::shared_ptr<std::string>>>,
+        std::map<UserInput, sf::Keyboard::Key>> &inputConfig) {
     bool isRegister = false;
 
     if (event.type == sf::Event::KeyPressed) {
         for (const auto [key, value] : inputConfig.first) {
-            if (value == event.key.code) {
+            if (value.first == event.key.code) {
                 ecs.post<InputEvent>({event, key});
                 isRegister = true;
             }
@@ -76,7 +80,7 @@ void WindowSys::updateInfo(SparseArray<Position> &positions,
 
 void WindowSys::drawSprite(SparseArray<Position> &positions,
                            SparseArray<Hitbox> &hitboxs,
-                           SparseArray<Drawable> &sprites) {
+                           SparseArray<Drawable> &sprites, int order) {
     for (size_t i = 0;
          i < positions.size() && i < hitboxs.size() && i < sprites.size();
          ++i) {
@@ -84,7 +88,7 @@ void WindowSys::drawSprite(SparseArray<Position> &positions,
         auto &box = hitboxs[i];
         auto &sprite = sprites[i];
 
-        if (pos && box && sprite) {
+        if (pos && box && sprite && sprite.value()._order == order) {
             sprite.value()._sprite.setPosition(
                 {pos.value()._client.x, pos.value()._client.y});
             sprite.value()._sprite.setTextureRect(sprite.value()._rectangle);
@@ -120,7 +124,7 @@ void WindowSys::drawSel(SparseArray<Position> &positions,
 void WindowSys::drawText(SparseArray<Position> &positions,
                          SparseArray<Hitbox> &hitboxs, SparseArray<Text> &texts,
                          bool isResize, sf::Vector2u sizeClient,
-                         TupleUInt serverSize) {
+                         TupleUInt serverSize, std::string lang) {
     for (size_t i = 0;
          i < positions.size() && i < hitboxs.size() && i < texts.size(); ++i) {
         auto &pos = positions[i];
@@ -132,6 +136,14 @@ void WindowSys::drawText(SparseArray<Position> &positions,
                 tex.value()._text.setFillColor(tex.value()._color);
                 tex.value()._text.setStyle(tex.value()._style);
             }
+            if (tex.value()._str.find(lang) != tex.value()._str.end())
+                tex.value()._text.setString(
+                    *tex.value()._str.find(lang)->second);
+            else if (tex.value()._str.find("DEFAULT") != tex.value()._str.end())
+                tex.value()._text.setString(
+                    *tex.value()._str.find("DEFAULT")->second);
+            else
+                tex.value()._text.setString(*tex.value()._str.begin()->second);
             unsigned int charSize =
                 tex.value()._charSize * sizeClient.x / serverSize.x;
             tex.value()._text.setCharacterSize(charSize);
@@ -148,7 +160,7 @@ void WindowSys::drawText(SparseArray<Position> &positions,
                      pos.value()._client.y});
             else if (tex.value()._pos < 0) {
                 auto tmp =
-                    std::max(box.value()._client.x * tex.value()._pos * -1,
+                    std::min(box.value()._client.x * tex.value()._pos * -1,
                              box.value()._client.x -
                                  (currentSize.left + currentSize.width));
                 tex.value()._text.setPosition(
@@ -205,8 +217,12 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
     auto inputConfig =
         (windows.size() > 0 && windows[0])
             ? windows[0].value()._inputConfig
-            : std::pair<std::map<UserInput, sf::Keyboard::Key>,
-                        std::map<UserInput, sf::Keyboard::Key>>();
+            : std::pair<
+                  std::map<UserInput, std::pair<sf::Keyboard::Key,
+                                                std::shared_ptr<std::string>>>,
+                  std::map<UserInput, sf::Keyboard::Key>>();
+    auto lang =
+        (windows.size() > 0 && windows[0]) ? windows[0].value()._lang : "EN";
     bool isResize = false;
 
     _window.clear();
@@ -215,9 +231,10 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
     sf::Vector2u sizeWindow = _window.getSize();
 
     updateInfo(positions, hitboxs, isResize, sizeWindow, serverSize);
-    drawSprite(positions, hitboxs, sprites);
+    for (int i = 0; i <= 3; i++)
+        drawSprite(positions, hitboxs, sprites, i);
     drawSel(positions, hitboxs, selectables);
-    drawText(positions, hitboxs, texts, isResize, sizeWindow, serverSize);
+    drawText(positions, hitboxs, texts, isResize, sizeWindow, serverSize, lang);
     drawHitboxes(positions, hitboxs, displayHitbox);
     _window.display();
 
@@ -227,4 +244,90 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
         extractInput(ecs, event, inputConfig);
 }
 
-} // namespace Rtype::Client
+bool isBanKey(sf::Keyboard::Key key) {
+    if (key == sf::Keyboard::H)
+        return true;
+    return false;
+}
+
+void updateMore(
+    std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key,
+                                            std::shared_ptr<std::string>>>,
+              std::map<UserInput, sf::Keyboard::Key>> &inputConfigs,
+    const UserInput &userInput) {
+    switch (userInput) {
+    case UP1P:
+        inputConfigs.second.find(UP1R)->second =
+            inputConfigs.first.find(UP1P)->second.first;
+        break;
+    case DOWN1P:
+        inputConfigs.second.find(DOWN1R)->second =
+            inputConfigs.first.find(DOWN1P)->second.first;
+        break;
+    case LEFT1P:
+        inputConfigs.second.find(LEFT1R)->second =
+            inputConfigs.first.find(LEFT1P)->second.first;
+        break;
+    case RIGHT1P:
+        inputConfigs.second.find(RIGHT1R)->second =
+            inputConfigs.first.find(RIGHT1P)->second.first;
+        break;
+    default:
+        return;
+    }
+}
+
+void updateOneMap(
+    std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key,
+                                            std::shared_ptr<std::string>>>,
+              std::map<UserInput, sf::Keyboard::Key>> &inputConfig,
+    std::map<UserInput, std::pair<sf::Keyboard::Key,
+                                  std::shared_ptr<std::string>>>::iterator &it,
+    sf::Keyboard::Key key) {
+    for (auto &[keyMap, value] : inputConfig.first) {
+        if (keyMap == ENTER)
+            break;
+        if (value.first == key) {
+            value.first = it->second.first;
+            value.second->replace(0, value.second->size(),
+                                  convertInput(it->second.first));
+            updateMore(inputConfig, keyMap);
+        }
+    }
+    it->second.first = key;
+    it->second.second->replace(0, it->second.second->size(), convertInput(key));
+    updateMore(inputConfig, it->first);
+}
+
+bool updateConfigs(
+    std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key,
+                                            std::shared_ptr<std::string>>>,
+              std::map<UserInput, sf::Keyboard::Key>> &inputConfigs,
+    const ChangeKey e_changeK, sf::Keyboard::Key key) {
+    if (isBanKey(key))
+        return true;
+    auto it = inputConfigs.first.find(e_changeK._key);
+    if (it != inputConfigs.first.end()) {
+        updateOneMap(inputConfigs, it, key);
+        return false;
+    }
+    return false;
+}
+
+void WindowSys::operator()(ECS &ecs, const ChangeKey &e_changeK,
+                           SparseArray<Window> &windows) {
+    bool run = true;
+    sf::Event event;
+    if (windows.size() < 1 || !windows[0])
+        return;
+    auto &inputConfig = windows[0].value()._inputConfig;
+
+    while (run) {
+        while (_window.pollEvent(event)) {
+            if (event.type == sf::Event::KeyPressed)
+                run = updateConfigs(inputConfig, e_changeK, event.key.code);
+        }
+    }
+    press(ecs, e_changeK._i);
+}
+} // namespace rtype::client

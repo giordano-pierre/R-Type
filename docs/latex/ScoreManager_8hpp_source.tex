@@ -1,0 +1,40 @@
+\doxysection{Score\+Manager.\+hpp}
+\hypertarget{ScoreManager_8hpp_source}{}\label{ScoreManager_8hpp_source}\index{serveur/include/ScoreManager.hpp@{serveur/include/ScoreManager.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}Components.hpp"{}}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}ECS/ECS.hpp"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{namespace\ }rtype\ \{}
+\DoxyCodeLine{00007\ \textcolor{keyword}{namespace\ }systems\ \{}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrtype_1_1systems_1_1ScoreManager}{ScoreManager}}\ \{}
+\DoxyCodeLine{00010\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00011\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1systems_1_1ScoreManager}{ScoreManager}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1systems_1_1ScoreManager}{\string~ScoreManager}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{void}\ registerPlayer(Entity\ entity);}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{void}\ removePlayer(Entity\ entity);}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{void}\ updateScore(Entity\ entity,\ \textcolor{keywordtype}{int}\ points);}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{void}\ addKill(Entity\ entity);}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{void}\ addDeath(Entity\ entity);}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ updateTimeBonus(Entity\ entity,\ \textcolor{keywordtype}{float}\ gameTime);}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structPlayerScore}{PlayerScore}}\ \&getPlayerScore(Entity\ entity)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{bool}\ hasPlayer(Entity\ entity)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{const}\ std::map<Entity,\ PlayerScore>\ \&getAllScores()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ scores;\ \}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00026\ \ \ \ \ std::map<Entity,\ PlayerScore>\ scores;}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ TIME\_BONUS\_INTERVAL\ =\ 30;}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ TIME\_BONUS\_POINTS\ =\ 10;}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ KILL\_BONUS\ =\ 100;}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ DEATH\_PENALTY\ =\ -\/50;}
+\DoxyCodeLine{00031\ \};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \}\ \textcolor{comment}{//\ namespace\ systems}}
+\DoxyCodeLine{00034\ \}\ \textcolor{comment}{//\ namespace\ rtype}}
+
+\end{DoxyCode}

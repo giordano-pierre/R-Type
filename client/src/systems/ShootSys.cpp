@@ -10,7 +10,7 @@
 #include "components/Tag.hpp"
 #include "components/Velocity.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 
 void ShootSys::operator()(ECS &ecs, const InputEvent &e_input,
                           SparseArray<Window> &windows,
@@ -47,8 +47,9 @@ void ShootSys::operator()(ECS &ecs, const InputEvent &e_input,
                            "assets/images/shot/purple_shot.png"),
                        {251, 144},
                        {251, 144},
-                       1});
+                       1,
+                       2});
         }
     }
 }
-} // namespace Rtype::Client
+} // namespace rtype::client

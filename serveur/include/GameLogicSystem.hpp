@@ -6,7 +6,7 @@
 #include "ScoreManager.hpp"
 #include <cstdint>
 
-namespace rtype {
+namespace rtype::server {
 namespace systems {
 
 class GameLogicSystem {
@@ -46,4 +46,4 @@ class GameLogicSystem {
 };
 
 } // namespace systems
-} // namespace rtype
+} // namespace rtype::server

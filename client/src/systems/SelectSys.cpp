@@ -7,7 +7,7 @@
 
 #include "systems/SelectSys.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 
 void changeSelect(ECS &ecs, SparseArray<Selectable> &selectables,
                   size_t newSelect, size_t oldSelect = -1) {
@@ -176,4 +176,4 @@ void SelectSys::operator()(ECS &ecs, const InputEvent &e_input,
         changeSelect(ecs, selectables, newEntity, oldEntity);
 }
 
-} // namespace Rtype::Client
+} // namespace rtype::client

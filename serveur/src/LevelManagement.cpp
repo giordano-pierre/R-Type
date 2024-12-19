@@ -1,6 +1,6 @@
 #include "LevelManagement.hpp"
 
-namespace rtype {
+namespace rtype::server {
 namespace systems {
 
 LevelManager::LevelManager(ECS &ecs_ref) : ecs(ecs_ref) { initializeLevels(); }
@@ -103,4 +103,4 @@ float LevelManager::getLevelProgress() const {
 }
 
 } // namespace systems
-} // namespace rtype
+} // namespace rtype::server

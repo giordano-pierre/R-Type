@@ -9,7 +9,16 @@
 
 #include "ECS/ECS.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 void select(ECS &ecs, Entity i);
 void deselect(ECS &ecs, Entity i);
-} // namespace Rtype::Client
+void press(ECS &ecs, Entity i);
+void resize1920(ECS &ecs, Entity i);
+void resize1440(ECS &ecs, Entity i);
+void resize960(ECS &ecs, Entity i);
+void langFR(ECS &ecs, Entity i);
+void langEN(ECS &ecs, Entity i);
+void resetG(ECS &ecs, Entity i);
+void resetP1(ECS &ecs, Entity i);
+void resetP2(ECS &ecs, Entity i);
+} // namespace rtype::client

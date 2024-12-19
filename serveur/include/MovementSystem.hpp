@@ -9,7 +9,7 @@
 #include "Components.hpp"
 #include "ECS/ECS.hpp"
 
-namespace rtype {
+namespace rtype::server {
 namespace systems {
 class MovementSys {
   public:
@@ -20,4 +20,4 @@ class MovementSys {
                     const SparseArray<Velocity> &velocities) -> void;
 };
 } // namespace systems
-} // namespace rtype
+} // namespace rtype::server
