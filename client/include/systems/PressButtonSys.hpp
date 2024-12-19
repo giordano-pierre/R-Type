@@ -14,7 +14,7 @@
 #include "components/Selectable.hpp"
 #include "events/InputEvent.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 class PressButtonSys {
   public:
     PressButtonSys() = default;
@@ -29,4 +29,4 @@ class PressButtonSys {
                     const SparseArray<Selectable> &selectables,
                     SparseArray<Pressable> &pressables);
 };
-} // namespace Rtype::Client
+} // namespace rtype::client

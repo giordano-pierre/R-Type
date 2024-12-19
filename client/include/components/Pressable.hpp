@@ -12,11 +12,11 @@
 #include <functional>
 #include <memory>
 
-namespace Rtype::Client {
+namespace rtype::client {
 struct Pressable {
     Pressable(std::shared_ptr<sf::Texture> texture,
               std::function<void(ECS &, Entity)> press, int link = 0)
-        : _texture(texture), _press(press), _link(link){};
+        : _texture(texture), _press(press), _link(link) {};
     ~Pressable() = default;
     std::shared_ptr<sf::Texture> _texture;
     std::function<void(ECS &, Entity)> _press;
@@ -24,4 +24,4 @@ struct Pressable {
 
     bool _isPressed = false;
 };
-} // namespace Rtype::Client
+} // namespace rtype::client

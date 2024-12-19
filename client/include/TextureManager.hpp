@@ -12,7 +12,7 @@
 #include <memory>
 #include <string>
 
-namespace Rtype::Client {
+namespace rtype::client {
 class TextureManager {
   public:
     TextureManager() = default;
@@ -23,4 +23,4 @@ class TextureManager {
   private:
     std::map<std::string, std::shared_ptr<sf::Texture>> _map;
 };
-} // namespace Rtype::Client
+} // namespace rtype::client

@@ -7,7 +7,7 @@
 
 #include "systems/PauseSys.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 
 void PauseSys::operator()(ECS &ecs, const InputEvent &e_input,
                           SparseArray<Drawable> &sprites) {
@@ -49,4 +49,4 @@ void PauseSys::operator()(ECS &ecs, const InputEvent &e_input,
     }
 }
 
-} // namespace Rtype::Client
+} // namespace rtype::client

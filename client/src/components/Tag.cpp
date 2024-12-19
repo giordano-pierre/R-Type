@@ -7,19 +7,19 @@
 
 #include "components/Tag.hpp"
 
-std::ostream &operator<<(std::ostream &out, const Rtype::Client::Tag &tag) {
+std::ostream &operator<<(std::ostream &out, const rtype::client::Tag &tag) {
     out << "id: " << tag._id << std::endl;
     switch (tag._type) {
-    case Rtype::Client::WINDOW:
+    case rtype::client::WINDOW:
         out << "Window";
         break;
-    case Rtype::Client::BACKGROUND:
+    case rtype::client::BACKGROUND:
         out << "Background";
         break;
-    case Rtype::Client::PLAYER:
+    case rtype::client::PLAYER:
         out << "Player";
         break;
-    case Rtype::Client::SHOT:
+    case rtype::client::SHOT:
         out << "Shot";
         break;
     default:

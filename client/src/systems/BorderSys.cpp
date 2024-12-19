@@ -8,7 +8,7 @@
 #include "systems/BorderSys.hpp"
 #include "tools.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 
 void BorderSys::operator()(ECS &ecs, const TicEvent &e_tic,
                            const SparseArray<Window> &windows,
@@ -67,4 +67,4 @@ void BorderSys::operator()(ECS &ecs, const TicEvent &e_tic,
     }
 }
 
-} // namespace Rtype::Client
+} // namespace rtype::client

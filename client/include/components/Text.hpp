@@ -13,7 +13,7 @@
 
 #include "tools.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 struct Text {
     Text(const std::map<std::string, std::shared_ptr<std::string>> &,
          const std::shared_ptr<sf::Font> &, const TupleFloat &, const float &,
@@ -29,4 +29,4 @@ struct Text {
     int _charSize;
     bool _needUpdate = true;
 };
-} // namespace Rtype::Client
+} // namespace rtype::client

@@ -14,7 +14,7 @@
 #include "components/Window.hpp"
 #include "events/InputEvent.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 class ShootSys {
   public:
     ShootSys() = default;
@@ -26,4 +26,4 @@ class ShootSys {
                     const SparseArray<Position> &positions,
                     const SparseArray<Hitbox> &hitboxs);
 };
-} // namespace Rtype::Client
+} // namespace rtype::client

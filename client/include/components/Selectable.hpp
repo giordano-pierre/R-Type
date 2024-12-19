@@ -12,7 +12,7 @@
 #include <functional>
 #include <memory>
 
-namespace Rtype::Client {
+namespace rtype::client {
 struct Selectable {
     Selectable(std::shared_ptr<sf::Texture>, std::function<void(ECS &, Entity)>,
                std::function<void(ECS &, Entity)>);
@@ -26,4 +26,4 @@ struct Selectable {
     bool _isSelected = false;
     bool _display = false;
 };
-} // namespace Rtype::Client
+} // namespace rtype::client

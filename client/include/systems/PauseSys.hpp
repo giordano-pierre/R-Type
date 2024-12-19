@@ -13,7 +13,7 @@
 #include "events/FrameEvent.hpp"
 #include "events/InputEvent.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 class PauseSys {
   public:
     PauseSys() = default;
@@ -25,4 +25,4 @@ class PauseSys {
     void operator()(ECS &ecs, const InputEvent &e_input,
                     SparseArray<Velocity> &velocities);
 };
-} // namespace Rtype::Client
+} // namespace rtype::client

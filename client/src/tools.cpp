@@ -10,7 +10,7 @@
 
 #include "tools.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 
 float computeDist(TupleFloat a, TupleFloat b) {
     return sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
@@ -418,4 +418,4 @@ std::string getInput(std::map<UserInput, sf::Keyboard::Key> &input,
     return "Unknow";
 }
 
-} // namespace Rtype::Client
+} // namespace rtype::client

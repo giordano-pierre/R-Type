@@ -8,7 +8,7 @@
 #include "systems/PressButtonSys.hpp"
 #include "buttonFunctions.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 
 void checkLink(ECS &ecs, SparseArray<Pressable> &pressables, Entity ent) {
     if (pressables[ent].value()._link == 0)
@@ -74,4 +74,4 @@ void PressButtonSys::operator()(ECS &ecs, const InputEvent &e_input,
     }
 }
 
-} // namespace Rtype::Client
+} // namespace rtype::client

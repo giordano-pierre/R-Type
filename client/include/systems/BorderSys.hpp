@@ -14,7 +14,7 @@
 #include "components/Window.hpp"
 #include "events/TicEvent.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 class BorderSys {
   public:
     BorderSys() = default;
@@ -26,4 +26,4 @@ class BorderSys {
                     const SparseArray<Hitbox> &hitboxs,
                     SparseArray<Position> &positions);
 };
-} // namespace Rtype::Client
+} // namespace rtype::client

@@ -10,7 +10,7 @@
 #include "components/Pressable.hpp"
 #include "events/InputEvent.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 
 WindowSys::WindowSys(sf::VideoMode mode, const sf::String &title,
                      sf::Uint32 style, const sf::ContextSettings &settings)
@@ -330,4 +330,4 @@ void WindowSys::operator()(ECS &ecs, const ChangeKey &e_changeK,
     }
     press(ecs, e_changeK._i);
 }
-} // namespace Rtype::Client
+} // namespace rtype::client

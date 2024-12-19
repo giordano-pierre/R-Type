@@ -7,7 +7,7 @@
 
 #include "systems/FrameSys.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 
 void FrameSys::operator()(ECS &ecs, const AnimeEvent &,
                           SparseArray<Drawable> &sprites) {
@@ -41,4 +41,4 @@ void FrameSys::operator()(ECS &ecs, const AnimeEvent &,
     }
 }
 
-} // namespace Rtype::Client
+} // namespace rtype::client

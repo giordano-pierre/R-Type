@@ -7,7 +7,7 @@
 
 #include "TextureManager.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 
 std::shared_ptr<sf::Texture> TextureManager::getTexture(std::string path) {
     if (_map.find(path) == _map.end()) {
@@ -19,4 +19,4 @@ std::shared_ptr<sf::Texture> TextureManager::getTexture(std::string path) {
     return _map.find(path)->second;
 }
 
-} // namespace Rtype::Client
+} // namespace rtype::client

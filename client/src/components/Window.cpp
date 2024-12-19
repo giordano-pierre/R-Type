@@ -7,7 +7,7 @@
 
 #include "components/Window.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 
 Window::Window(const std::string &fontPath, TupleUInt size,
                TupleUInt serverSize)
@@ -20,10 +20,10 @@ Window::Window(const std::string &fontPath, TupleUInt size,
     _font = std::make_shared<sf::Font>(tmp);
 }
 
-} // namespace Rtype::Client
+} // namespace rtype::client
 
 std::ostream &operator<<(std::ostream &out,
-                         const Rtype::Client::Window &window) {
+                         const rtype::client::Window &window) {
     out << "size: " << window._size.x << " " << window._size.y << std::endl;
     out << "serverSize: " << window._serverSize.x << " "
         << window._serverSize.y;

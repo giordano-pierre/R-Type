@@ -9,12 +9,12 @@
 
 #include <ostream>
 
-namespace Rtype::Client {
+namespace rtype::client {
 struct Playable {
-    Playable(int id) : _id(id){};
+    Playable(int id) : _id(id) {};
     ~Playable() = default;
     int _id;
 };
-} // namespace Rtype::Client
+} // namespace rtype::client
 std::ostream &operator<<(std::ostream &out,
-                         const Rtype::Client::Playable &player);
+                         const rtype::client::Playable &player);

@@ -15,7 +15,7 @@
 #include "events/InputEvent.hpp"
 #include "events/TicEvent.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 class MoveSys {
   public:
     MoveSys() = default;
@@ -29,4 +29,4 @@ class MoveSys {
                     SparseArray<Position> &positions,
                     const SparseArray<Velocity> &velocities);
 };
-} // namespace Rtype::Client
+} // namespace rtype::client
