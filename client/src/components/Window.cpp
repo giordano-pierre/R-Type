@@ -34,7 +34,6 @@ Window::Window(const std::string &fontPath, TupleUInt size,
     //         }
     //         )",
     //         sf::Shader::Fragment);
-
 }
 
 } // namespace rtype::client
