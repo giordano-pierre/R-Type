@@ -14,38 +14,24 @@ def get_os_system():
     else:
         return "NONE"
 
-def remove_docker_repo():
-    """Supprime le dépôt Docker s'il existe."""
-    docker_repo_path = "/etc/apt/sources.list.d/docker.list"
-    docker_key_path = "/usr/share/keyrings/docker-archive-keyring.gpg"
-    try:
-        if os.path.exists(docker_repo_path):
-            print("Suppression du dépôt Docker inutile...")
-            subprocess.run(["sudo", "rm", "-f", docker_repo_path], check=True)
-        if os.path.exists(docker_key_path):
-            print("Suppression de la clé GPG Docker inutile...")
-            subprocess.run(["sudo", "rm", "-f", docker_key_path], check=True)
-    except subprocess.CalledProcessError as e:
-        print(f"Erreur lors de la suppression du dépôt Docker : {e}")
-
 def install_linux_dependencies():
     """Installe les dépendances système requises pour SFML selon le gestionnaire de paquets."""
     print("Installation des dépendances système requises...")
-    remove_docker_repo()
     try:
         if shutil.which("apt"):
             print("Utilisation de apt pour installer les dépendances (Debian/Ubuntu).")
-            subprocess.run(["sudo", "apt", "update"], check=True)
             subprocess.run([
                 "sudo", "apt", "install", "-y",
                 "libx11-dev", "libxrandr-dev", "libxcursor-dev", "libxi-dev",
-                "libudev-dev", "libgl1-mesa-dev", "ninja-build"
+                "libudev-dev", "libgl1-mesa-dev", "ninja-build",
+                "autoconf", "automake", "libtool", "pkg-config"
             ], check=True)
         elif shutil.which("dnf"):
             print("Utilisation de dnf pour installer les dépendances (Fedora/RedHat).")
             subprocess.run(["sudo", "dnf", "install", "-y",
                             "libX11-devel", "libXrandr-devel", "libXcursor-devel",
-                            "libXi-devel", "systemd-devel", "mesa-libGL-devel", "ninja-build"
+                            "libXi-devel", "systemd-devel", "mesa-libGL-devel",
+                            "ninja-build", "autoconf", "automake", "libtool", "pkgconf"
             ], check=True)
         elif shutil.which("pacman"):
             print("Utilisation de pacman pour installer les dépendances (Arch Linux).")
@@ -53,7 +39,7 @@ def install_linux_dependencies():
             subprocess.run([
                 "sudo", "pacman", "-S", "--noconfirm",
                 "libx11", "libxrandr", "libxcursor", "libxi",
-                "libsystemd", "mesa", "ninja"
+                "libsystemd", "mesa", "ninja", "autoconf", "automake", "libtool", "pkgconf"
             ], check=True)
         else:
             print("Aucun gestionnaire de paquets compatible trouvé. Système non pris en charge.")
@@ -92,6 +78,10 @@ def build_project():
 def main():
     os_system = get_os_system()
     if os_system == "LINUX":
+        if os.getenv("GITHUB_ACTIONS") == "true":
+            print("Exécution dans un pipeline GitHub Actions.")
+        else:
+            print("Exécution sur une machine locale Linux.")
         install_linux_dependencies()
         run_vcpkg()
         build_project()
