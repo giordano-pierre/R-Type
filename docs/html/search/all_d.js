@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['scoremanager_0',['ScoreManager',['../classrtype_1_1systems_1_1ScoreManager.html',1,'rtype::systems']]],
+  ['scoremanager_0',['ScoreManager',['../classrtype_1_1server_1_1systems_1_1ScoreManager.html',1,'rtype::server::systems']]],
   ['server_1',['Server',['../classServer.html',1,'']]],
   ['serverhandlersystem_2',['ServerHandlerSystem',['../classServerHandlerSystem.html',1,'']]]
 ];
