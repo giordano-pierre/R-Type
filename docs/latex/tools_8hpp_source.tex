@@ -33,58 +33,59 @@
 \DoxyCodeLine{00029\ \textcolor{keyword}{enum}\ ObjectType\ \{}
 \DoxyCodeLine{00030\ \ \ \ \ WINDOW,}
 \DoxyCodeLine{00031\ \ \ \ \ PLAYER,}
-\DoxyCodeLine{00032\ \ \ \ \ BACKGROUND,}
-\DoxyCodeLine{00033\ \ \ \ \ SHOT,}
-\DoxyCodeLine{00034\ \ \ \ \ MENU,}
-\DoxyCodeLine{00035\ \ \ \ \ CONFIG,}
-\DoxyCodeLine{00036\ \ \ \ \ CGENERAL,}
-\DoxyCodeLine{00037\ \ \ \ \ CPLAYER1,}
-\DoxyCodeLine{00038\ \};}
-\DoxyCodeLine{00039\ }
-\DoxyCodeLine{00040\ \textcolor{keyword}{enum}\ UserInput\ \{}
-\DoxyCodeLine{00041\ \ \ \ \ NOTHING\ =\ 0,}
-\DoxyCodeLine{00042\ \ \ \ \ ENTER,}
-\DoxyCodeLine{00043\ \ \ \ \ PAUSE,}
-\DoxyCodeLine{00044\ \ \ \ \ QUIT,}
-\DoxyCodeLine{00045\ \ \ \ \ RETURN,}
-\DoxyCodeLine{00046\ \ \ \ \ UP1P,}
-\DoxyCodeLine{00047\ \ \ \ \ UP1R,}
-\DoxyCodeLine{00048\ \ \ \ \ DOWN1P,}
-\DoxyCodeLine{00049\ \ \ \ \ DOWN1R,}
-\DoxyCodeLine{00050\ \ \ \ \ LEFT1P,}
-\DoxyCodeLine{00051\ \ \ \ \ LEFT1R,}
-\DoxyCodeLine{00052\ \ \ \ \ RIGHT1P,}
-\DoxyCodeLine{00053\ \ \ \ \ RIGHT1R,}
-\DoxyCodeLine{00054\ \ \ \ \ SHOOT1,}
-\DoxyCodeLine{00055\ \ \ \ \ SUPERSHOOT1,}
-\DoxyCodeLine{00056\ \ \ \ \ UP2P,}
-\DoxyCodeLine{00057\ \ \ \ \ UP2R,}
-\DoxyCodeLine{00058\ \ \ \ \ DOWN2P,}
-\DoxyCodeLine{00059\ \ \ \ \ DOWN2R,}
-\DoxyCodeLine{00060\ \ \ \ \ LEFT2P,}
-\DoxyCodeLine{00061\ \ \ \ \ LEFT2R,}
-\DoxyCodeLine{00062\ \ \ \ \ RIGHT2P,}
-\DoxyCodeLine{00063\ \ \ \ \ RIGHT2R,}
-\DoxyCodeLine{00064\ \ \ \ \ SHOOT2,}
-\DoxyCodeLine{00065\ \ \ \ \ SUPERSHOOT2,}
-\DoxyCodeLine{00066\ \};}
-\DoxyCodeLine{00067\ }
-\DoxyCodeLine{00068\ \textcolor{keywordtype}{float}\ computeDist(TupleFloat\ a,\ TupleFloat\ b);}
-\DoxyCodeLine{00069\ std::string\ convertInput(\textcolor{keyword}{const}\ sf::Keyboard::Key\ \&key);}
-\DoxyCodeLine{00070\ std::string\ getInput(std::map<UserInput,\ sf::Keyboard::Key>\ \&input,}
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UserInput\ search);}
-\DoxyCodeLine{00072\ \textcolor{keywordtype}{void}\ initGeneralInput(}
-\DoxyCodeLine{00073\ \ \ \ \ std::map<UserInput,}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::pair<sf::Keyboard::Key,\ std::shared\_ptr<std::string>>>}
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \&inputConfig);}
-\DoxyCodeLine{00076\ \textcolor{keywordtype}{void}\ initPlay1Input(}
-\DoxyCodeLine{00077\ \ \ \ \ std::pair<std::map<UserInput,\ std::pair<sf::Keyboard::Key,}
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::shared\_ptr<std::string>>>,}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::map<UserInput,\ sf::Keyboard::Key>>\ \&inputConfig);}
-\DoxyCodeLine{00080\ \textcolor{keywordtype}{void}\ initPlay2Input(}
-\DoxyCodeLine{00081\ \ \ \ \ std::pair<std::map<UserInput,\ std::pair<sf::Keyboard::Key,}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::shared\_ptr<std::string>>>,}
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::map<UserInput,\ sf::Keyboard::Key>>\ \&inputConfig);}
-\DoxyCodeLine{00084\ \}\ \textcolor{comment}{//\ namespace\ rtype::client}}
+\DoxyCodeLine{00032\ \ \ \ \ ENEMY,}
+\DoxyCodeLine{00033\ \ \ \ \ BACKGROUND,}
+\DoxyCodeLine{00034\ \ \ \ \ SHOT,}
+\DoxyCodeLine{00035\ \ \ \ \ MENU,}
+\DoxyCodeLine{00036\ \ \ \ \ CONFIG,}
+\DoxyCodeLine{00037\ \ \ \ \ CGENERAL,}
+\DoxyCodeLine{00038\ \ \ \ \ CPLAYER1,}
+\DoxyCodeLine{00039\ \};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{enum}\ UserInput\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ NOTHING\ =\ 0,}
+\DoxyCodeLine{00043\ \ \ \ \ ENTER,}
+\DoxyCodeLine{00044\ \ \ \ \ PAUSE,}
+\DoxyCodeLine{00045\ \ \ \ \ QUIT,}
+\DoxyCodeLine{00046\ \ \ \ \ RETURN,}
+\DoxyCodeLine{00047\ \ \ \ \ UP1P,}
+\DoxyCodeLine{00048\ \ \ \ \ UP1R,}
+\DoxyCodeLine{00049\ \ \ \ \ DOWN1P,}
+\DoxyCodeLine{00050\ \ \ \ \ DOWN1R,}
+\DoxyCodeLine{00051\ \ \ \ \ LEFT1P,}
+\DoxyCodeLine{00052\ \ \ \ \ LEFT1R,}
+\DoxyCodeLine{00053\ \ \ \ \ RIGHT1P,}
+\DoxyCodeLine{00054\ \ \ \ \ RIGHT1R,}
+\DoxyCodeLine{00055\ \ \ \ \ SHOOT1,}
+\DoxyCodeLine{00056\ \ \ \ \ SUPERSHOOT1,}
+\DoxyCodeLine{00057\ \ \ \ \ UP2P,}
+\DoxyCodeLine{00058\ \ \ \ \ UP2R,}
+\DoxyCodeLine{00059\ \ \ \ \ DOWN2P,}
+\DoxyCodeLine{00060\ \ \ \ \ DOWN2R,}
+\DoxyCodeLine{00061\ \ \ \ \ LEFT2P,}
+\DoxyCodeLine{00062\ \ \ \ \ LEFT2R,}
+\DoxyCodeLine{00063\ \ \ \ \ RIGHT2P,}
+\DoxyCodeLine{00064\ \ \ \ \ RIGHT2R,}
+\DoxyCodeLine{00065\ \ \ \ \ SHOOT2,}
+\DoxyCodeLine{00066\ \ \ \ \ SUPERSHOOT2,}
+\DoxyCodeLine{00067\ \};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{keywordtype}{float}\ computeDist(TupleFloat\ a,\ TupleFloat\ b);}
+\DoxyCodeLine{00070\ std::string\ convertInput(\textcolor{keyword}{const}\ sf::Keyboard::Key\ \&key);}
+\DoxyCodeLine{00071\ std::string\ getInput(std::map<UserInput,\ sf::Keyboard::Key>\ \&input,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UserInput\ search);}
+\DoxyCodeLine{00073\ \textcolor{keywordtype}{void}\ initGeneralInput(}
+\DoxyCodeLine{00074\ \ \ \ \ std::map<UserInput,}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::pair<sf::Keyboard::Key,\ std::shared\_ptr<std::string>>>}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \&inputConfig);}
+\DoxyCodeLine{00077\ \textcolor{keywordtype}{void}\ initPlay1Input(}
+\DoxyCodeLine{00078\ \ \ \ \ std::pair<std::map<UserInput,\ std::pair<sf::Keyboard::Key,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::shared\_ptr<std::string>>>,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::map<UserInput,\ sf::Keyboard::Key>>\ \&inputConfig);}
+\DoxyCodeLine{00081\ \textcolor{keywordtype}{void}\ initPlay2Input(}
+\DoxyCodeLine{00082\ \ \ \ \ std::pair<std::map<UserInput,\ std::pair<sf::Keyboard::Key,}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::shared\_ptr<std::string>>>,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::map<UserInput,\ sf::Keyboard::Key>>\ \&inputConfig);}
+\DoxyCodeLine{00085\ \}\ \textcolor{comment}{//\ namespace\ rtype::client}}
 
 \end{DoxyCode}
