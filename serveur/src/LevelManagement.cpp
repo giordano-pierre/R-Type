@@ -103,4 +103,4 @@ float LevelManager::getLevelProgress() const {
 }
 
 } // namespace systems
-} // namespace rtype
+} // namespace rtype::server

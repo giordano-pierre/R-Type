@@ -35,4 +35,4 @@ class LevelManager {
 };
 
 } // namespace systems
-} // namespace rtype
+} // namespace rtype::server

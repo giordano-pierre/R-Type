@@ -21,4 +21,4 @@ auto MovementSys::operator()(ECS &ecs, SparseArray<Position> &positions,
     }
 }
 } // namespace systems
-} // namespace rtype
+} // namespace rtype::server

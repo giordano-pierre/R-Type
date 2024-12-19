@@ -21,4 +21,4 @@ class CollisionSys {
     auto operator()(ECS &ecs, SparseArray<Position> &positions) -> bool;
 };
 } // namespace systems
-} // namespace rtype
+} // namespace rtype::server

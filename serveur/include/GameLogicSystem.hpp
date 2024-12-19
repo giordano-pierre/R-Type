@@ -46,4 +46,4 @@ class GameLogicSystem {
 };
 
 } // namespace systems
-} // namespace rtype
+} // namespace rtype::server

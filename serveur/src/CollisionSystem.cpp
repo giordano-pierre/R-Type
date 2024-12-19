@@ -46,4 +46,4 @@ auto CollisionSys::operator()(ECS &ecs,
     return false;
 }
 } // namespace systems
-} // namespace rtype
+} // namespace rtype::server

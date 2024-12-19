@@ -67,4 +67,4 @@ bool ScoreManager::hasPlayer(Entity entity) const {
 }
 
 } // namespace systems
-} // namespace rtype
+} // namespace rtype::server

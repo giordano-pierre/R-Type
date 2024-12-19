@@ -29,7 +29,6 @@ void Server::updateDeltaTime() {
     auto currentTime = std::chrono::steady_clock::now();
     deltaTime = std::chrono::duration<float>(currentTime - lastUpdate).count();
     lastUpdate = currentTime;
-
 }
 
 void Server::update() {
@@ -62,7 +61,6 @@ void Server::run() {
 
         updateDeltaTime();
         update();
-
 
         if (gameLogicSystem.isGameRunning()) {
             if (levelManager.isLevelComplete()) {

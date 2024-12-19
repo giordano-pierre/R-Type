@@ -133,4 +133,4 @@ void GameLogicSystem::updateScores() {
 }
 
 } // namespace systems
-} // namespace rtype
+} // namespace rtype::server
