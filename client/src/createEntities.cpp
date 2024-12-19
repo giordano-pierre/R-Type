@@ -5,6 +5,7 @@
 ** createEntities
 */
 #include "createEntities.hpp"
+#include "RequestEvent.hpp"
 #include "buttonFunctions.hpp"
 #include "ecsObjects.hpp"
 #include <iostream>
@@ -95,12 +96,14 @@ void createMenuEntities(ECS &ecs) {
                  std::function<void(ECS &, Entity)>(select),
                  std::function<void(ECS &, Entity)>(deselect)});
     ecs.add_component<Pressable>(
-        startB, {myWindow._myTextures.getTexture(
-                     "assets/images/utils/button_config1_act.png"),
-                 [](ECS &ecs, Entity) {
-                     ecs.post<DeleteEvent>({MENU});
-                     ecs.post<CreateEvent>({PLAYER});
-                 }});
+        startB,
+        {myWindow._myTextures.getTexture(
+             "assets/images/utils/button_config1_act.png"),
+         [](ECS &ecs, Entity) {
+             //  ecs.post<DeleteEvent>({MENU});
+             //  ecs.post<CreateEvent>({PLAYER});
+             ecs.post<RequestEvent>({CLIENT_READY, {{"nb_player_max", 1}}});
+         }});
 
     Entity customB = ecs.spawn_entity();
     ecs.add_component<Position>(
