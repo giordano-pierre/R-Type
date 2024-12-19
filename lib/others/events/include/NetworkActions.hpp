@@ -7,6 +7,10 @@
 
 #pragma once
 
+#include <boost/uuid/uuid.hpp>
+#include <boost/uuid/uuid_generators.hpp>
+#include <boost/uuid/uuid_io.hpp>
+
 enum NetworkActions {
     CONNECT = 1,
     ENVOI_SERV,
@@ -22,3 +26,7 @@ enum NetworkActions {
     CLIENT_DISCONNECT,
 };
 
+inline std::string fetch_new_uuid() {
+    boost::uuids::random_generator uuid_generator_;
+    return boost::uuids::to_string(uuid_generator_());
+}
