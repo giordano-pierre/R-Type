@@ -3,7 +3,7 @@
 #include "ECS/ECS.hpp"
 #include <vector>
 
-namespace rtype {
+namespace rtype::server {
 namespace systems {
 
 class LevelManager {

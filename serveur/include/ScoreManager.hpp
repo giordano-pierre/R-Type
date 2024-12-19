@@ -3,7 +3,7 @@
 #include "ECS/ECS.hpp"
 #include <map>
 
-namespace rtype {
+namespace rtype::server {
 namespace systems {
 
 class ScoreManager {

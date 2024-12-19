@@ -7,7 +7,7 @@
 
 #include "CollisionSystem.hpp"
 
-namespace rtype {
+namespace rtype::server {
 namespace systems {
 
 auto CollisionSys::operator()(ECS &ecs, SparseArray<Position> &positions,

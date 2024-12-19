@@ -1,6 +1,6 @@
 #include "GameLogicSystem.hpp"
-
-namespace rtype {
+#include "iostream"
+namespace rtype::server {
 namespace systems {
 
 GameLogicSystem::GameLogicSystem(ECS &ecs_ref)
@@ -36,6 +36,7 @@ void GameLogicSystem::update(float deltaTime) {
     levelManager.update(deltaTime);
     updateEntities(deltaTime);
     checkCollisions();
+
     checkGameRules();
     updateScores();
 

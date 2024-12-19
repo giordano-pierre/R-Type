@@ -1,7 +1,7 @@
 #include "ScoreManager.hpp"
 #include <stdexcept>
 
-namespace rtype {
+namespace rtype::server {
 namespace systems {
 
 void ScoreManager::registerPlayer(Entity entity) {

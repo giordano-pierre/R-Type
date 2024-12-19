@@ -9,7 +9,7 @@
 #include "Components.hpp"
 #include "ECS/ECS.hpp"
 
-namespace rtype {
+namespace rtype::server {
 namespace systems {
 class MovementSys {
   public:
