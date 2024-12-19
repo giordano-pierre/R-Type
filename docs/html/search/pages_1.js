@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['documentation_0',['Game Engine ECS Documentation',['../md_doc_2ECS.html',1,'']]]
+  ['comparative_20study_20r_20type_0',['Technical and Comparative Study - R-Type',['../md_doc_2TechnicalStudy.html',1,'']]]
 ];
