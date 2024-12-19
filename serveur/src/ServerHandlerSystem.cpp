@@ -20,12 +20,13 @@ void ServerHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
         std::cout << "RECU :" << std::endl;
         std::cout << rec_event.payload << std::endl;
         Entity newPlayer = ecs.spawn_entity();
-        ecs.add_component<PlayerData>(newPlayer, {1, rec_event.payload.["name"]});
+        ecs.add_component<PlayerData>(newPlayer,
+                                      {1, rec_event.payload.["name"]});
         // send CREATE_ENTITY to player
         break;
     case NetworkActions::SERVER_READY:
         ecs.post<RequestEvent>({NetworkActions::SEND_UUID, rec_event.payload,
-            rec_event.sender_uuid});
+                                rec_event.sender_uuid});
         break;
     case NetworkActions::CLIENT_CREATE:
         json new_entity_data = {
