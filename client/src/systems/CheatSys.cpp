@@ -7,24 +7,25 @@
 
 #include "systems/CheatSys.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 
 void CheatSys::operator()(ECS &ecs, const InputEvent &e_input,
-                SparseArray<Window> &window)
-{
+                          SparseArray<Window> &window) {
     bool changeState = false;
 
-    switch(e_input._event.type) {
-        case sf::Event::KeyPressed:
-            if (e_input._event.key.code == sf::Keyboard::H)
-                changeState = true;
-                break;
-        default:
-            return;
+    if (e_input._myEvent != NOTHING)
+        return;
+    switch (e_input._event.type) {
+    case sf::Event::KeyPressed:
+        if (e_input._event.key.code == sf::Keyboard::H)
+            changeState = true;
+        break;
+    default:
+        return;
     }
 
     if (changeState)
         window[0].value()._displayHitboxs = !window[0].value()._displayHitboxs;
 }
 
-}
+} // namespace rtype::client

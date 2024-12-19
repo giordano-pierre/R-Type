@@ -8,16 +8,16 @@
 #pragma once
 
 #include "ECS/ECS.hpp"
-#include "events/FrameEvent.hpp"
 #include "components/Drawable.hpp"
+#include "events/AnimeEvent.hpp"
 
-namespace Rtype::Client {
-    class FrameSys {
-        public:
-            FrameSys() = default;
-            ~FrameSys() = default;
+namespace rtype::client {
+class FrameSys {
+  public:
+    FrameSys() = default;
+    ~FrameSys() = default;
 
-            void operator()(ECS &ecs, const FrameEvent &,
-                            SparseArray<Drawable> &sprites);
-    };
-}
+    void operator()(ECS &ecs, const AnimeEvent &,
+                    SparseArray<Drawable> &sprites);
+};
+} // namespace rtype::client

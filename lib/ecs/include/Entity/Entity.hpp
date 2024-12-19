@@ -8,15 +8,17 @@
 #pragma once
 #include <cstddef>
 
-class Entity
-{
-    private:
-        std::size_t _size;
+class Entity {
+  private:
+    std::size_t _size;
+    bool _permanent;
 
-    public:
-        explicit Entity(std::size_t size);
-        ~Entity() = default;
+  public:
+    explicit Entity(std::size_t size, bool permanent = false);
+    ~Entity() = default;
 
-        void setSize(std::size_t size);
-        operator std::size_t() const;
+    void setSize(std::size_t size);
+    void setState(bool permanent);
+    operator std::size_t() const;
+    bool isPermanent() const;
 };

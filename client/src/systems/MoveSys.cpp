@@ -6,37 +6,41 @@
 */
 
 #include "systems/MoveSys.hpp"
-#include <iostream>
 
-namespace Rtype::Client {
+namespace rtype::client {
 
 void MoveSys::operator()(ECS &ecs, const InputEvent &e_input,
-                             const SparseArray<Playable> &players,
-                             SparseArray<Velocity> &velocities)
-{
+                         const SparseArray<Playable> &players,
+                         SparseArray<Velocity> &velocities) {
     TupleInt newValue = {-1, -1};
 
-    switch(e_input._event.type) {
-        case sf::Event::KeyPressed:
-            if (e_input._myEvent == LEFT)
-                newValue.x = -5;
-            if (e_input._myEvent == RIGHT)
-                newValue.x = 5;
-            if (e_input._myEvent == UP)
-                    newValue.y = -5;
-            if (e_input._myEvent == DOWN)
-                    newValue.y = 5;
-            break;
-        case sf::Event::KeyReleased:
-            if (e_input._myEvent == LEFT ||
-                e_input._myEvent == RIGHT)
-                newValue.x = 0;
-            if (e_input._myEvent == UP ||
-                e_input._myEvent == DOWN)
-                newValue.y = 0;
-            break;
-        default:
-            return;
+    switch (e_input._myEvent) {
+    case LEFT1P:
+        newValue.x = -8;
+        break;
+    case LEFT1R:
+        newValue.x = 0;
+        break;
+    case RIGHT1P:
+        newValue.x = 8;
+        break;
+    case RIGHT1R:
+        newValue.x = 0;
+        break;
+    case UP1P:
+        newValue.y = -8;
+        break;
+    case UP1R:
+        newValue.y = 0;
+        break;
+    case DOWN1P:
+        newValue.y = 8;
+        break;
+    case DOWN1R:
+        newValue.y = 0;
+        break;
+    default:
+        break;
     }
 
     for (size_t i = 0; i < velocities.size() && i < players.size(); ++i) {
@@ -51,9 +55,8 @@ void MoveSys::operator()(ECS &ecs, const InputEvent &e_input,
 }
 
 void MoveSys::operator()(ECS &ecs, const TicEvent &e_tic,
-                        SparseArray<Position> &positions,
-                        const SparseArray<Velocity> &velocities)
-{
+                         SparseArray<Position> &positions,
+                         const SparseArray<Velocity> &velocities) {
     for (size_t i = 0; i < positions.size() && i < velocities.size(); ++i) {
         auto &pos = positions[i];
         const auto &vel = velocities[i];
@@ -66,4 +69,4 @@ void MoveSys::operator()(ECS &ecs, const TicEvent &e_tic,
     }
 }
 
-}
+} // namespace rtype::client

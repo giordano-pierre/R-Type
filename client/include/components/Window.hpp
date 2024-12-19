@@ -7,23 +7,31 @@
 
 #pragma once
 
-#include <map>
-#include <ostream>
 #include <SFML/Graphics.hpp>
+#include <map>
+#include <memory>
+#include <ostream>
 
-#include "tools.hpp"
 #include "TextureManager.hpp"
+#include "tools.hpp"
 
-namespace Rtype::Client {
-    struct Window {
-        Window(const std::string &, TupleUInt = {1920, 1080}, TupleUInt = {1920, 1080});
+namespace rtype::client {
+struct Window {
+    Window(const std::string &, TupleUInt = {1920, 1080},
+           TupleUInt = {1920, 1080});
+    ~Window() = default;
 
-        TupleUInt _size;
-        TupleUInt _serverSize;
-        std::map<UserInput, sf::Keyboard::Key> _inputConfig;
-        TextureManager _myTextures;
-        sf::Font _font;
-        bool _displayHitboxs = false;
-    };
-}
-std::ostream &operator<<(std::ostream &out, const Rtype::Client::Window &window);
+    std::string _lang = "EN";
+    TupleUInt _size;
+    TupleUInt _serverSize;
+    std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key,
+                                            std::shared_ptr<std::string>>>,
+              std::map<UserInput, sf::Keyboard::Key>>
+        _inputConfig;
+    TextureManager _myTextures;
+    std::shared_ptr<sf::Font> _font;
+    bool _displayHitboxs = false;
+};
+} // namespace rtype::client
+std::ostream &operator<<(std::ostream &out,
+                         const rtype::client::Window &window);

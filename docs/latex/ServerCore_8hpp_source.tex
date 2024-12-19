@@ -1,0 +1,43 @@
+\doxysection{Server\+Core.\+hpp}
+\hypertarget{ServerCore_8hpp_source}{}\label{ServerCore_8hpp_source}\index{serveur/include/ServerCore.hpp@{serveur/include/ServerCore.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ "{}CollisionSystem.hpp"{}}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}GameLogicSystem.hpp"{}}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}LevelManagement.hpp"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}MovementSystem.hpp"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}ScoreManager.hpp"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <thread>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classServer}{Server}}\ \{}
+\DoxyCodeLine{00010\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00011\ \ \ \ \ ECS\ ecs;}
+\DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1systems_1_1GameLogicSystem}{rtype::systems::GameLogicSystem}}\ gameLogicSystem;}
+\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1systems_1_1MovementSys}{rtype::systems::MovementSys}}\ movementSystem;}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1systems_1_1CollisionSys}{rtype::systems::CollisionSys}}\ collisionSystem;}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1systems_1_1LevelManager}{rtype::systems::LevelManager}}\ levelManager;}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{bool}\ isRunning;}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{float}\ deltaTime;}
+\DoxyCodeLine{00019\ \ \ \ \ std::chrono::steady\_clock::time\_point\ lastUpdate;}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ TICKS\_PER\_SECOND\ =\ 60;}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ TICK\_DURATION\ =\ 1.0f\ /\ TICKS\_PER\_SECOND;}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ run();}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ updateDeltaTime();}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ update();}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ processNetworkEvents();}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ handleCollisions();}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ reset();}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{classServer}{Server}}(ECS\ \_ecs);}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{classServer}{\string~Server}}();}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ start();}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ stop();}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ queueCommand(std::function<\textcolor{keywordtype}{void}()>\ command);}
+\DoxyCodeLine{00037\ \};}
+
+\end{DoxyCode}

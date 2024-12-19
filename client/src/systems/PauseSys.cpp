@@ -7,20 +7,18 @@
 
 #include "systems/PauseSys.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 
 void PauseSys::operator()(ECS &ecs, const InputEvent &e_input,
-                          SparseArray<Drawable> &sprites)
-{
+                          SparseArray<Drawable> &sprites) {
     bool changeState = false;
 
-    switch(e_input._event.type) {
-        case sf::Event::KeyPressed:
-            if (e_input._myEvent == PAUSE)
-                changeState = true;
-                break;
-        default:
-            return;
+    switch (e_input._myEvent) {
+    case PAUSE:
+        changeState = true;
+        break;
+    default:
+        return;
     }
 
     for (size_t i = 0; i < sprites.size(); ++i) {
@@ -32,17 +30,15 @@ void PauseSys::operator()(ECS &ecs, const InputEvent &e_input,
 }
 
 void PauseSys::operator()(ECS &ecs, const InputEvent &e_input,
-                            SparseArray<Velocity> &velocities)
-{
+                          SparseArray<Velocity> &velocities) {
     bool changeState = false;
 
-    switch(e_input._event.type) {
-        case sf::Event::KeyPressed:
-            if (e_input._myEvent == PAUSE)
-                changeState = true;
-                break;
-        default:
-            return;
+    switch (e_input._myEvent) {
+    case PAUSE:
+        changeState = true;
+        break;
+    default:
+        return;
     }
 
     for (size_t i = 0; i < velocities.size(); ++i) {
@@ -53,4 +49,4 @@ void PauseSys::operator()(ECS &ecs, const InputEvent &e_input,
     }
 }
 
-}
+} // namespace rtype::client

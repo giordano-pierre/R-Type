@@ -7,17 +7,15 @@
 
 #include "components/Text.hpp"
 
-namespace Rtype::Client {
+namespace rtype::client {
 
-Text::Text(const std::string &str, const sf::Font &font,
-           const TupleFloat &sizeInBox, const TupleFloat &posInBox,
-           const sf::Color &color, const sf::Uint32 &style)
-    : _sizeInBox(sizeInBox), _posInBox(posInBox), _color(color), _style(style)
-{
-    _text.setString(str);
-    _text.setFont(font);
-    auto tmp = _text.getLocalBounds();
-    _text.setOrigin({tmp.left + tmp.width / 2, tmp.top + tmp.height / 2});
+Text::Text(const std::map<std::string, std::shared_ptr<std::string>> &str,
+           const std::shared_ptr<sf::Font> &font, const TupleFloat &sizeInBox,
+           const float &pos, int charSize, const sf::Color &color,
+           const sf::Uint32 &style)
+    : _sizeInBox(sizeInBox), _pos(pos), _color(color), _style(style),
+      _charSize(charSize), _str(str) {
+    _text.setFont(*font);
 }
 
-}
+} // namespace rtype::client

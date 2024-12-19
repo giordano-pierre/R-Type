@@ -7,20 +7,20 @@
 
 #pragma once
 
-#include <map>
-#include <string>
-#include <memory>
 #include <SFML/Graphics.hpp>
+#include <map>
+#include <memory>
+#include <string>
 
-namespace Rtype::Client{
-    class TextureManager {
-        public:
-            TextureManager() = default;
-            ~TextureManager() = default;
+namespace rtype::client {
+class TextureManager {
+  public:
+    TextureManager() = default;
+    ~TextureManager() = default;
 
-            std::shared_ptr<sf::Texture> getTexture(std::string);
+    std::shared_ptr<sf::Texture> getTexture(std::string);
 
-        private:
-            std::map<std::string, std::shared_ptr<sf::Texture>> _map;
-    };
-}
+  private:
+    std::map<std::string, std::shared_ptr<sf::Texture>> _map;
+};
+} // namespace rtype::client

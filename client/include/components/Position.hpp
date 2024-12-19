@@ -11,11 +11,16 @@
 
 #include "tools.hpp"
 
-namespace Rtype::Client {
-    struct Position {
-        TupleFloat _server;
-        TupleFloat _client = {0, 0};
-        bool _needUpdate = true;
-    };
-}
-std::ostream &operator<<(std::ostream &out, const Rtype::Client::Position &position);
+namespace rtype::client {
+struct Position {
+    Position(float x, float y, TupleFloat client = {0, 0},
+             bool needUpdate = true)
+        : _server({x, y}), _client(client), _needUpdate(needUpdate){};
+    ~Position() = default;
+    TupleFloat _server;
+    TupleFloat _client;
+    bool _needUpdate;
+};
+} // namespace rtype::client
+std::ostream &operator<<(std::ostream &out,
+                         const rtype::client::Position &position);

@@ -11,11 +11,15 @@
 
 #include <ostream>
 
-namespace Rtype::Client {
-    struct Velocity {
-        TupleInt _current;
-        bool _activated = true;
-    };
-}
+namespace rtype::client {
+struct Velocity {
+    Velocity(int x, int y) : _current({x, y}){};
+    ~Velocity() = default;
 
-std::ostream &operator<<(std::ostream &out, const Rtype::Client::Velocity &position);
+    TupleInt _current;
+    bool _activated = true;
+};
+} // namespace rtype::client
+
+std::ostream &operator<<(std::ostream &out,
+                         const rtype::client::Velocity &position);
