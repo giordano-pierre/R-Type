@@ -104,7 +104,7 @@ jobs:
 
   mirroring:
     if: github.repository == 'giordano-pierre/R-Type'
-    needs: [linting, compilation, documentation]
+    needs: [linting, compilation]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
