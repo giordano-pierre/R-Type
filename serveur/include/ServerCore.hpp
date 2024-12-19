@@ -9,7 +9,6 @@
 class Server {
   private:
     ECS &ecs;
-    rtype::server::systems::GameLogicSystem gameLogicSystem;
     rtype::server::systems::MovementSys movementSystem;
     rtype::server::systems::CollisionSys collisionSystem;
     rtype::server::systems::LevelManager levelManager;
@@ -30,6 +29,9 @@ class Server {
   public:
     Server(ECS &_ecs);
     ~Server();
+
+    rtype::server::systems::GameLogicSystem gameLogicSystem;
+
 
     void start();
     void stop();

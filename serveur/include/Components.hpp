@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <string>
 #include <vector>
+#include "ServerCore.hpp"
 
 struct Position {
     float x = 0.0f;
@@ -103,4 +104,11 @@ struct GameState {
 
     GameState(bool isRunning, float gameTime, uint32_t playerCount)
         : isGameRunning(false), gameTime(gameTime), playerCount(playerCount) {}
+};
+
+struct RefServer
+{
+    Server &refToServer;
+
+    RefServer(Server &_refToServer) : refToServer(_refToServer) {}
 };

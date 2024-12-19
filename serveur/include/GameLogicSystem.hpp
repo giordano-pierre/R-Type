@@ -15,11 +15,12 @@ class GameLogicSystem {
     struct GameState {
         bool isGameRunning{false};
         float gameTime{0.0f};
-        uint32_t playerCount{0};
+        int playerCount{0};
     };
 
     explicit GameLogicSystem(ECS &ecs);
     ~GameLogicSystem() = default;
+    GameState gameState;
 
     void update(float deltaTime);
     void startGame();
@@ -34,7 +35,6 @@ class GameLogicSystem {
     ECS &ecs;
     LevelManager levelManager;
     ScoreManager scoreManager;
-    GameState gameState;
 
     void initializeComponents();
     void updateEntities(float dt);

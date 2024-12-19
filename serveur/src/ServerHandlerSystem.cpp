@@ -11,52 +11,66 @@
 void ServerHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
     std::cout << "SERVER HANDLER" << std::endl;
     std::cout << "action : " << rec_event.action << std::endl;
+    Server &server = ecs.get_components<Server>()[0].value();
+
     switch (rec_event.action) {
     case NetworkActions::NEW_CLIENT:
         ecs.post<RequestEvent>({NetworkActions::SEND_UUID, rec_event.payload,
                                 rec_event.sender_uuid});
         break;
+
     case NetworkActions::CLIENT_READY:
-        std::cout << "RECU :" << std::endl;
-        std::cout << rec_event.payload << std::endl;
         Entity newPlayer = ecs.spawn_entity();
         ecs.add_component<PlayerData>(newPlayer,
-                                      {1, rec_event.payload.["name"]});
-        // send CREATE_ENTITY to player
+                                      {1, "Player1"});
+        server.gameLogicSystem.gameState.playerCount += 1;
+
+        ecs.post<RequestEvent>({
+            NetworkActions::CREATE_ENTITY,
+            {
+                {"id", fetch_new_uuid()},
+                {"type", "player"},
+                {"position", rec_event.payload["position"]},
+                {"velocity", rec_event.payload["velocity"]},
+                {"hitbox", rec_event.payload["hitbox"]},
+            },
+            ""
+        });
         break;
+
     case NetworkActions::SERVER_READY:
         ecs.post<RequestEvent>({NetworkActions::SEND_UUID, rec_event.payload,
                                 rec_event.sender_uuid});
         break;
     case NetworkActions::CLIENT_CREATE:
         ecs.post<RequestEvent>({
-            NetworkActions::ENTITY_CREATED,
+            NetworkActions::CREATE_ENTITY,
             {
-                "tmp_id": rec_event.payload["tmp_id"],
-                "id": fetch_new_uuid(),
-                "type": rec_event.payload["type"],
-                "position": rec_event.payload["position"],
-                "velocity": rec_event.payload["velocity"],
-                "hitbox": rec_event.payload["hitbox"],
+                {"tmp_id", rec_event.payload["tmp_id"]},
+                {"id", fetch_new_uuid()},
+                {"type", rec_event.payload["type"]},
+                {"position", rec_event.payload["position"]},
+                {"velocity", rec_event.payload["velocity"]},
+                {"hitbox", rec_event.payload["hitbox"]},
             },
             ""
         });
         break;
     case NetworkActions::CREATE_ENTITY:
-        // json new_entity_data = {
-        //     {"id", fetch_new_uuid()},
-        //     {"type", "enemy | player | shoot"},
-        //     {"position", got from ecs},
-        //     {"velocity", got from ecs},
-        //     {"hitbox", got from ecs},
-        //     {"health", got from ecs},
-        // };
+        json new_entity_data = {
+            {"id", fetch_new_uuid()},
+            {"type", "enemy | player | shoot"},
+            {"position", got from ecs},
+            {"velocity", got from ecs},
+            {"hitbox", got from ecs},
+            {"health", got from ecs},
+        };
 
-        // ecs.post<RequestEvent>({
-        //     NetworkActions::ENTITY_CREATED,
-        //     new_entity_data,
-        //     ""
-        // });
+        ecs.post<RequestEvent>({
+            NetworkActions::ENTITY_CREATED,
+            new_entity_data,
+            ""
+        });
         break;
     case NetworkActions::UPDATE_ENTITY:
         // json new_entity_data = {

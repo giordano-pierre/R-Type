@@ -22,6 +22,9 @@ int main() {
         Server server(ecs);
         serverInstance = &server;
 
+        Entity serverEntity = ecs.spawn_entity();
+        ecs.add_component<RefServer>(serverEntity, {serverInstance});
+
         std::cout << "Attention!!! \nDémarrage du serveur R-Type...\n"
                   << std::endl;
 
