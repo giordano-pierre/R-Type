@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['texturemanager_0',['TextureManager',['../classrtype_1_1client_1_1TextureManager.html',1,'rtype::client']]],
-  ['tuplefloat_1',['TupleFloat',['../structrtype_1_1client_1_1TupleFloat.html',1,'rtype::client']]],
-  ['tupleint_2',['TupleInt',['../structrtype_1_1client_1_1TupleInt.html',1,'rtype::client']]],
-  ['tupleuint_3',['TupleUInt',['../structrtype_1_1client_1_1TupleUInt.html',1,'rtype::client']]]
+  ['movementsys_0',['MovementSys',['../classrtype_1_1server_1_1systems_1_1MovementSys.html',1,'rtype::server::systems']]],
+  ['movesys_1',['MoveSys',['../classrtype_1_1client_1_1MoveSys.html',1,'rtype::client']]]
 ];

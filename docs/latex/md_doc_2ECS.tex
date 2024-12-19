@@ -1,0 +1,180 @@
+\chapter{Game Engine ECS Documentation}
+\hypertarget{md_doc_2ECS}{}\label{md_doc_2ECS}\index{Game Engine ECS Documentation@{Game Engine ECS Documentation}}
+\label{md_doc_2ECS_autotoc_md0}%
+\Hypertarget{md_doc_2ECS_autotoc_md0}%
+ \hypertarget{md_doc_2ECS_autotoc_md1}{}\doxysection{\texorpdfstring{Overview}{Overview}}\label{md_doc_2ECS_autotoc_md1}
+This documentation outlines the structure and usage of the {\bfseries{Entity-\/\+Component-\/\+System (\doxylink{classECS}{ECS})}} implemented for a game engine. The \doxylink{classECS}{ECS} is designed to efficiently manage entities, components, and systems, allowing for modular and scalable game development. Below, we provide a detailed description of the architecture, methods, and practical examples to use this \doxylink{classECS}{ECS}.
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2ECS_autotoc_md3}{}\doxysection{\texorpdfstring{ECS Architecture}{ECS Architecture}}\label{md_doc_2ECS_autotoc_md3}
+The \doxylink{classECS}{ECS} is composed of the following key components\+:
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Entities}}\+: Unique identifiers representing objects in the game world.
+\item {\bfseries{Components}}\+: Data structures attached to entities that define their properties or state.
+\item {\bfseries{Systems}}\+: Logic that operates on entities with specific components.
+\end{DoxyEnumerate}\hypertarget{md_doc_2ECS_autotoc_md4}{}\doxysubsection{\texorpdfstring{Entities}{Entities}}\label{md_doc_2ECS_autotoc_md4}
+Entities are lightweight objects identified by a unique index. They can have multiple components attached to them.\hypertarget{md_doc_2ECS_autotoc_md5}{}\doxysubsubsection{\texorpdfstring{Methods\+:}{Methods:}}\label{md_doc_2ECS_autotoc_md5}
+
+\begin{DoxyItemize}
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily spawn\+\_\+entity()}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+: Creates a new entity. Returns an {\ttfamily \doxylink{classEntity}{Entity}} object.
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily entity\+\_\+from\+\_\+index(std\+::size\+\_\+t idx)}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+: Retrieves an entity from its index.
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily kill\+\_\+entity(const \doxylink{classEntity}{Entity} \&entity)}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+: Destroys an entity and removes all its components.
+\end{DoxyItemize}\hypertarget{md_doc_2ECS_autotoc_md6}{}\doxysubsection{\texorpdfstring{Components}{Components}}\label{md_doc_2ECS_autotoc_md6}
+Components store data and are managed using a {\ttfamily \doxylink{classSparseArray}{Sparse\+Array}} container for memory efficiency. Each component type is registered explicitly.\hypertarget{md_doc_2ECS_autotoc_md7}{}\doxysubsubsection{\texorpdfstring{Methods\+:}{Methods:}}\label{md_doc_2ECS_autotoc_md7}
+
+\begin{DoxyItemize}
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily register\+\_\+component\texorpdfstring{$<$}{<}Component\texorpdfstring{$>$}{>}()}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+: Registers a new component type.
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily get\+\_\+components\texorpdfstring{$<$}{<}Component\texorpdfstring{$>$}{>}()}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+: Retrieves the array of components of a specific type.
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily add\+\_\+component\texorpdfstring{$<$}{<}\doxylink{classEntity}{Entity}, Component\texorpdfstring{$>$}{>}()}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+: Adds a component to an entity.
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily remove\+\_\+component\texorpdfstring{$<$}{<}\doxylink{classEntity}{Entity}, Component\texorpdfstring{$>$}{>}()}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+: Removes a component from an entity.
+\end{DoxyItemize}\hypertarget{md_doc_2ECS_autotoc_md8}{}\doxysubsection{\texorpdfstring{Systems}{Systems}}\label{md_doc_2ECS_autotoc_md8}
+Systems contain logic applied to entities with specific components. They are subscribed to events and executed when events are posted.\hypertarget{md_doc_2ECS_autotoc_md9}{}\doxysubsubsection{\texorpdfstring{Methods\+:}{Methods:}}\label{md_doc_2ECS_autotoc_md9}
+
+\begin{DoxyItemize}
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily subscribe\texorpdfstring{$<$}{<}Event, Components...\texorpdfstring{$>$}{>}(System \&\&system, bool permanent = false)}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+: Subscribes a system to an event. By default, systems are not permanent.
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily clean\texorpdfstring{$<$}{<}Event\texorpdfstring{$>$}{>}()}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+: Removes all non-\/permanent systems subscribed to an event.
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily post\texorpdfstring{$<$}{<}Event\texorpdfstring{$>$}{>}()}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+: Triggers an event, invoking all subscribed systems.
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2ECS_autotoc_md11}{}\doxysection{\texorpdfstring{Usage}{Usage}}\label{md_doc_2ECS_autotoc_md11}
+\hypertarget{md_doc_2ECS_autotoc_md12}{}\doxysubsection{\texorpdfstring{Initialization}{Initialization}}\label{md_doc_2ECS_autotoc_md12}
+To set up the \doxylink{classECS}{ECS} for a game\+:
+\begin{DoxyEnumerate}
+\item Instantiate the {\ttfamily \doxylink{classECS}{ECS}} class.
+\item Register the required component types.
+\item Subscribe systems to events.
+\end{DoxyEnumerate}\hypertarget{md_doc_2ECS_autotoc_md13}{}\doxysubsubsection{\texorpdfstring{Example}{Example}}\label{md_doc_2ECS_autotoc_md13}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}ECS.hpp"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Define\ components}}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }\mbox{\hyperlink{structPosition}{Position}}\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{float}\ x,\ y;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }\mbox{\hyperlink{structVelocity}{Velocity}}\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{float}\ dx,\ dy;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Define\ event}}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }UpdateEvent\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{float}\ delta\_time;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main()\ \{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classECS}{ECS}}\ ecs;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Register\ components}}
+\DoxyCodeLine{\ \ \ \ ecs.register\_component<\mbox{\hyperlink{structPosition}{Position}}>();}
+\DoxyCodeLine{\ \ \ \ ecs.register\_component<\mbox{\hyperlink{structVelocity}{Velocity}}>();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Spawn\ entity}}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classEntity}{Entity}}\ player\ =\ ecs.spawn\_entity();}
+\DoxyCodeLine{\ \ \ \ ecs.add\_component(player,\ \mbox{\hyperlink{structPosition}{Position}}\{0.0f,\ 0.0f\});}
+\DoxyCodeLine{\ \ \ \ ecs.add\_component(player,\ \mbox{\hyperlink{structVelocity}{Velocity}}\{1.0f,\ 0.5f\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Subscribe\ a\ system\ to\ update\ positions}}
+\DoxyCodeLine{\ \ \ \ ecs.subscribe<UpdateEvent,\ \mbox{\hyperlink{structPosition}{Position}},\ \mbox{\hyperlink{structVelocity}{Velocity}}>(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ [](\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ UpdateEvent\ \&event,\ \mbox{\hyperlink{classSparseArray}{SparseArray<Position>}}\ \&positions,\ \mbox{\hyperlink{classSparseArray}{SparseArray<Velocity>}}\ \&velocities)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ positions.size();\ ++i)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (positions[i]\ \&\&\ velocities[i])\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ positions[i]-\/>x\ +=\ velocities[i]-\/>dx\ *\ \textcolor{keyword}{event}.delta\_time;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ positions[i]-\/>y\ +=\ velocities[i]-\/>dy\ *\ \textcolor{keyword}{event}.delta\_time;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ );}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Post\ an\ update\ event}}
+\DoxyCodeLine{\ \ \ \ ecs.post(UpdateEvent\{0.016f\});\ \textcolor{comment}{//\ 16\ ms\ frame}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_doc_2ECS_autotoc_md14}{}\doxysubsection{\texorpdfstring{Adding Components}{Adding Components}}\label{md_doc_2ECS_autotoc_md14}
+Components can be added to entities using {\ttfamily add\+\_\+component} or {\ttfamily emplace\+\_\+component}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ecs.add\_component(player,\ \mbox{\hyperlink{structPosition}{Position}}\{100.0f,\ 200.0f\});}
+\DoxyCodeLine{ecs.emplace\_component<\mbox{\hyperlink{structVelocity}{Velocity}}>(player,\ 2.0f,\ 1.5f);}
+
+\end{DoxyCode}
+\hypertarget{md_doc_2ECS_autotoc_md15}{}\doxysubsection{\texorpdfstring{Removing Components}{Removing Components}}\label{md_doc_2ECS_autotoc_md15}
+Remove components when they are no longer needed\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ecs.remove\_component<\mbox{\hyperlink{structPosition}{Position}}>(player);}
+
+\end{DoxyCode}
+\hypertarget{md_doc_2ECS_autotoc_md16}{}\doxysubsection{\texorpdfstring{Cleaning Systems}{Cleaning Systems}}\label{md_doc_2ECS_autotoc_md16}
+Remove non-\/permanent systems to manage resources efficiently\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ecs.clean<UpdateEvent>();}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2ECS_autotoc_md18}{}\doxysection{\texorpdfstring{Advanced Features}{Advanced Features}}\label{md_doc_2ECS_autotoc_md18}
+\hypertarget{md_doc_2ECS_autotoc_md19}{}\doxysubsection{\texorpdfstring{Permanent Systems}{Permanent Systems}}\label{md_doc_2ECS_autotoc_md19}
+When subscribing a system, set {\ttfamily permanent = true} to ensure it persists across clean operations\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ecs.subscribe<UpdateEvent,\ \mbox{\hyperlink{structPosition}{Position}}>(}
+\DoxyCodeLine{\ \ \ \ [](\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ UpdateEvent\ \&event,\ \mbox{\hyperlink{classSparseArray}{SparseArray<Position>}}\ \&positions)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Logic\ for\ permanent\ system}}
+\DoxyCodeLine{\ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{true}\ \textcolor{comment}{//\ Mark\ as\ permanent}}
+\DoxyCodeLine{);}
+
+\end{DoxyCode}
+\hypertarget{md_doc_2ECS_autotoc_md20}{}\doxysubsection{\texorpdfstring{Custom Events}{Custom Events}}\label{md_doc_2ECS_autotoc_md20}
+Define custom events and use them to trigger specific systems. For example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }CollisionEvent\ \{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classEntity}{Entity}}\ entity1;}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classEntity}{Entity}}\ entity2;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{ecs.subscribe<CollisionEvent,\ \mbox{\hyperlink{structPosition}{Position}}>(}
+\DoxyCodeLine{\ \ \ \ [](\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ CollisionEvent\ \&event,\ \mbox{\hyperlink{classSparseArray}{SparseArray<Position>}}\ \&positions)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Handle\ collision}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{);}
+
+\end{DoxyCode}
+
+
+Post the event as needed\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ecs.post(CollisionEvent\{entity1,\ entity2\});}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2ECS_autotoc_md22}{}\doxysection{\texorpdfstring{Best Practices}{Best Practices}}\label{md_doc_2ECS_autotoc_md22}
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Modular Design}}\+: Keep components simple and focused. Delegate logic to systems.
+\item {\bfseries{Event-\/\+Driven Architecture}}\+: Use events to decouple systems and improve scalability.
+\item {\bfseries{Efficient Resource Management}}\+: Regularly clean up non-\/permanent systems to optimize performance.
+\end{DoxyEnumerate}
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2ECS_autotoc_md24}{}\doxysection{\texorpdfstring{Conclusion}{Conclusion}}\label{md_doc_2ECS_autotoc_md24}
+The \doxylink{classECS}{ECS} framework provides a robust and flexible foundation for game development. By separating data (components), logic (systems), and identity (entities), it ensures scalability, maintainability, and performance. Follow the examples and best practices above to maximize the potential of this \doxylink{classECS}{ECS} in your projects. 

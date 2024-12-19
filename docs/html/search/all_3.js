@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['enemydata_0',['EnemyData',['../structEnemyData.html',1,'']]],
-  ['enemyspawn_1',['EnemySpawn',['../structEnemySpawn.html',1,'']]],
-  ['est_20ce_20que_20r_20type_2',['Qu&apos;est-ce que R-Type ?',['../md_README.html#autotoc_md1',1,'']]],
-  ['et_20lancement_3',['Installation et lancement',['../md_README.html#autotoc_md6',1,'']]]
+  ['4_201_20justification_20du_20choix_0',['4.1 Justification du Choix',['../md_doc_2TechnicalStudy.html#autotoc_md36',1,'']]],
+  ['4_202_20étude_20comparative_1',['4.2 Étude Comparative',['../md_doc_2TechnicalStudy.html#autotoc_md37',1,'']]],
+  ['4_20format_20bson_20pour_20la_20sérialisation_2',['4. Format BSON pour la Sérialisation',['../md_doc_2TechnicalStudy.html#autotoc_md35',1,'']]]
 ];

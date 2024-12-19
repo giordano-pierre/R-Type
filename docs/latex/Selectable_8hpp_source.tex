@@ -1,0 +1,35 @@
+\doxysection{Selectable.\+hpp}
+\hypertarget{Selectable_8hpp_source}{}\label{Selectable_8hpp_source}\index{client/include/components/Selectable.hpp@{client/include/components/Selectable.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ EPITECH\ PROJECT,\ 2024}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**\ R-\/Type}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**\ File\ description:}}
+\DoxyCodeLine{00005\ \textcolor{comment}{**\ Selectable}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}ECS/ECS.hpp"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}tools.hpp"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <SFML/Graphics.hpp>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }rtype::client\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrtype_1_1client_1_1Selectable}{Selectable}}\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1Selectable}{Selectable}}(std::shared\_ptr<sf::Texture>,\ std::function<\textcolor{keywordtype}{void}(\mbox{\hyperlink{classECS}{ECS}}\ \&,\ \mbox{\hyperlink{classEntity}{Entity}})>,}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::function<\textcolor{keywordtype}{void}(\mbox{\hyperlink{classECS}{ECS}}\ \&,\ \mbox{\hyperlink{classEntity}{Entity}})>);}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1Selectable}{\string~Selectable}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00020\ \ \ \ \ std::shared\_ptr<sf::Texture>\ \_texture;}
+\DoxyCodeLine{00021\ \ \ \ \ std::function<void(\mbox{\hyperlink{classECS}{ECS}}\ \&,\ \mbox{\hyperlink{classEntity}{Entity}})>\ \_sel;}
+\DoxyCodeLine{00022\ \ \ \ \ std::function<void(\mbox{\hyperlink{classECS}{ECS}}\ \&,\ \mbox{\hyperlink{classEntity}{Entity}})>\ \_desel;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ sf::Sprite\ \_sprite;}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1TupleUInt}{TupleUInt}}\ \_size;}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_isSelected\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_display\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00028\ \};}
+\DoxyCodeLine{00029\ \}\ \textcolor{comment}{//\ namespace\ rtype::client}}
+
+\end{DoxyCode}

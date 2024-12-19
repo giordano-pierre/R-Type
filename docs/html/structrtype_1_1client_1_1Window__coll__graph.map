@@ -1,0 +1,7 @@
+<map id="rtype::client::Window" name="rtype::client::Window">
+<area shape="rect" id="Node000001" title=" " alt="" coords="118,108,278,133"/>
+<area shape="rect" id="Node000002" href="$structrtype_1_1client_1_1TupleUInt.html" title=" " alt="" coords="5,5,175,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="114,38,188,106,184,110,110,42"/>
+<area shape="rect" id="Node000003" href="$classrtype_1_1client_1_1TextureManager.html" title=" " alt="" coords="199,5,413,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="289,43,245,86,216,110,212,106,242,82,285,39"/>
+</map>

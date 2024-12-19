@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['gamelogicsystem_0',['GameLogicSystem',['../classrtype_1_1server_1_1systems_1_1GameLogicSystem.html',1,'rtype::server::systems']]],
-  ['gamestate_1',['gamestate',['../structGameState.html',1,'GameState'],['../structrtype_1_1server_1_1systems_1_1GameLogicSystem_1_1GameState.html',1,'rtype::server::systems::GameLogicSystem::GameState']]]
+  ['5_201_20justification_20du_20choix_0',['5.1 Justification du Choix',['../md_doc_2TechnicalStudy.html#autotoc_md39',1,'']]],
+  ['5_202_20étude_20comparative_1',['5.2 Étude Comparative',['../md_doc_2TechnicalStudy.html#autotoc_md40',1,'']]],
+  ['5_20boost_20asio_20pour_20le_20networking_2',['5. Boost.Asio pour le Networking',['../md_doc_2TechnicalStudy.html#autotoc_md38',1,'']]]
 ];

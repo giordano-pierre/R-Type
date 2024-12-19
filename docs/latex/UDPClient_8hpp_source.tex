@@ -19,7 +19,7 @@
 \DoxyCodeLine{00015\ }
 \DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classUDPClient}{UDPClient}}\ \{}
 \DoxyCodeLine{00017\ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{classUDPClient}{UDPClient}}(ECS\ \&ecs,\ \textcolor{keyword}{const}\ std::string\ \&host,\ \textcolor{keyword}{const}\ std::string\ \&port)}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{classUDPClient}{UDPClient}}(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ std::string\ \&host,\ \textcolor{keyword}{const}\ std::string\ \&port)}
 \DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ :\ ecs\_(ecs),\ io\_context\_(),\ socket\_(io\_context\_),}
 \DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ server\_endpoint\_(*udp::resolver(io\_context\_)}
 \DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .resolve(udp::v4(),\ host,\ port)}
@@ -45,11 +45,11 @@
 \DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ context\_thread\_.join();}
 \DoxyCodeLine{00042\ \ \ \ \ \}}
 \DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(ECS\ \&ecs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structRequestEvent}{RequestEvent}}\ \&req\_event);}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structRequestEvent}{RequestEvent}}\ \&req\_event);}
 \DoxyCodeLine{00045\ \ \ \ \ \textcolor{comment}{//\ void\ send(const\ json\&\ message\_json);}}
 \DoxyCodeLine{00046\ }
 \DoxyCodeLine{00047\ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00048\ \ \ \ \ ECS\ \&ecs\_;}
+\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{classECS}{ECS}}\ \&ecs\_;}
 \DoxyCodeLine{00049\ \ \ \ \ boost::asio::io\_context\ io\_context\_;}
 \DoxyCodeLine{00050\ \ \ \ \ udp::socket\ socket\_;}
 \DoxyCodeLine{00051\ \ \ \ \ udp::endpoint\ server\_endpoint\_;}

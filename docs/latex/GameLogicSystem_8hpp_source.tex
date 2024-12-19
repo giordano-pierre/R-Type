@@ -21,7 +21,7 @@
 \DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ uint32\_t\ playerCount\{0\};}
 \DoxyCodeLine{00018\ \ \ \ \ \};}
 \DoxyCodeLine{00019\ }
-\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrtype_1_1server_1_1systems_1_1GameLogicSystem}{GameLogicSystem}}(ECS\ \&ecs);}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrtype_1_1server_1_1systems_1_1GameLogicSystem}{GameLogicSystem}}(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs);}
 \DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1server_1_1systems_1_1GameLogicSystem}{\string~GameLogicSystem}}()\ =\ \textcolor{keywordflow}{default};}
 \DoxyCodeLine{00022\ }
 \DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ update(\textcolor{keywordtype}{float}\ deltaTime);}
@@ -34,7 +34,7 @@
 \DoxyCodeLine{00030\ \ \ \ \ uint32\_t\ getPlayerCount()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ gameState.playerCount;\ \}}
 \DoxyCodeLine{00031\ }
 \DoxyCodeLine{00032\ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00033\ \ \ \ \ ECS\ \&ecs;}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{classECS}{ECS}}\ \&ecs;}
 \DoxyCodeLine{00034\ \ \ \ \ LevelManager\ levelManager;}
 \DoxyCodeLine{00035\ \ \ \ \ ScoreManager\ scoreManager;}
 \DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{structGameState}{GameState}}\ gameState;}
@@ -42,9 +42,9 @@
 \DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ initializeComponents();}
 \DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ updateEntities(\textcolor{keywordtype}{float}\ dt);}
 \DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ checkCollisions();}
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ handleCollision(Entity\ entity1,\ Entity\ entity2);}
-\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ handlePlayerDeath(Entity\ player);}
-\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ handleEnemyDeath(Entity\ enemy);}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ handleCollision(\mbox{\hyperlink{classEntity}{Entity}}\ entity1,\ \mbox{\hyperlink{classEntity}{Entity}}\ entity2);}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ handlePlayerDeath(\mbox{\hyperlink{classEntity}{Entity}}\ player);}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ handleEnemyDeath(\mbox{\hyperlink{classEntity}{Entity}}\ enemy);}
 \DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ checkGameRules();}
 \DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ updateScores();}
 \DoxyCodeLine{00046\ \};}

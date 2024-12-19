@@ -23,7 +23,7 @@
 \DoxyCodeLine{00019\ }
 \DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classUDPServer}{UDPServer}}\ \{}
 \DoxyCodeLine{00021\ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classUDPServer}{UDPServer}}(ECS\ \&ecs,\ \textcolor{keyword}{const}\ boost::asio::ip::port\_type\ \&port)}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classUDPServer}{UDPServer}}(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ boost::asio::ip::port\_type\ \&port)}
 \DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ :\ ecs\_(ecs),\ io\_context\_(),}
 \DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ socket\_(io\_context\_,\ udp::endpoint(udp::v4(),\ port)),}
 \DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ clients\_endpoint\_(),\ buffer\_(),\ port\_(port)\ \{}
@@ -46,11 +46,11 @@
 \DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ context\_thread\_.join();}
 \DoxyCodeLine{00043\ \ \ \ \ \}}
 \DoxyCodeLine{00044\ }
-\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(ECS\ \&ecs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structRequestEvent}{RequestEvent}}\ \&req\_event);}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structRequestEvent}{RequestEvent}}\ \&req\_event);}
 \DoxyCodeLine{00046\ \ \ \ \ \textcolor{comment}{//\ void\ start\_send(const\ std::string\&\ client\_id,\ const\ json\&\ message\_json);}}
 \DoxyCodeLine{00047\ }
 \DoxyCodeLine{00048\ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00049\ \ \ \ \ ECS\ \&ecs\_;}
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{classECS}{ECS}}\ \&ecs\_;}
 \DoxyCodeLine{00050\ \ \ \ \ boost::uuids::random\_generator\ uuid\_generator\_;}
 \DoxyCodeLine{00051\ \ \ \ \ boost::asio::io\_context\ io\_context\_;}
 \DoxyCodeLine{00052\ \ \ \ \ udp::socket\ socket\_;}
