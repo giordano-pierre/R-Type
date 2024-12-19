@@ -33,7 +33,6 @@ class Server {
 
     rtype::server::systems::GameLogicSystem gameLogicSystem;
 
-
     void start();
     void stop();
     void queueCommand(std::function<void()> command);
