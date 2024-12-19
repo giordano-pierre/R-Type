@@ -82,7 +82,7 @@ void resetG(ECS &ecs, Entity i) {
     myWindow._size = {1440, 810};
     initGeneralInput(myWindow._inputConfig.first);
     ecs.post<DeleteEvent>({CGENERAL});
-    ecs.post<CreateEvent>({CGENERAL});
+    ecs.post<CreationEvent>({CGENERAL});
 }
 
 void resetP1(ECS &ecs, Entity i) {

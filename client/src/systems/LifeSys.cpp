@@ -14,7 +14,7 @@
 
 namespace rtype::client {
 
-void LifeSys::operator()(ECS &ecs, const CreateEvent &e_create) {
+void LifeSys::operator()(ECS &ecs, const CreationEvent &e_create) {
     ecs.clean<FrameEvent>();
     ecs.clean<InputEvent>();
     ecs.clean<TicEvent>();

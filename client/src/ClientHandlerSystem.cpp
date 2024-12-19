@@ -114,7 +114,7 @@ void ClientHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
     switch (rec_event.action) {
     case NetworkActions::SERVER_READY:
         ecs.post<rtype::client::DeleteEvent>({rtype::client::MENU});
-        ecs.post<rtype::client::CreateEvent>({rtype::client::PLAYER});
+        ecs.post<rtype::client::CreationEvent>({rtype::client::PLAYER});
     case NetworkActions::CREATE_ENTITY:
         if (rec_event.payload.contains("tmp_id")) {
             auto entity = getEntityByID(ecs, rec_event.payload["id"]);

@@ -100,7 +100,7 @@ void createMenuEntities(ECS &ecs) {
                      "assets/images/utils/button_config1_act.png"),
                  [](ECS &ecs, Entity) {
                      //  ecs.post<DeleteEvent>({MENU});
-                     //  ecs.post<CreateEvent>({PLAYER});
+                     //  ecs.post<CreationEvent>({PLAYER});
                      const auto &tmp = ecs.get_components<Playable>();
                      ecs.post<RequestEvent>({CLIENT_READY,
                                              {{"nb_player_max", 1},
@@ -175,8 +175,8 @@ void createMenuEntities(ECS &ecs) {
                       "assets/images/utils/button_config1_act.png"),
                   [](ECS &ecs, Entity) {
                       ecs.post<DeleteEvent>({MENU});
-                      ecs.post<CreateEvent>({CONFIG});
-                      ecs.post<CreateEvent>({CGENERAL});
+                      ecs.post<CreationEvent>({CONFIG});
+                      ecs.post<CreationEvent>({CGENERAL});
                   }});
 
     Entity quitB = ecs.spawn_entity();
@@ -270,7 +270,7 @@ void createConfigEntities(ECS &ecs) {
                    [](ECS &ecs, Entity i) {
                        press(ecs, i);
                        ecs.post<DeleteEvent>({CPLAYER1});
-                       ecs.post<CreateEvent>({CGENERAL});
+                       ecs.post<CreationEvent>({CGENERAL});
                    },
                    1});
     press(ecs, generalB);
@@ -309,7 +309,7 @@ void createConfigEntities(ECS &ecs) {
                    [](ECS &ecs, Entity i) {
                        press(ecs, i);
                        ecs.post<DeleteEvent>({CGENERAL});
-                       ecs.post<CreateEvent>({CPLAYER1});
+                       ecs.post<CreationEvent>({CPLAYER1});
                    },
                    1});
 
@@ -384,7 +384,7 @@ void createConfigEntities(ECS &ecs) {
                     ecs.post<DeleteEvent>({CONFIG});
                     ecs.post<DeleteEvent>({CGENERAL});
                     ecs.post<DeleteEvent>({CPLAYER1});
-                    ecs.post<CreateEvent>({MENU});
+                    ecs.post<CreationEvent>({MENU});
                 }});
 }
 

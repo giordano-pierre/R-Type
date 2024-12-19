@@ -33,7 +33,7 @@ int main(void) {
     ecs.register_event<rtype::client::InputEvent>();
     ecs.register_event<rtype::client::TicEvent>();
     ecs.register_event<rtype::client::ChangeKey>();
-    ecs.register_event<rtype::client::CreateEvent>();
+    ecs.register_event<rtype::client::CreationEvent>();
     ecs.register_event<rtype::client::DeleteEvent>();
     ecs.register_event<rtype::client::AnimeEvent>();
     ecs.register_event<RequestEvent>();
@@ -53,7 +53,7 @@ int main(void) {
         window, {"assets/font/retro_gaming.ttf", {1440, 810}, serverSize});
 
     auto lifeSys = rtype::client::LifeSys();
-    ecs.subscribe<rtype::client::CreateEvent>(lifeSys, true);
+    ecs.subscribe<rtype::client::CreationEvent>(lifeSys, true);
     ecs.subscribe<rtype::client::DeleteEvent, rtype::client::Tag>(lifeSys,
                                                                   true);
 
@@ -84,7 +84,7 @@ int main(void) {
         },
         true);
 
-    ecs.post<rtype::client::CreateEvent>({rtype::client::MENU});
+    ecs.post<rtype::client::CreationEvent>({rtype::client::MENU});
 
     const auto FPS = 60;
     const timer::duration<double, std::ratio<1, FPS>> frameRate(1);
