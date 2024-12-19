@@ -7,6 +7,7 @@
 
 #include "ECS/ECS.hpp"
 #include "ecsObjects.hpp"
+#include "RequestEvent.hpp"
 
 namespace rtype::client {
 
@@ -94,6 +95,21 @@ void resetP2(ECS &ecs, Entity i) {
     auto &myWindow = ecs.get_components<Window>()[0].value();
 
     initPlay2Input(myWindow._inputConfig);
+}
+
+void startGame(ECS &ecs, Entity i)
+{
+    const auto &players = ecs.get_components<Playable>();
+
+    for (size_t i = 0; i < players.size(); ++i) {
+        const auto &play = players[i];
+
+        if (play)
+            ecs.post<RequestEvent>({CLIENT_READY, {
+                    {"nb_player_max", 1},
+                    {"name", play.value()._name}
+                }});
+    }
 }
 
 } // namespace rtype::client

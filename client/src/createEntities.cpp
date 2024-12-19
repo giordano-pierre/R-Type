@@ -42,19 +42,19 @@ void createGameEntities(ECS &ecs) {
                 {675, 360},
                 1});
 
-    Entity player1 = ecs.spawn_entity();
-    ecs.add_component<Position>(player1, {float(100), serverSize.y / float(2)});
-    ecs.add_component<Velocity>(player1, {0, 0});
-    ecs.add_component<Playable>(player1, {1});
-    ecs.add_component<Tag>(player1, {PLAYER});
-    ecs.add_component<Hitbox>(player1, {{0.1, 0.12}});
-    ecs.add_component<Drawable>(
-        player1,
-        {myWindow._myTextures.getTexture("assets/images/ship/red_ship.png"),
-         {395, 250},
-         {395, 250},
-         1,
-         1});
+    // Entity player1 = ecs.spawn_entity();
+    // ecs.add_component<Position>(player1, {float(100), serverSize.y / float(2)});
+    // ecs.add_component<Velocity>(player1, {0, 0});
+    // ecs.add_component<Playable>(player1, {1});
+    // ecs.add_component<Tag>(player1, {PLAYER});
+    // ecs.add_component<Hitbox>(player1, {{0.1, 0.12}});
+    // ecs.add_component<Drawable>(
+    //     player1,
+    //     {myWindow._myTextures.getTexture("assets/images/ship/red_ship.png"),
+    //      {395, 250},
+    //      {395, 250},
+    //      1,
+    //      1});
 }
 
 void createMenuEntities(ECS &ecs) {
@@ -102,7 +102,8 @@ void createMenuEntities(ECS &ecs) {
          [](ECS &ecs, Entity) {
              //  ecs.post<DeleteEvent>({MENU});
              //  ecs.post<CreateEvent>({PLAYER});
-             ecs.post<RequestEvent>({CLIENT_READY, {{"nb_player_max", 1}}});
+             const auto &tmp = ecs.get_components<Playable>();
+             ecs.post<RequestEvent>({CLIENT_READY, {{"nb_player_max", 1}, {"name", }}});
          }});
 
     Entity customB = ecs.spawn_entity();
