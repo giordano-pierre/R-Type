@@ -11,7 +11,7 @@
 
 namespace rtype::client {
 struct Playable {
-    Playable(int id) : _id(id) {};
+    Playable(int id) : _id(id){};
     ~Playable() = default;
     int _id;
 };
