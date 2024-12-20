@@ -47,14 +47,15 @@ class WindowSys {
                     sf::Vector2u sizeClient, TupleUInt serverSize);
     void drawSprite(SparseArray<Position> &positions,
                     SparseArray<Hitbox> &hitboxs,
-                    SparseArray<Drawable> &sprites, int order);
+                    SparseArray<Drawable> &sprites, int order,
+                    const Window &myWindow);
     void drawSel(SparseArray<Position> &positions, SparseArray<Hitbox> &hitboxs,
-                 SparseArray<Selectable> &selectables);
+                 SparseArray<Selectable> &selectables,
+                 const Window &myWindow);
     void drawText(SparseArray<Position> &positions,
                   SparseArray<Hitbox> &hitboxs, SparseArray<Text> &texts,
-                  bool isResize, sf::Vector2u sizeClient, TupleUInt serverSize,
-                  std::string lang);
+                  bool isResize, sf::Vector2u sizeClient, const Window &myWindow);
     void drawHitboxes(SparseArray<Position> &positions,
-                      SparseArray<Hitbox> &hitboxs, bool draw);
+                      SparseArray<Hitbox> &hitboxs, const Window &myWindow);
 };
 } // namespace rtype::client

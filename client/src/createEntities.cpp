@@ -520,7 +520,7 @@ void createConfigGeneralEntites(ECS &ecs) {
     ecs.add_component<Pressable>(
         colorB, {myWindow._myTextures.getTexture(
                      "assets/images/utils/toggle_config_act.png"),
-                 [](ECS &ecs, Entity i) { press(ecs, i); }});
+                 std::function<void(ECS &, Entity)>(swapColorblind)});
 
     Entity res1B = ecs.spawn_entity();
     ecs.add_component<Position>(res1B,

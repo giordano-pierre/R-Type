@@ -22,4 +22,5 @@ void resetG(ECS &ecs, Entity i);
 void resetP1(ECS &ecs, Entity i);
 void resetP2(ECS &ecs, Entity i);
 void startGame(ECS &ecs, Entity i);
+void swapColorblind(ECS &ecs, Entity i);
 } // namespace rtype::client

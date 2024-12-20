@@ -19,7 +19,7 @@
 
 namespace rtype::client {
 struct Window {
-    Window(const std::string &, TupleUInt = {1920, 1080},
+    Window(const std::string &, sf::Shader &shader, TupleUInt = {1920, 1080},
            TupleUInt = {1920, 1080});
     ~Window() = default;
 
@@ -59,7 +59,8 @@ struct Window {
     std::shared_ptr<sf::Font> _font;
     bool _displayHitboxs = false;
     std::string _name = "player1";
-    // sf::Shader _shader; // ici shader
+    sf::RenderStates _renderState; // ici shader
+    bool _colorblind = false;
 };
 } // namespace rtype::client
 std::ostream &operator<<(std::ostream &out,

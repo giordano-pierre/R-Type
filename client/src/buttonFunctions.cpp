@@ -98,10 +98,19 @@ void resetP2(ECS &ecs, Entity i) {
 }
 
 void startGame(ECS &ecs, Entity i) {
+    // ecs.post<DeleteEvent>({MENU});
+    // ecs.post<CreationEvent>({PLAYER});
     auto &myWindow = ecs.get_components<Window>()[0].value();
 
     ecs.post<RequestEvent>(
         {CLIENT_READY, {{"nb_player_max", 1}, {"name", myWindow._name}}});
+}
+
+void swapColorblind(ECS &ecs, Entity i) {
+    auto &myWindow = ecs.get_components<Window>()[0].value();
+
+    myWindow._colorblind = !myWindow._colorblind;
+    press(ecs, i);
 }
 
 } // namespace rtype::client
