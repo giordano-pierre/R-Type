@@ -1,11 +1,11 @@
 #pragma once
 
 #include "NetworkActions.hpp"
+#include <chrono>
 #include <cstddef>
 #include <cstdint>
 #include <string>
 #include <vector>
-#include <chrono>
 
 namespace timer = std::chrono;
 
@@ -14,7 +14,7 @@ struct Position {
     int x = 0;
     int y = 0;
 
-    Position(int px, int py) : x(px), y(py) {};
+    Position(int px, int py) : x(px), y(py){};
 };
 
 struct Velocity {
@@ -22,7 +22,7 @@ struct Velocity {
     int y = 0;
     bool active = true;
 
-    Velocity(int px, int py, bool act) : x(px), y(py), active(false) {};
+    Velocity(int px, int py, bool act) : x(px), y(py), active(false){};
 };
 
 struct HitBox {
@@ -41,7 +41,7 @@ struct Tag {
     std::string id;
     EntityType type;
 
-    Tag(std::string id, EntityType type) : id(id), type(type) {};
+    Tag(std::string id, EntityType type) : id(id), type(type){};
 };
 
 struct EnemyInfo {
@@ -62,12 +62,12 @@ struct Basics {
     int nbPlayerAlive = -1;
     int level = 0;
     int minScore = 100;
-    Basics(std::vector<EnemyInfo> _enemies1) : enemies1(_enemies1) {};
+    Basics(std::vector<EnemyInfo> _enemies1) : enemies1(_enemies1){};
 };
 
 struct TicEvent {
     TicEvent(const timer::time_point<timer::steady_clock> &time_stamp)
-        : time_stamp(time_stamp) {};
+        : time_stamp(time_stamp){};
     ~TicEvent() = default;
 
     timer::time_point<timer::steady_clock> time_stamp;
@@ -85,13 +85,13 @@ struct PlayerData {
     std::size_t id;
     std::string name;
 
-    PlayerData(std::string _name, std::size_t _id = 0) : id(_id), name(_name) {};
+    PlayerData(std::string _name, std::size_t _id = 0) : id(_id), name(_name){};
 };
 
 struct Score {
     int score;
 
-    Score(int score = 0) : score(score) {};
+    Score(int score = 0) : score(score){};
 };
 
 } // namespace rtype::server

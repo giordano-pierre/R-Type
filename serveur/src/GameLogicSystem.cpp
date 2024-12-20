@@ -5,8 +5,8 @@ namespace rtype::server {
 namespace systems {
 
 void rtype::server::systems ::GameLogicSys::operator()(
-    ECS &ecs, const rtype::server::TicEvent &,
-    SparseArray<Basics> &basics, const SparseArray<Score> &scores) {
+    ECS &ecs, const rtype::server::TicEvent &, SparseArray<Basics> &basics,
+    const SparseArray<Score> &scores) {
 
     if (basics[0].value().nbPlayer == basics[0].value().minPlayer) {
         serverReady(ecs);
