@@ -101,8 +101,7 @@ void startGame(ECS &ecs, Entity i) {
     auto &myWindow = ecs.get_components<Window>()[0].value();
 
     ecs.post<RequestEvent>(
-        {CLIENT_READY,
-            {{"nb_player_max", 1}, {"name", myWindow._name}}});
+        {CLIENT_READY, {{"nb_player_max", 1}, {"name", myWindow._name}}});
 }
 
 } // namespace rtype::client
