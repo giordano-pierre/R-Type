@@ -51,14 +51,16 @@ void CollisionSys::operator()(ECS &ecs, const rtype::server::TicEvent &,
                 tempy2 + hitboxe2.value().height < tempy1)
                 continue;
 
-            if (tag1.value().type == PLAYER || tag2.value().type == ENEMY1) {
-                if (i < healths.size() && healths[i])
-                    healths[i].value().health - 20;
-            }
-            if (tag2.value().type == PLAYER || tag1.value().type == ENEMY1) {
-                if (j < healths.size() && healths[j])
-                    healths[j].value().health - 20;
-            }
+            // if (tag1.value().type == PLAYER && tag2.value().type == ENEMY1) {
+            //     if (i < healths.size() && healths[i]) {
+            //         healths[i].value().health -= 20;
+            //     }
+            // }
+            // if (tag2.value().type == PLAYER && tag1.value().type == ENEMY1) {
+            //     if (j < healths.size() && healths[j]) {
+            //         healths[j].value().health -= 20;
+            //     }
+            // }
             if (tag1.value().type == SHOT && tag2.value().type == ENEMY1) {
                 ecs.kill_entity(Entity(j));
                 if (i < playersdata.size() && playersdata[i]) {

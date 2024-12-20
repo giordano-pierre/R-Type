@@ -250,37 +250,37 @@ void createMenuPlayerEntities(ECS &ecs) {
                        "assets/images/utils/button_config1_act.png"),
                    std::function<void(ECS &, Entity)>(startGame1P)});
 
-    Entity Player2B = ecs.spawn_entity();
-    ecs.add_component<Position>(
-        Player2B, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 4});
-    ecs.add_component<Tag>(Player2B, {MPLAYER});
-    ecs.add_component<Hitbox>(Player2B, {{float(1) / 3, float(1) / 10}});
-    texts.clear();
-    texts.insert({"EN", std::make_shared<std::string>("2 PLAYER")});
-    texts.insert({"FR", std::make_shared<std::string>("2 JOUEUR")});
-    ecs.add_component<Text>(Player2B, {texts,
-                                       myWindow._font,
-                                       {0.5, 0.5},
-                                       0,
-                                       40,
-                                       sf::Color::White,
-                                       sf::Text::Style::Regular});
-    ecs.add_component<Drawable>(Player2B,
-                                {myWindow._myTextures.getTexture(
-                                     "assets/images/utils/button_config1.png"),
-                                 {402, 100},
-                                 {402, 100},
-                                 1,
-                                 1});
-    ecs.add_component<Selectable>(
-        Player2B, {myWindow._myTextures.getTexture(
-                       "assets/images/utils/button_config1_sel.png"),
-                   std::function<void(ECS &, Entity)>(select),
-                   std::function<void(ECS &, Entity)>(deselect)});
-    ecs.add_component<Pressable>(
-        Player2B, {myWindow._myTextures.getTexture(
-                       "assets/images/utils/button_config1_act.png"),
-                   std::function<void(ECS &, Entity)>(startGame2P)});
+    // Entity Player2B = ecs.spawn_entity();
+    // ecs.add_component<Position>(
+    //     Player2B, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 4});
+    // ecs.add_component<Tag>(Player2B, {MPLAYER});
+    // ecs.add_component<Hitbox>(Player2B, {{float(1) / 3, float(1) / 10}});
+    // texts.clear();
+    // texts.insert({"EN", std::make_shared<std::string>("2 PLAYER")});
+    // texts.insert({"FR", std::make_shared<std::string>("2 JOUEUR")});
+    // ecs.add_component<Text>(Player2B, {texts,
+    //                                    myWindow._font,
+    //                                    {0.5, 0.5},
+    //                                    0,
+    //                                    40,
+    //                                    sf::Color::White,
+    //                                    sf::Text::Style::Regular});
+    // ecs.add_component<Drawable>(Player2B,
+    //                             {myWindow._myTextures.getTexture(
+    //                                  "assets/images/utils/button_config1.png"),
+    //                              {402, 100},
+    //                              {402, 100},
+    //                              1,
+    //                              1});
+    // ecs.add_component<Selectable>(
+    //     Player2B, {myWindow._myTextures.getTexture(
+    //                    "assets/images/utils/button_config1_sel.png"),
+    //                std::function<void(ECS &, Entity)>(select),
+    //                std::function<void(ECS &, Entity)>(deselect)});
+    // ecs.add_component<Pressable>(
+    //     Player2B, {myWindow._myTextures.getTexture(
+    //                    "assets/images/utils/button_config1_act.png"),
+    //                std::function<void(ECS &, Entity)>(startGame2P)});
 
     Entity MultiB = ecs.spawn_entity();
     ecs.add_component<Position>(
@@ -672,6 +672,8 @@ void createConfigGeneralEntites(ECS &ecs) {
         colorB, {myWindow._myTextures.getTexture(
                      "assets/images/utils/toggle_config_act.png"),
                  std::function<void(ECS &, Entity)>(swapColorblind)});
+    if (myWindow._colorblind)
+        press(ecs, colorB);
 
     Entity res1B = ecs.spawn_entity();
     ecs.add_component<Position>(res1B,

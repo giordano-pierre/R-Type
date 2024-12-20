@@ -103,17 +103,21 @@ int main(int ac, char *argv[]) {
             if (e_input._myEvent == rtype::client::QUIT ||
                 e_input._event.type == sf::Event::Closed) {
                 running = false;
+                bool disco = false;
                 const auto &tags = ecs.get_components<rtype::client::Tag>();
                 const auto &players =
                     ecs.get_components<rtype::client::Playable>();
                 for (size_t i = 0; i < tags.size() && i < players.size(); ++i) {
                     const auto tag = tags[i];
                     const auto play = players[i];
-                    if (tag && play)
+                    if (tag && play) {
+                        disco = true;
                         ecs.post<RequestEvent>(
                             {CLIENT_DISCONNECT, {tag.value()._id}});
+                    }
                 }
-                ecs.post<RequestEvent>({CLIENT_DISCONNECT, {}});
+                if (!disco)
+                    ecs.post<RequestEvent>({CLIENT_DISCONNECT, {}});
             }
         },
         true);

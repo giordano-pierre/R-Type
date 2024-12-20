@@ -7,7 +7,7 @@ namespace systems {
 
 void rtype::server::systems ::GameLogicSys::operator()(
     ECS &ecs, const rtype::server::TicEvent &, SparseArray<Basics> &basics,
-    const SparseArray<Score> &scores) {
+    const SparseArray<Score> &scores, const SparseArray<Tag> &tags) {
 
     if (basics[0].value().nbPlayer == basics[0].value().minPlayer) {
         for (const auto &[key, value] : basics[0].value().clientInGame) {
@@ -32,13 +32,16 @@ void rtype::server::systems ::GameLogicSys::operator()(
         }
     }
     if (basics[0].value().nbPlayerAlive == 0) {
-        gameOver(ecs);
+        // gameOver(ecs);
         basics[0].value().level = 0;
         basics[0].value().nbPlayer = 0;
         basics[0].value().minPlayer = -1;
         basics[0].value().nbPlayerAlive = -1;
         basics[0].value().gameState = false;
         basics[0].value().clientInGame.clear();
+        for (size_t i = 1; i < tags.size(); ++i) {
+            ecs.kill_entity(ecs.entity_from_index(i));
+        }
     }
 }
 } // namespace systems

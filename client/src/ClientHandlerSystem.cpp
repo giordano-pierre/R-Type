@@ -124,7 +124,7 @@ void ClientHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
     }
     case NetworkActions::CREATE_ENTITY: {
         if (rec_event.payload.contains("tmp_id")) {
-            auto entity = getEntityByID(ecs, rec_event.payload["id"]);
+            auto entity = getEntityByID(ecs, rec_event.payload["tmp_id"]);
             if (entity == -1)
                 return;
             auto &tag = ecs.get_components<rtype::client::Tag>()[entity];

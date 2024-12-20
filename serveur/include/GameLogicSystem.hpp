@@ -20,7 +20,8 @@ class GameLogicSys {
 
     void operator()(ECS &ecs, const rtype::server::TicEvent &,
                     SparseArray<::rtype::server::Basics> &basics,
-                    const SparseArray<::rtype::server::Score> &score);
+                    const SparseArray<::rtype::server::Score> &score,
+                    const SparseArray<Tag> &tags);
 };
 } // namespace systems
 } // namespace rtype::server

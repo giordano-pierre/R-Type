@@ -6,6 +6,7 @@
 */
 
 #include "HealthSystem.hpp"
+#include "ServerHandlerSystem.hpp"
 
 namespace rtype::server {
 namespace systems {
@@ -23,6 +24,7 @@ void rtype::server::systems::HealthSys::operator()(
         if (health.value().health <= 0) {
             basics[0].value().nbPlayerAlive -= 1;
             ecs.kill_entity(Entity(i));
+            gameOver(ecs);
         }
     }
 }

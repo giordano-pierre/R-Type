@@ -35,7 +35,7 @@ void subscribe_all_systems(ECS &ecs) {
 
     auto gameLogicSys = rtype::server::systems::GameLogicSys();
     ecs.subscribe<rtype::server::TicEvent, rtype::server::Basics,
-                  rtype::server::Score>(gameLogicSys);
+                  rtype::server::Score, rtype::server::Tag>(gameLogicSys);
 }
 
 void server_loop(ECS &ecs) {
@@ -92,10 +92,13 @@ void waiting_loop(ECS &ecs) {
     }
 }
 
-int main() {
+int main(int ac, char*argv[]) {
     try {
+        if (ac != 1 && ac != 2)
+            return 84;
         std::signal(SIGINT, signalHandler);
         std::signal(SIGTERM, signalHandler);
+        int port = (ac == 2) ? std::atoi(argv[1]) : 4242;
 
         ECS ecs;
 
@@ -112,7 +115,7 @@ int main() {
         ecs.register_event<RequestEvent>();
         ecs.register_event<ReceiveEvent>();
 
-        UDPServer server(ecs, 4242);
+        UDPServer server(ecs, port);
         ecs.subscribe<RequestEvent>(server, true);
 
         ServerHandlerSystem server_handler;

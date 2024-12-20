@@ -171,40 +171,40 @@ void ServerHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
         }
         break;
     }
-    case NetworkActions::CLIENT_CREATE: {
-        std::string uuid = fetch_new_uuid();
-        Entity newPlayer = ecs.spawn_entity();
-        std::size_t id;
+    // case NetworkActions::CLIENT_CREATE: {
+    //     std::string uuid = fetch_new_uuid();
+    //     Entity newPlayer = ecs.spawn_entity();
+    //     std::size_t id;
 
-        auto temp = ecs.get_components<rtype::server::Tag>();
-        for (size_t i = 0; i < temp.size(); i++) {
-            if (temp[i])
-                if (rec_event.payload["player_id"] == temp[i].value().id) {
-                    id = i;
-                }
-        }
-        ecs.add_component<rtype::server::PlayerData>(
-            newPlayer, {rec_event.payload["name"], id});
-        ecs.add_component<rtype::server::Position>(
-            newPlayer, {rec_event.payload["position"]["x"],
-                        rec_event.payload["position"]["y"]});
-        ecs.add_component<rtype::server::HitBox>(
-            newPlayer, {rec_event.payload["hitbox"]["x"],
-                        rec_event.payload["hitbox"]["y"]});
-        ecs.add_component<rtype::server::Tag>(newPlayer,
-                                              {uuid, EntityType::SHOT});
-        ecs.post<RequestEvent>({NetworkActions::CREATE_ENTITY,
-                                {
-                                    {"tmp_id", rec_event.payload["tmp_id"]},
-                                    {"id", uuid},
-                                    {"type", rec_event.payload["type"]},
-                                    {"position", rec_event.payload["position"]},
-                                    {"velocity", rec_event.payload["velocity"]},
-                                    {"hitbox", rec_event.payload["hitbox"]},
-                                },
-                                ""});
-        break;
-    }
+    //     auto temp = ecs.get_components<rtype::server::Tag>();
+    //     for (size_t i = 0; i < temp.size(); i++) {
+    //         if (temp[i])
+    //             if (rec_event.payload["player_id"] == temp[i].value().id) {
+    //                 id = i;
+    //             }
+    //     }
+    //     ecs.add_component<rtype::server::PlayerData>(
+    //         newPlayer, {"", id});
+    //     ecs.add_component<rtype::server::Position>(
+    //         newPlayer, {rec_event.payload["pos"]["x"],
+    //                     rec_event.payload["pos"]["y"]});
+    //     ecs.add_component<rtype::server::HitBox>(
+    //         newPlayer, {rec_event.payload["hitbox"]["x"],
+    //                     rec_event.payload["hitbox"]["y"]});
+    //     ecs.add_component<rtype::server::Tag>(newPlayer,
+    //                                           {uuid, EntityType::SHOT});
+    //     ecs.post<RequestEvent>({NetworkActions::CREATE_ENTITY,
+    //                             {
+    //                                 {"tmp_id", rec_event.payload["tmp_id"]},
+    //                                 {"id", uuid},
+    //                                 {"type", rec_event.payload["type"]},
+    //                                 {"pos", rec_event.payload["pos"]},
+    //                                 {"velocity", {{"x", rec_event.payload["velocity"]["x"]},{"y", rec_event.payload["velocity"]["y"]}}},
+    //                                 {"hitbox", {{"x", rec_event.payload["hitbox"]["x"]},{"y", rec_event.payload["hitbox"]["y"]}}},
+    //                             },
+    //                             ""});
+    //     break;
+    // }
     case NetworkActions::CLIENT_INPUT: {
 
         auto input = rec_event.payload["type_event"];
@@ -245,16 +245,16 @@ void ServerHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
         for (size_t i = 0; i < temp.size(); i++) {
             if (temp[i]) {
                 if (!rec_event.payload.contains("id"))
-                    return;
+                    break;
                 if (rec_event.payload["id"] == temp[i].value().id) {
                     id = i;
                     basic.clientInGame.erase(temp[i].value().id);
+                    Entity entity(id);
+                    ecs.kill_entity(entity);
                 }
             }
         }
 
-        Entity entity(id);
-        ecs.kill_entity(entity);
         basic.nbPlayer -= 1;
         basic.nbPlayerAlive -= 1;
         if (basic.nbPlayer <= 0) {
