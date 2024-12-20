@@ -18,26 +18,55 @@
 \DoxyCodeLine{00014\ }
 \DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}TextureManager.hpp"{}}}
 \DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}tools.hpp"{}}}
-\DoxyCodeLine{00017\ }
-\DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }rtype::client\ \{}
-\DoxyCodeLine{00019\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrtype_1_1client_1_1Window}{Window}}\ \{}
-\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1Window}{Window}}(\textcolor{keyword}{const}\ std::string\ \&,\ \mbox{\hyperlink{structrtype_1_1client_1_1TupleUInt}{TupleUInt}}\ =\ \{1920,\ 1080\},}
-\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1TupleUInt}{TupleUInt}}\ =\ \{1920,\ 1080\});}
-\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1Window}{\string~Window}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00023\ }
-\DoxyCodeLine{00024\ \ \ \ \ std::string\ \_lang\ =\ \textcolor{stringliteral}{"{}EN"{}};}
-\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1TupleUInt}{TupleUInt}}\ \_size;}
-\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1TupleUInt}{TupleUInt}}\ \_serverSize;}
-\DoxyCodeLine{00027\ \ \ \ \ std::pair<std::map<UserInput,\ std::pair<sf::Keyboard::Key,}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::shared\_ptr<std::string>>>,}
-\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::map<UserInput,\ sf::Keyboard::Key>>}
-\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \_inputConfig;}
-\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1client_1_1TextureManager}{TextureManager}}\ \_myTextures;}
-\DoxyCodeLine{00032\ \ \ \ \ std::shared\_ptr<sf::Font>\ \_font;}
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_displayHitboxs\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00034\ \};}
-\DoxyCodeLine{00035\ \}\ \textcolor{comment}{//\ namespace\ rtype::client}}
-\DoxyCodeLine{00036\ std::ostream\ \&operator<<(std::ostream\ \&out,}
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1Window}{rtype::client::Window}}\ \&window);}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <SFML/Graphics.hpp>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <SFML/OpenGL.hpp>}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{namespace\ }rtype::client\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrtype_1_1client_1_1Window}{Window}}\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1Window}{Window}}(\textcolor{keyword}{const}\ std::string\ \&,\ \mbox{\hyperlink{structrtype_1_1client_1_1TupleUInt}{TupleUInt}}\ =\ \{1920,\ 1080\},}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1TupleUInt}{TupleUInt}}\ =\ \{1920,\ 1080\});}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1Window}{\string~Window}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{comment}{//\ Window(const\ Window\&\ other)\ //\ Constructeur\ de\ copie}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ :\ \_lang(other.\_lang),}}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \_size(other.\_size),}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \_serverSize(other.\_serverSize),}}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \_inputConfig(other.\_inputConfig),}}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \_myTextures(other.\_myTextures),}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \_font(other.\_font),}}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \_displayHitboxs(other.\_displayHitboxs)\ \{}}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ //\ Shader\ copy\ is\ not\ supported,\ reinitialize\ instead}}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \}}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ Window\&\ operator=(const\ Window\&\ other)\ \{\ //\ Opérateur\ d'assignation}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ if\ (this\ !=\ \&other)\ \{}}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \_lang\ =\ other.\_lang;}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \_size\ =\ other.\_size;}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \_serverSize\ =\ other.\_serverSize;}}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \_inputConfig\ =\ other.\_inputConfig;}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \_myTextures\ =\ other.\_myTextures;}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \_font\ =\ other.\_font;}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \_displayHitboxs\ =\ other.\_displayHitboxs;}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ //\ Shader\ copy\ is\ not\ supported,\ reinitialize\ instead}}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ return\ *this;}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \}}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ std::string\ \_lang\ =\ \textcolor{stringliteral}{"{}EN"{}};}
+\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1TupleUInt}{TupleUInt}}\ \_size;}
+\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1TupleUInt}{TupleUInt}}\ \_serverSize;}
+\DoxyCodeLine{00054\ \ \ \ \ std::pair<std::map<UserInput,\ std::pair<sf::Keyboard::Key,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::shared\_ptr<std::string>>>,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::map<UserInput,\ sf::Keyboard::Key>>}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \_inputConfig;}
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1client_1_1TextureManager}{TextureManager}}\ \_myTextures;}
+\DoxyCodeLine{00059\ \ \ \ \ std::shared\_ptr<sf::Font>\ \_font;}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_displayHitboxs\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00061\ \ \ \ \ std::string\ \_name\ =\ \textcolor{stringliteral}{"{}player1"{}};}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{comment}{//\ sf::Shader\ \_shader;\ //\ ici\ shader}}
+\DoxyCodeLine{00063\ \};}
+\DoxyCodeLine{00064\ \}\ \textcolor{comment}{//\ namespace\ rtype::client}}
+\DoxyCodeLine{00065\ std::ostream\ \&operator<<(std::ostream\ \&out,}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1Window}{rtype::client::Window}}\ \&window);}
 
 \end{DoxyCode}
