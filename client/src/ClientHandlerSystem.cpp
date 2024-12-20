@@ -112,10 +112,12 @@ void ClientHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
     std::cout << "Client HANDLER" << std::endl;
     std::cout << "action : " << rec_event.action << std::endl;
     switch (rec_event.action) {
-    case NetworkActions::SERVER_READY:
+    case NetworkActions::SERVER_READY: {
         ecs.post<rtype::client::DeleteEvent>({rtype::client::MENU});
         ecs.post<rtype::client::CreationEvent>({rtype::client::PLAYER});
-    case NetworkActions::CREATE_ENTITY:
+        break;
+    }
+    case NetworkActions::CREATE_ENTITY: {
         if (rec_event.payload.contains("tmp_id")) {
             auto entity = getEntityByID(ecs, rec_event.payload["id"]);
             if (entity == -1)
@@ -126,11 +128,23 @@ void ClientHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
         } else
             createEntity(ecs, rec_event);
         break;
-    case NetworkActions::UPDATE_ENTITY:
+    }
+    case NetworkActions::UPDATE_ENTITY: {
         auto entity = getEntityByID(ecs, rec_event.payload["id"]);
         if (entity == -1)
             return;
         updateEntity(ecs, entity, rec_event);
+        break;
+    }
+    case NetworkActions::GAME_OVER: {
+        ecs.post<rtype::client::DeleteEvent>({rtype::client::PLAYER});
+        ecs.post<rtype::client::DeleteEvent>({rtype::client::ENEMY});
+        ecs.post<rtype::client::DeleteEvent>({rtype::client::BACKGROUND});
+        ecs.post<rtype::client::DeleteEvent>({rtype::client::SHOT});
+        ecs.post<rtype::client::CreationEvent>({rtype::client::MENU});
+        break;
+    }
+    default:
         break;
     }
 }

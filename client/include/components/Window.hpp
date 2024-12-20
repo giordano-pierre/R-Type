@@ -58,6 +58,7 @@ struct Window {
     TextureManager _myTextures;
     std::shared_ptr<sf::Font> _font;
     bool _displayHitboxs = false;
+    std::string _name = "player1";
     // sf::Shader _shader; // ici shader
 };
 } // namespace rtype::client

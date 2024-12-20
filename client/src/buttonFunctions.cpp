@@ -98,16 +98,11 @@ void resetP2(ECS &ecs, Entity i) {
 }
 
 void startGame(ECS &ecs, Entity i) {
-    const auto &players = ecs.get_components<Playable>();
+    auto &myWindow = ecs.get_components<Window>()[0].value();
 
-    for (size_t i = 0; i < players.size(); ++i) {
-        const auto &play = players[i];
-
-        if (play)
-            ecs.post<RequestEvent>(
-                {CLIENT_READY,
-                 {{"nb_player_max", 1}, {"name", play.value()._name}}});
-    }
+    ecs.post<RequestEvent>(
+        {CLIENT_READY,
+            {{"nb_player_max", 1}, {"name", myWindow._name}}});
 }
 
 } // namespace rtype::client

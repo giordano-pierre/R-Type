@@ -76,10 +76,11 @@ int main(void) {
 
     bool running = true;
     ecs.subscribe<rtype::client::InputEvent>(
-        [&running](ECS &, const rtype::client::InputEvent &e_input) -> void {
+        [&running](ECS &ecs, const rtype::client::InputEvent &e_input) -> void {
             if (e_input._myEvent == rtype::client::QUIT ||
                 e_input._event.type == sf::Event::Closed) {
                 running = false;
+                ecs.post<RequestEvent>({CLIENT_DISCONNECT, {}});
             }
         },
         true);

@@ -98,16 +98,7 @@ void createMenuEntities(ECS &ecs) {
     ecs.add_component<Pressable>(
         startB, {myWindow._myTextures.getTexture(
                      "assets/images/utils/button_config1_act.png"),
-                 [](ECS &ecs, Entity) {
-                     //  ecs.post<DeleteEvent>({MENU});
-                     //  ecs.post<CreationEvent>({PLAYER});
-                     const auto &tmp = ecs.get_components<Playable>();
-                     ecs.post<RequestEvent>({CLIENT_READY,
-                                             {{"nb_player_max", 1},
-                                              {
-                                                  "name",
-                                              }}});
-                 }});
+                 std::function<void(ECS &, Entity)>(startGame)});
 
     Entity customB = ecs.spawn_entity();
     ecs.add_component<Position>(
