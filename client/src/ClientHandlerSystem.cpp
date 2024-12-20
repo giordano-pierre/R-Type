@@ -113,7 +113,7 @@ void ClientHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
     std::cout << "action : " << rec_event.action << std::endl;
     switch (rec_event.action) {
     case NetworkActions::SERVER_READY: {
-        ecs.post<rtype::client::DeleteEvent>({rtype::client::MENU});
+        ecs.post<rtype::client::DeleteEvent>({rtype::client::MPLAYER});
         ecs.post<rtype::client::CreationEvent>({rtype::client::PLAYER});
         break;
     }

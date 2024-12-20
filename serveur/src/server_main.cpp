@@ -8,9 +8,12 @@
 #include <cstdlib>
 #include <iostream>
 
+bool running = true;
+
 void signalHandler(int signum) {
     std::cout << "\nSignal d'arrêt reçu :'(. Arrêt du serveur... \n\n"
               << std::endl;
+    running = false;
 }
 
 void subscribe_all_systems(ECS &ecs) {
@@ -46,7 +49,7 @@ void server_loop(ECS &ecs) {
     timer::duration<double> dtimeU = timer::duration<double>::zero();
 
     timer::time_point<timer::steady_clock> newTime;
-    bool running = true;
+
 
     while (running) {
         bool trigger = false;
@@ -100,6 +103,7 @@ int main() {
         ecs.register_component<rtype::server::Velocity>();
         ecs.register_component<rtype::server::HitBox>();
         ecs.register_component<rtype::server::Tag>();
+        ecs.register_component<rtype::server::Score>();
         ecs.register_component<rtype::server::Basics>();
         ecs.register_component<rtype::server::Health>();
         ecs.register_component<rtype::server::PlayerData>();
@@ -125,7 +129,7 @@ int main() {
 
         std::cout << "Attention!!! \nDémarrage du serveur R-Type...\n"
                   << std::endl;
-
+        subscribe_all_systems(ecs);
         server_loop(ecs);
 
         std::cout << "===============================\n" << std::endl;

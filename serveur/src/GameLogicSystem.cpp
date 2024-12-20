@@ -28,6 +28,8 @@ void rtype::server::systems ::GameLogicSys::operator()(
         gameOver(ecs);
         basics[0].value().level = 0;
         basics[0].value().nbPlayer = 0;
+        basics[0].value().minPlayer = -1;
+        basics[0].value().nbPlayerAlive = -1;
     }
 }
 } // namespace systems

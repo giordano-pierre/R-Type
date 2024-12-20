@@ -59,7 +59,7 @@ struct Basics {
     std::vector<EnemyInfo> enemies1;
     int minPlayer = -1;
     int nbPlayer = 0;
-    int nbPlayerAlive = 0;
+    int nbPlayerAlive = -1;
     int level = 0;
     int minScore = 100;
     Basics(std::vector<EnemyInfo> _enemies1) : enemies1(_enemies1) {};

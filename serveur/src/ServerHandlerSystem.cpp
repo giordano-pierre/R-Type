@@ -47,6 +47,10 @@ void gameOver(ECS &ecs) {
 }
 
 void updateEntity(ECS &ecs) {
+    auto &basic = ecs.get_components<rtype::server::Basics>()[0].value();
+
+    if (basic.nbPlayer != basic.minPlayer)
+        return;
 
     auto tags = ecs.get_components<rtype::server::Tag>();
     auto pos = ecs.get_components<rtype::server::Position>();
@@ -59,6 +63,7 @@ void updateEntity(ECS &ecs) {
             auto player_pos = pos[i].value();
             auto player_health = health[i].value();
             auto player_score = score[i].value();
+
             ecs.post<RequestEvent>(
                 {NetworkActions::UPDATE_ENTITY,
                  {
@@ -113,6 +118,10 @@ void ServerHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
         std::string uuid = fetch_new_uuid();
 
         auto &basic = ecs.get_components<rtype::server::Basics>()[0].value();
+        if (basic.minPlayer == -1) {
+            basic.minPlayer = rec_event.payload["nb_player_max"];
+            basic.nbPlayerAlive = 0;
+        }
         basic.nbPlayer += 1;
         basic.nbPlayerAlive += 1;
 
@@ -123,6 +132,9 @@ void ServerHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
         ecs.add_component<rtype::server::HitBox>(newPlayer, {0.1, 0.12});
         ecs.add_component<rtype::server::Tag>(newPlayer,
                                               {uuid, EntityType::PLAYER});
+        ecs.add_component<rtype::server::Score>(newPlayer, {});
+        ecs.add_component<rtype::server::Health>(newPlayer, {});
+
 
         ecs.post<RequestEvent>(
             {NetworkActions::CREATE_ENTITY,
