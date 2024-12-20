@@ -23,7 +23,7 @@
 \DoxyCodeLine{00019\ }
 \DoxyCodeLine{00020\ \textcolor{keyword}{namespace\ }rtype::client\ \{}
 \DoxyCodeLine{00021\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrtype_1_1client_1_1Window}{Window}}\ \{}
-\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1Window}{Window}}(\textcolor{keyword}{const}\ std::string\ \&,\ \mbox{\hyperlink{structrtype_1_1client_1_1TupleUInt}{TupleUInt}}\ =\ \{1920,\ 1080\},}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1Window}{Window}}(\textcolor{keyword}{const}\ std::string\ \&,\ sf::Shader\ \&shader,\ \mbox{\hyperlink{structrtype_1_1client_1_1TupleUInt}{TupleUInt}}\ =\ \{1920,\ 1080\},}
 \DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1TupleUInt}{TupleUInt}}\ =\ \{1920,\ 1080\});}
 \DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1Window}{\string~Window}}()\ =\ \textcolor{keywordflow}{default};}
 \DoxyCodeLine{00025\ }
@@ -62,11 +62,13 @@
 \DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1client_1_1TextureManager}{TextureManager}}\ \_myTextures;}
 \DoxyCodeLine{00059\ \ \ \ \ std::shared\_ptr<sf::Font>\ \_font;}
 \DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_displayHitboxs\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00061\ \ \ \ \ std::string\ \_name\ =\ \textcolor{stringliteral}{"{}player1"{}};}
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{comment}{//\ sf::Shader\ \_shader;\ //\ ici\ shader}}
-\DoxyCodeLine{00063\ \};}
-\DoxyCodeLine{00064\ \}\ \textcolor{comment}{//\ namespace\ rtype::client}}
-\DoxyCodeLine{00065\ std::ostream\ \&operator<<(std::ostream\ \&out,}
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1Window}{rtype::client::Window}}\ \&window);}
+\DoxyCodeLine{00061\ \ \ \ \ std::string\ \_name1\ =\ \textcolor{stringliteral}{"{}player1"{}};}
+\DoxyCodeLine{00062\ \ \ \ \ std::string\ \_name2\ =\ \textcolor{stringliteral}{"{}player2"{}};}
+\DoxyCodeLine{00063\ \ \ \ \ sf::RenderStates\ \_renderState;\ \textcolor{comment}{//\ ici\ shader}}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_colorblind\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00065\ \};}
+\DoxyCodeLine{00066\ \}\ \textcolor{comment}{//\ namespace\ rtype::client}}
+\DoxyCodeLine{00067\ std::ostream\ \&operator<<(std::ostream\ \&out,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1Window}{rtype::client::Window}}\ \&window);}
 
 \end{DoxyCode}
