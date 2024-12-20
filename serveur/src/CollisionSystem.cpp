@@ -114,7 +114,7 @@ void CollisionSys::operator()(ECS &ecs, const rtype::server::TicEvent &,
                 position.value().x = position.value().initialX;
                 position.value().y = position.value().initialY;
             }
-            if ((position.value().y - hitboxe.value().height / 2) > 1080){
+            if ((position.value().y - hitboxe.value().height / 2) > 1080) {
                 position.value().x = position.value().initialX;
                 position.value().y = position.value().initialY;
             }

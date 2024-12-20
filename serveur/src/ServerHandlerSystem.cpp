@@ -104,11 +104,11 @@ void updateEntity(ECS &ecs) {
             ecs.post<RequestEvent>(
                 {NetworkActions::UPDATE_ENTITY,
                  {
-                    {"id", shot.id},
-                    {"type", EntityType::SHOT},
-                    {"pos", {{"x", shot_pos.x}, {"y", shot_pos.y}}},
-                    {"velocity", {{"x", shot_vel.x}, {"y", shot_vel.y}}},
-                    {"hitbox", {{"x", shot_box.x}, {"y", shot_box.y}}},
+                     {"id", shot.id},
+                     {"type", EntityType::SHOT},
+                     {"pos", {{"x", shot_pos.x}, {"y", shot_pos.y}}},
+                     {"velocity", {{"x", shot_vel.x}, {"y", shot_vel.y}}},
+                     {"hitbox", {{"x", shot_box.x}, {"y", shot_box.y}}},
                  },
                  ""});
         }
@@ -136,7 +136,8 @@ void ServerHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
         }
         basic.nbPlayer += 1;
         basic.nbPlayerAlive += 1;
-        if (basic.clientInGame.find(rec_event.sender_uuid) == basic.clientInGame.end())
+        if (basic.clientInGame.find(rec_event.sender_uuid) ==
+            basic.clientInGame.end())
             basic.clientInGame.insert({rec_event.sender_uuid, false});
 
         ecs.add_component<rtype::server::PlayerData>(

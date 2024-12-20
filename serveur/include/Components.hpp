@@ -15,7 +15,7 @@ struct Position {
     int y = 0;
     int initialX = 0;
     int initialY = 0;
-    Position(int px, int py) : x(px), y(py), initialX(px), initialY(py) {};
+    Position(int px, int py) : x(px), y(py), initialX(px), initialY(py){};
 };
 
 struct Velocity {
@@ -25,7 +25,8 @@ struct Velocity {
     int initialY = 0;
     bool active;
 
-    Velocity(int px, int py, bool act = true) : x(px), y(py), initialX(px), initialY(py), active(act){};
+    Velocity(int px, int py, bool act = true)
+        : x(px), y(py), initialX(px), initialY(py), active(act){};
 };
 
 struct HitBox {
@@ -60,7 +61,7 @@ struct EnemyInfo {
 
 struct Basics {
     std::vector<EnemyInfo> enemies1;
-    std::map<std::string, bool>clientInGame;
+    std::map<std::string, bool> clientInGame;
     int minPlayer = -1;
     int nbPlayer = 0;
     int nbPlayerAlive = -1;

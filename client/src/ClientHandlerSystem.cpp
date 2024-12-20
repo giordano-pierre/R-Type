@@ -35,7 +35,8 @@ void createEntity(ECS &ecs, const ReceiveEvent &rec_event) {
             entity,
             {rec_event.payload["pos"]["x"], rec_event.payload["pos"]["y"]});
         ecs.add_component<rtype::client::Velocity>(entity, {0, 0});
-        // if (rec_event.payload.contains("uuid") && rec_event.payload["uuid"] == rec_event.sender_uuid)
+        // if (rec_event.payload.contains("uuid") && rec_event.payload["uuid"]
+        // == rec_event.sender_uuid)
         // ecs.add_component<rtype::client::Playable>(entity, {1});
         ecs.add_component<rtype::client::Hitbox>(entity, {{0.1, 0.12}});
         ecs.add_component<rtype::client::Drawable>(
@@ -142,7 +143,8 @@ void ClientHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
             entity,
             {rec_event.payload["pos"]["x"], rec_event.payload["pos"]["y"]});
         ecs.add_component<rtype::client::Velocity>(entity, {0, 0});
-        // if (rec_event.payload.contains("uuid") && rec_event.payload["uuid"] == rec_event.sender_uuid)
+        // if (rec_event.payload.contains("uuid") && rec_event.payload["uuid"]
+        // == rec_event.sender_uuid)
         ecs.add_component<rtype::client::Playable>(entity, {1});
         ecs.add_component<rtype::client::Hitbox>(entity, {{0.1, 0.12}});
         ecs.add_component<rtype::client::Drawable>(

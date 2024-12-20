@@ -104,12 +104,14 @@ int main(int ac, char *argv[]) {
                 e_input._event.type == sf::Event::Closed) {
                 running = false;
                 const auto &tags = ecs.get_components<rtype::client::Tag>();
-                const auto &players = ecs.get_components<rtype::client::Playable>();
+                const auto &players =
+                    ecs.get_components<rtype::client::Playable>();
                 for (size_t i = 0; i < tags.size() && i < players.size(); ++i) {
                     const auto tag = tags[i];
                     const auto play = players[i];
                     if (tag && play)
-                        ecs.post<RequestEvent>({CLIENT_DISCONNECT, {tag.value()._id}});
+                        ecs.post<RequestEvent>(
+                            {CLIENT_DISCONNECT, {tag.value()._id}});
                 }
                 ecs.post<RequestEvent>({CLIENT_DISCONNECT, {}});
             }
