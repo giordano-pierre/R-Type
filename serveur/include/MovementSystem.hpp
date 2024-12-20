@@ -16,7 +16,8 @@ class MovementSys {
     MovementSys() = default;
     ~MovementSys() = default;
 
-    auto operator()(ECS &ecs, SparseArray<Position> &positions,
+    auto operator()(ECS &ecs, const rtype::server::TicEvent &,
+                    SparseArray<Position> &positions,
                     const SparseArray<Velocity> &velocities) -> void;
 };
 } // namespace systems

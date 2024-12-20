@@ -17,7 +17,7 @@ void BorderSys::operator()(ECS &ecs, const TicEvent &e_tic,
                            SparseArray<Position> &positions) {
     TupleUInt serverSize = (windows.size() > 0 && windows[0])
                                ? windows[0].value()._serverSize
-                               : (TupleUInt){1920, 1080};
+                               : TupleUInt{1920, 1080};
 
     for (size_t i = 0;
          i < tags.size() && i < hitboxs.size() && i < positions.size(); ++i) {

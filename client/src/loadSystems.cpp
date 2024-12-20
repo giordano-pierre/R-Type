@@ -17,13 +17,14 @@ void loadGameSystem(ECS &ecs) {
 
     auto moveSys = MoveSys();
     ecs.subscribe<TicEvent, Position, Velocity>(moveSys);
-    ecs.subscribe<InputEvent, Playable, Velocity>(moveSys);
+    ecs.subscribe<InputEvent, Playable, Velocity, Tag>(moveSys);
 
     auto borderSys = BorderSys();
     ecs.subscribe<TicEvent, Window, Tag, Hitbox, Position>(borderSys);
 
     auto shootSys = ShootSys();
-    ecs.subscribe<InputEvent, Window, Playable, Position, Hitbox>(shootSys);
+    ecs.subscribe<InputEvent, Window, Playable, Position, Hitbox, Tag>(
+        shootSys);
 }
 
 void loadMenuSystem(ECS &ecs) {

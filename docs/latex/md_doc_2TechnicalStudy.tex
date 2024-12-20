@@ -1,0 +1,332 @@
+\chapter{Technical and Comparative Study -\/ R-\/\+Type}
+\hypertarget{md_doc_2TechnicalStudy}{}\label{md_doc_2TechnicalStudy}\index{Technical and Comparative Study -\/ R-\/Type@{Technical and Comparative Study -\/ R-\/Type}}
+\label{md_doc_2TechnicalStudy_autotoc_md51}%
+\Hypertarget{md_doc_2TechnicalStudy_autotoc_md51}%
+ \hypertarget{md_doc_2TechnicalStudy_autotoc_md52}{}\doxysection{\texorpdfstring{1. ECS Architecture (\+Entity Component System)}{1. ECS Architecture (Entity Component System)}}\label{md_doc_2TechnicalStudy_autotoc_md52}
+\hypertarget{md_doc_2TechnicalStudy_autotoc_md53}{}\doxysubsection{\texorpdfstring{1.\+1 Justification of the Choice}{1.1 Justification of the Choice}}\label{md_doc_2TechnicalStudy_autotoc_md53}
+
+\begin{DoxyItemize}
+\item Optimal management of game entities (ships, projectiles, enemies)
+\item Clear separation of data (Components) and behaviors (Systems)
+\item Facilitates the creation of enemy patterns and behaviors
+\item Increased performance due to batch processing of similar entities
+\item Excellent for collision and event management
+\end{DoxyItemize}\hypertarget{md_doc_2TechnicalStudy_autotoc_md54}{}\doxysubsection{\texorpdfstring{1.\+2 Comparative Study of Architectures}{1.2 Comparative Study of Architectures}}\label{md_doc_2TechnicalStudy_autotoc_md54}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Criteria   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ \doxylink{classECS}{ECS}   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Traditional OOP   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Component Pattern    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Criteria   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ \doxylink{classECS}{ECS}   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Traditional OOP   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Component Pattern    }\\\cline{1-4}
+\endhead
+{\bfseries{Performance}}   &★★★★★~\newline
+-\/ Cache-\/friendly~\newline
+-\/ Batch processing~\newline
+-\/ Few cache misses   &★★★☆☆~\newline
+-\/ Frequent cache misses~\newline
+-\/ Costly polymorphism   &★★★★☆~\newline
+-\/ Better than OOP~\newline
+-\/ Less optimized than \doxylink{classECS}{ECS}    \\\cline{1-4}
+{\bfseries{Extensibility}}   &★★★★★~\newline
+-\/ Easy to add behaviors~\newline
+-\/ Modular systems   &★★★☆☆~\newline
+-\/ Complex hierarchies~\newline
+-\/ Strong coupling   &★★★★☆~\newline
+-\/ Flexible components~\newline
+-\/ Moderate coupling    \\\cline{1-4}
+{\bfseries{Reusability}}   &★★★★★~\newline
+-\/ Reusable components~\newline
+-\/ Independent systems   &★★★☆☆~\newline
+-\/ Limited inheritance~\newline
+-\/ Strong coupling   &★★★★☆~\newline
+-\/ Reusable components~\newline
+-\/ Moderate dependencies    \\\cline{1-4}
+{\bfseries{R-\/\+Type Specific}}   &★★★★★~\newline
+-\/ Perfect for enemy patterns~\newline
+-\/ Efficient projectile management   &★★☆☆☆~\newline
+-\/ Difficult for complex patterns~\newline
+-\/ Limited performance   &★★★☆☆~\newline
+-\/ Good for patterns~\newline
+-\/ Moderate complexity   \\\cline{1-4}
+\end{longtabu}
+\hypertarget{md_doc_2TechnicalStudy_autotoc_md55}{}\doxysection{\texorpdfstring{2. Python for Enemy AI}{2. Python for Enemy AI}}\label{md_doc_2TechnicalStudy_autotoc_md55}
+\hypertarget{md_doc_2TechnicalStudy_autotoc_md56}{}\doxysubsection{\texorpdfstring{2.\+1 Justification of the Choice}{2.1 Justification of the Choice}}\label{md_doc_2TechnicalStudy_autotoc_md56}
+
+\begin{DoxyItemize}
+\item Ease of implementing complex movement patterns
+\item Fast prototyping of enemy behaviors
+\item Excellent integration with pathfinding algorithms
+\item Support for Bézier curves for smooth movements
+\item Easy to implement historical R-\/\+Type patterns
+\end{DoxyItemize}\hypertarget{md_doc_2TechnicalStudy_autotoc_md57}{}\doxysubsection{\texorpdfstring{2.\+2 Comparative Study}{2.2 Comparative Study}}\label{md_doc_2TechnicalStudy_autotoc_md57}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Criteria   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Python   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ C++   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Lua    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Criteria   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Python   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ C++   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Lua    }\\\cline{1-4}
+\endhead
+{\bfseries{Pattern Implementation}}   &★★★★★~\newline
+-\/ Clear syntax for trajectories~\newline
+-\/ Mathematical libraries~\newline
+-\/ Easy to modify   &★★★☆☆~\newline
+-\/ More verbose~\newline
+-\/ Pure performance~\newline
+-\/ Complex to modify   &★★★★☆~\newline
+-\/ Good for scripting~\newline
+-\/ Lightweight~\newline
+-\/ Moderate integration    \\\cline{1-4}
+{\bfseries{Performance}}   &★★★★☆~\newline
+-\/ Sufficient for AI~\newline
+-\/ Num\+Py for calculations~\newline
+-\/ GIL for synchronization   &★★★★★~\newline
+-\/ Maximum performance~\newline
+-\/ Memory control~\newline
+-\/ Increased complexity   &★★★☆☆~\newline
+-\/ Interpreted~\newline
+-\/ Lightweight~\newline
+-\/ Limited in computation    \\\cline{1-4}
+{\bfseries{Maintenance}}   &★★★★★~\newline
+-\/ Readable code~\newline
+-\/ Easy to debug~\newline
+-\/ Clear documentation   &★★★☆☆~\newline
+-\/ More technical~\newline
+-\/ Complex debugging   &★★★★☆~\newline
+-\/ Simple~\newline
+-\/ Less structured   \\\cline{1-4}
+\end{longtabu}
+\hypertarget{md_doc_2TechnicalStudy_autotoc_md58}{}\doxysection{\texorpdfstring{3. SFML}{3. SFML}}\label{md_doc_2TechnicalStudy_autotoc_md58}
+\hypertarget{md_doc_2TechnicalStudy_autotoc_md59}{}\doxysubsection{\texorpdfstring{3.\+1 Justification of the Choice}{3.1 Justification of the Choice}}\label{md_doc_2TechnicalStudy_autotoc_md59}
+
+\begin{DoxyItemize}
+\item Efficient sprite and animation management
+\item Native support for particle systems
+\item Optimal performance for scrolling
+\item Excellent for 2D collisions
+\item Suitable for shoot\textquotesingle{}em up games
+\end{DoxyItemize}\hypertarget{md_doc_2TechnicalStudy_autotoc_md60}{}\doxysubsection{\texorpdfstring{3.\+2 Comparative Study}{3.2 Comparative Study}}\label{md_doc_2TechnicalStudy_autotoc_md60}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Criteria   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ SFML   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ SDL2   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ DirectX    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Criteria   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ SFML   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ SDL2   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ DirectX    }\\\cline{1-4}
+\endhead
+{\bfseries{2D Performance}}   &★★★★★~\newline
+-\/ Optimized for 2D~\newline
+-\/ Efficient sprites   &★★★★☆~\newline
+-\/ Raw performance~\newline
+-\/ Lower level   &★★★☆☆~\newline
+-\/ Overkill for 2D~\newline
+-\/ Complex    \\\cline{1-4}
+{\bfseries{R-\/\+Type Specific}}   &★★★★★~\newline
+-\/ Perfect for shoot\textquotesingle{}em up~\newline
+-\/ Scrolling management   &★★★★☆~\newline
+-\/ Capable~\newline
+-\/ More work required   &★★★☆☆~\newline
+-\/ Too complex~\newline
+-\/ Not suitable    \\\cline{1-4}
+{\bfseries{Development}}   &★★★★★~\newline
+-\/ Clear API~\newline
+-\/ Good documentation   &★★★☆☆~\newline
+-\/ More complex~\newline
+-\/ Lower level   &★★☆☆☆~\newline
+-\/ Very complex~\newline
+-\/ Verbose   \\\cline{1-4}
+\end{longtabu}
+\hypertarget{md_doc_2TechnicalStudy_autotoc_md61}{}\doxysection{\texorpdfstring{4. BSON Format for Serialization}{4. BSON Format for Serialization}}\label{md_doc_2TechnicalStudy_autotoc_md61}
+\hypertarget{md_doc_2TechnicalStudy_autotoc_md62}{}\doxysubsection{\texorpdfstring{4.\+1 Justification of the Choice}{4.1 Justification of the Choice}}\label{md_doc_2TechnicalStudy_autotoc_md62}
+
+\begin{DoxyItemize}
+\item Efficient serialization of game states
+\item Binary format optimized for networking
+\item Perfect for saving patterns
+\item Support for complex types for AI
+\end{DoxyItemize}\hypertarget{md_doc_2TechnicalStudy_autotoc_md63}{}\doxysubsection{\texorpdfstring{4.\+2 Comparative Study}{4.2 Comparative Study}}\label{md_doc_2TechnicalStudy_autotoc_md63}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Criteria   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ BSON   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ JSON   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Protocol Buffers    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Criteria   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ BSON   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ JSON   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Protocol Buffers    }\\\cline{1-4}
+\endhead
+{\bfseries{Networking}}   &★★★★★~\newline
+-\/ Binary format~\newline
+-\/ Optimal size   &★★★☆☆~\newline
+-\/ Plain text~\newline
+-\/ Verbose   &★★★★★~\newline
+-\/ Highly optimized~\newline
+-\/ Complex    \\\cline{1-4}
+{\bfseries{Game State}}   &★★★★★~\newline
+-\/ Native types~\newline
+-\/ Flexible   &★★★★☆~\newline
+-\/ Simple~\newline
+-\/ Readable   &★★★☆☆~\newline
+-\/ Rigid~\newline
+-\/ Performant    \\\cline{1-4}
+{\bfseries{Pattern Storage}}   &★★★★★~\newline
+-\/ Perfect for patterns~\newline
+-\/ Extensible   &★★★☆☆~\newline
+-\/ Basic~\newline
+-\/ Limited   &★★★★☆~\newline
+-\/ Efficient~\newline
+-\/ Complex   \\\cline{1-4}
+\end{longtabu}
+\hypertarget{md_doc_2TechnicalStudy_autotoc_md64}{}\doxysection{\texorpdfstring{5. Boost.\+Asio for Networking}{5. Boost.Asio for Networking}}\label{md_doc_2TechnicalStudy_autotoc_md64}
+\hypertarget{md_doc_2TechnicalStudy_autotoc_md65}{}\doxysubsection{\texorpdfstring{5.\+1 Justification of the Choice}{5.1 Justification of the Choice}}\label{md_doc_2TechnicalStudy_autotoc_md65}
+
+\begin{DoxyItemize}
+\item Efficient asynchronous management
+\item Perfect for multiplayer
+\item Flexible UDP/\+TCP support
+\item Optimal network performance
+\end{DoxyItemize}\hypertarget{md_doc_2TechnicalStudy_autotoc_md66}{}\doxysubsection{\texorpdfstring{5.\+2 Comparative Study}{5.2 Comparative Study}}\label{md_doc_2TechnicalStudy_autotoc_md66}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Criteria   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Boost.\+Asio   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Raw Sockets   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Zero\+MQ    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Criteria   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Boost.\+Asio   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Raw Sockets   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Zero\+MQ    }\\\cline{1-4}
+\endhead
+{\bfseries{Game Networking}}   &★★★★★~\newline
+-\/ Asynchronous~\newline
+-\/ Network patterns   &★★★☆☆~\newline
+-\/ Basic~\newline
+-\/ Manual   &★★★★☆~\newline
+-\/ Powerful~\newline
+-\/ Complex    \\\cline{1-4}
+{\bfseries{Performance}}   &★★★★★~\newline
+-\/ Optimized~\newline
+-\/ Asynchronous   &★★★★☆~\newline
+-\/ Raw~\newline
+-\/ Direct   &★★★★★~\newline
+-\/ Excellent~\newline
+-\/ Overhead    \\\cline{1-4}
+{\bfseries{R-\/\+Type Specific}}   &★★★★★~\newline
+-\/ Perfect for the game~\newline
+-\/ Minimal latency   &★★★☆☆~\newline
+-\/ Basic~\newline
+-\/ Additional work required   &★★★★☆~\newline
+-\/ Capable~\newline
+-\/ Too broad   \\\cline{1-4}
+\end{longtabu}
+\hypertarget{md_doc_2TechnicalStudy_autotoc_md67}{}\doxysection{\texorpdfstring{6. Storage and Persistence}{6. Storage and Persistence}}\label{md_doc_2TechnicalStudy_autotoc_md67}
+\hypertarget{md_doc_2TechnicalStudy_autotoc_md68}{}\doxysubsection{\texorpdfstring{6.\+1 Types of Data to Store}{6.1 Types of Data to Store}}\label{md_doc_2TechnicalStudy_autotoc_md68}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Data Type   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Solution   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Justification    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Data Type   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Solution   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Justification    }\\\cline{1-3}
+\endhead
+{\bfseries{Game States}}   &BSON in files   &★★★★★~\newline
+-\/ Fast to serialize~\newline
+-\/ Easy to version~\newline
+-\/ Compact    \\\cline{1-3}
+{\bfseries{Scores/\+Statistics}}   &SQLite   &★★★★★~\newline
+-\/ ACID compliant~\newline
+-\/ Fast queries~\newline
+-\/ No need for a DB server    \\\cline{1-3}
+{\bfseries{Configurations}}   &YAML   &★★★★☆~\newline
+-\/ Readable~\newline
+-\/ Easily modifiable~\newline
+-\/ Versionable   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{md_doc_2TechnicalStudy_autotoc_md69}{}\doxysubsection{\texorpdfstring{6.\+2 Comparative Study of Storage Solutions}{6.2 Comparative Study of Storage Solutions}}\label{md_doc_2TechnicalStudy_autotoc_md69}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Criteria   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ BSON Files   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ SQLite   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ No\+SQL Database    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Criteria   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ BSON Files   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ SQLite   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ No\+SQL Database    }\\\cline{1-4}
+\endhead
+{\bfseries{Performance}}   &★★★★★~\newline
+-\/ Fast read/write~\newline
+-\/ No overhead   &★★★★☆~\newline
+-\/ Optimized indexes~\newline
+-\/ Fast transactions   &★★★☆☆~\newline
+-\/ Network overhead~\newline
+-\/ Latency    \\\cline{1-4}
+{\bfseries{Reliability}}   &★★★★☆~\newline
+-\/ Simple backups~\newline
+-\/ Basic atomicity   &★★★★★~\newline
+-\/ ACID transactions~\newline
+-\/ Rare corruption   &★★★★★~\newline
+-\/ Replication~\newline
+-\/ High availability    \\\cline{1-4}
+{\bfseries{Maintenance}}   &★★★★★~\newline
+-\/ Easy to manage~\newline
+-\/ No server required   &★★★★★~\newline
+-\/ Mature tools~\newline
+-\/ Self-\/maintenance   &★★★☆☆~\newline
+-\/ Complex setup~\newline
+-\/ Maintenance required   \\\cline{1-4}
+\end{longtabu}
+\hypertarget{md_doc_2TechnicalStudy_autotoc_md70}{}\doxysection{\texorpdfstring{7. Data Security and Integrity}{7. Data Security and Integrity}}\label{md_doc_2TechnicalStudy_autotoc_md70}
+\hypertarget{md_doc_2TechnicalStudy_autotoc_md71}{}\doxysubsection{\texorpdfstring{7.\+1 Vulnerability Analysis}{7.1 Vulnerability Analysis}}\label{md_doc_2TechnicalStudy_autotoc_md71}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Component   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Risks   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Measures    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Component   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Risks   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Measures    }\\\cline{1-3}
+\endhead
+{\bfseries{Network}}   &-\/ Packet injection~\newline
+-\/ Spoofing~\newline
+-\/ DDoS   &-\/ Strict packet validation~\newline
+-\/ Encryption of sensitive data~\newline
+-\/ Rate limiting    \\\cline{1-3}
+{\bfseries{Game State}}   &-\/ Memory manipulation~\newline
+-\/ Cheating~\newline
+-\/ Inconsistent state   &-\/ Server-\/side checks~\newline
+-\/ Checksums~\newline
+-\/ Authoritative \doxylink{classServer}{Server}    \\\cline{1-3}
+{\bfseries{Storage}}   &-\/ Data corruption~\newline
+-\/ Unauthorized access   &-\/ Regular backups~\newline
+-\/ Encryption of sensitive data   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{md_doc_2TechnicalStudy_autotoc_md72}{}\doxysubsection{\texorpdfstring{7.\+2 Comparative Study of Security Solutions}{7.2 Comparative Study of Security Solutions}}\label{md_doc_2TechnicalStudy_autotoc_md72}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Solution   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Advantages   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Disadvantages    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Solution   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Advantages   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Disadvantages    }\\\cline{1-3}
+\endhead
+{\bfseries{Checksums}}   &-\/ Easy to implement~\newline
+-\/ Low overhead   &-\/ Basic protection~\newline
+-\/ No encryption    \\\cline{1-3}
+{\bfseries{Full Encryption}}   &-\/ Maximum security~\newline
+-\/ Full protection   &-\/ Performance impact~\newline
+-\/ Increased complexity    \\\cline{1-3}
+{\bfseries{\doxylink{classServer}{Server} Validation}}   &-\/ Reliability~\newline
+-\/ Full control   &-\/ Added latency~\newline
+-\/ \doxylink{classServer}{Server} load   \\\cline{1-3}
+\end{longtabu}

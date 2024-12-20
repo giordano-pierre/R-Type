@@ -11,6 +11,7 @@
 #include "components/Drawable.hpp"
 #include "components/Playable.hpp"
 #include "components/Position.hpp"
+#include "components/Tag.hpp"
 #include "components/Velocity.hpp"
 #include "events/InputEvent.hpp"
 #include "events/TicEvent.hpp"
@@ -23,7 +24,8 @@ class MoveSys {
 
     void operator()(ECS &ecs, const InputEvent &e_input,
                     const SparseArray<Playable> &players,
-                    SparseArray<Velocity> &velocities);
+                    SparseArray<Velocity> &velocities,
+                    const SparseArray<Tag> &tags);
 
     void operator()(ECS &ecs, const TicEvent &e_tic,
                     SparseArray<Position> &positions,

@@ -6,6 +6,7 @@
 */
 
 #include "systems/ShootSys.hpp"
+#include "RequestEvent.hpp"
 #include "components/Drawable.hpp"
 #include "components/Tag.hpp"
 #include "components/Velocity.hpp"
@@ -16,7 +17,8 @@ void ShootSys::operator()(ECS &ecs, const InputEvent &e_input,
                           SparseArray<Window> &windows,
                           const SparseArray<Playable> &players,
                           const SparseArray<Position> &positions,
-                          const SparseArray<Hitbox> &hitboxs) {
+                          const SparseArray<Hitbox> &hitboxs,
+                          const SparseArray<Tag> &tags) {
     bool player1Shoot = false;
 
     switch (e_input._myEvent) {
@@ -27,14 +29,38 @@ void ShootSys::operator()(ECS &ecs, const InputEvent &e_input,
         return;
     }
 
-    for (size_t i = 0;
-         i < players.size() && i < positions.size() && i < hitboxs.size();
+    for (size_t i = 0; i < players.size() && i < positions.size() &&
+                       i < hitboxs.size() && i < tags.size();
          ++i) {
         const auto &play = players[i];
         const auto &pos = positions[i];
         const auto &box = hitboxs[i];
+        const auto &tag = tags[i];
 
-        if (play && pos && box && player1Shoot) {
+        if (play && pos && box && tag && player1Shoot &&
+            play.value()._id == 1) {
+            nlohmann::json tmp = {
+                {"player_id", tag.value()._id},
+                {"tmp_id", fetch_new_uuid()},
+                {"type", EntityType::SHOT},
+                {"pos",
+                 {
+                     {"x", pos.value()._server.x + (box.value()._server.x / 2)},
+                     {"y", pos.value()._server.y},
+                 }},
+                {"velocity",
+                 {
+                     {"x", 15},
+                     {"y", 0},
+                 }},
+                {"hitbox",
+                 {
+                     {"x", 0.07},
+                     {"y", 0.05},
+                 }},
+            };
+
+            ecs.post<RequestEvent>({CLIENT_CREATE, tmp});
             Entity shot = ecs.spawn_entity();
             ecs.add_component<Position>(
                 shot, {pos.value()._server.x + (box.value()._server.x / 2),

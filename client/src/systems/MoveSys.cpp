@@ -6,38 +6,67 @@
 */
 
 #include "systems/MoveSys.hpp"
+#include "RequestEvent.hpp"
 
 namespace rtype::client {
 
 void MoveSys::operator()(ECS &ecs, const InputEvent &e_input,
                          const SparseArray<Playable> &players,
-                         SparseArray<Velocity> &velocities) {
+                         SparseArray<Velocity> &velocities,
+                         const SparseArray<Tag> &tags) {
     TupleInt newValue = {-1, -1};
+    std::string uuid1 = "";
+    for (size_t i = 0; i < tags.size() && i < players.size(); ++i) {
+        const auto &play = players[i];
+        const auto &tag = tags[i];
+
+        if (play && tag && play.value()._id == 1)
+            uuid1 = tag.value()._id;
+    }
+
+    if (uuid1.empty())
+        return;
 
     switch (e_input._myEvent) {
     case LEFT1P:
         newValue.x = -8;
+        ecs.post<RequestEvent>(
+            {CLIENT_INPUT, {{"id", uuid1}, {"type_event", "Left"}}});
         break;
     case LEFT1R:
         newValue.x = 0;
+        ecs.post<RequestEvent>(
+            {CLIENT_INPUT, {{"id", uuid1}, {"type_event", "ReleasedX"}}});
         break;
     case RIGHT1P:
         newValue.x = 8;
+        ecs.post<RequestEvent>(
+            {CLIENT_INPUT, {{"id", uuid1}, {"type_event", "Right"}}});
         break;
     case RIGHT1R:
         newValue.x = 0;
+        ecs.post<RequestEvent>(
+            {CLIENT_INPUT, {{"id", uuid1}, {"type_event", "ReleasedX"}}});
         break;
     case UP1P:
         newValue.y = -8;
+        ecs.post<RequestEvent>(
+            {CLIENT_INPUT, {{"id", uuid1}, {"type_event", "Up"}}});
         break;
     case UP1R:
         newValue.y = 0;
+        ecs.post<RequestEvent>(
+            {CLIENT_INPUT, {{"id", uuid1}, {"type_event", "ReleasedY"}}});
         break;
     case DOWN1P:
         newValue.y = 8;
+        ecs.post<RequestEvent>(
+            {CLIENT_INPUT, {{"id", uuid1}, {"type_event", "Down"}}});
         break;
     case DOWN1R:
         newValue.y = 0;
+        ecs.post<RequestEvent>(
+            {CLIENT_INPUT, {{"id", uuid1}, {"type_event", "ReleasedY"}}});
         break;
     default:
         break;

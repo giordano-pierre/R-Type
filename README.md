@@ -1,125 +1,125 @@
 # R-Type
 
-## Qu'est-ce que R-Type ?
+## What is R-Type?
 
-Le **R-Type** est un jeu d'arcade emblématique développé par Irem en 1987. Ce **shoot 'em up à défilement horizontal** place le joueur dans le cockpit d'un vaisseau spatial, le **R-9 Arrowhead**, pour combattre la menace extraterrestre connue sous le nom de **Bydo Empire**.
+**R-Type** is an iconic arcade game developed by Irem in 1987. This **horizontal scrolling shoot 'em up** places the player in the cockpit of a spacecraft, the **R-9 Arrowhead**, to combat the extraterrestrial threat known as the **Bydo Empire**.
 
-## Technologies utilisées
+## Technologies Used
 
-- **Langages de programmation :** Python et C++
-- **Bibliothèque graphique :** [SFML](https://www.sfml-dev.org/)
-- **Gestion audio :** Intégrée via SFML
+- **Programming Languages:** Python and C++
+- **Graphics Library:** [SFML](https://www.sfml-dev.org/)
+- **Audio Management:** Integrated via SFML
 
-N'hésitez pas a consulter notre [Technical and Comparative study](doc/TechnicalStudy) !
+Feel free to check our [Technical and Comparative study](doc/TechnicalStudy)!
 
-## Architecture du projet
+## Project Architecture
 ![Alt text](/doc/archi.png "project architecture")
 
+## How to Play?
 
-## Comment jouer ?
+### Prerequisites
 
-### Pré-requis
-
-- **Avoir Python installé**
-  - **Ubuntu** :
+- **Install Python**
+  - **Ubuntu**:
     ```bash
     sudo apt update && sudo apt install python3
     ```
-  - **Fedora** :
+  - **Fedora**:
     ```bash
     sudo dnf install python3
     ```
-  - **Arch Linux** :
+  - **Arch Linux**:
     ```bash
     sudo pacman -S python
     ```
-  - **Windows** :
-    - Rendez-vous sur le site officiel [Python](https://www.python.org/) et téléchargez le programme d'installation.
+  - **Windows**:
+    - Visit the official [Python](https://www.python.org/) website and download the installer.
 
-- **Avoir Make installé**
-  - **Ubuntu** :
+- **Install Make**
+  - **Ubuntu**:
     ```bash
     sudo apt install make
     ```
-  - **Fedora** :
+  - **Fedora**:
     ```bash
     sudo dnf install make
     ```
-  - **Arch Linux** :
+  - **Arch Linux**:
     ```bash
     sudo pacman -S make
     ```
-  - **Windows** :
-    - Installez [Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm) ou utilisez une plateforme comme MinGW.
+  - **Windows**:
+    - Install [Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm) or use a platform like MinGW.
 
-- **Avoir CMake installé**
-  - **Ubuntu** :
+- **Install CMake**
+  - **Ubuntu**:
     ```bash
     sudo apt install cmake
     ```
-  - **Fedora** :
+  - **Fedora**:
     ```bash
     sudo dnf install cmake
     ```
-  - **Arch Linux** :
+  - **Arch Linux**:
     ```bash
     sudo pacman -S cmake
     ```
-  - **Windows** :
-    - Téléchargez CMake à partir du site officiel [CMake](https://cmake.org/download/) et suivez les instructions d'installation.
+  - **Windows**:
+    - Download CMake from the official [CMake](https://cmake.org/download/) website and follow the installation instructions.
 
-- **Avoir Boost:Asio installé**
-  - **Ubuntu** :
+- **Install Boost:Asio**
+  - **Ubuntu**:
     ```bash
     sudo apt install libboost-all-dev
     ```
-  - **Fedora** :
+  - **Fedora**:
     ```bash
     sudo dnf install boost-devel
     ```
-  - **Arch Linux** :
+  - **Arch Linux**:
     ```bash
     sudo pacman -S boost
     ```
-  - **Windows** :
-    - Téléchargez Boost à partir du site officiel [Boost](https://www.boost.org/users/download/) et suivez les instructions d'installation.
+  - **Windows**:
+    - Download Boost from the official [Boost](https://www.boost.org/users/download/) website and follow the installation instructions.
 
-### Installation et lancement
+### Installation and Launch
 
-1. **Clonez le dépôt :**
+1. **Clone the repository:**
     ```bash
-    git clone https://github.com/votre-repo/rtype-remake.git
+    git clone https://github.com/your-repo/rtype-remake.git
     ```
 
-2. **Installez les dépendances :**
+2. **Install dependencies:**
     ```bash
     python3 install.py
     ```
 
-3. **Compilation (Linux uniquement) :**
+3. **Compilation (Linux only):**
     ```bash
     make
     ```
-    - Sur Windows, le fichier compilé se trouvera directement à la racine du projet.
+    - On Windows, the compiled file will be located directly at the root of the project.
 
-4. **Exécutez le serveur et le client :**
-    - **Serveur :**
+4. **Run the server and client:**
+    - **Server:**
       ```bash
       ./server
       ```
-    - **Client :**
+    - **Client:**
       ```bash
       ./client
       ```
 
-    - Si le serveur est sur un autre PC, indiquez l'adresse IP du serveur lors du lancement du client.
+    - If the server is on another PC, specify the server's IP address when launching the client.
 
-### Commandes dans le jeu
+### In-Game Commands
 
-- **Flèches directionnelles :** Déplacer le vaisseau
-- **Barre d'espace :** Tirer
-- **Touche D :** Activer/désactiver le mode pour daltoniens
-- **Touche Échap :** Quitter le jeu
+- **Arrow keys:** Move the spacecraft
+- **Spacebar:** Fire
+- **D key:** Toggle colorblind mode
+- **Escape key:** Quit the game
 
-Les touches sont modifiables dans les paramètres.
+The keys can be modified in the settings.
 
+[Documentation for the Game Engine](doc/ECS.md)

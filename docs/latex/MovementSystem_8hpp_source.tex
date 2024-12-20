@@ -13,17 +13,18 @@
 \DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}Components.hpp"{}}}
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}ECS/ECS.hpp"{}}}
 \DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }rtype\ \{}
+\DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }rtype::server\ \{}
 \DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }systems\ \{}
-\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrtype_1_1systems_1_1MovementSys}{MovementSys}}\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrtype_1_1server_1_1systems_1_1MovementSys}{MovementSys}}\ \{}
 \DoxyCodeLine{00015\ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1systems_1_1MovementSys}{MovementSys}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1systems_1_1MovementSys}{\string~MovementSys}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1server_1_1systems_1_1MovementSys}{MovementSys}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1server_1_1systems_1_1MovementSys}{\string~MovementSys}}()\ =\ \textcolor{keywordflow}{default};}
 \DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{auto}\ operator()(ECS\ \&ecs,\ SparseArray<Position>\ \&positions,}
-\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ SparseArray<Velocity>\ \&velocities)\ -\/>\ void;}
-\DoxyCodeLine{00021\ \};}
-\DoxyCodeLine{00022\ \}\ \textcolor{comment}{//\ namespace\ systems}}
-\DoxyCodeLine{00023\ \}\ \textcolor{comment}{//\ namespace\ rtype}}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{auto}\ operator()(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1server_1_1TicEvent}{rtype::server::TicEvent}}\ \&,}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Position>}}\ \&positions,}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classSparseArray}{SparseArray<Velocity>}}\ \&velocities)\ -\/>\ void;}
+\DoxyCodeLine{00022\ \};}
+\DoxyCodeLine{00023\ \}\ \textcolor{comment}{//\ namespace\ systems}}
+\DoxyCodeLine{00024\ \}\ \textcolor{comment}{//\ namespace\ rtype::server}}
 
 \end{DoxyCode}

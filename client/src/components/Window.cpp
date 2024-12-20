@@ -9,7 +9,7 @@
 
 namespace rtype::client {
 
-Window::Window(const std::string &fontPath, TupleUInt size,
+Window::Window(const std::string &fontPath, sf::Shader &shader, TupleUInt size,
                TupleUInt serverSize)
     : _size(size), _serverSize(serverSize) {
     initGeneralInput(_inputConfig.first);
@@ -18,6 +18,7 @@ Window::Window(const std::string &fontPath, TupleUInt size,
     sf::Font tmp = sf::Font();
     tmp.loadFromFile(fontPath);
     _font = std::make_shared<sf::Font>(tmp);
+    _renderState.shader = &shader;
 }
 
 } // namespace rtype::client

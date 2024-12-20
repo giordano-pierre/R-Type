@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['receiveevent_0',['ReceiveEvent',['../structReceiveEvent.html',1,'']]],
-  ['requestevent_1',['RequestEvent',['../structRequestEvent.html',1,'']]]
+  ['inputevent_0',['InputEvent',['../structrtype_1_1client_1_1InputEvent.html',1,'rtype::client']]]
 ];

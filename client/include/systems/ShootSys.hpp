@@ -11,6 +11,7 @@
 #include "components/Hitbox.hpp"
 #include "components/Playable.hpp"
 #include "components/Position.hpp"
+#include "components/Tag.hpp"
 #include "components/Window.hpp"
 #include "events/InputEvent.hpp"
 
@@ -24,6 +25,7 @@ class ShootSys {
                     SparseArray<Window> &windows,
                     const SparseArray<Playable> &players,
                     const SparseArray<Position> &positions,
-                    const SparseArray<Hitbox> &hitboxs);
+                    const SparseArray<Hitbox> &hitboxs,
+                    const SparseArray<Tag> &tags);
 };
 } // namespace rtype::client

@@ -1,5 +1,5 @@
 \doxysection{Score\+Manager.\+hpp}
-\hypertarget{ScoreManager_8hpp_source}{}\label{ScoreManager_8hpp_source}\index{serveur/include/ScoreManager.hpp@{serveur/include/ScoreManager.hpp}}
+\hypertarget{ScoreManager_8hpp_source}{}\label{ScoreManager_8hpp_source}\index{serveur/temp/include/ScoreManager.hpp@{serveur/temp/include/ScoreManager.hpp}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
@@ -7,23 +7,23 @@
 \DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}ECS/ECS.hpp"{}}}
 \DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <map>}}
 \DoxyCodeLine{00005\ }
-\DoxyCodeLine{00006\ \textcolor{keyword}{namespace\ }rtype\ \{}
+\DoxyCodeLine{00006\ \textcolor{keyword}{namespace\ }rtype::server\ \{}
 \DoxyCodeLine{00007\ \textcolor{keyword}{namespace\ }systems\ \{}
 \DoxyCodeLine{00008\ }
-\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrtype_1_1systems_1_1ScoreManager}{ScoreManager}}\ \{}
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrtype_1_1server_1_1systems_1_1ScoreManager}{ScoreManager}}\ \{}
 \DoxyCodeLine{00010\ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00011\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1systems_1_1ScoreManager}{ScoreManager}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1systems_1_1ScoreManager}{\string~ScoreManager}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00011\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1server_1_1systems_1_1ScoreManager}{ScoreManager}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1server_1_1systems_1_1ScoreManager}{\string~ScoreManager}}()\ =\ \textcolor{keywordflow}{default};}
 \DoxyCodeLine{00013\ }
-\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{void}\ registerPlayer(Entity\ entity);}
-\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{void}\ removePlayer(Entity\ entity);}
-\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{void}\ updateScore(Entity\ entity,\ \textcolor{keywordtype}{int}\ points);}
-\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{void}\ addKill(Entity\ entity);}
-\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{void}\ addDeath(Entity\ entity);}
-\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ updateTimeBonus(Entity\ entity,\ \textcolor{keywordtype}{float}\ gameTime);}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{void}\ registerPlayer(\mbox{\hyperlink{classEntity}{Entity}}\ entity);}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{void}\ removePlayer(\mbox{\hyperlink{classEntity}{Entity}}\ entity);}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{void}\ updateScore(\mbox{\hyperlink{classEntity}{Entity}}\ entity,\ \textcolor{keywordtype}{int}\ points);}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{void}\ addKill(\mbox{\hyperlink{classEntity}{Entity}}\ entity);}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{void}\ addDeath(\mbox{\hyperlink{classEntity}{Entity}}\ entity);}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ updateTimeBonus(\mbox{\hyperlink{classEntity}{Entity}}\ entity,\ \textcolor{keywordtype}{float}\ gameTime);}
 \DoxyCodeLine{00020\ }
-\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structPlayerScore}{PlayerScore}}\ \&getPlayerScore(Entity\ entity)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{bool}\ hasPlayer(Entity\ entity)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structPlayerScore}{PlayerScore}}\ \&getPlayerScore(\mbox{\hyperlink{classEntity}{Entity}}\ entity)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{bool}\ hasPlayer(\mbox{\hyperlink{classEntity}{Entity}}\ entity)\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{const}\ std::map<Entity,\ PlayerScore>\ \&getAllScores()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ scores;\ \}}
 \DoxyCodeLine{00024\ }
 \DoxyCodeLine{00025\ \ \ \textcolor{keyword}{private}:}
@@ -35,6 +35,6 @@
 \DoxyCodeLine{00031\ \};}
 \DoxyCodeLine{00032\ }
 \DoxyCodeLine{00033\ \}\ \textcolor{comment}{//\ namespace\ systems}}
-\DoxyCodeLine{00034\ \}\ \textcolor{comment}{//\ namespace\ rtype}}
+\DoxyCodeLine{00034\ \}\ \textcolor{comment}{//\ namespace\ rtype::server}}
 
 \end{DoxyCode}

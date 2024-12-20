@@ -1,0 +1,30 @@
+\doxysection{Entity.\+hpp}
+\hypertarget{Entity_8hpp_source}{}\label{Entity_8hpp_source}\index{lib/ecs/include/Entity/Entity.hpp@{lib/ecs/include/Entity/Entity.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ EPITECH\ PROJECT,\ 2024}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**\ piscine}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**\ File\ description:}}
+\DoxyCodeLine{00005\ \textcolor{comment}{**\ Entity.hpp}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classEntity}{Entity}}\ \{}
+\DoxyCodeLine{00012\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00013\ \ \ \ \ std::size\_t\ \_size;}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_permanent;}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classEntity}{Entity}}(std::size\_t\ size,\ \textcolor{keywordtype}{bool}\ permanent\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{classEntity}{\string~Entity}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ setSize(std::size\_t\ size);}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ setState(\textcolor{keywordtype}{bool}\ permanent);}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{operator}\ std::size\_t()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{bool}\ isPermanent()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00024\ \};}
+
+\end{DoxyCode}

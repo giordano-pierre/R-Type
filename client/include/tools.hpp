@@ -29,12 +29,15 @@ struct TupleFloat {
 enum ObjectType {
     WINDOW,
     PLAYER,
+    ENEMY,
     BACKGROUND,
     SHOT,
     MENU,
     CONFIG,
     CGENERAL,
     CPLAYER1,
+    CPLAYER2,
+    MPLAYER,
 };
 
 enum UserInput {
