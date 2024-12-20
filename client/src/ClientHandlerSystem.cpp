@@ -35,10 +35,9 @@ void createEntity(ECS &ecs, const ReceiveEvent &rec_event) {
             entity,
             {rec_event.payload["pos"]["x"], rec_event.payload["pos"]["y"]});
         ecs.add_component<rtype::client::Velocity>(entity, {0, 0});
-        ecs.add_component<rtype::client::Playable>(entity, {1});
-        ecs.add_component<rtype::client::Hitbox>(
-            entity, {{rec_event.payload["hitbox"]["x"],
-                      rec_event.payload["hitbox"]["y"]}});
+        // if (rec_event.payload.contains("uuid") && rec_event.payload["uuid"] == rec_event.sender_uuid)
+        // ecs.add_component<rtype::client::Playable>(entity, {1});
+        ecs.add_component<rtype::client::Hitbox>(entity, {{0.1, 0.12}});
         ecs.add_component<rtype::client::Drawable>(
             entity,
             {myWindow._myTextures.getTexture("assets/images/ship/red_ship.png"),
@@ -112,9 +111,14 @@ void ClientHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
     std::cout << "Client HANDLER" << std::endl;
     std::cout << "action : " << rec_event.action << std::endl;
     switch (rec_event.action) {
-    case NetworkActions::SERVER_READY: {
-        ecs.post<rtype::client::DeleteEvent>({rtype::client::MPLAYER});
-        ecs.post<rtype::client::CreationEvent>({rtype::client::PLAYER});
+    case NetworkActions::GAME_START: {
+        auto &myWindow = ecs.get_components<rtype::client::Window>()[0].value();
+        if (!myWindow._gameState) {
+            ecs.post<rtype::client::DeleteEvent>({rtype::client::MPLAYER});
+            ecs.post<rtype::client::CreationEvent>({rtype::client::PLAYER});
+            myWindow._gameState = true;
+        }
+        ecs.post<RequestEvent>({GAME_START, {}});
         break;
     }
     case NetworkActions::CREATE_ENTITY: {
@@ -129,10 +133,34 @@ void ClientHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
             createEntity(ecs, rec_event);
         break;
     }
+    case NetworkActions::CREATE_PLAYER: {
+        auto &myWindow = ecs.get_components<rtype::client::Window>()[0].value();
+        Entity entity = ecs.spawn_entity();
+        ecs.add_component<rtype::client::Tag>(
+            entity, {rtype::client::PLAYER, rec_event.payload["id"]});
+        ecs.add_component<rtype::client::Position>(
+            entity,
+            {rec_event.payload["pos"]["x"], rec_event.payload["pos"]["y"]});
+        ecs.add_component<rtype::client::Velocity>(entity, {0, 0});
+        // if (rec_event.payload.contains("uuid") && rec_event.payload["uuid"] == rec_event.sender_uuid)
+        ecs.add_component<rtype::client::Playable>(entity, {1});
+        ecs.add_component<rtype::client::Hitbox>(entity, {{0.1, 0.12}});
+        ecs.add_component<rtype::client::Drawable>(
+            entity,
+            {myWindow._myTextures.getTexture("assets/images/ship/red_ship.png"),
+             {395, 250},
+             {395, 250},
+             1,
+             1});
+        // ecs.add_component<Health>(entity, {});
+        break;
+    }
     case NetworkActions::UPDATE_ENTITY: {
         auto entity = getEntityByID(ecs, rec_event.payload["id"]);
-        if (entity == -1)
+        if (entity == -1) {
+            createEntity(ecs, rec_event);
             return;
+        }
         updateEntity(ecs, entity, rec_event);
         break;
     }

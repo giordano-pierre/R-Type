@@ -14,7 +14,9 @@
 #include "loadSystems.hpp"
 #include "tools.hpp"
 
-int main(void) {
+int main(int ac, char *argv[]) {
+    if (ac != 3 && ac != 1)
+        return 84;
     sf::Shader myShader;
     myShader.loadFromMemory(
         R"(
@@ -56,7 +58,10 @@ int main(void) {
     ecs.register_event<RequestEvent>();
     ecs.register_event<ReceiveEvent>();
 
-    UDPClient client(ecs, "127.0.0.1", "4242");
+    std::string host = (ac == 1) ? "127.0.0.1" : argv[1];
+    std::string port = (ac == 1) ? "4242" : argv[2];
+    UDPClient client(ecs, host, port);
+
     ecs.subscribe<RequestEvent>(client, true);
 
     ClientHandlerSystem client_handler;
@@ -98,6 +103,14 @@ int main(void) {
             if (e_input._myEvent == rtype::client::QUIT ||
                 e_input._event.type == sf::Event::Closed) {
                 running = false;
+                const auto &tags = ecs.get_components<rtype::client::Tag>();
+                const auto &players = ecs.get_components<rtype::client::Playable>();
+                for (size_t i = 0; i < tags.size() && i < players.size(); ++i) {
+                    const auto tag = tags[i];
+                    const auto play = players[i];
+                    if (tag && play)
+                        ecs.post<RequestEvent>({CLIENT_DISCONNECT, {tag.value()._id}});
+                }
                 ecs.post<RequestEvent>({CLIENT_DISCONNECT, {}});
             }
         },

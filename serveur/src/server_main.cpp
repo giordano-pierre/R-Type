@@ -121,10 +121,10 @@ int main() {
         Entity basics = ecs.spawn_entity();
 
         std::vector<rtype::server::EnemyInfo> enemies = {
-            {2000, 500, 9, 0, 0.1f, 0.18f, 100, 60},
-            {2500, 1000, 8, 0, 0.1f, 0.18f, 100, 30},
-            {2700, 800, 7, 0, 0.1f, 0.18f, 100, 50},
-            {2250, 100, 10, 0, 0.1f, 0.18f, 100, 40}};
+            {1800, 500, -9, 0, 0.1f, 0.18f, 100, 60},
+            {2500, 1000, -8, 0, 0.1f, 0.18f, 100, 30},
+            {2700, 800, -7, 0, 0.1f, 0.18f, 100, 50},
+            {2250, 100, -10, 0, 0.1f, 0.18f, 100, 40}};
         ecs.add_component<rtype::server::Basics>(basics, {enemies});
 
         std::cout << "Attention!!! \nDémarrage du serveur R-Type...\n"

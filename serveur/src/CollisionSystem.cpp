@@ -106,12 +106,18 @@ void CollisionSys::operator()(ECS &ecs, const rtype::server::TicEvent &,
                 position.value().x = 1920 - (hitboxe.value().width / 2);
             break;
         case ENEMY1:
-            if ((position.value().x + hitboxe.value().width / 2) < 0)
-                ecs.kill_entity(Entity(i));
-            if ((position.value().y + hitboxe.value().height / 2) < 0)
-                ecs.kill_entity(Entity(i));
-            if ((position.value().y - hitboxe.value().height / 2) > 1080)
-                ecs.kill_entity(Entity(i));
+            if ((position.value().x + hitboxe.value().width / 2) < 0) {
+                position.value().x = position.value().initialX;
+                position.value().y = position.value().initialY;
+            }
+            if ((position.value().y + hitboxe.value().height / 2) < 0) {
+                position.value().x = position.value().initialX;
+                position.value().y = position.value().initialY;
+            }
+            if ((position.value().y - hitboxe.value().height / 2) > 1080){
+                position.value().x = position.value().initialX;
+                position.value().y = position.value().initialY;
+            }
             break;
         case SHOT:
             if ((position.value().x + hitboxe.value().width / 2) < 0)

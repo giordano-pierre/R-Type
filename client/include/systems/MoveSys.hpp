@@ -24,12 +24,11 @@ class MoveSys {
 
     void operator()(ECS &ecs, const InputEvent &e_input,
                     const SparseArray<Playable> &players,
-                    SparseArray<Velocity> &velocities);
+                    SparseArray<Velocity> &velocities,
+                    const SparseArray<Tag> &tags);
 
     void operator()(ECS &ecs, const TicEvent &e_tic,
                     SparseArray<Position> &positions,
-                    const SparseArray<Velocity> &velocities,
-                    const SparseArray<Playable> &players,
-                    const SparseArray<Tag> &tags);
+                    const SparseArray<Velocity> &velocities);
 };
 } // namespace rtype::client

@@ -19,13 +19,14 @@ enum NetworkActions {
     NEW_CLIENT,
     SEND_UUID,
     CLIENT_READY,
-    SERVER_READY,
+    GAME_START,
     CLIENT_CREATE,
     CREATE_ENTITY,
     UPDATE_ENTITY,
     CLIENT_INPUT,
     CLIENT_DISCONNECT,
-    GAME_OVER
+    GAME_OVER,
+    CREATE_PLAYER,
 };
 
 enum EntityType {

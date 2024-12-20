@@ -62,6 +62,7 @@ struct Window {
     std::string _name2 = "player2";
     sf::RenderStates _renderState; // ici shader
     bool _colorblind = false;
+    bool _gameState = false;
 };
 } // namespace rtype::client
 std::ostream &operator<<(std::ostream &out,
