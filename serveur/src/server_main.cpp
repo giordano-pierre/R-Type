@@ -21,7 +21,8 @@ void subscribe_all_systems(ECS &ecs) {
     auto collisionSys = rtype::server::systems::CollisionSys();
     ecs.subscribe<rtype::server::TicEvent, rtype::server::Position,
                   rtype::server::HitBox, rtype::server::Tag,
-                  rtype::server::Health, rtype::server::PlayerData, rtype::server::Score>(collisionSys);
+                  rtype::server::Health, rtype::server::PlayerData,
+                  rtype::server::Score>(collisionSys);
     ecs.subscribe<rtype::server::TicEvent, rtype::server::Position,
                   rtype::server::Tag, rtype::server::HitBox>(collisionSys);
 
