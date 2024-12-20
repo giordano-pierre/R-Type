@@ -35,6 +35,10 @@ void LifeSys::operator()(ECS &ecs, const CreationEvent &e_create) {
         loadMenuSystem(ecs);
         createConfigPlayer1Entites(ecs);
         break;
+    case CPLAYER2:
+        loadMenuSystem(ecs);
+        createConfigPlayer2Entites(ecs);
+        break;
     default:
         loadGameSystem(ecs);
         createGameEntities(ecs);
