@@ -97,11 +97,40 @@ void resetP2(ECS &ecs, Entity i) {
     initPlay2Input(myWindow._inputConfig);
 }
 
-void startGame(ECS &ecs, Entity i) {
+void startGame1P(ECS &ecs, Entity i) {
+    // ecs.post<DeleteEvent>({MENU});
+    // ecs.post<CreationEvent>({PLAYER});
     auto &myWindow = ecs.get_components<Window>()[0].value();
 
     ecs.post<RequestEvent>(
-        {CLIENT_READY, {{"nb_player_max", 1}, {"name", myWindow._name}}});
+        {CLIENT_READY, {{"nb_player_max", 1}, {"name", myWindow._name1}}});
+}
+
+void startGame2P(ECS &ecs, Entity i) {
+    // ecs.post<DeleteEvent>({MENU});
+    // ecs.post<CreationEvent>({PLAYER});
+    auto &myWindow = ecs.get_components<Window>()[0].value();
+
+    ecs.post<RequestEvent>(
+        {CLIENT_READY, {{"nb_player_max", 2}, {"name", myWindow._name1}}});
+    ecs.post<RequestEvent>(
+        {CLIENT_READY, {{"nb_player_max", 2}, {"name", myWindow._name2}}});
+}
+
+void startGameMP(ECS &ecs, Entity i) {
+    // ecs.post<DeleteEvent>({MENU});
+    // ecs.post<CreationEvent>({PLAYER});
+    auto &myWindow = ecs.get_components<Window>()[0].value();
+
+    ecs.post<RequestEvent>(
+        {CLIENT_READY, {{"nb_player_max", 2}, {"name", myWindow._name1}}});
+}
+
+void swapColorblind(ECS &ecs, Entity i) {
+    auto &myWindow = ecs.get_components<Window>()[0].value();
+
+    myWindow._colorblind = !myWindow._colorblind;
+    press(ecs, i);
 }
 
 } // namespace rtype::client

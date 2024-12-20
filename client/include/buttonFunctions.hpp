@@ -21,5 +21,8 @@ void langEN(ECS &ecs, Entity i);
 void resetG(ECS &ecs, Entity i);
 void resetP1(ECS &ecs, Entity i);
 void resetP2(ECS &ecs, Entity i);
-void startGame(ECS &ecs, Entity i);
+void startGame1P(ECS &ecs, Entity i);
+void startGame2P(ECS &ecs, Entity i);
+void startGameMP(ECS &ecs, Entity i);
+void swapColorblind(ECS &ecs, Entity i);
 } // namespace rtype::client

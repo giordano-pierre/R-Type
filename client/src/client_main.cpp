@@ -15,6 +15,23 @@
 #include "tools.hpp"
 
 int main(void) {
+    sf::Shader myShader;
+    myShader.loadFromMemory(
+        R"(
+            uniform sampler2D texture;
+            void main()
+            {
+                vec4 pixel = texture2D(texture, gl_TexCoord[0].xy);
+
+                // Apply a color-blind friendly filter (Protanopia example)
+                float r = 0.567 * pixel.r + 0.433 * pixel.g;
+                float g = 0.558 * pixel.r + 0.442 * pixel.g;
+                float b = pixel.b;
+
+                gl_FragColor = vec4(r, g, b, pixel.a);
+            }
+            )",
+        sf::Shader::Fragment);
     rtype::client::TupleUInt serverSize = {1920, 1080};
     ECS ecs;
 
@@ -50,7 +67,8 @@ int main(void) {
     Entity window = ecs.spawn_entity();
     ecs.add_component<rtype::client::Tag>(window, {rtype::client::WINDOW});
     ecs.add_component<rtype::client::Window>(
-        window, {"assets/font/retro_gaming.ttf", {1440, 810}, serverSize});
+        window,
+        {"assets/font/retro_gaming.ttf", myShader, {1440, 810}, serverSize});
 
     auto lifeSys = rtype::client::LifeSys();
     ecs.subscribe<rtype::client::CreationEvent>(lifeSys, true);
