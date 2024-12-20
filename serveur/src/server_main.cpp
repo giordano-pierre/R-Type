@@ -82,6 +82,14 @@ void server_loop(ECS &ecs) {
     }
 }
 
+bool is_number(char *str) {
+    for (int i = 0; i < strlen(str); i++) {
+        if(!isdigit(str[i]) || str[i] != '.')
+            return false;
+    }
+    return true;
+}
+
 void waiting_loop(ECS &ecs) {
     rtype::server::Basics basic =
         ecs.get_components<rtype::server::Basics>()[0].value();
@@ -96,8 +104,13 @@ int main(int ac, char *argv[]) {
     try {
         if (ac != 1 && ac != 2)
             return 84;
+
+        if (ac == 3 && !is_number(argv[1]))
+            return 84;
+
         std::signal(SIGINT, signalHandler);
         std::signal(SIGTERM, signalHandler);
+
         int port = (ac == 2) ? std::atoi(argv[1]) : 4242;
 
         ECS ecs;

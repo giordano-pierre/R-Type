@@ -14,9 +14,18 @@
 #include "loadSystems.hpp"
 #include "tools.hpp"
 
+bool is_number(char *str) {
+    for (int i = 0; i < strlen(str); i++) {
+        if(!isdigit(str[i]) || str[i] != '.')
+            return false;
+    }
+    return true;
+}
+
 int main(int ac, char *argv[]) {
     if (ac != 3 && ac != 1)
         return 84;
+
     sf::Shader myShader;
     myShader.loadFromMemory(
         R"(
@@ -60,6 +69,10 @@ int main(int ac, char *argv[]) {
 
     std::string host = (ac == 1) ? "127.0.0.1" : argv[1];
     std::string port = (ac == 1) ? "4242" : argv[2];
+
+    if (!is_number(host) || !is_number(port))
+        return 84;
+
     UDPClient client(ecs, host, port);
 
     ecs.subscribe<RequestEvent>(client, true);
