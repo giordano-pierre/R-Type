@@ -1,0 +1,59 @@
+\doxysection{Sparse\+Array.\+hpp}
+\hypertarget{SparseArray_8hpp_source}{}\label{SparseArray_8hpp_source}\index{lib/ecs/include/SparseArray/SparseArray.hpp@{lib/ecs/include/SparseArray/SparseArray.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ EPITECH\ PROJECT,\ 2024}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**\ piscine}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**\ File\ description:}}
+\DoxyCodeLine{00005\ \textcolor{comment}{**\ SparseArray.hpp}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <optional>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Component>\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classSparseArray}{SparseArray}}\ \{}
+\DoxyCodeLine{00014\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ =\ std::optional<Component>;}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{using\ }reference\_type\ =\ value\_type\ \&;}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{using\ }const\_reference\_type\ =\ \textcolor{keyword}{const}\ value\_type\ \&;}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{using\ }container\_t\ =\ std::vector<value\_type>;}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{using\ }size\_type\ =\ \textcolor{keyword}{typename}\ container\_t::size\_type;}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{using\ }iterator\ =\ \textcolor{keyword}{typename}\ container\_t::iterator;}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{using\ }const\_iterator\ =\ \textcolor{keyword}{typename}\ container\_t::const\_iterator;}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray}}();}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classSparseArray}{SparseArray}}\ \&other);\ \ \ \ \ \textcolor{comment}{//\ copy\ constructor}}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray}}(\mbox{\hyperlink{classSparseArray}{SparseArray}}\ \&\&other)\ \textcolor{keyword}{noexcept};\ \textcolor{comment}{//\ move\ constructor}}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{classSparseArray}{\string~SparseArray}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{auto}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classSparseArray}{SparseArray}}\ \&other)}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ -\/>\ \mbox{\hyperlink{classSparseArray}{SparseArray}}\ \&;\ \textcolor{comment}{//\ copy\ assignment\ operator}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{auto}\ operator=(\mbox{\hyperlink{classSparseArray}{SparseArray}}\ \&\&other)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ -\/>\ \mbox{\hyperlink{classSparseArray}{SparseArray}}\ \&;\ \textcolor{comment}{//\ move\ assignment\ operator}}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{auto}\ operator[](\textcolor{keywordtype}{size\_t}\ idx)\ -\/>\ reference\_type;}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{auto}\ operator[](\textcolor{keywordtype}{size\_t}\ idx)\ \textcolor{keyword}{const}\ -\/>\ const\_reference\_type;}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{auto}\ begin()\ -\/>\ iterator;}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{auto}\ begin()\ \textcolor{keyword}{const}\ -\/>\ const\_iterator;}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{auto}\ cbegin()\ \textcolor{keyword}{const}\ -\/>\ const\_iterator;}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{auto}\ end()\ -\/>\ iterator;}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{auto}\ end()\ \textcolor{keyword}{const}\ -\/>\ const\_iterator;}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{auto}\ cend()\ \textcolor{keyword}{const}\ -\/>\ const\_iterator;}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{auto}\ size()\ \textcolor{keyword}{const}\ -\/>\ size\_type;}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{auto}\ insert\_at(size\_type\ pos,\ \textcolor{keyword}{const}\ Component\ \&value)\ -\/>\ reference\_type;}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{auto}\ insert\_at(size\_type\ pos,\ Component\ \&\&rvalue)\ -\/>\ reference\_type;}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{auto}\ push\_back(\textcolor{keyword}{const}\ Component\ \&value)\ -\/>\ reference\_type;}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}...\ Params>}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{auto}\ emplace\_at(size\_type\ pos,\ Params\ \&\&...args)}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ -\/>\ reference\_type;\ \textcolor{comment}{//\ build\ the\ component\ object\ in-\/place.}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{auto}\ erase(size\_type\ pos)\ -\/>\ void;}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{auto}\ clear(\textcolor{keywordtype}{void})\ -\/>\ void;}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00050\ \ \ \ \ container\_t\ \_data;}
+\DoxyCodeLine{00051\ \};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ "{}SparseArray.inl"{}}}
+
+\end{DoxyCode}

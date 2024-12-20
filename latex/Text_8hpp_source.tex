@@ -1,0 +1,38 @@
+\doxysection{Text.\+hpp}
+\hypertarget{Text_8hpp_source}{}\label{Text_8hpp_source}\index{client/include/components/Text.hpp@{client/include/components/Text.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ EPITECH\ PROJECT,\ 2024}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**\ R-\/Type}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**\ File\ description:}}
+\DoxyCodeLine{00005\ \textcolor{comment}{**\ Text}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <SFML/Graphics.hpp>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}tools.hpp"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }rtype::client\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrtype_1_1client_1_1Text}{Text}}\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1Text}{Text}}(\textcolor{keyword}{const}\ std::map<std::string,\ std::shared\_ptr<std::string>>\ \&,}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::shared\_ptr<sf::Font>\ \&,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1TupleFloat}{TupleFloat}}\ \&,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \&,}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ sf::Color\ \&,\ \textcolor{keyword}{const}\ sf::Uint32\ \&\ =\ sf::Text::Style::Regular);}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1Text}{\string~Text}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ std::map<std::string,\ std::shared\_ptr<std::string>>\ \_str;}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1TupleFloat}{TupleFloat}}\ \_sizeInBox;}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{float}\ \_pos;}
+\DoxyCodeLine{00026\ \ \ \ \ sf::Color\ \_color;}
+\DoxyCodeLine{00027\ \ \ \ \ sf::Uint32\ \_style;}
+\DoxyCodeLine{00028\ \ \ \ \ sf::Text\ \_text;}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{int}\ \_charSize;}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_needUpdate\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00031\ \};}
+\DoxyCodeLine{00032\ \}\ \textcolor{comment}{//\ namespace\ rtype::client}}
+
+\end{DoxyCode}

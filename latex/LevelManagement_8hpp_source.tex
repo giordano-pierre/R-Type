@@ -1,0 +1,44 @@
+\doxysection{Level\+Management.\+hpp}
+\hypertarget{LevelManagement_8hpp_source}{}\label{LevelManagement_8hpp_source}\index{serveur/temp/include/LevelManagement.hpp@{serveur/temp/include/LevelManagement.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}Components.hpp"{}}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}ECS/ECS.hpp"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{namespace\ }rtype::server\ \{}
+\DoxyCodeLine{00007\ \textcolor{keyword}{namespace\ }systems\ \{}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrtype_1_1server_1_1systems_1_1LevelManager}{LevelManager}}\ \{}
+\DoxyCodeLine{00010\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrtype_1_1server_1_1systems_1_1LevelManager}{LevelManager}}(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs);}
+\DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1server_1_1systems_1_1LevelManager}{\string~LevelManager}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{void}\ loadLevel(\textcolor{keywordtype}{size\_t}\ levelNumber);}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{void}\ update(\textcolor{keywordtype}{float}\ gameTime);}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{bool}\ isLevelComplete()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{bool}\ hasNextLevel()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{void}\ nextLevel();}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ getCurrentLevel()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ spawnEnemy(\textcolor{keyword}{const}\ \mbox{\hyperlink{structEnemySpawn}{EnemySpawn}}\ \&spawn);}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ checkEnemySpawns(\textcolor{keywordtype}{float}\ currentTime);}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{float}\ getLevelProgress()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ getRemainingEnemies()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{classECS}{ECS}}\ \&ecs;}
+\DoxyCodeLine{00028\ \ \ \ \ std::vector<Level>\ levels;}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ currentLevel\{0\};}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{float}\ levelTime\{0.0f\};}
+\DoxyCodeLine{00031\ \ \ \ \ std::vector<EnemySpawn>\ remainingSpawns;}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{bool}\ levelComplete\{\textcolor{keyword}{false}\};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ initializeLevels();}
+\DoxyCodeLine{00035\ \};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \}\ \textcolor{comment}{//\ namespace\ systems}}
+\DoxyCodeLine{00038\ \}\ \textcolor{comment}{//\ namespace\ rtype::server}}
+
+\end{DoxyCode}

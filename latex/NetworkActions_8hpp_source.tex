@@ -1,0 +1,65 @@
+\doxysection{Network\+Actions.\+hpp}
+\hypertarget{NetworkActions_8hpp_source}{}\label{NetworkActions_8hpp_source}\index{lib/others/events/include/NetworkActions.hpp@{lib/others/events/include/NetworkActions.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ EPITECH\ PROJECT,\ 2024}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**\ rtype}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**\ File\ description:}}
+\DoxyCodeLine{00005\ \textcolor{comment}{**\ NetworkActions.hpp}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <boost/uuid/uuid.hpp>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <boost/uuid/uuid\_generators.hpp>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <boost/uuid/uuid\_io.hpp>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <nlohmann/json.hpp>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{enum}\ NetworkActions\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ CONNECT\ =\ 1,}
+\DoxyCodeLine{00017\ \ \ \ \ ENVOI\_SERV,}
+\DoxyCodeLine{00018\ \ \ \ \ ENVOI\_CLIENT,}
+\DoxyCodeLine{00019\ \ \ \ \ NEW\_CLIENT,}
+\DoxyCodeLine{00020\ \ \ \ \ SEND\_UUID,}
+\DoxyCodeLine{00021\ \ \ \ \ CLIENT\_READY,}
+\DoxyCodeLine{00022\ \ \ \ \ GAME\_START,}
+\DoxyCodeLine{00023\ \ \ \ \ CLIENT\_CREATE,}
+\DoxyCodeLine{00024\ \ \ \ \ CREATE\_ENTITY,}
+\DoxyCodeLine{00025\ \ \ \ \ UPDATE\_ENTITY,}
+\DoxyCodeLine{00026\ \ \ \ \ CLIENT\_INPUT,}
+\DoxyCodeLine{00027\ \ \ \ \ CLIENT\_DISCONNECT,}
+\DoxyCodeLine{00028\ \ \ \ \ GAME\_OVER,}
+\DoxyCodeLine{00029\ \ \ \ \ CREATE\_PLAYER,}
+\DoxyCodeLine{00030\ \};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{enum}\ EntityType\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ PLAYER,}
+\DoxyCodeLine{00034\ \ \ \ \ ENEMY1,}
+\DoxyCodeLine{00035\ \ \ \ \ SHOT,}
+\DoxyCodeLine{00036\ \};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{const}\ std::unordered\_map<EntityType,\ std::string>\ TypeToString\{}
+\DoxyCodeLine{00039\ \ \ \ \ \{EntityType::PLAYER,\ \textcolor{stringliteral}{"{}Player"{}}\},}
+\DoxyCodeLine{00040\ \ \ \ \ \{EntityType::ENEMY1,\ \textcolor{stringliteral}{"{}Enemy1"{}}\},}
+\DoxyCodeLine{00041\ \ \ \ \ \{EntityType::SHOT,\ \textcolor{stringliteral}{"{}Shot"{}}\}\};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{const}\ std::unordered\_map<std::string,\ EntityType>\ StringToType\{}
+\DoxyCodeLine{00044\ \ \ \ \ \{\textcolor{stringliteral}{"{}Player"{}},\ EntityType::PLAYER\},}
+\DoxyCodeLine{00045\ \ \ \ \ \{\textcolor{stringliteral}{"{}Enemy1"{}},\ EntityType::ENEMY1\},}
+\DoxyCodeLine{00046\ \ \ \ \ \{\textcolor{stringliteral}{"{}Shot"{}},\ EntityType::SHOT\}\};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{inline}\ nlohmann::json\ to\_json(\textcolor{keyword}{const}\ EntityType\ \&type)\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{return}\ TypeToString.at(type);}
+\DoxyCodeLine{00050\ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{inline}\ EntityType\ from\_json(\textcolor{keyword}{const}\ nlohmann::json\ \&j)\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{return}\ StringToType.at(j.get<std::string>());}
+\DoxyCodeLine{00054\ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{inline}\ std::string\ fetch\_new\_uuid()\ \{}
+\DoxyCodeLine{00057\ \ \ \ \ boost::uuids::random\_generator\ uuid\_generator\_;}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordflow}{return}\ boost::uuids::to\_string(uuid\_generator\_());}
+\DoxyCodeLine{00059\ \}}
+
+\end{DoxyCode}

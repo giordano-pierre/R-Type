@@ -1,0 +1,92 @@
+\doxysection{ECS Class Reference}
+\hypertarget{classECS}{}\label{classECS}\index{ECS@{ECS}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structECS_1_1EventSystem}{Event\+System}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classECS_aaae3f61d6aca97fd19c91525f26c9869}\label{classECS_aaae3f61d6aca97fd19c91525f26c9869} 
+using {\bfseries callback\+\_\+type} = std\+::function$<$ void(void)$>$
+\item 
+\Hypertarget{classECS_acdcd1fbfd1f2488f01b06abb67f0c146}\label{classECS_acdcd1fbfd1f2488f01b06abb67f0c146} 
+{\footnotesize template$<$class Event $>$ }\\using {\bfseries systems\+\_\+type} = std\+::vector$<$ \mbox{\hyperlink{structECS_1_1EventSystem}{Event\+System}}$<$ Event $>$ $>$
+\item 
+\Hypertarget{classECS_a5b2044bb24d20989a10cc7522238036d}\label{classECS_a5b2044bb24d20989a10cc7522238036d} 
+using {\bfseries event\+\_\+type} = std\+::any
+\item 
+\Hypertarget{classECS_a028a29b54728b2689d960ef401976eca}\label{classECS_a028a29b54728b2689d960ef401976eca} 
+using {\bfseries freset\+\_\+type} = std\+::function$<$ void(const \mbox{\hyperlink{classEntity}{Entity}} \&)$>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classECS_a346da511aa2c81ea7ca9dec26f25b266}\label{classECS_a346da511aa2c81ea7ca9dec26f25b266} 
+{\footnotesize template$<$class Component $>$ }\\auto {\bfseries register\+\_\+component} () -\/$>$ \mbox{\hyperlink{classSparseArray}{Sparse\+Array}}$<$ Component $>$ \&
+\item 
+\Hypertarget{classECS_ac326f4f208ccb05cb3411eb0caa75eaf}\label{classECS_ac326f4f208ccb05cb3411eb0caa75eaf} 
+{\footnotesize template$<$class Component $>$ }\\auto {\bfseries get\+\_\+components} () -\/$>$ \mbox{\hyperlink{classSparseArray}{Sparse\+Array}}$<$ Component $>$ \&
+\item 
+\Hypertarget{classECS_aa767b37d5113d48cba2a51f00a480980}\label{classECS_aa767b37d5113d48cba2a51f00a480980} 
+{\footnotesize template$<$class Component $>$ }\\auto {\bfseries get\+\_\+components} () const -\/$>$ const \mbox{\hyperlink{classSparseArray}{Sparse\+Array}}$<$ Component $>$ \&
+\item 
+\Hypertarget{classECS_a4454bde0d0c7e18d10f9d74bbe60dc59}\label{classECS_a4454bde0d0c7e18d10f9d74bbe60dc59} 
+auto {\bfseries spawn\+\_\+entity} () -\/$>$ \mbox{\hyperlink{classEntity}{Entity}}
+\item 
+\Hypertarget{classECS_a563da52032374f427fa6545c719e0a73}\label{classECS_a563da52032374f427fa6545c719e0a73} 
+auto {\bfseries entity\+\_\+from\+\_\+index} (std\+::size\+\_\+t idx) -\/$>$ \mbox{\hyperlink{classEntity}{Entity}}
+\item 
+\Hypertarget{classECS_a010ebe4fc3db70ac861db7e79dfd2d76}\label{classECS_a010ebe4fc3db70ac861db7e79dfd2d76} 
+auto {\bfseries kill\+\_\+entity} (const \mbox{\hyperlink{classEntity}{Entity}} \&entity) -\/$>$ void
+\item 
+\Hypertarget{classECS_a9289b650f5f14c7d4a402d4ce7729315}\label{classECS_a9289b650f5f14c7d4a402d4ce7729315} 
+{\footnotesize template$<$typename Component $>$ }\\auto {\bfseries add\+\_\+component} (\mbox{\hyperlink{classEntity}{Entity}} const \&to, Component \&\&c) -\/$>$ typename \mbox{\hyperlink{classSparseArray}{Sparse\+Array}}$<$ Component $>$\+::reference\+\_\+type
+\item 
+\Hypertarget{classECS_acb6551df8cb8876058eb07e35133d902}\label{classECS_acb6551df8cb8876058eb07e35133d902} 
+{\footnotesize template$<$typename Component , typename... Params$>$ }\\auto {\bfseries emplace\+\_\+component} (\mbox{\hyperlink{classEntity}{Entity}} const \&to, Params \&\&...p) -\/$>$ typename \mbox{\hyperlink{classSparseArray}{Sparse\+Array}}$<$ Component $>$\+::reference\+\_\+type
+\item 
+\Hypertarget{classECS_a39be2564d136dfde0bf59cb73338ce6e}\label{classECS_a39be2564d136dfde0bf59cb73338ce6e} 
+{\footnotesize template$<$typename Component $>$ }\\auto {\bfseries remove\+\_\+component} (\mbox{\hyperlink{classEntity}{Entity}} const \&from) -\/$>$ void
+\item 
+\Hypertarget{classECS_a9aa3d05a46bb7cd06cd6171bf1208466}\label{classECS_a9aa3d05a46bb7cd06cd6171bf1208466} 
+{\footnotesize template$<$class Event $>$ }\\auto {\bfseries register\+\_\+event} () -\/$>$ void
+\item 
+\Hypertarget{classECS_a359725d8555c78f5c1bfcfc3584b0df0}\label{classECS_a359725d8555c78f5c1bfcfc3584b0df0} 
+{\footnotesize template$<$class Event $>$ }\\auto {\bfseries get\+\_\+events} () -\/$>$ systems\+\_\+type$<$ Event $>$ \&
+\item 
+\Hypertarget{classECS_a710c2ccb70fe20df00f5e953c910c5d4}\label{classECS_a710c2ccb70fe20df00f5e953c910c5d4} 
+{\footnotesize template$<$class Event $>$ }\\auto {\bfseries get\+\_\+events} () const -\/$>$ const systems\+\_\+type$<$ Event $>$ \&
+\item 
+\Hypertarget{classECS_a9b9a63248ac550507378109febf3071d}\label{classECS_a9b9a63248ac550507378109febf3071d} 
+{\footnotesize template$<$class Event , class... Components, typename System $>$ }\\auto {\bfseries subscribe} (System \&\&system, bool permanent=false) -\/$>$ void
+\item 
+\Hypertarget{classECS_a048737f2174d19f34ae5264b637eea45}\label{classECS_a048737f2174d19f34ae5264b637eea45} 
+{\footnotesize template$<$class Event , class... Components, typename System $>$ }\\auto {\bfseries subscribe} (System \&system, bool permanent=false) -\/$>$ void
+\item 
+\Hypertarget{classECS_a1e1813144c3bb350a98559b7ea38a6aa}\label{classECS_a1e1813144c3bb350a98559b7ea38a6aa} 
+{\footnotesize template$<$class Event , class... Components, typename System $>$ }\\auto {\bfseries subscribe} (const System \&system, bool permanent=false) -\/$>$ void
+\item 
+\Hypertarget{classECS_aeb13e6d1a4a98b3de8ca72824a7eece4}\label{classECS_aeb13e6d1a4a98b3de8ca72824a7eece4} 
+{\footnotesize template$<$class Event $>$ }\\auto {\bfseries clean} () -\/$>$ void
+\item 
+\Hypertarget{classECS_a6ade7956719803bed6b408017e1f1c85}\label{classECS_a6ade7956719803bed6b408017e1f1c85} 
+{\footnotesize template$<$class Event $>$ }\\auto {\bfseries post} (const Event \&event) -\/$>$ void
+\item 
+\Hypertarget{classECS_aba67d3770a297114a0b4efb36db60363}\label{classECS_aba67d3770a297114a0b4efb36db60363} 
+auto {\bfseries front} (void) -\/$>$ const callback\+\_\+type \&
+\item 
+\Hypertarget{classECS_a878be60425643b0a8e499516fa906414}\label{classECS_a878be60425643b0a8e499516fa906414} 
+auto {\bfseries pop\+\_\+front} (void) -\/$>$ void
+\item 
+\Hypertarget{classECS_a271f2731964815d8927efd6d7bd58888}\label{classECS_a271f2731964815d8927efd6d7bd58888} 
+auto {\bfseries empty} (void) const -\/$>$ bool
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+lib/ecs/include/\+ECS/ECS.\+hpp\item 
+lib/ecs/include/\+ECS/ECS.\+inl\item 
+lib/ecs/src/\+ECS/ECS.\+cpp\end{DoxyCompactItemize}

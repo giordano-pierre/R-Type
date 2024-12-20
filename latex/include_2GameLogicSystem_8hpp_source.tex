@@ -1,0 +1,39 @@
+\doxysection{Game\+Logic\+System.\+hpp}
+\hypertarget{include_2GameLogicSystem_8hpp_source}{}\label{include_2GameLogicSystem_8hpp_source}\index{serveur/include/GameLogicSystem.hpp@{serveur/include/GameLogicSystem.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ EPITECH\ PROJECT,\ 2024}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**\ R-\/Type}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**\ File\ description:}}
+\DoxyCodeLine{00005\ \textcolor{comment}{**\ GameLogicSystem.hpp}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}Components.hpp"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}ECS/ECS.hpp"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }rtype::server\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }systems\ \{}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrtype_1_1server_1_1systems_1_1GameLogicSys}{GameLogicSys}}\ \{}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1server_1_1systems_1_1GameLogicSys}{GameLogicSys}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1server_1_1systems_1_1GameLogicSys}{\string~GameLogicSys}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1server_1_1TicEvent}{rtype::server::TicEvent}}\ \&,}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<::rtype::server::Basics>}}\ \&basics,}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classSparseArray}{SparseArray<::rtype::server::Score>}}\ \&score,}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classSparseArray}{SparseArray<Tag>}}\ \&tags);}
+\DoxyCodeLine{00025\ \};}
+\DoxyCodeLine{00026\ \}\ \textcolor{comment}{//\ namespace\ systems}}
+\DoxyCodeLine{00027\ \}\ \textcolor{comment}{//\ namespace\ rtype::server}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ check\ si\ tt\ le\ monde}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ spawn\ enemis}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ if\ tt\ le\ monde\ est\ mort\ envoyer\ gameover}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ reset\ basics}}
+
+\end{DoxyCode}

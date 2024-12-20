@@ -1,0 +1,5 @@
+<map id="rtype::client::Hitbox" name="rtype::client::Hitbox">
+<area shape="rect" id="Node000001" title=" " alt="" coords="17,123,168,148"/>
+<area shape="rect" id="Node000002" href="$structrtype_1_1client_1_1TupleFloat.html" title=" " alt="" coords="5,5,180,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,44,95,123,90,123,90,44"/>
+</map>

@@ -1,0 +1,154 @@
+\doxysection{Sparse\+Array.\+inl}
+\hypertarget{SparseArray_8inl_source}{}\label{SparseArray_8inl_source}\index{lib/ecs/include/SparseArray/SparseArray.inl@{lib/ecs/include/SparseArray/SparseArray.inl}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ EPITECH\ PROJECT,\ 2024}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**\ piscine}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**\ File\ description:}}
+\DoxyCodeLine{00005\ \textcolor{comment}{**\ SparseArray.cpp}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}SparseArray.hpp"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Component>}
+\DoxyCodeLine{00012\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>::SparseArray}}()}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ \}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Component>}
+\DoxyCodeLine{00017\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>::SparseArray}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classSparseArray}{SparseArray}}\ \&other)\ \textcolor{comment}{//\ copy\ constructor}}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \_data\ =\ other.\_data;}
+\DoxyCodeLine{00020\ \}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Component>}
+\DoxyCodeLine{00023\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>::SparseArray}}(\mbox{\hyperlink{classSparseArray}{SparseArray}}\ \&\&other)\ \textcolor{keyword}{noexcept}\ \textcolor{comment}{//\ move\ constructor}}
+\DoxyCodeLine{00024\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \_data\ =\ std::move(other.\_data);}
+\DoxyCodeLine{00026\ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Component>}
+\DoxyCodeLine{00029\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>::operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classSparseArray}{SparseArray}}\ \&other)\ -\/>\ \mbox{\hyperlink{classSparseArray}{SparseArray}}\ \&\ \textcolor{comment}{//\ copy\ assignment\ operator}}
+\DoxyCodeLine{00030\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \_data\ =\ other.\_data;}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00033\ \}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Component>}
+\DoxyCodeLine{00036\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>::operator=}}(\mbox{\hyperlink{classSparseArray}{SparseArray}}\ \&\&other)\ \textcolor{keyword}{noexcept}\ -\/>\ \mbox{\hyperlink{classSparseArray}{SparseArray}}\ \&\ \textcolor{comment}{//\ move\ assignment\ operator}}
+\DoxyCodeLine{00037\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \_data\ =\ std::move(other.\_data);}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00040\ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Component>}
+\DoxyCodeLine{00043\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>::operator[]}}(\textcolor{keywordtype}{size\_t}\ idx)\ -\/>\ reference\_type}
+\DoxyCodeLine{00044\ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordflow}{if}\ (idx\ >=\ \_data.size())}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \_data.resize(idx+1);}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordflow}{return}\ \_data[idx];}
+\DoxyCodeLine{00048\ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Component>}
+\DoxyCodeLine{00051\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>::operator[]}}(\textcolor{keywordtype}{size\_t}\ idx)\ \textcolor{keyword}{const}\ -\/>\ const\_reference\_type}
+\DoxyCodeLine{00052\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{if}\ (idx\ >=\ \_data.size())\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ value\_type\ temp\ =\ std::nullopt;}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ temp;}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordflow}{return}\ \_data[idx];}
+\DoxyCodeLine{00058\ \}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Component>}
+\DoxyCodeLine{00061\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>::begin}}()\ -\/>\ iterator}
+\DoxyCodeLine{00062\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordflow}{return}\ \_data.begin();}
+\DoxyCodeLine{00064\ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Component>}
+\DoxyCodeLine{00067\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>::begin}}()\ const\ -\/>\ const\_iterator}
+\DoxyCodeLine{00068\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordflow}{return}\ \_data.begin();}
+\DoxyCodeLine{00070\ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Component>}
+\DoxyCodeLine{00073\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>::cbegin}}()\ const\ -\/>\ const\_iterator}
+\DoxyCodeLine{00074\ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{return}\ \_data.cbegin();}
+\DoxyCodeLine{00076\ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Component>}
+\DoxyCodeLine{00079\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>::end}}()\ -\/>\ iterator}
+\DoxyCodeLine{00080\ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordflow}{return}\ \_data.end();}
+\DoxyCodeLine{00082\ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Component>}
+\DoxyCodeLine{00085\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>::end}}()\ const\ -\/>\ const\_iterator}
+\DoxyCodeLine{00086\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordflow}{return}\ \_data.end();}
+\DoxyCodeLine{00088\ \}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Component>}
+\DoxyCodeLine{00091\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>::cend}}()\ const\ -\/>\ const\_iterator}
+\DoxyCodeLine{00092\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordflow}{return}\ \_data.cend();}
+\DoxyCodeLine{00094\ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Component>}
+\DoxyCodeLine{00097\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>::size}}()\ const\ -\/>\ size\_type}
+\DoxyCodeLine{00098\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordflow}{return}\ \_data.size();}
+\DoxyCodeLine{00100\ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Component>}
+\DoxyCodeLine{00103\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>::insert\_at}}(size\_type\ pos,\ \textcolor{keyword}{const}\ Component\ \&value)\ -\/>\ reference\_type}
+\DoxyCodeLine{00104\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordflow}{if}\ (pos\ >=\ \_data.size())}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \_data.resize(pos+1);}
+\DoxyCodeLine{00107\ \ \ \ \ \_data[pos]\ =\ value;}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordflow}{return}\ \_data[pos];}
+\DoxyCodeLine{00109\ \}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Component>}
+\DoxyCodeLine{00112\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>::insert\_at}}(size\_type\ pos,\ Component\ \&\&rvalue)\ -\/>\ reference\_type}
+\DoxyCodeLine{00113\ \{}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordflow}{if}\ (pos\ >=\ \_data.size())}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \_data.resize(pos+1);}
+\DoxyCodeLine{00116\ \ \ \ \ std::move(rvalue);}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordflow}{return}\ \_data.insert\_at(pos,\ rvalue);}
+\DoxyCodeLine{00118\ \}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Component>}
+\DoxyCodeLine{00121\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>::push\_back}}(\textcolor{keyword}{const}\ Component\ \&value)\ -\/>\ reference\_type}
+\DoxyCodeLine{00122\ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordflow}{return}\ \_data.push\_back(value);}
+\DoxyCodeLine{00124\ \}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Component>}
+\DoxyCodeLine{00127\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class\ }...\ Params>}
+\DoxyCodeLine{00128\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>::emplace\_at}}(size\_type\ pos,\ Params\ \&\&...args)\ -\/>\ reference\_type\ \textcolor{comment}{//\ build\ the\ component\ object\ in-\/place.}}
+\DoxyCodeLine{00129\ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordflow}{if}\ (pos\ >=\ \_data.size())}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \_data.resize(pos+1);}
+\DoxyCodeLine{00132\ \ \ \ \ \_data[pos].emplace(args...);}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordflow}{return}\ \_data[pos];}
+\DoxyCodeLine{00134\ \}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Component>}
+\DoxyCodeLine{00137\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>::erase}}(size\_type\ pos)\ -\/>\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00138\ \{}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordflow}{if}\ (pos\ <\ 0\ ||\ pos\ >\ \_data.size()\ ||\ !\_data[pos])}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00141\ \ \ \ \ \_data[pos].reset();}
+\DoxyCodeLine{00142\ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Component>}
+\DoxyCodeLine{00145\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>::clear}}(\textcolor{keywordtype}{void})\ -\/>\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00146\ \{}
+\DoxyCodeLine{00147\ \ \ \ \ \_data.clear();}
+\DoxyCodeLine{00148\ \}}
+
+\end{DoxyCode}

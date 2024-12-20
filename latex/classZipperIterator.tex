@@ -1,0 +1,56 @@
+\doxysection{Zipper\+Iterator\texorpdfstring{$<$}{<} Containers \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classZipperIterator}{}\label{classZipperIterator}\index{ZipperIterator$<$ Containers $>$@{ZipperIterator$<$ Containers $>$}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classZipperIterator_a8f9d16cf9e67534233f4b5175a72b6a8}\label{classZipperIterator_a8f9d16cf9e67534233f4b5175a72b6a8} 
+using {\bfseries value\+\_\+type} = std\+::tuple$<$ std\+::size\+\_\+t, decltype(std\+::declval$<$ it\+\_\+reference\+\_\+t$<$ Containers $>$ $>$().value()) \&... $>$
+\item 
+\Hypertarget{classZipperIterator_aaa77d3711afd8b1b06ac5804bd1d89e2}\label{classZipperIterator_aaa77d3711afd8b1b06ac5804bd1d89e2} 
+using {\bfseries reference} = value\+\_\+type
+\item 
+\Hypertarget{classZipperIterator_a001315600a47e7488f035ab9e3eae653}\label{classZipperIterator_a001315600a47e7488f035ab9e3eae653} 
+using {\bfseries iterator\+\_\+category} = std\+::input\+\_\+iterator\+\_\+tag
+\item 
+\Hypertarget{classZipperIterator_ac561ca4894f8b84beb6f81f60e539580}\label{classZipperIterator_ac561ca4894f8b84beb6f81f60e539580} 
+using {\bfseries iterator\+\_\+tuple} = std\+::tuple$<$ iterator\+\_\+t$<$ Containers $>$... $>$
+\item 
+\Hypertarget{classZipperIterator_a0e5faa63198ed10e89b58e34e429dee3}\label{classZipperIterator_a0e5faa63198ed10e89b58e34e429dee3} 
+using {\bfseries pred\+\_\+type} = std\+::function$<$ bool(const value\+\_\+type \&)$>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classZipperIterator_a363b5fa7ca34b207afd4885a58e9dfc8}\label{classZipperIterator_a363b5fa7ca34b207afd4885a58e9dfc8} 
+{\bfseries Zipper\+Iterator} (const iterator\+\_\+tuple \&it\+\_\+tuple, std\+::size\+\_\+t max)
+\item 
+\Hypertarget{classZipperIterator_ae4cd0e9ce3854810dc87259e7424459c}\label{classZipperIterator_ae4cd0e9ce3854810dc87259e7424459c} 
+{\bfseries Zipper\+Iterator} (const iterator\+\_\+tuple \&it\+\_\+tuple, std\+::size\+\_\+t max, pred\+\_\+type \&\&pred)
+\item 
+\Hypertarget{classZipperIterator_aac2d86690f15bbc3cdae756f15bc3962}\label{classZipperIterator_aac2d86690f15bbc3cdae756f15bc3962} 
+{\bfseries Zipper\+Iterator} (const \mbox{\hyperlink{classZipperIterator}{Zipper\+Iterator}} \&z)
+\item 
+\Hypertarget{classZipperIterator_a12cb7f7d4ac5670d0c0b4f033f1cf9e3}\label{classZipperIterator_a12cb7f7d4ac5670d0c0b4f033f1cf9e3} 
+auto {\bfseries operator++} () -\/$>$ \mbox{\hyperlink{classZipperIterator}{Zipper\+Iterator}} \&
+\item 
+\Hypertarget{classZipperIterator_a24037228350ea0ff5758d9a75ad5c2e2}\label{classZipperIterator_a24037228350ea0ff5758d9a75ad5c2e2} 
+auto {\bfseries operator++} (int) -\/$>$ \mbox{\hyperlink{classZipperIterator}{Zipper\+Iterator}}
+\item 
+\Hypertarget{classZipperIterator_ab88521edb5b7c07af2ccbfafb31e1fb0}\label{classZipperIterator_ab88521edb5b7c07af2ccbfafb31e1fb0} 
+auto {\bfseries operator\texorpdfstring{$\ast$}{*}} () -\/$>$ value\+\_\+type
+\item 
+\Hypertarget{classZipperIterator_a5fa70ab12a32c315e4d9da3a9a968ab0}\label{classZipperIterator_a5fa70ab12a32c315e4d9da3a9a968ab0} 
+auto {\bfseries operator-\/$>$} () -\/$>$ value\+\_\+type
+\item 
+\Hypertarget{classZipperIterator_a86e6db7caa52587286636410c2aa7405}\label{classZipperIterator_a86e6db7caa52587286636410c2aa7405} 
+auto {\bfseries operator==} (const \mbox{\hyperlink{classZipperIterator}{Zipper\+Iterator}}$<$ Containers... $>$ \&rhs) -\/$>$ bool
+\item 
+\Hypertarget{classZipperIterator_af43c22cfe56df46c3ae954ba527eeff0}\label{classZipperIterator_af43c22cfe56df46c3ae954ba527eeff0} 
+auto {\bfseries operator!=} (const \mbox{\hyperlink{classZipperIterator}{Zipper\+Iterator}}$<$ Containers... $>$ \&rhs) -\/$>$ bool
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+lib/ecs/include/\+Iterator/Iterator.\+hpp\item 
+lib/ecs/include/\+Iterator/Iterator.\+inl\end{DoxyCompactItemize}
