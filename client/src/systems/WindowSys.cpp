@@ -125,7 +125,6 @@ void WindowSys::drawSel(SparseArray<Position> &positions,
                 _window.draw(sel.value()._sprite, myWindow._renderState);
             else
                 _window.draw(sel.value()._sprite);
-            
         }
     }
 }
@@ -193,7 +192,8 @@ void WindowSys::drawText(SparseArray<Position> &positions,
 }
 
 void WindowSys::drawHitboxes(SparseArray<Position> &positions,
-                             SparseArray<Hitbox> &hitboxs, const Window &myWindow) {
+                             SparseArray<Hitbox> &hitboxs,
+                             const Window &myWindow) {
     for (size_t i = 0; i < positions.size() && i < hitboxs.size(); ++i) {
         auto &pos = positions[i];
         auto &box = hitboxs[i];

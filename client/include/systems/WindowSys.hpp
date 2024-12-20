@@ -50,11 +50,11 @@ class WindowSys {
                     SparseArray<Drawable> &sprites, int order,
                     const Window &myWindow);
     void drawSel(SparseArray<Position> &positions, SparseArray<Hitbox> &hitboxs,
-                 SparseArray<Selectable> &selectables,
-                 const Window &myWindow);
+                 SparseArray<Selectable> &selectables, const Window &myWindow);
     void drawText(SparseArray<Position> &positions,
                   SparseArray<Hitbox> &hitboxs, SparseArray<Text> &texts,
-                  bool isResize, sf::Vector2u sizeClient, const Window &myWindow);
+                  bool isResize, sf::Vector2u sizeClient,
+                  const Window &myWindow);
     void drawHitboxes(SparseArray<Position> &positions,
                       SparseArray<Hitbox> &hitboxs, const Window &myWindow);
 };
