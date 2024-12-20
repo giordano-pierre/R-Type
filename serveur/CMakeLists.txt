@@ -1,15 +1,13 @@
 project(r-type_server VERSION 1.0 LANGUAGES CXX)
 
 set(SRC
-    main.cpp
+    src/server_main.cpp
     src/ServerHandlerSystem.cpp
     src/UDPServer.cpp
-    src/ServerCore.cpp
     src/GameLogicSystem.cpp
-    src/LevelManagement.cpp
-    src/ScoreManager.cpp
-    src/MovementSystem.cpp
     src/CollisionSystem.cpp
+    src/HealthSystem.cpp
+    src/MovementSystem.cpp
 )
 
 add_executable(r-type_server ${SRC})
