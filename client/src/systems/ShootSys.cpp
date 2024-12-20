@@ -29,15 +29,16 @@ void ShootSys::operator()(ECS &ecs, const InputEvent &e_input,
         return;
     }
 
-    for (size_t i = 0;
-         i < players.size() && i < positions.size() && i < hitboxs.size() && i < tags.size();
+    for (size_t i = 0; i < players.size() && i < positions.size() &&
+                       i < hitboxs.size() && i < tags.size();
          ++i) {
         const auto &play = players[i];
         const auto &pos = positions[i];
         const auto &box = hitboxs[i];
         const auto &tag = tags[i];
 
-        if (play && pos && box && tag && player1Shoot && play.value()._id == 1) {
+        if (play && pos && box && tag && player1Shoot &&
+            play.value()._id == 1) {
             nlohmann::json tmp = {
                 {"player_id", tag.value()._id},
                 {"tmp_id", fetch_new_uuid()},
