@@ -58,7 +58,8 @@ struct Window {
     TextureManager _myTextures;
     std::shared_ptr<sf::Font> _font;
     bool _displayHitboxs = false;
-    std::string _name = "player1";
+    std::string _name1 = "player1";
+    std::string _name2 = "player2";
     sf::RenderStates _renderState; // ici shader
     bool _colorblind = false;
 };

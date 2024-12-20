@@ -80,7 +80,7 @@ void createMenuEntities(ECS &ecs) {
     ecs.add_component<Hitbox>(startB, {{float(1) / 3, float(1) / 10}});
     std::map<std::string, std::shared_ptr<std::string>> texts;
     texts.insert({"EN", std::make_shared<std::string>("START")});
-    texts.insert({"FR", std::make_shared<std::string>("COMENCER")});
+    texts.insert({"FR", std::make_shared<std::string>("COMMENCER")});
     ecs.add_component<Text>(
         startB, {texts, myWindow._font, {0.5, 0.5}, 0, 40, sf::Color::White});
     ecs.add_component<Drawable>(startB,
@@ -98,7 +98,10 @@ void createMenuEntities(ECS &ecs) {
     ecs.add_component<Pressable>(
         startB, {myWindow._myTextures.getTexture(
                      "assets/images/utils/button_config1_act.png"),
-                 std::function<void(ECS &, Entity)>(startGame)});
+                 [](ECS &ecs, Entity) {
+                    ecs.post<DeleteEvent>({MENU});
+                    ecs.post<CreationEvent>({MPLAYER});
+                 }});
 
     Entity customB = ecs.spawn_entity();
     ecs.add_component<Position>(
@@ -202,6 +205,151 @@ void createMenuEntities(ECS &ecs) {
         {myWindow._myTextures.getTexture(
              "assets/images/utils/button_config1_act.png"),
          [](ECS &ecs, Entity) { ecs.post<InputEvent>({sf::Event(), QUIT}); }});
+}
+
+
+void createMenuPlayerEntities(ECS &ecs) {
+    auto myWindow = ecs.get_components<Window>()[0].value();
+    auto serverSize = myWindow._serverSize;
+
+    Entity back1 = ecs.spawn_entity();
+    ecs.add_component<Position>(
+        back1, {serverSize.x / float(2), serverSize.y / float(2)});
+    ecs.add_component<Tag>(back1, {MPLAYER});
+    ecs.add_component<Hitbox>(back1, {{1, 1}, false});
+    ecs.add_component<Drawable>(back1,
+                                {myWindow._myTextures.getTexture(
+                                     "assets/images/background/back_menu.jpg"),
+                                 {4608, 3456},
+                                 {768, 432},
+                                 48});
+
+    Entity Player1B = ecs.spawn_entity();
+    ecs.add_component<Position>(
+        Player1B, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 3});
+    ecs.add_component<Tag>(Player1B, {MPLAYER});
+    ecs.add_component<Hitbox>(Player1B, {{float(1) / 3, float(1) / 10}});
+    std::map<std::string, std::shared_ptr<std::string>> texts;
+    texts.insert({"EN", std::make_shared<std::string>("1 PLAYER")});
+    texts.insert({"FR", std::make_shared<std::string>("1 JOUEUR")});
+    ecs.add_component<Text>(
+        Player1B, {texts, myWindow._font, {0.5, 0.5}, 0, 40, sf::Color::White});
+    ecs.add_component<Drawable>(Player1B,
+                                {myWindow._myTextures.getTexture(
+                                     "assets/images/utils/button_config1.png"),
+                                 {402, 100},
+                                 {402, 100},
+                                 1,
+                                 1});
+    ecs.add_component<Selectable>(
+        Player1B, {myWindow._myTextures.getTexture(
+                     "assets/images/utils/button_config1_sel.png"),
+                 std::function<void(ECS &, Entity)>(select),
+                 std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        Player1B, {myWindow._myTextures.getTexture(
+                     "assets/images/utils/button_config1_act.png"),
+                 std::function<void(ECS &, Entity)>(startGame1P)});
+
+    Entity Player2B = ecs.spawn_entity();
+    ecs.add_component<Position>(
+        Player2B, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 4});
+    ecs.add_component<Tag>(Player2B, {MPLAYER});
+    ecs.add_component<Hitbox>(Player2B, {{float(1) / 3, float(1) / 10}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("2 PLAYER")});
+    texts.insert({"FR", std::make_shared<std::string>("2 JOUEUR")});
+    ecs.add_component<Text>(Player2B, {texts,
+                                      myWindow._font,
+                                      {0.5, 0.5},
+                                      0,
+                                      40,
+                                      sf::Color::White,
+                                      sf::Text::Style::Regular});
+    ecs.add_component<Drawable>(Player2B,
+                                {myWindow._myTextures.getTexture(
+                                     "assets/images/utils/button_config1.png"),
+                                 {402, 100},
+                                 {402, 100},
+                                 1,
+                                 1});
+    ecs.add_component<Selectable>(
+        Player2B, {myWindow._myTextures.getTexture(
+                      "assets/images/utils/button_config1_sel.png"),
+                  std::function<void(ECS &, Entity)>(select),
+                  std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        Player2B, {myWindow._myTextures.getTexture(
+                      "assets/images/utils/button_config1_act.png"),
+                  std::function<void(ECS &, Entity)>(startGame2P)});
+
+    Entity MultiB = ecs.spawn_entity();
+    ecs.add_component<Position>(
+        MultiB, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 5});
+    ecs.add_component<Tag>(MultiB, {MPLAYER});
+    ecs.add_component<Hitbox>(MultiB, {{float(1) / 3, float(1) / 10}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("MULTIPLAYER")});
+    texts.insert({"FR", std::make_shared<std::string>("MULTIJOUEUR")});
+    ecs.add_component<Text>(MultiB, {texts,
+                                      myWindow._font,
+                                      {0.5, 0.5},
+                                      0,
+                                      40,
+                                      sf::Color::White,
+                                      sf::Text::Style::Regular});
+    ecs.add_component<Drawable>(MultiB,
+                                {myWindow._myTextures.getTexture(
+                                     "assets/images/utils/button_config1.png"),
+                                 {402, 100},
+                                 {402, 100},
+                                 1,
+                                 1});
+    ecs.add_component<Selectable>(
+        MultiB, {myWindow._myTextures.getTexture(
+                      "assets/images/utils/button_config1_sel.png"),
+                  std::function<void(ECS &, Entity)>(select),
+                  std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        MultiB, {myWindow._myTextures.getTexture(
+                      "assets/images/utils/button_config1_act.png"),
+                  std::function<void(ECS &, Entity)>(startGameMP)});
+
+    Entity backB = ecs.spawn_entity();
+    ecs.add_component<Position>(
+        backB, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 6});
+    ecs.add_component<Tag>(backB, {MPLAYER});
+    ecs.add_component<Hitbox>(backB, {{float(1) / 3, float(1) / 10}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("BACK")});
+    texts.insert({"FR", std::make_shared<std::string>("RETOUR")});
+    ecs.add_component<Text>(backB, {texts,
+                                    myWindow._font,
+                                    {0.5, 0.5},
+                                    0,
+                                    40,
+                                    sf::Color::White,
+                                    sf::Text::Style::Regular});
+    ecs.add_component<Drawable>(backB,
+                                {myWindow._myTextures.getTexture(
+                                     "assets/images/utils/button_config1.png"),
+                                 {402, 100},
+                                 {402, 100},
+                                 1,
+                                 1});
+    ecs.add_component<Selectable>(
+        backB, {myWindow._myTextures.getTexture(
+                    "assets/images/utils/button_config1_sel.png"),
+                std::function<void(ECS &, Entity)>(select),
+                std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        backB,
+        {myWindow._myTextures.getTexture(
+             "assets/images/utils/button_config1_act.png"),
+         [](ECS &ecs, Entity) {
+            ecs.post<DeleteEvent>({MPLAYER});
+            ecs.post<CreationEvent>({MENU});
+         }});
 }
 
 void createConfigEntities(ECS &ecs) {

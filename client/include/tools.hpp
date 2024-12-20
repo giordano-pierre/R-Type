@@ -37,6 +37,7 @@ enum ObjectType {
     CGENERAL,
     CPLAYER1,
     CPLAYER2,
+    MPLAYER,
 };
 
 enum UserInput {

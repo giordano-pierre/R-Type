@@ -23,6 +23,10 @@ void LifeSys::operator()(ECS &ecs, const CreationEvent &e_create) {
         loadMenuSystem(ecs);
         createMenuEntities(ecs);
         break;
+    case MPLAYER:
+        loadMenuSystem(ecs);
+        createMenuPlayerEntities(ecs);
+        break;
     case CONFIG:
         loadMenuSystem(ecs);
         createConfigEntities(ecs);
