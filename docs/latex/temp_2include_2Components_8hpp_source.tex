@@ -1,0 +1,120 @@
+\doxysection{Components.\+hpp}
+\hypertarget{temp_2include_2Components_8hpp_source}{}\label{temp_2include_2Components_8hpp_source}\index{serveur/temp/include/Components.hpp@{serveur/temp/include/Components.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}ServerCore.hpp"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structPosition}{Position}}\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{float}\ x\ =\ 0.0f;}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{float}\ y\ =\ 0.0f;}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{structPosition}{Position}}(\textcolor{keywordtype}{float}\ px,\ \textcolor{keywordtype}{float}\ py)\ :\ x(px),\ y(py)\ \{\}}
+\DoxyCodeLine{00014\ \};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structVelocity}{Velocity}}\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{float}\ x\ =\ 0.0f;}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{float}\ y\ =\ 0.0f;}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{bool}\ active\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{structVelocity}{Velocity}}(\textcolor{keywordtype}{float}\ px,\ \textcolor{keywordtype}{float}\ py,\ \textcolor{keywordtype}{bool}\ act)\ :\ x(px),\ y(py),\ active(\textcolor{keyword}{false})\ \{\}}
+\DoxyCodeLine{00022\ \};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structHitBox}{HitBox}}\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{float}\ x\ =\ 0.0f;}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{float}\ y\ =\ 0.0f;}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{float}\ width\ =\ 0.0f;}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{float}\ height\ =\ 0.0f;}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{structHitBox}{HitBox}}(\textcolor{keywordtype}{float}\ px,\ \textcolor{keywordtype}{float}\ py,\ \textcolor{keywordtype}{float}\ wd,\ \textcolor{keywordtype}{float}\ ht)}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ :\ x(px),\ y(py),\ width(wd),\ height(ht)\ \{\}}
+\DoxyCodeLine{00032\ \};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structHealth}{Health}}\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{int}\ value\ =\ 100;}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{int}\ maxValue\ =\ 100;}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{structHealth}{Health}}(\textcolor{keywordtype}{int}\ vl,\ \textcolor{keywordtype}{int}\ maxv)\ :\ value(vl),\ maxValue(maxv)\ \{\}}
+\DoxyCodeLine{00039\ \};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structDamage}{Damage}}\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{int}\ value\ =\ 10;}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{structDamage}{Damage}}(\textcolor{keywordtype}{int}\ vl)\ :\ value(vl)\ \{\}}
+\DoxyCodeLine{00045\ \};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structPlayerData}{PlayerData}}\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ std::string\ id;}
+\DoxyCodeLine{00049\ \ \ \ \ std::string\ name;}
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{structPosition}{Position}}\ pos;}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{structPlayerData}{PlayerData}}(std::string\ \textcolor{keywordtype}{id},\ std::string\ name)\ :\ id(\textcolor{keywordtype}{id}),\ name(name)\ \{\}}
+\DoxyCodeLine{00053\ \};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structEnemyData}{EnemyData}}\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ std::size\_t\ lastDamageSource;}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{int}\ pointValue;}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{structEnemyData}{EnemyData}}(std::size\_t\ dam,\ \textcolor{keywordtype}{int}\ pVl)}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ :\ lastDamageSource(dam),\ pointValue(pVl)\ \{\}}
+\DoxyCodeLine{00061\ \};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structPlayerScore}{PlayerScore}}\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{int}\ score\{0\};}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{int}\ kills\{0\};}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{int}\ deaths\{0\};}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{float}\ survivalTime\{0.0f\};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{structPlayerScore}{PlayerScore}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \mbox{\hyperlink{structPlayerScore}{PlayerScore}}(\textcolor{keywordtype}{int}\ score,\ \textcolor{keywordtype}{int}\ kills,\ \textcolor{keywordtype}{int}\ deaths,\ \textcolor{keywordtype}{float}\ surviTime)}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ :\ score(0),\ kills(0),\ deaths(0),\ survivalTime(0.0)\ \{\}}
+\DoxyCodeLine{00073\ \};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structEnemySpawn}{EnemySpawn}}\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{float}\ x;}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{float}\ y;}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{float}\ spawnTime;}
+\DoxyCodeLine{00079\ \ \ \ \ std::string\ type;}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{int}\ health;}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{int}\ pointValue;}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{float}\ speed;}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \mbox{\hyperlink{structEnemySpawn}{EnemySpawn}}(\textcolor{keywordtype}{float}\ px,\ \textcolor{keywordtype}{float}\ py,\ \textcolor{keywordtype}{float}\ spTime,\ std::string\ type,\ \textcolor{keywordtype}{int}\ health,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ ptVl,\ \textcolor{keywordtype}{float}\ speed)}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ :\ x(px),\ y(py),\ spawnTime(spTime),\ type(type),\ health(0),\ pointValue(0),}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ speed(speed)\ \{\}}
+\DoxyCodeLine{00088\ \};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structLevel}{Level}}\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ std::vector<EnemySpawn>\ enemies;}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordtype}{float}\ duration;}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{int}\ minScoreToWin;}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \mbox{\hyperlink{structLevel}{Level}}()\ :\ duration(0.0f),\ minScoreToWin(0)\ \{\}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ \mbox{\hyperlink{structLevel}{Level}}(std::vector<EnemySpawn>\ enemies,\ \textcolor{keywordtype}{float}\ duration,\ \textcolor{keywordtype}{int}\ minScore)}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ :\ enemies(enemies),\ duration(duration),\ minScoreToWin(minScore)\ \{\}}
+\DoxyCodeLine{00099\ \};}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structGameState}{GameState}}\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{bool}\ isGameRunning\{\textcolor{keyword}{false}\};}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{float}\ gameTime\{0.0f\};}
+\DoxyCodeLine{00104\ \ \ \ \ uint32\_t\ playerCount\{0\};}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \mbox{\hyperlink{structGameState}{GameState}}(\textcolor{keywordtype}{bool}\ isRunning,\ \textcolor{keywordtype}{float}\ gameTime,\ uint32\_t\ playerCount)}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ :\ isGameRunning(\textcolor{keyword}{false}),\ gameTime(gameTime),\ playerCount(playerCount)\ \{\}}
+\DoxyCodeLine{00108\ \};}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRefServer}{RefServer}}\ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \mbox{\hyperlink{classServer}{Server}}\ \&refToServer;}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \mbox{\hyperlink{structRefServer}{RefServer}}(\mbox{\hyperlink{classServer}{Server}}\ \&\_refToServer)\ :\ refToServer(\_refToServer)\ \{\}}
+\DoxyCodeLine{00114\ \};}
+
+\end{DoxyCode}
