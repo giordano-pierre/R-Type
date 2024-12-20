@@ -16,9 +16,17 @@ class CollisionSys {
     CollisionSys() = default;
     ~CollisionSys() = default;
 
-    auto operator()(ECS &ecs, SparseArray<Position> &positions,
-                    const SparseArray<HitBox> &hitboxes) -> bool;
-    auto operator()(ECS &ecs, SparseArray<Position> &positions) -> bool;
+    void operator()(ECS &ecs, const rtype::server::TicEvent &,
+                    const SparseArray<Position> &positions,
+                    const SparseArray<HitBox> &hitboxes,
+                    const SparseArray<Tag> &tags, SparseArray<Health> &healths,
+                    const SparseArray<PlayerData> &playersdata,
+                    SparseArray<Score> &scores);
+
+    void operator()(ECS &ecs, const rtype::server::TicEvent &,
+                    SparseArray<Position> &positions,
+                    const SparseArray<Tag> &tags,
+                    const SparseArray<HitBox> &hitboxes);
 };
 } // namespace systems
 } // namespace rtype::server
