@@ -15,7 +15,7 @@ void MoveSys::operator()(ECS &ecs, const InputEvent &e_input,
                          SparseArray<Velocity> &velocities,
                          const SparseArray<Tag> &tags) {
     TupleInt newValue = {-1, -1};
-    std::string uuid1;
+    std::string uuid1 = "";
     for (size_t i = 0; i < tags.size() && i < players.size(); ++i) {
         const auto &play = players[i];
         const auto &tag = tags[i];
@@ -23,6 +23,9 @@ void MoveSys::operator()(ECS &ecs, const InputEvent &e_input,
         if (play && tag && play.value()._id == 1)
             uuid1 = tag.value()._id;
     }
+
+    if (uuid1.empty())
+        return;
 
     switch (e_input._myEvent) {
     case LEFT1P:
