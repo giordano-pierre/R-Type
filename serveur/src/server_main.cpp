@@ -51,7 +51,6 @@ void server_loop(ECS &ecs) {
 
     timer::time_point<timer::steady_clock> newTime;
 
-
     while (running) {
         bool trigger = false;
         newTime = timer::steady_clock::now();

@@ -135,7 +135,6 @@ void ServerHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
         ecs.add_component<rtype::server::Score>(newPlayer, {});
         ecs.add_component<rtype::server::Health>(newPlayer, {});
 
-
         ecs.post<RequestEvent>(
             {NetworkActions::CREATE_ENTITY,
              {
