@@ -16,7 +16,7 @@
 
 bool is_number(char *str) {
     for (int i = 0; i < strlen(str); i++) {
-        if(!isdigit(str[i]) || str[i] != '.')
+        if (!isdigit(str[i]) || str[i] != '.')
             return false;
     }
     return true;
