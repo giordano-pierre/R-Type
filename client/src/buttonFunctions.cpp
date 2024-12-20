@@ -6,6 +6,7 @@
 */
 
 #include "ECS/ECS.hpp"
+#include "RequestEvent.hpp"
 #include "ecsObjects.hpp"
 
 namespace rtype::client {
@@ -81,7 +82,7 @@ void resetG(ECS &ecs, Entity i) {
     myWindow._size = {1440, 810};
     initGeneralInput(myWindow._inputConfig.first);
     ecs.post<DeleteEvent>({CGENERAL});
-    ecs.post<CreateEvent>({CGENERAL});
+    ecs.post<CreationEvent>({CGENERAL});
 }
 
 void resetP1(ECS &ecs, Entity i) {
@@ -94,6 +95,42 @@ void resetP2(ECS &ecs, Entity i) {
     auto &myWindow = ecs.get_components<Window>()[0].value();
 
     initPlay2Input(myWindow._inputConfig);
+}
+
+void startGame1P(ECS &ecs, Entity i) {
+    // ecs.post<DeleteEvent>({MENU});
+    // ecs.post<CreationEvent>({PLAYER});
+    auto &myWindow = ecs.get_components<Window>()[0].value();
+
+    ecs.post<RequestEvent>(
+        {CLIENT_READY, {{"nb_player_max", 1}, {"name", myWindow._name1}}});
+}
+
+void startGame2P(ECS &ecs, Entity i) {
+    // ecs.post<DeleteEvent>({MENU});
+    // ecs.post<CreationEvent>({PLAYER});
+    auto &myWindow = ecs.get_components<Window>()[0].value();
+
+    ecs.post<RequestEvent>(
+        {CLIENT_READY, {{"nb_player_max", 2}, {"name", myWindow._name1}}});
+    ecs.post<RequestEvent>(
+        {CLIENT_READY, {{"nb_player_max", 2}, {"name", myWindow._name2}}});
+}
+
+void startGameMP(ECS &ecs, Entity i) {
+    // ecs.post<DeleteEvent>({MENU});
+    // ecs.post<CreationEvent>({PLAYER});
+    auto &myWindow = ecs.get_components<Window>()[0].value();
+
+    ecs.post<RequestEvent>(
+        {CLIENT_READY, {{"nb_player_max", 2}, {"name", myWindow._name1}}});
+}
+
+void swapColorblind(ECS &ecs, Entity i) {
+    auto &myWindow = ecs.get_components<Window>()[0].value();
+
+    myWindow._colorblind = !myWindow._colorblind;
+    press(ecs, i);
 }
 
 } // namespace rtype::client

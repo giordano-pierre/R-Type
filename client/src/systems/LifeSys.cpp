@@ -14,7 +14,7 @@
 
 namespace rtype::client {
 
-void LifeSys::operator()(ECS &ecs, const CreateEvent &e_create) {
+void LifeSys::operator()(ECS &ecs, const CreationEvent &e_create) {
     ecs.clean<FrameEvent>();
     ecs.clean<InputEvent>();
     ecs.clean<TicEvent>();
@@ -22,6 +22,10 @@ void LifeSys::operator()(ECS &ecs, const CreateEvent &e_create) {
     case MENU:
         loadMenuSystem(ecs);
         createMenuEntities(ecs);
+        break;
+    case MPLAYER:
+        loadMenuSystem(ecs);
+        createMenuPlayerEntities(ecs);
         break;
     case CONFIG:
         loadMenuSystem(ecs);
@@ -34,6 +38,10 @@ void LifeSys::operator()(ECS &ecs, const CreateEvent &e_create) {
     case CPLAYER1:
         loadMenuSystem(ecs);
         createConfigPlayer1Entites(ecs);
+        break;
+    case CPLAYER2:
+        loadMenuSystem(ecs);
+        createConfigPlayer2Entites(ecs);
         break;
     default:
         loadGameSystem(ecs);

@@ -29,35 +29,36 @@
 \DoxyCodeLine{00025\ \ \ \ \ SERVER\_READY,}
 \DoxyCodeLine{00026\ \ \ \ \ CREATE\_ENTITY,}
 \DoxyCodeLine{00027\ \ \ \ \ UPDATE\_ENTITY,}
-\DoxyCodeLine{00028\ \};}
-\DoxyCodeLine{00029\ }
-\DoxyCodeLine{00030\ \textcolor{keyword}{enum}\ EntityType\ \{}
-\DoxyCodeLine{00031\ \ \ \ \ PLAYER,}
-\DoxyCodeLine{00032\ \ \ \ \ ENEMY1,}
-\DoxyCodeLine{00033\ \ \ \ \ SHOT,}
-\DoxyCodeLine{00034\ \};}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \textcolor{keyword}{const}\ std::unordered\_map<EntityType,\ std::string>\ TypeToString\{}
-\DoxyCodeLine{00037\ \ \ \ \ \{EntityType::PLAYER,\ \textcolor{stringliteral}{"{}Player"{}}\},}
-\DoxyCodeLine{00038\ \ \ \ \ \{EntityType::ENEMY1,\ \textcolor{stringliteral}{"{}Enemy1"{}}\},}
-\DoxyCodeLine{00039\ \ \ \ \ \{EntityType::SHOT,\ \textcolor{stringliteral}{"{}Shot"{}}\}\};}
-\DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \textcolor{keyword}{const}\ std::unordered\_map<std::string,\ EntityType>\ StringToType\{}
-\DoxyCodeLine{00042\ \ \ \ \ \{\textcolor{stringliteral}{"{}Player"{}},\ EntityType::PLAYER\},}
-\DoxyCodeLine{00043\ \ \ \ \ \{\textcolor{stringliteral}{"{}Enemy1"{}},\ EntityType::ENEMY1\},}
-\DoxyCodeLine{00044\ \ \ \ \ \{\textcolor{stringliteral}{"{}Shot"{}},\ EntityType::SHOT\}\};}
-\DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \textcolor{keyword}{inline}\ nlohmann::json\ to\_json(\textcolor{keyword}{const}\ EntityType\ \&type)\ \{}
-\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordflow}{return}\ TypeToString.at(type);}
-\DoxyCodeLine{00048\ \}}
-\DoxyCodeLine{00049\ }
-\DoxyCodeLine{00050\ \textcolor{keyword}{inline}\ EntityType\ from\_json(\textcolor{keyword}{const}\ nlohmann::json\ \&j)\ \{}
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{return}\ StringToType.at(j.get<std::string>());}
-\DoxyCodeLine{00052\ \}}
-\DoxyCodeLine{00053\ }
-\DoxyCodeLine{00054\ \textcolor{keyword}{inline}\ std::string\ fetch\_new\_uuid()\ \{}
-\DoxyCodeLine{00055\ \ \ \ \ boost::uuids::random\_generator\ uuid\_generator\_;}
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{return}\ boost::uuids::to\_string(uuid\_generator\_());}
-\DoxyCodeLine{00057\ \}}
+\DoxyCodeLine{00028\ \ \ \ \ GAME\_OVER,}
+\DoxyCodeLine{00029\ \};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{enum}\ EntityType\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ PLAYER,}
+\DoxyCodeLine{00033\ \ \ \ \ ENEMY1,}
+\DoxyCodeLine{00034\ \ \ \ \ SHOT,}
+\DoxyCodeLine{00035\ \};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{const}\ std::unordered\_map<EntityType,\ std::string>\ TypeToString\{}
+\DoxyCodeLine{00038\ \ \ \ \ \{EntityType::PLAYER,\ \textcolor{stringliteral}{"{}Player"{}}\},}
+\DoxyCodeLine{00039\ \ \ \ \ \{EntityType::ENEMY1,\ \textcolor{stringliteral}{"{}Enemy1"{}}\},}
+\DoxyCodeLine{00040\ \ \ \ \ \{EntityType::SHOT,\ \textcolor{stringliteral}{"{}Shot"{}}\}\};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{const}\ std::unordered\_map<std::string,\ EntityType>\ StringToType\{}
+\DoxyCodeLine{00043\ \ \ \ \ \{\textcolor{stringliteral}{"{}Player"{}},\ EntityType::PLAYER\},}
+\DoxyCodeLine{00044\ \ \ \ \ \{\textcolor{stringliteral}{"{}Enemy1"{}},\ EntityType::ENEMY1\},}
+\DoxyCodeLine{00045\ \ \ \ \ \{\textcolor{stringliteral}{"{}Shot"{}},\ EntityType::SHOT\}\};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{inline}\ nlohmann::json\ to\_json(\textcolor{keyword}{const}\ EntityType\ \&type)\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordflow}{return}\ TypeToString.at(type);}
+\DoxyCodeLine{00049\ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{inline}\ EntityType\ from\_json(\textcolor{keyword}{const}\ nlohmann::json\ \&j)\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordflow}{return}\ StringToType.at(j.get<std::string>());}
+\DoxyCodeLine{00053\ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{inline}\ std::string\ fetch\_new\_uuid()\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ boost::uuids::random\_generator\ uuid\_generator\_;}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordflow}{return}\ boost::uuids::to\_string(uuid\_generator\_());}
+\DoxyCodeLine{00058\ \}}
 
 \end{DoxyCode}

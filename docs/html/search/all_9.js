@@ -18,6 +18,6 @@ var searchData=
   ['components_15',['components',['../md_doc_2ECS.html#autotoc_md14',1,'Adding Components'],['../md_doc_2ECS.html#autotoc_md6',1,'Components'],['../md_doc_2ECS.html#autotoc_md15',1,'Removing Components']]],
   ['components_3a_16',['components:',['../md_doc_2NETWORK.html#autotoc_md36',1,'Components:'],['../md_doc_2NETWORK.html#autotoc_md30',1,'Components:']]],
   ['conclusion_17',['conclusion',['../md_doc_2ECS.html#autotoc_md24',1,'Conclusion'],['../md_doc_2NETWORK.html#autotoc_md50',1,'Conclusion']]],
-  ['createevent_18',['CreateEvent',['../structrtype_1_1client_1_1CreateEvent.html',1,'rtype::client']]],
+  ['creationevent_18',['CreationEvent',['../structrtype_1_1client_1_1CreationEvent.html',1,'rtype::client']]],
   ['custom_20events_19',['Custom Events',['../md_doc_2ECS.html#autotoc_md20',1,'']]]
 ];
