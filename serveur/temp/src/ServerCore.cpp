@@ -20,7 +20,6 @@ void Server::start() {
     ecs.register_event<MovementSys>();
     ecs.subscribe<MovementSys>(movSys, true);
 
-
     run();
 }
 
