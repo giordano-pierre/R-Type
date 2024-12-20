@@ -23,7 +23,7 @@ void loadGameSystem(ECS &ecs) {
     ecs.subscribe<TicEvent, Window, Tag, Hitbox, Position>(borderSys);
 
     auto shootSys = ShootSys();
-    ecs.subscribe<InputEvent, Window, Playable, Position, Hitbox>(shootSys);
+    ecs.subscribe<InputEvent, Window, Playable, Position, Hitbox, Tag>(shootSys);
 }
 
 void loadMenuSystem(ECS &ecs) {
