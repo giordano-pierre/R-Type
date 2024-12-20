@@ -25,6 +25,7 @@ enum NetworkActions {
     UPDATE_ENTITY,
     CLIENT_INPUT,
     CLIENT_DISCONNECT,
+    GAME_OVER
 };
 
 enum EntityType {
