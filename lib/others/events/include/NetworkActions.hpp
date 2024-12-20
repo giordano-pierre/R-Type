@@ -25,6 +25,7 @@ enum NetworkActions {
     SERVER_READY,
     CREATE_ENTITY,
     UPDATE_ENTITY,
+    GAME_OVER,
 };
 
 enum EntityType {

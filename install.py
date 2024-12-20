@@ -15,7 +15,6 @@ def get_os_system():
         return "NONE"
 
 def install_linux_dependencies():
-    """Installe les dépendances système requises pour SFML selon le gestionnaire de paquets."""
     print("Installation des dépendances système requises...")
     try:
         if shutil.which("apt"):
@@ -53,26 +52,41 @@ def run_vcpkg():
     if not os.path.exists("vcpkg"):
         print("Clonage de vcpkg...")
         subprocess.run(["git", "clone", "https://github.com/microsoft/vcpkg.git"], check=True)
-        subprocess.run(["./vcpkg/bootstrap-vcpkg.sh"], check=True)
+
+    if get_os_system() == "WINDOWS":
+        print("Bootstrapping vcpkg for Windows...")
+        subprocess.run(["vcpkg\\bootstrap-vcpkg.bat"], shell=True, check=True)
     else:
-        print("vcpkg existe déjà. Mise à jour...")
-        subprocess.run(["git", "-C", "vcpkg", "pull"], check=True)
+        print("Bootstrapping vcpkg for Linux...")
         subprocess.run(["./vcpkg/bootstrap-vcpkg.sh"], check=True)
 
     os.chdir("vcpkg")
-    subprocess.run([
-        "./vcpkg", "install",
-        "sfml", "nlohmann-json", "boost-asio", "boost-uuid"
-    ], check=True)
-    subprocess.run(["./vcpkg", "integrate", "install"], check=True)
+    vcpkg_command = "vcpkg.exe" if get_os_system() == "WINDOWS" else "./vcpkg"
+    try:
+        packages = ["sfml", "nlohmann-json", "boost-asio", "boost-uuid"]
+        for package in packages:
+            print(f"Installation du package {package}...")
+            subprocess.run([vcpkg_command, "install", package], check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Erreur lors de l'installation des bibliothèques vcpkg : {e}")
+        vcpkg_exe_exists = any("vcpkg.exe" in file for root, _, files in os.walk("vcpkg") for file in files)
+        print(f"vcpkg.exe présent : {vcpkg_exe_exists}")
+        exit(1)
+    subprocess.run([vcpkg_command, "integrate", "install"], check=True)
     os.chdir("..")
 
 def build_project():
     """Configure et construit le projet avec CMake."""
-    subprocess.run([
+    win32_winnt = "-D_WIN32_WINNT=0x0A00" if get_os_system() == "WINDOWS" else ""
+    cmake_command = [
         "cmake", "-B", "./build",
         "-DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake"
-    ], check=True)
+    ]
+    if win32_winnt:
+        cmake_command.append(win32_winnt)
+
+    print(f"Commande CMake : {' '.join(cmake_command)}")
+    subprocess.run(cmake_command, check=True)
     subprocess.run(["cmake", "--build", "./build"], check=True)
 
 def main():
@@ -86,6 +100,7 @@ def main():
         run_vcpkg()
         build_project()
     elif os_system == "WINDOWS":
+        print("Exécution sur une machine locale Windows.")
         run_vcpkg()
         build_project()
     else:

@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** R-Type
 ** File description:
-** CreateEvent
+** CreationEvent
 */
 
 #pragma once
@@ -10,7 +10,7 @@
 #include "tools.hpp"
 
 namespace rtype::client {
-struct CreateEvent {
+struct CreationEvent {
     ObjectType _type;
 };
 } // namespace rtype::client

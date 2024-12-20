@@ -42,19 +42,19 @@ void createGameEntities(ECS &ecs) {
                 {675, 360},
                 1});
 
-    Entity player1 = ecs.spawn_entity();
-    ecs.add_component<Position>(player1, {float(100), serverSize.y / float(2)});
-    ecs.add_component<Velocity>(player1, {0, 0});
-    ecs.add_component<Playable>(player1, {1});
-    ecs.add_component<Tag>(player1, {PLAYER});
-    ecs.add_component<Hitbox>(player1, {{0.1, 0.12}});
-    ecs.add_component<Drawable>(
-        player1,
-        {myWindow._myTextures.getTexture("assets/images/ship/red_ship.png"),
-         {395, 250},
-         {395, 250},
-         1,
-         1});
+    // Entity player1 = ecs.spawn_entity();
+    // ecs.add_component<Position>(player1, {float(100), serverSize.y /
+    // float(2)}); ecs.add_component<Velocity>(player1, {0, 0});
+    // ecs.add_component<Playable>(player1, {1});
+    // ecs.add_component<Tag>(player1, {PLAYER});
+    // ecs.add_component<Hitbox>(player1, {{0.1, 0.12}});
+    // ecs.add_component<Drawable>(
+    //     player1,
+    //     {myWindow._myTextures.getTexture("assets/images/ship/red_ship.png"),
+    //      {395, 250},
+    //      {395, 250},
+    //      1,
+    //      1});
 }
 
 void createMenuEntities(ECS &ecs) {
@@ -96,14 +96,9 @@ void createMenuEntities(ECS &ecs) {
                  std::function<void(ECS &, Entity)>(select),
                  std::function<void(ECS &, Entity)>(deselect)});
     ecs.add_component<Pressable>(
-        startB,
-        {myWindow._myTextures.getTexture(
-             "assets/images/utils/button_config1_act.png"),
-         [](ECS &ecs, Entity) {
-             //  ecs.post<DeleteEvent>({MENU});
-             //  ecs.post<CreateEvent>({PLAYER});
-             ecs.post<RequestEvent>({CLIENT_READY, {{"nb_player_max", 1}}});
-         }});
+        startB, {myWindow._myTextures.getTexture(
+                     "assets/images/utils/button_config1_act.png"),
+                 std::function<void(ECS &, Entity)>(startGame)});
 
     Entity customB = ecs.spawn_entity();
     ecs.add_component<Position>(
@@ -171,8 +166,8 @@ void createMenuEntities(ECS &ecs) {
                       "assets/images/utils/button_config1_act.png"),
                   [](ECS &ecs, Entity) {
                       ecs.post<DeleteEvent>({MENU});
-                      ecs.post<CreateEvent>({CONFIG});
-                      ecs.post<CreateEvent>({CGENERAL});
+                      ecs.post<CreationEvent>({CONFIG});
+                      ecs.post<CreationEvent>({CGENERAL});
                   }});
 
     Entity quitB = ecs.spawn_entity();
@@ -266,7 +261,7 @@ void createConfigEntities(ECS &ecs) {
                    [](ECS &ecs, Entity i) {
                        press(ecs, i);
                        ecs.post<DeleteEvent>({CPLAYER1});
-                       ecs.post<CreateEvent>({CGENERAL});
+                       ecs.post<CreationEvent>({CGENERAL});
                    },
                    1});
     press(ecs, generalB);
@@ -305,7 +300,7 @@ void createConfigEntities(ECS &ecs) {
                    [](ECS &ecs, Entity i) {
                        press(ecs, i);
                        ecs.post<DeleteEvent>({CGENERAL});
-                       ecs.post<CreateEvent>({CPLAYER1});
+                       ecs.post<CreationEvent>({CPLAYER1});
                    },
                    1});
 
@@ -380,7 +375,7 @@ void createConfigEntities(ECS &ecs) {
                     ecs.post<DeleteEvent>({CONFIG});
                     ecs.post<DeleteEvent>({CGENERAL});
                     ecs.post<DeleteEvent>({CPLAYER1});
-                    ecs.post<CreateEvent>({MENU});
+                    ecs.post<CreationEvent>({MENU});
                 }});
 }
 
