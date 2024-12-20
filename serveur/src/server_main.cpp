@@ -92,7 +92,7 @@ void waiting_loop(ECS &ecs) {
     }
 }
 
-int main(int ac, char*argv[]) {
+int main(int ac, char *argv[]) {
     try {
         if (ac != 1 && ac != 2)
             return 84;

@@ -199,8 +199,12 @@ void ServerHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
     //                                 {"id", uuid},
     //                                 {"type", rec_event.payload["type"]},
     //                                 {"pos", rec_event.payload["pos"]},
-    //                                 {"velocity", {{"x", rec_event.payload["velocity"]["x"]},{"y", rec_event.payload["velocity"]["y"]}}},
-    //                                 {"hitbox", {{"x", rec_event.payload["hitbox"]["x"]},{"y", rec_event.payload["hitbox"]["y"]}}},
+    //                                 {"velocity", {{"x",
+    //                                 rec_event.payload["velocity"]["x"]},{"y",
+    //                                 rec_event.payload["velocity"]["y"]}}},
+    //                                 {"hitbox", {{"x",
+    //                                 rec_event.payload["hitbox"]["x"]},{"y",
+    //                                 rec_event.payload["hitbox"]["y"]}}},
     //                             },
     //                             ""});
     //     break;
