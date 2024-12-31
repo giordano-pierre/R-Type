@@ -5,7 +5,6 @@
 ** createEntities
 */
 #include "createEntities.hpp"
-#include "RequestEvent.hpp"
 #include "buttonFunctions.hpp"
 #include "ecsObjects.hpp"
 #include <iostream>

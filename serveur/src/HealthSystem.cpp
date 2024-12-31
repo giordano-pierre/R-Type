@@ -8,8 +8,7 @@
 #include "HealthSystem.hpp"
 #include "ServerHandlerSystem.hpp"
 
-namespace rtype::server {
-namespace systems {
+namespace rtype::server::systems {
 
 void rtype::server::systems::HealthSys::operator()(
     ECS &ecs, const rtype::server::TicEvent &,
@@ -30,4 +29,3 @@ void rtype::server::systems::HealthSys::operator()(
 }
 
 } // namespace systems
-} // namespace rtype::server

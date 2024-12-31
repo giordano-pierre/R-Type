@@ -79,7 +79,7 @@ int main(int ac, char *argv[]) {
     ClientHandlerSystem client_handler;
     ecs.subscribe<ReceiveEvent>(client_handler, true);
 
-    ecs.post<RequestEvent>({NetworkActions::CONNECT, {"action", "connect"}});
+    ecs.post<RequestEvent>({Protocol::CONNECT, {"action", "connect"}});
 
     Entity window = ecs.spawn_entity();
     ecs.add_component<rtype::client::Tag>(window, {rtype::client::WINDOW});
@@ -181,31 +181,3 @@ int main(int ac, char *argv[]) {
     }
     return 0;
 }
-
-// int main() {
-//   // Gui gui("../assets/graphisme/lunar_pirate.gif", 49, 30);
-//   // gui.run();
-
-//   try {
-//     ECS ecs;
-//     ClientHandlerSystem client_handler;
-//     UDPClient client(ecs, "127.0.0.1", "4242");
-//     ecs.register_event<RequestEvent>();
-//     ecs.register_event<ReceiveEvent>();
-//     ecs.subscribe<RequestEvent>(client);
-//     ecs.subscribe<ReceiveEvent>(client_handler);
-//     ecs.post<RequestEvent>({NetworkActions::CONNECT, {"action", "connect"}});
-//     while (true) {
-//       if (!ecs.empty()) {
-//         auto &callback = ecs.front();
-//         callback();
-//         ecs.pop_front();
-//       }
-//     };
-//     while (true) {
-//     };
-//   } catch (std::exception &e) {
-//     std::cerr << "Error: " << e.what() << std::endl;
-//   }
-//   return 0;
-// }

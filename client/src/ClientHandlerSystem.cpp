@@ -112,7 +112,7 @@ void ClientHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
     // std::cout << "Client HANDLER" << std::endl;
     // std::cout << "action : " << rec_event.action << std::endl;
     switch (rec_event.action) {
-    case NetworkActions::GAME_START: {
+    case Protocol::GAME_START: {
         auto &myWindow = ecs.get_components<rtype::client::Window>()[0].value();
         if (!myWindow._gameState) {
             ecs.post<rtype::client::DeleteEvent>({rtype::client::MPLAYER});
@@ -122,7 +122,7 @@ void ClientHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
         ecs.post<RequestEvent>({GAME_START, {}});
         break;
     }
-    case NetworkActions::CREATE_ENTITY: {
+    case Protocol::CREATE_ENTITY: {
         if (rec_event.payload.contains("tmp_id")) {
             auto entity = getEntityByID(ecs, rec_event.payload["tmp_id"]);
             if (entity == -1)
@@ -134,7 +134,7 @@ void ClientHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
             createEntity(ecs, rec_event);
         break;
     }
-    case NetworkActions::CREATE_PLAYER: {
+    case Protocol::CREATE_PLAYER: {
         auto &myWindow = ecs.get_components<rtype::client::Window>()[0].value();
         Entity entity = ecs.spawn_entity();
         ecs.add_component<rtype::client::Tag>(
@@ -157,7 +157,7 @@ void ClientHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
         // ecs.add_component<Health>(entity, {});
         break;
     }
-    case NetworkActions::UPDATE_ENTITY: {
+    case Protocol::UPDATE_ENTITY: {
         auto entity = getEntityByID(ecs, rec_event.payload["id"]);
         if (entity == -1) {
             createEntity(ecs, rec_event);
@@ -166,7 +166,7 @@ void ClientHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
         updateEntity(ecs, entity, rec_event);
         break;
     }
-    case NetworkActions::GAME_OVER: {
+    case Protocol::GAME_OVER: {
         ecs.post<rtype::client::DeleteEvent>({rtype::client::PLAYER});
         ecs.post<rtype::client::DeleteEvent>({rtype::client::ENEMY});
         ecs.post<rtype::client::DeleteEvent>({rtype::client::BACKGROUND});

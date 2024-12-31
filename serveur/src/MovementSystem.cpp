@@ -8,8 +8,7 @@
 #include "MovementSystem.hpp"
 #include <iostream>
 
-namespace rtype::server {
-namespace systems {
+namespace rtype::server::systems {
 
 auto MovementSys::operator()(ECS &ecs, const rtype::server::TicEvent &,
                              SparseArray<Position> &positions,
@@ -21,5 +20,5 @@ auto MovementSys::operator()(ECS &ecs, const rtype::server::TicEvent &,
         }
     }
 }
+
 } // namespace systems
-} // namespace rtype::server

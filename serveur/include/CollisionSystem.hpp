@@ -9,8 +9,7 @@
 #include "Components.hpp"
 #include "ECS/ECS.hpp"
 
-namespace rtype::server {
-namespace systems {
+namespace rtype::server::systems {
 class CollisionSys {
   public:
     CollisionSys() = default;
@@ -29,4 +28,3 @@ class CollisionSys {
                     const SparseArray<HitBox> &hitboxes);
 };
 } // namespace systems
-} // namespace rtype::server

@@ -7,8 +7,7 @@
 
 #include "CollisionSystem.hpp"
 
-namespace rtype::server {
-namespace systems {
+namespace rtype::server::systems {
 
 void CollisionSys::operator()(ECS &ecs, const rtype::server::TicEvent &,
                               const SparseArray<Position> &positions,
@@ -136,5 +135,5 @@ void CollisionSys::operator()(ECS &ecs, const rtype::server::TicEvent &,
         }
     }
 }
+
 } // namespace systems
-} // namespace rtype::server

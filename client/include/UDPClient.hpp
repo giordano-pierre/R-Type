@@ -1,9 +1,16 @@
+/*
+** EPITECH PROJECT, 2024
+** R-Type
+** File description:
+** UDPClient
+*/
+
 #pragma once
 
 #include "ECS/ECS.hpp"
-#include "NetworkActions.hpp"
-#include "ReceiveEvent.hpp"
-#include "RequestEvent.hpp"
+#include "enums.hpp"
+#include "events/ReceiveEvent.hpp"
+#include "events/RequestEvent.hpp"
 #include <boost/asio.hpp>
 #include <iostream>
 #include <nlohmann/json.hpp>

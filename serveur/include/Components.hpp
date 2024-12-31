@@ -1,6 +1,6 @@
 #pragma once
 
-#include "NetworkActions.hpp"
+#include "enums.hpp"
 #include <chrono>
 #include <cstddef>
 #include <cstdint>

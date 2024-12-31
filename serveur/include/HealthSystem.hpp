@@ -9,9 +9,7 @@
 #include "Components.hpp"
 #include "ECS/ECS.hpp"
 
-namespace rtype::server {
-namespace systems {
-
+namespace rtype::server::systems {
 class HealthSys {
   public:
     HealthSys() = default;
@@ -22,4 +20,3 @@ class HealthSys {
                     SparseArray<Basics> &basics);
 };
 } // namespace systems
-} // namespace rtype::server

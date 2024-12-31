@@ -6,7 +6,7 @@
 */
 
 #include "systems/MoveSys.hpp"
-#include "RequestEvent.hpp"
+#include "events/RequestEvent.hpp"
 
 namespace rtype::client {
 

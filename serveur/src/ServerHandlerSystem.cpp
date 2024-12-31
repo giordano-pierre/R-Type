@@ -9,7 +9,7 @@
 #include <iostream>
 
 void serverReady(ECS &ecs, const std::string &uuid) {
-    ecs.post<RequestEvent>({NetworkActions::GAME_START, {}, uuid});
+    ecs.post<RequestEvent>({Protocol::GAME_START, {}, uuid});
 }
 
 void createEnemy(ECS &ecs, rtype::server::EnemyInfo enemy) {
@@ -28,7 +28,7 @@ void createEnemy(ECS &ecs, rtype::server::EnemyInfo enemy) {
                                           {uuid, EntityType::ENEMY1});
 
     ecs.post<RequestEvent>(
-        {NetworkActions::CREATE_ENTITY,
+        {Protocol::CREATE_ENTITY,
          {{"id", uuid},
           {"type", to_json(EntityType::ENEMY1)},
           {"pos", {{"x", enemy.x_pos}, {"y", enemy.y_pos}}},
@@ -41,7 +41,7 @@ void createEnemy(ECS &ecs, rtype::server::EnemyInfo enemy) {
 
 void gameOver(ECS &ecs) {
 
-    ecs.post<RequestEvent>({NetworkActions::GAME_OVER, {}, ""});
+    ecs.post<RequestEvent>({Protocol::GAME_OVER, {}, ""});
 }
 
 void updateEntity(ECS &ecs) {
@@ -65,7 +65,7 @@ void updateEntity(ECS &ecs) {
             auto player_score = score[i].value();
 
             ecs.post<RequestEvent>(
-                {NetworkActions::UPDATE_ENTITY,
+                {Protocol::UPDATE_ENTITY,
                  {
                      {"id", player.id},
                      {"type", to_json(EntityType::PLAYER)},
@@ -84,7 +84,7 @@ void updateEntity(ECS &ecs) {
             auto enemy_box = hitbox[i].value();
             auto enemy_vel = velocities[i].value();
             ecs.post<RequestEvent>(
-                {NetworkActions::UPDATE_ENTITY,
+                {Protocol::UPDATE_ENTITY,
                  {
                      {"id", enemy.id},
                      {"type", to_json(EntityType::ENEMY1)},
@@ -102,7 +102,7 @@ void updateEntity(ECS &ecs) {
             auto shot_box = hitbox[i].value();
             auto shot_vel = velocities[i].value();
             ecs.post<RequestEvent>(
-                {NetworkActions::UPDATE_ENTITY,
+                {Protocol::UPDATE_ENTITY,
                  {
                      {"id", shot.id},
                      {"type", EntityType::SHOT},
@@ -120,12 +120,12 @@ void ServerHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
     // std::cout << "action : " << rec_event.action << std::endl;
 
     switch (rec_event.action) {
-    case NetworkActions::NEW_CLIENT: {
-        ecs.post<RequestEvent>({NetworkActions::SEND_UUID, rec_event.payload,
+    case Protocol::NEW_CLIENT: {
+        ecs.post<RequestEvent>({Protocol::SEND_UUID, rec_event.payload,
                                 rec_event.sender_uuid});
         break;
     }
-    case NetworkActions::CLIENT_READY: {
+    case Protocol::CLIENT_READY: {
         Entity newPlayer = ecs.spawn_entity();
         std::string uuid = fetch_new_uuid();
 
@@ -152,7 +152,7 @@ void ServerHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
         ecs.add_component<rtype::server::Health>(newPlayer, {});
 
         ecs.post<RequestEvent>(
-            {NetworkActions::CREATE_PLAYER,
+            {Protocol::CREATE_PLAYER,
              {
                  {"id", uuid},
                  {"type", to_json(EntityType::PLAYER)},
@@ -162,7 +162,7 @@ void ServerHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
              rec_event.sender_uuid});
         break;
     }
-    case NetworkActions::GAME_START: {
+    case Protocol::GAME_START: {
         auto &basic = ecs.get_components<rtype::server::Basics>()[0].value();
 
         auto it = basic.clientInGame.find(rec_event.sender_uuid);
@@ -171,7 +171,7 @@ void ServerHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
         }
         break;
     }
-    // case NetworkActions::CLIENT_CREATE: {
+    // case Protocol::CLIENT_CREATE: {
     //     std::string uuid = fetch_new_uuid();
     //     Entity newPlayer = ecs.spawn_entity();
     //     std::size_t id;
@@ -193,7 +193,7 @@ void ServerHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
     //                     rec_event.payload["hitbox"]["y"]});
     //     ecs.add_component<rtype::server::Tag>(newPlayer,
     //                                           {uuid, EntityType::SHOT});
-    //     ecs.post<RequestEvent>({NetworkActions::CREATE_ENTITY,
+    //     ecs.post<RequestEvent>({Protocol::CREATE_ENTITY,
     //                             {
     //                                 {"tmp_id", rec_event.payload["tmp_id"]},
     //                                 {"id", uuid},
@@ -209,7 +209,7 @@ void ServerHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
     //                             ""});
     //     break;
     // }
-    case NetworkActions::CLIENT_INPUT: {
+    case Protocol::CLIENT_INPUT: {
 
         auto input = rec_event.payload["type_event"];
         std::size_t id;
@@ -241,7 +241,7 @@ void ServerHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
         break;
     }
 
-    case NetworkActions::CLIENT_DISCONNECT: {
+    case Protocol::CLIENT_DISCONNECT: {
         std::size_t id;
 
         auto &basic = ecs.get_components<rtype::server::Basics>()[0].value();

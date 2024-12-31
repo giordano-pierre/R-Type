@@ -11,7 +11,7 @@
 bool running = true;
 
 void signalHandler(int signum) {
-    std::cout << "Signal d'arrêt reçu :'(. Arrêt du serveur..." << std::endl;
+    std::cout << std::endl << "Signal d'arrêt reçu :'(. Arrêt du serveur..." << std::endl;
     running = false;
 }
 
@@ -142,15 +142,13 @@ int main(int ac, char *argv[]) {
             {2250, 100, -10, 0, 0.1f, 0.18f, 100, 40}};
         ecs.add_component<rtype::server::Basics>(basics, {enemies});
 
-        std::cout << "Attention!!! \nDémarrage du serveur R-Type...\n"
-                  << std::endl;
+        std::cout << "Démarrage du serveur R-Type..." << std::endl;
         subscribe_all_systems(ecs);
         server_loop(ecs);
 
-        std::cout << "===============================\n" << std::endl;
-        std::cout << "\n... Serveur arrêté avec succès. Bien joué "
-                     "!\n\n\n\n\nN'hésite pas a rejoindre Arts&Crafts ;)"
-                  << std::endl;
+        std::cout << "===============================" << std::endl << std::endl;
+        std::cout << "... Serveur arrêté avec succès. Bien joué!" << std::endl;
+        std::cout << "N'hésite pas a rejoindre Arts&Crafts ;)" << std::endl;
         return 0;
 
     } catch (const std::exception &e) {

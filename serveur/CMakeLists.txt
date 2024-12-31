@@ -19,7 +19,7 @@ target_include_directories(r-type_server
 target_link_libraries(r-type_server
     PUBLIC
         ECS
-        Systems
+        Shared
 )
 
 find_package(nlohmann_json CONFIG REQUIRED)

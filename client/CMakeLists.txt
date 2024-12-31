@@ -42,7 +42,7 @@ target_link_libraries(r-type_client PRIVATE ECS sfml-system sfml-network sfml-gr
 
 target_link_libraries(r-type_client
     PUBLIC
-        ECS Systems
+        ECS Shared
 )
 
 target_include_directories(r-type_client PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)

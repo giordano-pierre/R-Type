@@ -1,9 +1,9 @@
 #pragma once
 
 #include "ECS/ECS.hpp"
-#include "NetworkActions.hpp"
-#include "ReceiveEvent.hpp"
-#include "RequestEvent.hpp"
+#include "enums.hpp"
+#include "events/ReceiveEvent.hpp"
+#include "events/RequestEvent.hpp"
 #include <array>
 #include <boost/asio.hpp>
 #include <boost/uuid/uuid.hpp>

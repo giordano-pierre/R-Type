@@ -10,7 +10,6 @@
 #include "ECS/ECS.hpp"
 
 namespace rtype::server::systems {
-
 class GameLogicSys {
 
   public:

@@ -1,8 +1,13 @@
+/*
+** EPITECH PROJECT, 2024
+** R-Type
+** File description:
+** UDPClient
+*/
+
 #include "UDPClient.hpp"
 
 void UDPClient::operator()(ECS &ecs, const RequestEvent &req_event) {
-    // std::cout << "send" << std::endl;
-
     std::vector<uint8_t> bson_data =
         json::to_bson({{"client_uuid", uuid_},
                        {"action_id", (int)req_event.action},
@@ -21,7 +26,6 @@ void UDPClient::operator()(ECS &ecs, const RequestEvent &req_event) {
     socket_.async_send_to(
         boost::asio::buffer(buffer), server_endpoint_,
         [this](boost::system::error_code ec, std::size_t bytes) {
-            // std::cout << "bytes sent: " << bytes << std::endl;
             if (ec) {
                 std::cerr << "send error: " << ec.message() << std::endl;
             }
@@ -30,7 +34,6 @@ void UDPClient::operator()(ECS &ecs, const RequestEvent &req_event) {
 }
 
 void UDPClient::start_receive() {
-    // std::cout << "start_receive" << std::endl;
     socket_.async_receive_from(
         boost::asio::buffer(buffer_), server_endpoint_,
         [this](boost::system::error_code ec, std::size_t bytes_recvd) {
@@ -45,8 +48,6 @@ void UDPClient::start_receive() {
 }
 
 void UDPClient::handle_receive(std::size_t bytes_recvd) {
-    // std::cout << "handle_receive" << std::endl;
-
     try {
         if (bytes_recvd < sizeof(uint32_t)) {
             throw std::runtime_error(
@@ -68,7 +69,6 @@ void UDPClient::handle_receive(std::size_t bytes_recvd) {
 
         json received_json = json::from_bson(bson_data);
 
-        // std::cout << "Received: " << received_json.dump() << std::endl;
         parse_request(received_json);
 
         start_receive();
@@ -80,18 +80,12 @@ void UDPClient::handle_receive(std::size_t bytes_recvd) {
 
 void UDPClient::parse_request(const json &parsed_json) {
     try {
-        NetworkActions action_id =
-            parsed_json.at("action_id").get<NetworkActions>();
+        Protocol action_id =
+            parsed_json.at("action_id").get<Protocol>();
         json payload = parsed_json.at("payload");
-
-        // std::cout << "Action ID: " << action_id << std::endl;
-        // std::cout << "Payload: " << payload.dump() << std::endl;
-        if (action_id == NetworkActions::SEND_UUID && uuid_.empty()) {
+        if (action_id == Protocol::SEND_UUID && uuid_.empty()) {
             try {
                 uuid_ = payload["client_uuid"];
-                // std::cout << "UUID set to: " << uuid_ << std::endl;
-                ecs_.post<RequestEvent>({NetworkActions::ENVOI_CLIENT,
-                                         {{"value", "je deteste vigneau"}}});
             } catch (const std::exception &e) {
                 std::cerr << "Parsing uuid failed : " << e.what() << std::endl;
             }

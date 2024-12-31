@@ -9,8 +9,8 @@
 
 #include "Components.hpp"
 #include "ECS/ECS.hpp"
-#include "ReceiveEvent.hpp"
-#include "RequestEvent.hpp"
+#include "events/ReceiveEvent.hpp"
+#include "events/RequestEvent.hpp"
 
 class ServerHandlerSystem {
   private:

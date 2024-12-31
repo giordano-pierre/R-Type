@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "NetworkActions.hpp"
+#include "enums.hpp"
 #include <nlohmann/json.hpp>
 #include <string>
 
@@ -16,7 +16,7 @@ struct ReceiveEvent {
     // std::string &sender_uuid=""):
     //     action(action), payload(payload), sender_uuid(sender_uuid) {};
 
-    const NetworkActions action;
+    const Protocol action;
     const nlohmann::json payload;
     const std::string sender_uuid = "";
 };
