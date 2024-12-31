@@ -11,7 +11,8 @@
 bool running = true;
 
 void signalHandler(int signum) {
-    std::cout << std::endl << "Signal d'arrêt reçu :'(. Arrêt du serveur..." << std::endl;
+    std::cout << std::endl
+              << "Signal d'arrêt reçu :'(. Arrêt du serveur..." << std::endl;
     running = false;
 }
 
@@ -146,7 +147,8 @@ int main(int ac, char *argv[]) {
         subscribe_all_systems(ecs);
         server_loop(ecs);
 
-        std::cout << "===============================" << std::endl << std::endl;
+        std::cout << "===============================" << std::endl
+                  << std::endl;
         std::cout << "... Serveur arrêté avec succès. Bien joué!" << std::endl;
         std::cout << "N'hésite pas a rejoindre Arts&Crafts ;)" << std::endl;
         return 0;

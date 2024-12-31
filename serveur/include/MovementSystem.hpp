@@ -19,4 +19,4 @@ class MovementSys {
                     SparseArray<Position> &positions,
                     const SparseArray<Velocity> &velocities) -> void;
 };
-} // namespace systems
+} // namespace rtype::server::systems

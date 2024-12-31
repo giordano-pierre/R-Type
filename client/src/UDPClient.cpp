@@ -80,8 +80,7 @@ void UDPClient::handle_receive(std::size_t bytes_recvd) {
 
 void UDPClient::parse_request(const json &parsed_json) {
     try {
-        Protocol action_id =
-            parsed_json.at("action_id").get<Protocol>();
+        Protocol action_id = parsed_json.at("action_id").get<Protocol>();
         json payload = parsed_json.at("payload");
         if (action_id == Protocol::SEND_UUID && uuid_.empty()) {
             try {

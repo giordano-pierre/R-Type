@@ -24,8 +24,7 @@ void UDPServer::parse_request(const json &parsed_json) {
     try {
         std::string client_uuid =
             parsed_json.at("client_uuid").get<std::string>();
-        Protocol action_id =
-            parsed_json.at("action_id").get<Protocol>();
+        Protocol action_id = parsed_json.at("action_id").get<Protocol>();
         json payload = parsed_json.at("payload");
         ecs_.post<ReceiveEvent>({action_id, payload, client_uuid});
     } catch (const std::exception &e) {

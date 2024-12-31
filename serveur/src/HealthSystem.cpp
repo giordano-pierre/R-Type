@@ -28,4 +28,4 @@ void rtype::server::systems::HealthSys::operator()(
     }
 }
 
-} // namespace systems
+} // namespace rtype::server::systems

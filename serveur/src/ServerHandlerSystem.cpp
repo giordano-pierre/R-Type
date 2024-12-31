@@ -121,8 +121,8 @@ void ServerHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
 
     switch (rec_event.action) {
     case Protocol::NEW_CLIENT: {
-        ecs.post<RequestEvent>({Protocol::SEND_UUID, rec_event.payload,
-                                rec_event.sender_uuid});
+        ecs.post<RequestEvent>(
+            {Protocol::SEND_UUID, rec_event.payload, rec_event.sender_uuid});
         break;
     }
     case Protocol::CLIENT_READY: {

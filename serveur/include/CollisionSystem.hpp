@@ -27,4 +27,4 @@ class CollisionSys {
                     const SparseArray<Tag> &tags,
                     const SparseArray<HitBox> &hitboxes);
 };
-} // namespace systems
+} // namespace rtype::server::systems

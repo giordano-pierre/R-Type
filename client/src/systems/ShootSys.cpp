@@ -6,10 +6,10 @@
 */
 
 #include "systems/ShootSys.hpp"
-#include "events/RequestEvent.hpp"
 #include "components/Drawable.hpp"
 #include "components/Tag.hpp"
 #include "components/Velocity.hpp"
+#include "events/RequestEvent.hpp"
 
 namespace rtype::client {
 

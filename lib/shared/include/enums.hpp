@@ -43,30 +43,18 @@ enum EntityType {
 };
 
 const std::unordered_map<EntityType, std::string> TypeToString{
-    {EntityType::ENEMY1, "Enemy1"},
-    {EntityType::ENEMY2, "Enemy2"},
-    {EntityType::ENEMY3, "Enemy3"},
-    {EntityType::ENEMY4, "Enemy4"},
-    {EntityType::ENEMY5, "Enemy5"},
-    {EntityType::ENEMY6, "Enemy6"},
-    {EntityType::BOSS1, "Boss1"},
-    {EntityType::BOSS2, "Boss2"},
-    {EntityType::PLAYER, "Player"},
-    {EntityType::SHOT, "Shot"}
-};
+    {EntityType::ENEMY1, "Enemy1"}, {EntityType::ENEMY2, "Enemy2"},
+    {EntityType::ENEMY3, "Enemy3"}, {EntityType::ENEMY4, "Enemy4"},
+    {EntityType::ENEMY5, "Enemy5"}, {EntityType::ENEMY6, "Enemy6"},
+    {EntityType::BOSS1, "Boss1"},   {EntityType::BOSS2, "Boss2"},
+    {EntityType::PLAYER, "Player"}, {EntityType::SHOT, "Shot"}};
 
 const std::unordered_map<std::string, EntityType> StringToType{
-    {"Enemy1", EntityType::ENEMY1},
-    {"Enemy2", EntityType::ENEMY2},
-    {"Enemy3", EntityType::ENEMY3},
-    {"Enemy4", EntityType::ENEMY4},
-    {"Enemy5", EntityType::ENEMY5},
-    {"Enemy6", EntityType::ENEMY6},
-    {"Boss1", EntityType::BOSS1},
-    {"Boss2", EntityType::BOSS2},
-    {"Player", EntityType::PLAYER},
-    {"Shot", EntityType::SHOT}
-};
+    {"Enemy1", EntityType::ENEMY1}, {"Enemy2", EntityType::ENEMY2},
+    {"Enemy3", EntityType::ENEMY3}, {"Enemy4", EntityType::ENEMY4},
+    {"Enemy5", EntityType::ENEMY5}, {"Enemy6", EntityType::ENEMY6},
+    {"Boss1", EntityType::BOSS1},   {"Boss2", EntityType::BOSS2},
+    {"Player", EntityType::PLAYER}, {"Shot", EntityType::SHOT}};
 
 inline nlohmann::json to_json(const EntityType &type) {
     return TypeToString.at(type);

@@ -21,4 +21,4 @@ auto MovementSys::operator()(ECS &ecs, const rtype::server::TicEvent &,
     }
 }
 
-} // namespace systems
+} // namespace rtype::server::systems

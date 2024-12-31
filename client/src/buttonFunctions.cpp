@@ -6,8 +6,8 @@
 */
 
 #include "ECS/ECS.hpp"
-#include "events/RequestEvent.hpp"
 #include "ecsObjects.hpp"
+#include "events/RequestEvent.hpp"
 
 namespace rtype::client {
 

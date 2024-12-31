@@ -19,4 +19,4 @@ class HealthSys {
                     const SparseArray<Health> &healths,
                     SparseArray<Basics> &basics);
 };
-} // namespace systems
+} // namespace rtype::server::systems
