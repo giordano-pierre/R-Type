@@ -10,9 +10,10 @@
 
 namespace rtype::server::systems {
 
-void GameLogicSys::operator()(
-    ECS &ecs, const TicEvent &, SparseArray<Basics> &basics,
-    const SparseArray<Score> &scores, const SparseArray<Tag> &tags) {
+void GameLogicSys::operator()(ECS &ecs, const TicEvent &,
+                              SparseArray<Basics> &basics,
+                              const SparseArray<Score> &scores,
+                              const SparseArray<Tag> &tags) {
 
     if (basics[0].value().nbPlayer == basics[0].value().minPlayer) {
         for (const auto &[key, value] : basics[0].value().clientInGame) {
@@ -49,4 +50,4 @@ void GameLogicSys::operator()(
         }
     }
 }
-}
+} // namespace rtype::server::systems
