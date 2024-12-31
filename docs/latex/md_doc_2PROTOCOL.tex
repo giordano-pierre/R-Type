@@ -1,0 +1,222 @@
+\chapter{Network Protocol Documentation}
+\hypertarget{md_doc_2PROTOCOL}{}\label{md_doc_2PROTOCOL}\index{Network Protocol Documentation@{Network Protocol Documentation}}
+\label{md_doc_2PROTOCOL_autotoc_md51}%
+\Hypertarget{md_doc_2PROTOCOL_autotoc_md51}%
+ This document outlines the communication protocol between the server and clients for the multiplayer R-\/\+Type-\/like game.
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2PROTOCOL_autotoc_md53}{}\doxysection{\texorpdfstring{Message Types}{Message Types}}\label{md_doc_2PROTOCOL_autotoc_md53}
+\hypertarget{md_doc_2PROTOCOL_autotoc_md54}{}\doxysubsection{\texorpdfstring{1. $<$strong$>$\+Client to Server Messages$<$/strong$>$}{1. <strong>Client to Server Messages</strong>}}\label{md_doc_2PROTOCOL_autotoc_md54}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Message Type   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Message Type   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily NEW\+\_\+\+CLIENT}   &Sent by the client to initiate a connection with the server.    \\\cline{1-2}
+{\ttfamily CLIENT\+\_\+\+READY}   &Sent by the client when ready to start the game. Includes player details.    \\\cline{1-2}
+{\ttfamily CLIENT\+\_\+\+INPUT}   &Sent by the client to notify the server of a player input (e.\+g., movement).    \\\cline{1-2}
+{\ttfamily CLIENT\+\_\+\+DISCONNECT}   &Sent by the client to disconnect from the game.   \\\cline{1-2}
+\end{longtabu}
+\hypertarget{md_doc_2PROTOCOL_autotoc_md55}{}\doxysubsubsection{\texorpdfstring{$<$strong$>$\+Message Details$<$/strong$>$}{<strong>Message Details</strong>}}\label{md_doc_2PROTOCOL_autotoc_md55}
+
+\begin{DoxyItemize}
+\item {\bfseries{NEW\+\_\+\+CLIENT}} ~\newline
+
+\begin{DoxyItemize}
+\item {\bfseries{Purpose}}\+: Request to connect to the server.
+\item {\bfseries{Payload}}\+: None.
+\end{DoxyItemize}
+\item {\bfseries{CLIENT\+\_\+\+READY(player\+Name, nb\+\_\+players\+\_\+until\+\_\+game\+\_\+starts)}} ~\newline
+
+\begin{DoxyItemize}
+\item {\bfseries{Purpose}}\+: Notify the server that the client is ready to play. ~\newline
+
+\item {\bfseries{Payload}}\+:
+\begin{DoxyItemize}
+\item {\ttfamily player\+Name} (string)\+: Name of the player.
+\item {\ttfamily nb\+\_\+players\+\_\+until\+\_\+game\+\_\+starts} (int)\+: Number of players needed to start the game.
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item {\bfseries{CLIENT\+\_\+\+INPUT(player\+\_\+id, typeevent)\`{} ~\newline
+
+\begin{DoxyItemize}
+\item {\bfseries{Purpose}}\+: Send a player\textquotesingle{}s input to the server. ~\newline
+
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+Payload\+:
+\begin{DoxyItemize}
+\item {\ttfamily player\+\_\+id} (int)\+: ID of the player.
+\item {\ttfamily typeevent} (enum)\+: Type of input (e.\+g., {\ttfamily up}, {\ttfamily down}, {\ttfamily left}, {\ttfamily right}).
+\end{DoxyItemize}
+\end{DoxyItemize}}}
+\item {\bfseries{{\bfseries{CLIENT\+\_\+\+DISCONNECT}} ~\newline
+
+\begin{DoxyItemize}
+\item {\bfseries{Purpose}}\+: Notify the server that the client is disconnecting. ~\newline
+
+\item {\bfseries{Payload}}\+: None.
+\end{DoxyItemize}}}
+\end{DoxyItemize}
+
+{\bfseries{\DoxyHorRuler{0}
+}}
+
+{\bfseries{}}\hypertarget{md_doc_2PROTOCOL_autotoc_md57}{}\doxysubsection{\texorpdfstring{2. $<$strong$>$\+Server to Client Messages$<$/strong$>$}{2. <strong>Server to Client Messages</strong>}}\label{md_doc_2PROTOCOL_autotoc_md57}
+{\bfseries{ \tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Message Type   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Message Type   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily SEND\+\_\+\+UUID}   &Sent by the server to assign a unique ID to the client.    \\\cline{1-2}
+{\ttfamily READY\+\_\+\+SIGNAL}   &Sent by the server to notify that the game is ready to start.    \\\cline{1-2}
+{\ttfamily CREATE\+\_\+\+ENTITY}   &Sent by the server to initialize game entities on the client.    \\\cline{1-2}
+{\ttfamily UPDATE\+\_\+\+ENTITY}   &Sent by the server to update entity information during gameplay.    \\\cline{1-2}
+{\ttfamily GAME\+\_\+\+OVER}   &Sent by the server to notify the client that the game has ended.   \\\cline{1-2}
+\end{longtabu}
+}}
+
+{\bfseries{}}\hypertarget{md_doc_2PROTOCOL_autotoc_md58}{}\doxysubsubsection{\texorpdfstring{$<$strong$>$\+Message Details$<$/strong$>$}{<strong>Message Details</strong>}}\label{md_doc_2PROTOCOL_autotoc_md58}
+{\bfseries{}}
+
+{\bfseries{
+\begin{DoxyItemize}
+\item {\bfseries{SEND\+\_\+\+UUID(uuid)}} ~\newline
+
+\begin{DoxyItemize}
+\item {\bfseries{Purpose}}\+: Assign a unique ID to the client. ~\newline
+
+\item {\bfseries{Payload}}\+:
+\begin{DoxyItemize}
+\item {\ttfamily uuid} (int)\+: Unique identifier for the client.
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item {\bfseries{READY\+\_\+\+SIGNAL}} ~\newline
+
+\begin{DoxyItemize}
+\item {\bfseries{Purpose}}\+: Notify all ready players that the game is starting. ~\newline
+
+\item {\bfseries{Payload}}\+: None.
+\end{DoxyItemize}
+\item {\bfseries{CREATE\+\_\+\+ENTITY(id, type, position, health, velocity, hitbox, score)}} ~\newline
+
+\begin{DoxyItemize}
+\item {\bfseries{Purpose}}\+: Provide information about a new game entity to be displayed on the client. ~\newline
+
+\item {\bfseries{Payload}}\+:
+\begin{DoxyItemize}
+\item {\ttfamily id} (int)\+: \doxylink{classEntity}{Entity} ID.
+\item {\ttfamily type} (enum)\+: \doxylink{classEntity}{Entity} type (e.\+g., {\ttfamily other\+\_\+player}, {\ttfamily enemy}).
+\item {\ttfamily position} (struct)\+: X and Y coordinates of the entity.
+\item {\ttfamily health} (int)\+: \doxylink{structHealth}{Health} of the entity.
+\item {\ttfamily velocity} (struct)\+: X and Y velocity components.
+\item {\ttfamily hitbox} (struct)\+: Size and dimensions of the entity\textquotesingle{}s hitbox.
+\item {\ttfamily score} (int)\+: Score associated with the entity (if applicable).
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item {\bfseries{UPDATE\+\_\+\+ENTITY(id, position, health, name)}} ~\newline
+
+\begin{DoxyItemize}
+\item {\bfseries{Purpose}}\+: Update information about existing entities during gameplay. ~\newline
+
+\item {\bfseries{Payload}}\+:
+\begin{DoxyItemize}
+\item {\ttfamily id} (int)\+: \doxylink{classEntity}{Entity} ID.
+\item {\ttfamily position} (struct)\+: Updated X and Y coordinates.
+\item {\ttfamily health} (int)\+: Updated health of the entity.
+\item {\ttfamily name} (string)\+: Name associated with the entity (if applicable).
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item {\bfseries{GAME\+\_\+\+OVER}} ~\newline
+
+\begin{DoxyItemize}
+\item {\bfseries{Purpose}}\+: Notify the client that the game has ended. ~\newline
+
+\item {\bfseries{Payload}}\+: None.
+\end{DoxyItemize}
+\end{DoxyItemize}}}
+
+{\bfseries{\DoxyHorRuler{0}
+}}
+
+{\bfseries{}}\hypertarget{md_doc_2PROTOCOL_autotoc_md60}{}\doxysection{\texorpdfstring{Communication Flow}{Communication Flow}}\label{md_doc_2PROTOCOL_autotoc_md60}
+{\bfseries{}}
+
+{\bfseries{
+\begin{DoxyEnumerate}
+\item {\bfseries{Connection Phase}}\+: ~\newline
+
+\begin{DoxyItemize}
+\item Client sends {\ttfamily NEW\+\_\+\+CLIENT} to the server. ~\newline
+
+\item \doxylink{classServer}{Server} responds with {\ttfamily SEND\+\_\+\+UUID} to assign a unique ID.
+\end{DoxyItemize}
+\item {\bfseries{Game Preparation Phase}}\+: ~\newline
+
+\begin{DoxyItemize}
+\item Client sends {\ttfamily CLIENT\+\_\+\+READY} with player details when ready. ~\newline
+
+\item \doxylink{classServer}{Server} sends {\ttfamily READY\+\_\+\+SIGNAL} to all ready clients when the game is ready to start.
+\end{DoxyItemize}
+\item {\bfseries{Gameplay Phase}}\+: ~\newline
+
+\begin{DoxyItemize}
+\item \doxylink{classServer}{Server} sends {\ttfamily CREATE\+\_\+\+ENTITY} messages to initialize game entities on the client. ~\newline
+
+\item Client sends {\ttfamily CLIENT\+\_\+\+INPUT} messages to notify the server of player actions. ~\newline
+
+\item \doxylink{classServer}{Server} periodically sends {\ttfamily UPDATE\+\_\+\+ENTITY} messages to synchronize entity states.
+\end{DoxyItemize}
+\item {\bfseries{Disconnection/\+End Phase}}\+: ~\newline
+
+\begin{DoxyItemize}
+\item Client can send {\ttfamily CLIENT\+\_\+\+DISCONNECT} to leave the game. ~\newline
+
+\item \doxylink{classServer}{Server} can send {\ttfamily GAME\+\_\+\+OVER} to notify clients that the game has ended.
+\end{DoxyItemize}
+\end{DoxyEnumerate}}}
+
+{\bfseries{\DoxyHorRuler{0}
+}}
+
+{\bfseries{}}\hypertarget{md_doc_2PROTOCOL_autotoc_md62}{}\doxysection{\texorpdfstring{Data Structures}{Data Structures}}\label{md_doc_2PROTOCOL_autotoc_md62}
+{\bfseries{}}
+
+{\bfseries{}}\hypertarget{md_doc_2PROTOCOL_autotoc_md63}{}\doxysubsection{\texorpdfstring{$<$strong$>$\+Position$<$/strong$>$ (struct)}{<strong>Position</strong> (struct)}}\label{md_doc_2PROTOCOL_autotoc_md63}
+{\bfseries{
+\begin{DoxyItemize}
+\item {\ttfamily x} (float)\+: X coordinate.
+\item {\ttfamily y} (float)\+: Y coordinate.
+\end{DoxyItemize}}}
+
+{\bfseries{}}\hypertarget{md_doc_2PROTOCOL_autotoc_md64}{}\doxysubsection{\texorpdfstring{$<$strong$>$\+Velocity$<$/strong$>$ (struct)}{<strong>Velocity</strong> (struct)}}\label{md_doc_2PROTOCOL_autotoc_md64}
+{\bfseries{
+\begin{DoxyItemize}
+\item {\ttfamily x} (float)\+: X velocity component.
+\item {\ttfamily y} (float)\+: Y velocity component.
+\end{DoxyItemize}}}
+
+{\bfseries{}}\hypertarget{md_doc_2PROTOCOL_autotoc_md65}{}\doxysubsection{\texorpdfstring{$<$strong$>$\+Hitbox$<$/strong$>$ (struct)}{<strong>Hitbox</strong> (struct)}}\label{md_doc_2PROTOCOL_autotoc_md65}
+{\bfseries{
+\begin{DoxyItemize}
+\item {\ttfamily width} (float)\+: Width of the hitbox.
+\item {\ttfamily height} (float)\+: Height of the hitbox.
+\end{DoxyItemize}}}
+
+{\bfseries{\DoxyHorRuler{0}
+}}
+
+{\bfseries{}}\hypertarget{md_doc_2PROTOCOL_autotoc_md67}{}\doxysection{\texorpdfstring{Notes}{Notes}}\label{md_doc_2PROTOCOL_autotoc_md67}
+{\bfseries{
+\begin{DoxyItemize}
+\item All communication occurs over a reliable protocol to ensure message delivery.
+\item Message payloads should be serialized/deserialized appropriately. 
+\end{DoxyItemize}}}

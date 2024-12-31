@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['r_20type_0',['r type',['../md_README.html',1,'R-Type'],['../md_doc_2TechnicalStudy.html',1,'Technical and Comparative Study - R-Type'],['../md_README.html#autotoc_md74',1,'What is R-Type?']]],
+  ['r_20type_0',['r type',['../md_README.html',1,'R-Type'],['../md_doc_2TechnicalStudy.html',1,'Technical and Comparative Study - R-Type'],['../md_README.html#autotoc_md91',1,'What is R-Type?']]],
   ['receiveevent_1',['ReceiveEvent',['../structReceiveEvent.html',1,'']]],
   ['receiveevent_20tt_2',['2. &lt;tt&gt;ReceiveEvent&lt;/tt&gt;',['../md_doc_2NETWORK.html#autotoc_md43',1,'']]],
   ['refserver_3',['RefServer',['../structRefServer.html',1,'']]],
