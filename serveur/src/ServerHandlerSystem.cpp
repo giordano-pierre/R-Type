@@ -116,8 +116,8 @@ void updateEntity(ECS &ecs) {
 }
 
 void ServerHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
-    std::cout << "SERVER HANDLER" << std::endl;
-    std::cout << "action : " << rec_event.action << std::endl;
+    // std::cout << "SERVER HANDLER" << std::endl;
+    // std::cout << "action : " << rec_event.action << std::endl;
 
     switch (rec_event.action) {
     case NetworkActions::NEW_CLIENT: {

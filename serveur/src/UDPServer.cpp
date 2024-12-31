@@ -1,11 +1,11 @@
 #include "UDPServer.hpp"
 
 void UDPServer::start_receive() {
-    std::cout << "start_receive" << std::endl;
+    // std::cout << "start_receive" << std::endl;
     socket_.async_receive_from(
         boost::asio::buffer(buffer_), remote_endpoint_,
         [this](boost::system::error_code ec, std::size_t bytes_recvd) {
-            std::cout << "bytes received : " << bytes_recvd << std::endl;
+            // std::cout << "bytes received : " << bytes_recvd << std::endl;
             if (!ec && bytes_recvd > 0) {
                 handle_receive(bytes_recvd);
             } else {
@@ -23,9 +23,9 @@ void UDPServer::parse_request(const json &parsed_json) {
             parsed_json.at("action_id").get<NetworkActions>();
         json payload = parsed_json.at("payload");
 
-        std::cout << "Client UUID: " << client_uuid << std::endl;
-        std::cout << "Action ID: " << action_id << std::endl;
-        std::cout << "Payload: " << payload.dump() << std::endl;
+        // std::cout << "Client UUID: " << client_uuid << std::endl;
+        // std::cout << "Action ID: " << action_id << std::endl;
+        // std::cout << "Payload: " << payload.dump() << std::endl;
         ecs_.post<ReceiveEvent>({action_id, payload, client_uuid});
     } catch (const std::exception &e) {
         std::cerr << "Error parsing message: " << e.what() << std::endl;
@@ -33,7 +33,7 @@ void UDPServer::parse_request(const json &parsed_json) {
 }
 
 void UDPServer::handle_receive(std::size_t bytes_recvd) {
-    std::cout << "handle_receive" << std::endl;
+    // std::cout << "handle_receive" << std::endl;
 
     try {
         if (bytes_recvd < sizeof(uint32_t)) {
@@ -54,12 +54,12 @@ void UDPServer::handle_receive(std::size_t bytes_recvd) {
                                            message_size);
 
         json received_json = json::from_bson(bson_data);
-        std::cout << "RECEIVE [" << received_json.dump() << "]" << std::endl;
+        // std::cout << "RECEIVE [" << received_json.dump() << "]" << std::endl;
 
         if (received_json.at("action_id").get<NetworkActions>() ==
             NetworkActions::CONNECT) {
             std::string new_uuid = get_new_uuid();
-            std::cout << "New client with uuid = " << new_uuid << std::endl;
+            // std::cout << "New client with uuid = " << new_uuid << std::endl;
             clients_endpoint_[new_uuid] = remote_endpoint_;
 
             json response_json = {{"client_uuid", new_uuid}};
@@ -75,7 +75,7 @@ void UDPServer::handle_receive(std::size_t bytes_recvd) {
 }
 
 void UDPServer::operator()(ECS &ecs, const RequestEvent &req_event) {
-    std::cout << "start_send" << std::endl;
+    // std::cout << "start_send" << std::endl;
 
     std::vector<uint8_t> bson_data = json::to_bson(
         {{"action_id", (int)req_event.action}, {"payload", req_event.payload}});
@@ -111,10 +111,11 @@ void UDPServer::operator()(ECS &ecs, const RequestEvent &req_event) {
                         std::cerr
                             << "Error broadcasting to client: " << ec.message()
                             << std::endl;
-                    } else {
-                        std::cout << "Message sent to client: " << bytes_sent
-                                  << " bytes" << std::endl;
                     }
+                    // else {
+                    //     std::cout << "Message sent to client: " << bytes_sent
+                    //               << " bytes" << std::endl;
+                    // }
                 });
         }
     }

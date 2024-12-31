@@ -9,8 +9,7 @@
 #include "Components.hpp"
 #include "ECS/ECS.hpp"
 
-namespace rtype::server {
-namespace systems {
+namespace rtype::server::systems {
 
 class GameLogicSys {
 
@@ -18,13 +17,12 @@ class GameLogicSys {
     GameLogicSys() = default;
     ~GameLogicSys() = default;
 
-    void operator()(ECS &ecs, const rtype::server::TicEvent &,
-                    SparseArray<::rtype::server::Basics> &basics,
-                    const SparseArray<::rtype::server::Score> &score,
+    void operator()(ECS &ecs, const TicEvent &,
+                    SparseArray<Basics> &basics,
+                    const SparseArray<Score> &score,
                     const SparseArray<Tag> &tags);
 };
 } // namespace systems
-} // namespace rtype::server
 
 // check si tt le monde
 // spawn enemis

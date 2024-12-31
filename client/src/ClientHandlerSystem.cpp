@@ -109,8 +109,8 @@ void updateEntity(ECS &ecs, Entity entity, const ReceiveEvent &rec_event) {
 }
 
 void ClientHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
-    std::cout << "Client HANDLER" << std::endl;
-    std::cout << "action : " << rec_event.action << std::endl;
+    // std::cout << "Client HANDLER" << std::endl;
+    // std::cout << "action : " << rec_event.action << std::endl;
     switch (rec_event.action) {
     case NetworkActions::GAME_START: {
         auto &myWindow = ecs.get_components<rtype::client::Window>()[0].value();

@@ -11,7 +11,7 @@
 bool running = true;
 
 void signalHandler(int signum) {
-    std::cout << "\nSignal d'arrêt reçu :'(. Arrêt du serveur... \n\n"
+    std::cout << "Signal d'arrêt reçu :'(. Arrêt du serveur..."
               << std::endl;
     running = false;
 }

@@ -1,12 +1,17 @@
+/*
+** EPITECH PROJECT, 2024
+** R-Type
+** File description:
+** GameLogicSystem
+*/
 #include "GameLogicSystem.hpp"
 #include "ServerHandlerSystem.hpp"
 #include <iostream>
 
-namespace rtype::server {
-namespace systems {
+namespace rtype::server::systems {
 
-void rtype::server::systems ::GameLogicSys::operator()(
-    ECS &ecs, const rtype::server::TicEvent &, SparseArray<Basics> &basics,
+void GameLogicSys::operator()(
+    ECS &ecs, const TicEvent &, SparseArray<Basics> &basics,
     const SparseArray<Score> &scores, const SparseArray<Tag> &tags) {
 
     if (basics[0].value().nbPlayer == basics[0].value().minPlayer) {
@@ -44,5 +49,4 @@ void rtype::server::systems ::GameLogicSys::operator()(
         }
     }
 }
-} // namespace systems
-} // namespace rtype::server
+}
