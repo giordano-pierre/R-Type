@@ -29,16 +29,16 @@ struct TupleFloat {
 enum SceneType {
     MENU = 1,
     M_GENERAL,
-    M_PLAYER,   // à modifier
-    M_ROOM,     // à faire
-    M_STAGE,    // à faire
-    M_PERSO,    // à faire
+    M_PLAYER, // à modifier
+    M_ROOM,   // à faire
+    M_STAGE,  // à faire
+    M_PERSO,  // à faire
     M_CONFIG,
     M_C_GENERAL,
     M_C_PLAYER1,
     M_C_PLAYER2,
-    GAME,       // à améliorer
-    G_PAUSE,    // à faire
+    GAME,    // à améliorer
+    G_PAUSE, // à faire
 };
 
 enum UserInput {

@@ -9,8 +9,8 @@
 
 #include <ostream>
 
-#include "tools.hpp"
 #include "enums.hpp"
+#include "tools.hpp"
 
 namespace rtype::client {
 struct Tag {

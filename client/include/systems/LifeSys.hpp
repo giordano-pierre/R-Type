@@ -19,7 +19,9 @@ class LifeSys {
     LifeSys() = default;
     ~LifeSys() = default;
 
-    void operator()(ECS &ecs, const CreationEvent &e_create, SparseArray<Window> &windows);
-    void operator()(ECS &ecs, const DeleteEvent &e_del, SparseArray<Scene> &scenes);
+    void operator()(ECS &ecs, const CreationEvent &e_create,
+                    SparseArray<Window> &windows);
+    void operator()(ECS &ecs, const DeleteEvent &e_del,
+                    SparseArray<Scene> &scenes);
 };
 } // namespace rtype::client

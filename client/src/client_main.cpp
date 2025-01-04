@@ -89,9 +89,10 @@ int main(int ac, char *argv[]) {
         {"assets/font/retro_gaming.ttf", myShader, {1440, 810}, serverSize});
 
     auto lifeSys = rtype::client::LifeSys();
-    ecs.subscribe<rtype::client::CreationEvent, rtype::client::Window>(lifeSys, true);
+    ecs.subscribe<rtype::client::CreationEvent, rtype::client::Window>(lifeSys,
+                                                                       true);
     ecs.subscribe<rtype::client::DeleteEvent, rtype::client::Scene>(lifeSys,
-                                                                  true);
+                                                                    true);
 
     auto windowSys = rtype::client::WindowSys(
         {1920, 1080, 32}, "R-type", sf::Style::Titlebar | sf::Style::Close);

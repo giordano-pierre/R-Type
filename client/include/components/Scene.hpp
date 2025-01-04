@@ -11,7 +11,7 @@
 
 namespace rtype::client {
 struct Scene {
-    Scene(SceneType type) : _type(type) {};
+    Scene(SceneType type) : _type(type){};
     ~Scene() = default;
     SceneType _type;
 };

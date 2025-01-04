@@ -70,8 +70,8 @@ void createEntity(ECS &ecs, const ReceiveEvent &rec_event) {
         // ecs.add_component<Health>(entity, {});
         break;
     case EntityType::SHOT:
-        ecs.add_component<rtype::client::Tag>(
-            entity, {SHOT, rec_event.payload["id"]});
+        ecs.add_component<rtype::client::Tag>(entity,
+                                              {SHOT, rec_event.payload["id"]});
         ecs.add_component<rtype::client::Position>(
             entity,
             {rec_event.payload["pos"]["x"], rec_event.payload["pos"]["y"]});

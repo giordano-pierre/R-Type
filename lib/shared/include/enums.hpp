@@ -32,38 +32,43 @@ enum Protocol {
 /*
 enum ProtocolTest {
     // Connexion
-    CONNECT, // -> Serveur ajoute le client -> le client ajoute son uuid (vide , uuid)
-    DISCONNECT, // -> Server supprime le client de toutes ces variable (vide, OK)
+    CONNECT, // -> Serveur ajoute le client -> le client ajoute son uuid (vide ,
+uuid) DISCONNECT, // -> Server supprime le client de toutes ces variable (vide,
+OK)
 
     // Room Handler
             // (info_room = id, nb_max, nb_cur)
             // (info_player = id, color)
     GET_ROOM, // -> Serveur envoi les rooms au client (vide, info_rooms)
-    CREATE_ROOM, // -> Serveur crée une nouvelle room avec le client pour chef (info_room, id_room)
-    JOIN_ROOM, // -> Serveur ajoute le joueur à la room -> informe les autres clients (id room, info_player)
+    CREATE_ROOM, // -> Serveur crée une nouvelle room avec le client pour chef
+(info_room, id_room) JOIN_ROOM, // -> Serveur ajoute le joueur à la room ->
+informe les autres clients (id room, info_player)
 
     // Stage Handler
             // (info_stage = nb, diff, lock)
     GET_STAGE, // -> Serveur envoi les niveaux au client (vide, info_stages)
-    SELECT_STAGE, // -> Serveur selectionne le niveaux pour la partie -> informe les autres clients (id_stage, info_stage)
+    SELECT_STAGE, // -> Serveur selectionne le niveaux pour la partie -> informe
+les autres clients (id_stage, info_stage)
 
     // Game Handler
             // (info_players = id, hp, sc)
-    LAUNCH_GAME, // -> le Serveur lance la partie du client et enlève la room de la liste en attente (id_room, vide)
-    PAUSE_GAME, // -> Serveur met en pause la partie du client (id_room, vide)
-    QUIT_GAME, // -> Serveur retire le joueur et en promut un nouveau chef (si necessaire) (id_room, vide)
-    SV_GAME_OVER, // -> Server informe la fin de partie (info_players)
+    LAUNCH_GAME, // -> le Serveur lance la partie du client et enlève la room de
+la liste en attente (id_room, vide) PAUSE_GAME, // -> Serveur met en pause la
+partie du client (id_room, vide) QUIT_GAME, // -> Serveur retire le joueur et en
+promut un nouveau chef (si necessaire) (id_room, vide) SV_GAME_OVER, // ->
+Server informe la fin de partie (info_players)
 
     // Event
     CL_MOVE, // -> Server fais bouger le client (direction id_player, vide)
-    CL_SHOOT, // -> Server fais tirer le client (type id_player, id_player or vide)
+    CL_SHOOT, // -> Server fais tirer le client (type id_player, id_player or
+vide)
 
     // Entity Handler
             // (info_entity = id, type, hit, pos, vel, [hp], [sc])
     SV_CREATE_PLAYER, // Client crée une entité jouable (id_player, OK)
     SV_CREATE_ENTITY, // Client crée l'entity demandé (info_entity)
-    SV_UPDATE_ENTITY, // Client met à jour ou crée l'entity demandé (info_entity)
-    SV_KILL_ENTITY, // Client kill l'entité (id_entity) sécu???
+    SV_UPDATE_ENTITY, // Client met à jour ou crée l'entity demandé
+(info_entity) SV_KILL_ENTITY, // Client kill l'entité (id_entity) sécu???
 };
 */
 
