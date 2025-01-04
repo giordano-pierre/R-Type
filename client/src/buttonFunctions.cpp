@@ -81,8 +81,8 @@ void resetG(ECS &ecs, Entity i) {
     myWindow._lang = "EN";
     myWindow._size = {1440, 810};
     initGeneralInput(myWindow._inputConfig.first);
-    ecs.post<DeleteEvent>({CGENERAL});
-    ecs.post<CreationEvent>({CGENERAL});
+    ecs.post<DeleteEvent>({M_C_GENERAL});
+    ecs.post<CreationEvent>({M_C_GENERAL});
 }
 
 void resetP1(ECS &ecs, Entity i) {

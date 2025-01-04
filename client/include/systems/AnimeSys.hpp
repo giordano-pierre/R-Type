@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** R-Type
 ** File description:
-** FrameSys
+** AnimeSys
 */
 
 #pragma once
@@ -12,10 +12,10 @@
 #include "events/AnimeEvent.hpp"
 
 namespace rtype::client {
-class FrameSys {
+class AnimeSys {
   public:
-    FrameSys() = default;
-    ~FrameSys() = default;
+    AnimeSys() = default;
+    ~AnimeSys() = default;
 
     void operator()(ECS &ecs, const AnimeEvent &,
                     SparseArray<Drawable> &sprites);

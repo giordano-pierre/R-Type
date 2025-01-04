@@ -2,14 +2,14 @@
 ** EPITECH PROJECT, 2024
 ** R-Type
 ** File description:
-** DrawableSys
+** AnimeSys
 */
 
-#include "systems/FrameSys.hpp"
+#include "systems/AnimeSys.hpp"
 
 namespace rtype::client {
 
-void FrameSys::operator()(ECS &ecs, const AnimeEvent &,
+void AnimeSys::operator()(ECS &ecs, const AnimeEvent &,
                           SparseArray<Drawable> &sprites) {
     for (size_t i = 0; i < sprites.size(); ++i) {
         auto &sprite = sprites[i];

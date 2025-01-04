@@ -30,7 +30,7 @@ void BorderSys::operator()(ECS &ecs, const TicEvent &e_tic,
         TupleFloat sizeObj = {box.value()._server.x / 2,
                               box.value()._server.y / 2};
         switch (tag.value()._type) {
-        case BACKGROUND:
+        case OTHER:
             if (pos.value()._server.x + sizeObj.x < 0) {
                 pos.value()._server.x += sizeObj.x * 4;
                 pos.value()._needUpdate = true;

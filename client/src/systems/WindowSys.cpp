@@ -224,21 +224,6 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
                            SparseArray<Text> &texts,
                            SparseArray<Selectable> &selectables) {
     auto &myWindow = windows[0].value();
-    // bool displayHitbox = (windows.size() > 0 && windows[0])
-    //                          ? windows[0].value()._displayHitboxs
-    //                          : false;
-    // TupleUInt serverSize = (windows.size() > 0 && windows[0])
-    //                            ? windows[0].value()._serverSize
-    //                            : TupleUInt{1920, 1080};
-    // auto inputConfig =
-    //     (windows.size() > 0 && windows[0])
-    //         ? windows[0].value()._inputConfig
-    //         : std::pair<
-    //               std::map<UserInput, std::pair<sf::Keyboard::Key,
-    //                                             std::shared_ptr<std::string>>>,
-    //               std::map<UserInput, sf::Keyboard::Key>>();
-    // auto lang =
-    //     (windows.size() > 0 && windows[0]) ? windows[0].value()._lang : "EN";
     bool isResize = false;
 
     _window.clear();

@@ -17,6 +17,7 @@
 #include "components/Text.hpp"
 #include "components/Velocity.hpp"
 #include "components/Window.hpp"
+#include "components/Scene.hpp"
 
 #include "events/AnimeEvent.hpp"
 #include "events/ChangeKey.hpp"
@@ -28,7 +29,7 @@
 
 #include "systems/BorderSys.hpp"
 #include "systems/CheatSys.hpp"
-#include "systems/FrameSys.hpp"
+#include "systems/AnimeSys.hpp"
 #include "systems/LifeSys.hpp"
 #include "systems/MoveSys.hpp"
 #include "systems/PauseSys.hpp"

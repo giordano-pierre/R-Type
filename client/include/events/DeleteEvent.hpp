@@ -11,6 +11,6 @@
 
 namespace rtype::client {
 struct DeleteEvent {
-    ObjectType _type;
+    SceneType _type;
 };
 } // namespace rtype::client

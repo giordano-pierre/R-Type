@@ -8,7 +8,8 @@
 #pragma once
 
 #include "ECS/ECS.hpp"
-#include "components/Tag.hpp"
+#include "components/Scene.hpp"
+#include "components/Window.hpp"
 #include "events/CreateEvent.hpp"
 #include "events/DeleteEvent.hpp"
 
@@ -18,7 +19,7 @@ class LifeSys {
     LifeSys() = default;
     ~LifeSys() = default;
 
-    void operator()(ECS &ecs, const CreationEvent &e_create);
-    void operator()(ECS &ecs, const DeleteEvent &e_del, SparseArray<Tag> &tags);
+    void operator()(ECS &ecs, const CreationEvent &e_create, SparseArray<Window> &windows);
+    void operator()(ECS &ecs, const DeleteEvent &e_del, SparseArray<Scene> &scenes);
 };
 } // namespace rtype::client

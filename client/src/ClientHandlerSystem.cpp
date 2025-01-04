@@ -30,7 +30,7 @@ void createEntity(ECS &ecs, const ReceiveEvent &rec_event) {
     switch (from_json(rec_event.payload["type"])) {
     case EntityType::PLAYER:
         ecs.add_component<rtype::client::Tag>(
-            entity, {rtype::client::PLAYER, rec_event.payload["id"]});
+            entity, {PLAYER, rec_event.payload["id"]});
         ecs.add_component<rtype::client::Position>(
             entity,
             {rec_event.payload["pos"]["x"], rec_event.payload["pos"]["y"]});
@@ -50,7 +50,7 @@ void createEntity(ECS &ecs, const ReceiveEvent &rec_event) {
         break;
     case EntityType::ENEMY1:
         ecs.add_component<rtype::client::Tag>(
-            entity, {rtype::client::ENEMY, rec_event.payload["id"]});
+            entity, {ENEMY1, rec_event.payload["id"]});
         ecs.add_component<rtype::client::Position>(
             entity,
             {rec_event.payload["pos"]["x"], rec_event.payload["pos"]["y"]});
@@ -71,7 +71,7 @@ void createEntity(ECS &ecs, const ReceiveEvent &rec_event) {
         break;
     case EntityType::SHOT:
         ecs.add_component<rtype::client::Tag>(
-            entity, {rtype::client::SHOT, rec_event.payload["id"]});
+            entity, {SHOT, rec_event.payload["id"]});
         ecs.add_component<rtype::client::Position>(
             entity,
             {rec_event.payload["pos"]["x"], rec_event.payload["pos"]["y"]});
@@ -115,8 +115,8 @@ void ClientHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
     case Protocol::GAME_START: {
         auto &myWindow = ecs.get_components<rtype::client::Window>()[0].value();
         if (!myWindow._gameState) {
-            ecs.post<rtype::client::DeleteEvent>({rtype::client::MPLAYER});
-            ecs.post<rtype::client::CreationEvent>({rtype::client::PLAYER});
+            ecs.post<rtype::client::DeleteEvent>({rtype::client::M_PLAYER});
+            ecs.post<rtype::client::CreationEvent>({rtype::client::GAME});
             myWindow._gameState = true;
         }
         ecs.post<RequestEvent>({GAME_START, {}});
@@ -138,7 +138,7 @@ void ClientHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
         auto &myWindow = ecs.get_components<rtype::client::Window>()[0].value();
         Entity entity = ecs.spawn_entity();
         ecs.add_component<rtype::client::Tag>(
-            entity, {rtype::client::PLAYER, rec_event.payload["id"]});
+            entity, {PLAYER, rec_event.payload["id"]});
         ecs.add_component<rtype::client::Position>(
             entity,
             {rec_event.payload["pos"]["x"], rec_event.payload["pos"]["y"]});
@@ -167,11 +167,9 @@ void ClientHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
         break;
     }
     case Protocol::GAME_OVER: {
-        ecs.post<rtype::client::DeleteEvent>({rtype::client::PLAYER});
-        ecs.post<rtype::client::DeleteEvent>({rtype::client::ENEMY});
-        ecs.post<rtype::client::DeleteEvent>({rtype::client::BACKGROUND});
-        ecs.post<rtype::client::DeleteEvent>({rtype::client::SHOT});
+        ecs.post<rtype::client::DeleteEvent>({rtype::client::GAME});
         ecs.post<rtype::client::CreationEvent>({rtype::client::MENU});
+        ecs.post<rtype::client::CreationEvent>({rtype::client::M_GENERAL});
         break;
     }
     default:

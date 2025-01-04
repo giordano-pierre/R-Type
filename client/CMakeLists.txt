@@ -18,7 +18,7 @@ set(SRC
     src/components/Selectable.cpp
     src/events/FrameEvent.cpp
     src/events/TicEvent.cpp
-    src/systems/FrameSys.cpp
+    src/systems/AnimeSys.cpp
     src/systems/MoveSys.cpp
     src/systems/WindowSys.cpp
     src/systems/PauseSys.cpp

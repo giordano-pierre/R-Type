@@ -11,15 +11,15 @@
 
 namespace rtype::client {
 
-void createGameEntities(ECS &ecs) {
-    auto myWindow = ecs.get_components<Window>()[0].value();
+void createGameEntities(ECS &ecs, Window &myWindow) {
     auto serverSize = myWindow._serverSize;
 
     Entity back1 = ecs.spawn_entity();
     ecs.add_component<Position>(
         back1, {serverSize.x / float(2), serverSize.y / float(2)});
     ecs.add_component<Velocity>(back1, {-1, 0});
-    ecs.add_component<Tag>(back1, {BACKGROUND});
+    ecs.add_component<Tag>(back1, {});
+    ecs.add_component<Scene>(back1, {GAME});
     ecs.add_component<Hitbox>(back1, {{1, 1}, false});
     ecs.add_component<Drawable>(
         back1, {myWindow._myTextures.getTexture(
@@ -32,7 +32,8 @@ void createGameEntities(ECS &ecs) {
     ecs.add_component<Position>(back2, {serverSize.x / float(2) + serverSize.x,
                                         serverSize.y / float(2)});
     ecs.add_component<Velocity>(back2, {-1, 0});
-    ecs.add_component<Tag>(back2, {BACKGROUND});
+    ecs.add_component<Tag>(back2, {});
+    ecs.add_component<Scene>(back2, {GAME});
     ecs.add_component<Hitbox>(back2, {{1, 1}, false});
     ecs.add_component<Drawable>(
         back2, {myWindow._myTextures.getTexture(
@@ -40,30 +41,16 @@ void createGameEntities(ECS &ecs) {
                 {675, 360},
                 {675, 360},
                 1});
-
-    // Entity player1 = ecs.spawn_entity();
-    // ecs.add_component<Position>(player1, {float(100), serverSize.y /
-    // float(2)}); ecs.add_component<Velocity>(player1, {0, 0});
-    // ecs.add_component<Playable>(player1, {1});
-    // ecs.add_component<Tag>(player1, {PLAYER});
-    // ecs.add_component<Hitbox>(player1, {{0.1, 0.12}});
-    // ecs.add_component<Drawable>(
-    //     player1,
-    //     {myWindow._myTextures.getTexture("assets/images/ship/red_ship.png"),
-    //      {395, 250},
-    //      {395, 250},
-    //      1,
-    //      1});
 }
 
-void createMenuEntities(ECS &ecs) {
-    auto myWindow = ecs.get_components<Window>()[0].value();
+void createMenuEntities(ECS &ecs, Window &myWindow) {
     auto serverSize = myWindow._serverSize;
 
     Entity back1 = ecs.spawn_entity();
     ecs.add_component<Position>(
         back1, {serverSize.x / float(2), serverSize.y / float(2)});
-    ecs.add_component<Tag>(back1, {MENU});
+    ecs.add_component<Tag>(back1, {});
+    ecs.add_component<Scene>(back1, {MENU});
     ecs.add_component<Hitbox>(back1, {{1, 1}, false});
     ecs.add_component<Drawable>(back1,
                                 {myWindow._myTextures.getTexture(
@@ -71,11 +58,16 @@ void createMenuEntities(ECS &ecs) {
                                  {4608, 3456},
                                  {768, 432},
                                  48});
+}
+
+void createMenuGeneralEntities(ECS &ecs, Window &myWindow) {
+    auto serverSize = myWindow._serverSize;
 
     Entity startB = ecs.spawn_entity();
     ecs.add_component<Position>(
         startB, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 3});
-    ecs.add_component<Tag>(startB, {MENU});
+    ecs.add_component<Tag>(startB, {});
+    ecs.add_component<Scene>(startB, {M_GENERAL});
     ecs.add_component<Hitbox>(startB, {{float(1) / 3, float(1) / 10}});
     std::map<std::string, std::shared_ptr<std::string>> texts;
     texts.insert({"EN", std::make_shared<std::string>("START")});
@@ -98,14 +90,15 @@ void createMenuEntities(ECS &ecs) {
         startB, {myWindow._myTextures.getTexture(
                      "assets/images/utils/button_config1_act.png"),
                  [](ECS &ecs, Entity) {
-                     ecs.post<DeleteEvent>({MENU});
-                     ecs.post<CreationEvent>({MPLAYER});
+                     ecs.post<DeleteEvent>({M_GENERAL});
+                     ecs.post<CreationEvent>({M_PLAYER});
                  }});
 
     Entity customB = ecs.spawn_entity();
     ecs.add_component<Position>(
         customB, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 4});
-    ecs.add_component<Tag>(customB, {MENU});
+    ecs.add_component<Tag>(customB, {});
+    ecs.add_component<Scene>(customB, {M_GENERAL});
     ecs.add_component<Hitbox>(customB, {{float(1) / 3, float(1) / 10}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("CUSTOM")});
@@ -139,7 +132,8 @@ void createMenuEntities(ECS &ecs) {
     Entity configB = ecs.spawn_entity();
     ecs.add_component<Position>(
         configB, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 5});
-    ecs.add_component<Tag>(configB, {MENU});
+    ecs.add_component<Tag>(configB, {});
+    ecs.add_component<Scene>(configB, {M_GENERAL});
     ecs.add_component<Hitbox>(configB, {{float(1) / 3, float(1) / 10}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("CONFIGS")});
@@ -167,15 +161,16 @@ void createMenuEntities(ECS &ecs) {
         configB, {myWindow._myTextures.getTexture(
                       "assets/images/utils/button_config1_act.png"),
                   [](ECS &ecs, Entity) {
-                      ecs.post<DeleteEvent>({MENU});
-                      ecs.post<CreationEvent>({CONFIG});
-                      ecs.post<CreationEvent>({CGENERAL});
+                      ecs.post<DeleteEvent>({M_GENERAL});
+                      ecs.post<CreationEvent>({M_CONFIG});
+                      ecs.post<CreationEvent>({M_C_GENERAL});
                   }});
 
     Entity quitB = ecs.spawn_entity();
     ecs.add_component<Position>(
         quitB, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 6});
-    ecs.add_component<Tag>(quitB, {MENU});
+    ecs.add_component<Tag>(quitB, {});
+    ecs.add_component<Scene>(quitB, {M_GENERAL});
     ecs.add_component<Hitbox>(quitB, {{float(1) / 3, float(1) / 10}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("QUIT")});
@@ -206,33 +201,21 @@ void createMenuEntities(ECS &ecs) {
          [](ECS &ecs, Entity) { ecs.post<InputEvent>({sf::Event(), QUIT}); }});
 }
 
-void createMenuPlayerEntities(ECS &ecs) {
-    auto myWindow = ecs.get_components<Window>()[0].value();
+void createMenuPlayerEntities(ECS &ecs, Window &myWindow) {
     auto serverSize = myWindow._serverSize;
 
-    Entity back1 = ecs.spawn_entity();
+    Entity player1B = ecs.spawn_entity();
     ecs.add_component<Position>(
-        back1, {serverSize.x / float(2), serverSize.y / float(2)});
-    ecs.add_component<Tag>(back1, {MPLAYER});
-    ecs.add_component<Hitbox>(back1, {{1, 1}, false});
-    ecs.add_component<Drawable>(back1,
-                                {myWindow._myTextures.getTexture(
-                                     "assets/images/background/back_menu.jpg"),
-                                 {4608, 3456},
-                                 {768, 432},
-                                 48});
-
-    Entity Player1B = ecs.spawn_entity();
-    ecs.add_component<Position>(
-        Player1B, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 3});
-    ecs.add_component<Tag>(Player1B, {MPLAYER});
-    ecs.add_component<Hitbox>(Player1B, {{float(1) / 3, float(1) / 10}});
+        player1B, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 3});
+    ecs.add_component<Tag>(player1B, {});
+    ecs.add_component<Scene>(player1B, {M_PLAYER});
+    ecs.add_component<Hitbox>(player1B, {{float(1) / 3, float(1) / 10}});
     std::map<std::string, std::shared_ptr<std::string>> texts;
     texts.insert({"EN", std::make_shared<std::string>("1 PLAYER")});
     texts.insert({"FR", std::make_shared<std::string>("1 JOUEUR")});
     ecs.add_component<Text>(
-        Player1B, {texts, myWindow._font, {0.5, 0.5}, 0, 40, sf::Color::White});
-    ecs.add_component<Drawable>(Player1B,
+        player1B, {texts, myWindow._font, {0.5, 0.5}, 0, 40, sf::Color::White});
+    ecs.add_component<Drawable>(player1B,
                                 {myWindow._myTextures.getTexture(
                                      "assets/images/utils/button_config1.png"),
                                  {402, 100},
@@ -240,63 +223,65 @@ void createMenuPlayerEntities(ECS &ecs) {
                                  1,
                                  1});
     ecs.add_component<Selectable>(
-        Player1B, {myWindow._myTextures.getTexture(
+        player1B, {myWindow._myTextures.getTexture(
                        "assets/images/utils/button_config1_sel.png"),
                    std::function<void(ECS &, Entity)>(select),
                    std::function<void(ECS &, Entity)>(deselect)});
     ecs.add_component<Pressable>(
-        Player1B, {myWindow._myTextures.getTexture(
+        player1B, {myWindow._myTextures.getTexture(
                        "assets/images/utils/button_config1_act.png"),
                    std::function<void(ECS &, Entity)>(startGame1P)});
 
-    // Entity Player2B = ecs.spawn_entity();
-    // ecs.add_component<Position>(
-    //     Player2B, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 4});
-    // ecs.add_component<Tag>(Player2B, {MPLAYER});
-    // ecs.add_component<Hitbox>(Player2B, {{float(1) / 3, float(1) / 10}});
-    // texts.clear();
-    // texts.insert({"EN", std::make_shared<std::string>("2 PLAYER")});
-    // texts.insert({"FR", std::make_shared<std::string>("2 JOUEUR")});
-    // ecs.add_component<Text>(Player2B, {texts,
-    //                                    myWindow._font,
-    //                                    {0.5, 0.5},
-    //                                    0,
-    //                                    40,
-    //                                    sf::Color::White,
-    //                                    sf::Text::Style::Regular});
-    // ecs.add_component<Drawable>(Player2B,
-    //                             {myWindow._myTextures.getTexture(
-    //                                  "assets/images/utils/button_config1.png"),
-    //                              {402, 100},
-    //                              {402, 100},
-    //                              1,
-    //                              1});
-    // ecs.add_component<Selectable>(
-    //     Player2B, {myWindow._myTextures.getTexture(
-    //                    "assets/images/utils/button_config1_sel.png"),
-    //                std::function<void(ECS &, Entity)>(select),
-    //                std::function<void(ECS &, Entity)>(deselect)});
-    // ecs.add_component<Pressable>(
-    //     Player2B, {myWindow._myTextures.getTexture(
-    //                    "assets/images/utils/button_config1_act.png"),
-    //                std::function<void(ECS &, Entity)>(startGame2P)});
-
-    Entity MultiB = ecs.spawn_entity();
+    Entity player2B = ecs.spawn_entity();
     ecs.add_component<Position>(
-        MultiB, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 5});
-    ecs.add_component<Tag>(MultiB, {MPLAYER});
-    ecs.add_component<Hitbox>(MultiB, {{float(1) / 3, float(1) / 10}});
+        player2B, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 4});
+    ecs.add_component<Tag>(player2B, {});
+    ecs.add_component<Scene>(player2B, {M_PLAYER});
+    ecs.add_component<Hitbox>(player2B, {{float(1) / 3, float(1) / 10}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("2 PLAYER")});
+    texts.insert({"FR", std::make_shared<std::string>("2 JOUEUR")});
+    ecs.add_component<Text>(player2B, {texts,
+                                       myWindow._font,
+                                       {0.5, 0.5},
+                                       0,
+                                       40,
+                                       sf::Color::White,
+                                       sf::Text::Style::Regular});
+    ecs.add_component<Drawable>(player2B,
+                                {myWindow._myTextures.getTexture(
+                                     "assets/images/utils/button_config1.png"),
+                                 {402, 100},
+                                 {402, 100},
+                                 1,
+                                 1});
+    ecs.add_component<Selectable>(
+        player2B, {myWindow._myTextures.getTexture(
+                       "assets/images/utils/button_config1_sel.png"),
+                   std::function<void(ECS &, Entity)>(select),
+                   std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        player2B, {myWindow._myTextures.getTexture(
+                       "assets/images/utils/button_config1_act.png"),
+                   std::function<void(ECS &, Entity)>(startGame2P)});
+
+    Entity multiB = ecs.spawn_entity();
+    ecs.add_component<Position>(
+        multiB, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 5});
+    ecs.add_component<Tag>(multiB, {});
+    ecs.add_component<Scene>(multiB, {M_PLAYER});
+    ecs.add_component<Hitbox>(multiB, {{float(1) / 3, float(1) / 10}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("MULTIPLAYER")});
     texts.insert({"FR", std::make_shared<std::string>("MULTIJOUEUR")});
-    ecs.add_component<Text>(MultiB, {texts,
+    ecs.add_component<Text>(multiB, {texts,
                                      myWindow._font,
                                      {0.5, 0.5},
                                      0,
                                      40,
                                      sf::Color::White,
                                      sf::Text::Style::Regular});
-    ecs.add_component<Drawable>(MultiB,
+    ecs.add_component<Drawable>(multiB,
                                 {myWindow._myTextures.getTexture(
                                      "assets/images/utils/button_config1.png"),
                                  {402, 100},
@@ -304,19 +289,20 @@ void createMenuPlayerEntities(ECS &ecs) {
                                  1,
                                  1});
     ecs.add_component<Selectable>(
-        MultiB, {myWindow._myTextures.getTexture(
+        multiB, {myWindow._myTextures.getTexture(
                      "assets/images/utils/button_config1_sel.png"),
                  std::function<void(ECS &, Entity)>(select),
                  std::function<void(ECS &, Entity)>(deselect)});
     ecs.add_component<Pressable>(
-        MultiB, {myWindow._myTextures.getTexture(
+        multiB, {myWindow._myTextures.getTexture(
                      "assets/images/utils/button_config1_act.png"),
                  std::function<void(ECS &, Entity)>(startGameMP)});
 
     Entity backB = ecs.spawn_entity();
     ecs.add_component<Position>(
         backB, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 6});
-    ecs.add_component<Tag>(backB, {MPLAYER});
+    ecs.add_component<Tag>(backB, {});
+    ecs.add_component<Scene>(backB, {M_PLAYER});
     ecs.add_component<Hitbox>(backB, {{float(1) / 3, float(1) / 10}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("BACK")});
@@ -344,30 +330,19 @@ void createMenuPlayerEntities(ECS &ecs) {
         backB, {myWindow._myTextures.getTexture(
                     "assets/images/utils/button_config1_act.png"),
                 [](ECS &ecs, Entity) {
-                    ecs.post<DeleteEvent>({MPLAYER});
-                    ecs.post<CreationEvent>({MENU});
+                    ecs.post<DeleteEvent>({M_PLAYER});
+                    ecs.post<CreationEvent>({M_GENERAL});
                 }});
 }
 
-void createConfigEntities(ECS &ecs) {
-    auto myWindow = ecs.get_components<Window>()[0].value();
+void createConfigEntities(ECS &ecs, Window &myWindow) {
     auto serverSize = myWindow._serverSize;
 
-    Entity back1 = ecs.spawn_entity();
-    ecs.add_component<Position>(
-        back1, {serverSize.x / float(2), serverSize.y / float(2)});
-    ecs.add_component<Tag>(back1, {CONFIG});
-    ecs.add_component<Hitbox>(back1, {{1, 1}, false});
-    ecs.add_component<Drawable>(back1,
-                                {myWindow._myTextures.getTexture(
-                                     "assets/images/background/back_menu.jpg"),
-                                 {4608, 3456},
-                                 {768, 432},
-                                 48});
     Entity back2 = ecs.spawn_entity();
     ecs.add_component<Position>(
         back2, {serverSize.x / float(2), serverSize.y * float(0.9) / float(2)});
-    ecs.add_component<Tag>(back2, {CONFIG});
+    ecs.add_component<Tag>(back2, {});
+    ecs.add_component<Scene>(back2, {M_CONFIG});
     ecs.add_component<Hitbox>(back2, {{1, 0.9}, false});
     ecs.add_component<Drawable>(
         back2, {myWindow._myTextures.getTexture(
@@ -381,7 +356,8 @@ void createConfigEntities(ECS &ecs) {
     ecs.add_component<Position>(generalB,
                                 {float(serverSize.x) / 12 * float(7.11),
                                  float(serverSize.y) / 10 * float(2.6)});
-    ecs.add_component<Tag>(generalB, {CONFIG});
+    ecs.add_component<Tag>(generalB, {});
+    ecs.add_component<Scene>(generalB, {M_CONFIG});
     ecs.add_component<Hitbox>(generalB, {{float(1) / 4, float(1) / 10}});
     std::map<std::string, std::shared_ptr<std::string>> texts;
     texts.insert({"EN", std::make_shared<std::string>("General")});
@@ -405,9 +381,9 @@ void createConfigEntities(ECS &ecs) {
                        "assets/images/utils/button_config1_act.png"),
                    [](ECS &ecs, Entity i) {
                        press(ecs, i);
-                       ecs.post<DeleteEvent>({CPLAYER1});
-                       ecs.post<DeleteEvent>({CPLAYER2});
-                       ecs.post<CreationEvent>({CGENERAL});
+                       ecs.post<DeleteEvent>({M_C_PLAYER1});
+                       ecs.post<DeleteEvent>({M_C_PLAYER2});
+                       ecs.post<CreationEvent>({M_C_GENERAL});
                    },
                    1});
     press(ecs, generalB);
@@ -416,7 +392,8 @@ void createConfigEntities(ECS &ecs) {
     ecs.add_component<Position>(player1B,
                                 {float(serverSize.x) / 12 * float(6.14),
                                  float(serverSize.y) / 10 * float(3.9)});
-    ecs.add_component<Tag>(player1B, {CONFIG});
+    ecs.add_component<Tag>(player1B, {});
+    ecs.add_component<Scene>(player1B, {M_CONFIG});
     ecs.add_component<Hitbox>(player1B, {{float(1) / 4, float(1) / 10}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("Player 1")});
@@ -445,9 +422,9 @@ void createConfigEntities(ECS &ecs) {
                        "assets/images/utils/button_config1_act.png"),
                    [](ECS &ecs, Entity i) {
                        press(ecs, i);
-                       ecs.post<DeleteEvent>({CGENERAL});
-                       ecs.post<DeleteEvent>({CPLAYER2});
-                       ecs.post<CreationEvent>({CPLAYER1});
+                       ecs.post<DeleteEvent>({M_C_GENERAL});
+                       ecs.post<DeleteEvent>({M_C_PLAYER2});
+                       ecs.post<CreationEvent>({M_C_PLAYER1});
                    },
                    1});
 
@@ -455,7 +432,8 @@ void createConfigEntities(ECS &ecs) {
     ecs.add_component<Position>(player2B,
                                 {float(serverSize.x) / 12 * float(5.17),
                                  float(serverSize.y) / 10 * float(5.2)});
-    ecs.add_component<Tag>(player2B, {CONFIG});
+    ecs.add_component<Tag>(player2B, {});
+    ecs.add_component<Scene>(player2B, {M_CONFIG});
     ecs.add_component<Hitbox>(player2B, {{float(1) / 4, float(1) / 10}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("Player 2")});
@@ -484,16 +462,17 @@ void createConfigEntities(ECS &ecs) {
                        "assets/images/utils/button_config1_act.png"),
                    [](ECS &ecs, Entity i) {
                        press(ecs, i);
-                       ecs.post<DeleteEvent>({CGENERAL});
-                       ecs.post<DeleteEvent>({CPLAYER1});
-                       ecs.post<CreationEvent>({CPLAYER2});
+                       ecs.post<DeleteEvent>({M_C_GENERAL});
+                       ecs.post<DeleteEvent>({M_C_PLAYER1});
+                       ecs.post<CreationEvent>({M_C_PLAYER2});
                    },
                    1});
 
     Entity backB = ecs.spawn_entity();
     ecs.add_component<Position>(backB, {float(serverSize.x) / 12 * float(4.2),
                                         float(serverSize.y) / 10 * float(6.5)});
-    ecs.add_component<Tag>(backB, {CONFIG});
+    ecs.add_component<Tag>(backB, {});
+    ecs.add_component<Scene>(backB, {M_CONFIG});
     ecs.add_component<Hitbox>(backB, {{float(1) / 4, float(1) / 10}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("Back")});
@@ -521,22 +500,22 @@ void createConfigEntities(ECS &ecs) {
         backB, {myWindow._myTextures.getTexture(
                     "assets/images/utils/button_config1_act.png"),
                 [](ECS &ecs, Entity) {
-                    ecs.post<DeleteEvent>({CONFIG});
-                    ecs.post<DeleteEvent>({CGENERAL});
-                    ecs.post<DeleteEvent>({CPLAYER1});
-                    ecs.post<DeleteEvent>({CPLAYER2});
-                    ecs.post<CreationEvent>({MENU});
+                    ecs.post<DeleteEvent>({M_CONFIG});
+                    ecs.post<DeleteEvent>({M_C_GENERAL});
+                    ecs.post<DeleteEvent>({M_C_PLAYER1});
+                    ecs.post<DeleteEvent>({M_C_PLAYER2});
+                    ecs.post<CreationEvent>({M_GENERAL});
                 }});
 }
 
-void createConfigGeneralEntites(ECS &ecs) {
-    auto myWindow = ecs.get_components<Window>()[0].value();
+void createConfigGeneralEntites(ECS &ecs, Window &myWindow) {
     auto serverSize = myWindow._serverSize;
 
     Entity title = ecs.spawn_entity();
     ecs.add_component<Position>(
         title, {float(serverSize.x) / 8 * 7, float(serverSize.y) / 15 * 3});
-    ecs.add_component<Tag>(title, {CGENERAL});
+    ecs.add_component<Tag>(title, {});
+    ecs.add_component<Scene>(title, {M_C_GENERAL});
     ecs.add_component<Hitbox>(title, {{float(1) / 4, float(1) / 15}});
     std::map<std::string, std::shared_ptr<std::string>> texts;
     texts.insert({"EN", std::make_shared<std::string>("General")});
@@ -548,7 +527,8 @@ void createConfigGeneralEntites(ECS &ecs) {
     ecs.add_component<Position>(interactP,
                                 {float(serverSize.x) / 8 * float(5.5),
                                  float(serverSize.y) / 15 * float(5.5)});
-    ecs.add_component<Tag>(interactP, {CGENERAL});
+    ecs.add_component<Tag>(interactP, {});
+    ecs.add_component<Scene>(interactP, {M_C_GENERAL});
     ecs.add_component<Hitbox>(interactP, {{float(1) / 4, float(1) / 15}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("Interact")});
@@ -565,7 +545,8 @@ void createConfigGeneralEntites(ECS &ecs) {
     ecs.add_component<Position>(colorP,
                                 {float(serverSize.x) / 8 * float(5.5),
                                  float(serverSize.y) / 15 * float(7.6)});
-    ecs.add_component<Tag>(colorP, {CGENERAL});
+    ecs.add_component<Tag>(colorP, {});
+    ecs.add_component<Scene>(colorP, {M_C_GENERAL});
     ecs.add_component<Hitbox>(colorP, {{float(1) / 4, float(1) / 15}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("Colorblind mode")});
@@ -582,7 +563,8 @@ void createConfigGeneralEntites(ECS &ecs) {
     ecs.add_component<Position>(languageP,
                                 {float(serverSize.x) / 8 * float(5.1),
                                  float(serverSize.y) / 15 * float(9.7)});
-    ecs.add_component<Tag>(languageP, {CGENERAL});
+    ecs.add_component<Tag>(languageP, {});
+    ecs.add_component<Scene>(languageP, {M_C_GENERAL});
     ecs.add_component<Hitbox>(languageP, {{float(1) / 4, float(1) / 15}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("Language")});
@@ -598,7 +580,8 @@ void createConfigGeneralEntites(ECS &ecs) {
     Entity resP = ecs.spawn_entity();
     ecs.add_component<Position>(resP, {float(serverSize.x) / 8 * float(4.3),
                                        float(serverSize.y) / 15 * float(11.8)});
-    ecs.add_component<Tag>(resP, {CGENERAL});
+    ecs.add_component<Tag>(resP, {});
+    ecs.add_component<Scene>(resP, {M_C_GENERAL});
     ecs.add_component<Hitbox>(resP, {{float(1) / 4, float(1) / 15}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("Window resolution")});
@@ -615,7 +598,8 @@ void createConfigGeneralEntites(ECS &ecs) {
     ecs.add_component<Position>(
         interactB,
         {float(serverSize.x) / 8 * 7, float(serverSize.y) / 15 * float(5.5)});
-    ecs.add_component<Tag>(interactB, {CGENERAL});
+    ecs.add_component<Tag>(interactB, {});
+    ecs.add_component<Scene>(interactB, {M_C_GENERAL});
     ecs.add_component<Hitbox>(interactB, {{float(1) / 10, float(1) / 10}});
     texts.clear();
     texts.insert(
@@ -653,7 +637,8 @@ void createConfigGeneralEntites(ECS &ecs) {
     ecs.add_component<Position>(
         colorB,
         {float(serverSize.x) / 8 * 7, float(serverSize.y) / 15 * float(7.6)});
-    ecs.add_component<Tag>(colorB, {CGENERAL});
+    ecs.add_component<Tag>(colorB, {});
+    ecs.add_component<Scene>(colorB, {M_C_GENERAL});
     ecs.add_component<Hitbox>(colorB, {{float(1) / 10, float(1) / 10}});
     ecs.add_component<Drawable>(colorB,
                                 {myWindow._myTextures.getTexture(
@@ -678,7 +663,8 @@ void createConfigGeneralEntites(ECS &ecs) {
     ecs.add_component<Position>(res1B,
                                 {float(serverSize.x) / 8 * float(7.3),
                                  float(serverSize.y) / 15 * float(11.8)});
-    ecs.add_component<Tag>(res1B, {CGENERAL});
+    ecs.add_component<Tag>(res1B, {});
+    ecs.add_component<Scene>(res1B, {M_C_GENERAL});
     ecs.add_component<Hitbox>(res1B, {{float(1) / 10, float(1) / 10}});
     texts.clear();
     texts.insert({"DEFAULT", std::make_shared<std::string>("1920 x 1080")});
@@ -712,7 +698,8 @@ void createConfigGeneralEntites(ECS &ecs) {
     ecs.add_component<Position>(res2B,
                                 {float(serverSize.x) / 8 * float(6.5),
                                  float(serverSize.y) / 15 * float(11.8)});
-    ecs.add_component<Tag>(res2B, {CGENERAL});
+    ecs.add_component<Tag>(res2B, {});
+    ecs.add_component<Scene>(res2B, {M_C_GENERAL});
     ecs.add_component<Hitbox>(res2B, {{float(1) / 10, float(1) / 10}});
     texts.clear();
     texts.insert({"DEFAULT", std::make_shared<std::string>("1440 x 810")});
@@ -746,7 +733,8 @@ void createConfigGeneralEntites(ECS &ecs) {
     ecs.add_component<Position>(res3B,
                                 {float(serverSize.x) / 8 * float(5.7),
                                  float(serverSize.y) / 15 * float(11.8)});
-    ecs.add_component<Tag>(res3B, {CGENERAL});
+    ecs.add_component<Tag>(res3B, {});
+    ecs.add_component<Scene>(res3B, {M_C_GENERAL});
     ecs.add_component<Hitbox>(res3B, {{float(1) / 10, float(1) / 10}});
     texts.clear();
     texts.insert({"DEFAULT", std::make_shared<std::string>("960 x 540")});
@@ -780,7 +768,8 @@ void createConfigGeneralEntites(ECS &ecs) {
     ecs.add_component<Position>(lang1B,
                                 {float(serverSize.x) / 8 * float(7.3),
                                  float(serverSize.y) / 15 * float(9.7)});
-    ecs.add_component<Tag>(lang1B, {CGENERAL});
+    ecs.add_component<Tag>(lang1B, {});
+    ecs.add_component<Scene>(lang1B, {M_C_GENERAL});
     ecs.add_component<Hitbox>(lang1B, {{float(1) / 10, float(1) / 10}});
     texts.clear();
     texts.insert({"DEFAULT", std::make_shared<std::string>("FR")});
@@ -814,7 +803,8 @@ void createConfigGeneralEntites(ECS &ecs) {
     ecs.add_component<Position>(lang2B,
                                 {float(serverSize.x) / 8 * float(6.5),
                                  float(serverSize.y) / 15 * float(9.7)});
-    ecs.add_component<Tag>(lang2B, {CGENERAL});
+    ecs.add_component<Tag>(lang2B, {});
+    ecs.add_component<Scene>(lang2B, {M_C_GENERAL});
     ecs.add_component<Hitbox>(lang2B, {{float(1) / 10, float(1) / 10}});
     texts.clear();
     texts.insert({"DEFAULT", std::make_shared<std::string>("EN")});
@@ -848,7 +838,8 @@ void createConfigGeneralEntites(ECS &ecs) {
     ecs.add_component<Position>(resetB,
                                 {float(serverSize.x) / 12 * float(2.95),
                                  float(serverSize.y) / 10 * float(8.2)});
-    ecs.add_component<Tag>(resetB, {CGENERAL});
+    ecs.add_component<Tag>(resetB, {});
+    ecs.add_component<Scene>(resetB, {M_C_GENERAL});
     ecs.add_component<Hitbox>(resetB, {{float(1) / 4, float(1) / 10}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("Reset")});
@@ -878,14 +869,14 @@ void createConfigGeneralEntites(ECS &ecs) {
                  std::function<void(ECS &, Entity)>(resetG)});
 }
 
-void createConfigPlayer1Entites(ECS &ecs) {
-    auto myWindow = ecs.get_components<Window>()[0].value();
+void createConfigPlayer1Entites(ECS &ecs, Window &myWindow) {
     auto serverSize = myWindow._serverSize;
 
     Entity title = ecs.spawn_entity();
     ecs.add_component<Position>(
         title, {float(serverSize.x) / 8 * 7, float(serverSize.y) / 15 * 3});
-    ecs.add_component<Tag>(title, {CPLAYER1});
+    ecs.add_component<Tag>(title, {});
+    ecs.add_component<Scene>(title, {M_C_PLAYER1});
     ecs.add_component<Hitbox>(title, {{float(1) / 4, float(1) / 15}});
     std::map<std::string, std::shared_ptr<std::string>> texts;
     texts.insert({"EN", std::make_shared<std::string>("Keyboard")});
@@ -897,7 +888,8 @@ void createConfigPlayer1Entites(ECS &ecs) {
     ecs.add_component<Position>(
         param1,
         {float(serverSize.x) / 8 * 6, float(serverSize.y) / 15 * float(4.5)});
-    ecs.add_component<Tag>(param1, {CPLAYER1});
+    ecs.add_component<Tag>(param1, {});
+    ecs.add_component<Scene>(param1, {M_C_PLAYER1});
     ecs.add_component<Hitbox>(param1, {{float(1) / 8, float(1) / 15}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("Top")});
@@ -913,7 +905,8 @@ void createConfigPlayer1Entites(ECS &ecs) {
     Entity param2 = ecs.spawn_entity();
     ecs.add_component<Position>(param2, {float(serverSize.x) / 8 * 6,
                                          float(serverSize.y) / 15 * float(6)});
-    ecs.add_component<Tag>(param2, {CPLAYER1});
+    ecs.add_component<Tag>(param2, {});
+    ecs.add_component<Scene>(param2, {M_C_PLAYER1});
     ecs.add_component<Hitbox>(param2, {{float(1) / 8, float(1) / 15}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("Down")});
@@ -930,7 +923,8 @@ void createConfigPlayer1Entites(ECS &ecs) {
     ecs.add_component<Position>(
         param3,
         {float(serverSize.x) / 8 * 6, float(serverSize.y) / 15 * float(7.5)});
-    ecs.add_component<Tag>(param3, {CPLAYER1});
+    ecs.add_component<Tag>(param3, {});
+    ecs.add_component<Scene>(param3, {M_C_PLAYER1});
     ecs.add_component<Hitbox>(param3, {{float(1) / 8, float(1) / 15}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("Left")});
@@ -946,7 +940,8 @@ void createConfigPlayer1Entites(ECS &ecs) {
     Entity param4 = ecs.spawn_entity();
     ecs.add_component<Position>(param4, {float(serverSize.x) / 8 * 6,
                                          float(serverSize.y) / 15 * float(9)});
-    ecs.add_component<Tag>(param4, {CPLAYER1});
+    ecs.add_component<Tag>(param4, {});
+    ecs.add_component<Scene>(param4, {M_C_PLAYER1});
     ecs.add_component<Hitbox>(param4, {{float(1) / 8, float(1) / 15}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("Right")});
@@ -963,7 +958,8 @@ void createConfigPlayer1Entites(ECS &ecs) {
     ecs.add_component<Position>(
         param5,
         {float(serverSize.x) / 8 * 6, float(serverSize.y) / 15 * float(10.5)});
-    ecs.add_component<Tag>(param5, {CPLAYER1});
+    ecs.add_component<Tag>(param5, {});
+    ecs.add_component<Scene>(param5, {M_C_PLAYER1});
     ecs.add_component<Hitbox>(param5, {{float(1) / 8, float(1) / 15}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("Shoot")});
@@ -979,7 +975,8 @@ void createConfigPlayer1Entites(ECS &ecs) {
     Entity param6 = ecs.spawn_entity();
     ecs.add_component<Position>(param6, {float(serverSize.x) / 8 * 6,
                                          float(serverSize.y) / 15 * float(12)});
-    ecs.add_component<Tag>(param6, {CPLAYER1});
+    ecs.add_component<Tag>(param6, {});
+    ecs.add_component<Scene>(param6, {M_C_PLAYER1});
     ecs.add_component<Hitbox>(param6, {{float(1) / 8, float(1) / 15}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("Super shoot")});
@@ -996,7 +993,8 @@ void createConfigPlayer1Entites(ECS &ecs) {
     ecs.add_component<Position>(
         button1,
         {float(serverSize.x) / 8 * 7, float(serverSize.y) / 15 * float(4.5)});
-    ecs.add_component<Tag>(button1, {CPLAYER1});
+    ecs.add_component<Tag>(button1, {});
+    ecs.add_component<Scene>(button1, {M_C_PLAYER1});
     ecs.add_component<Hitbox>(button1, {{float(1) / 10, float(1) / 10}});
     texts.clear();
     texts.insert(
@@ -1032,7 +1030,8 @@ void createConfigPlayer1Entites(ECS &ecs) {
     Entity button2 = ecs.spawn_entity();
     ecs.add_component<Position>(button2, {float(serverSize.x) / 8 * 7,
                                           float(serverSize.y) / 15 * float(6)});
-    ecs.add_component<Tag>(button2, {CPLAYER1});
+    ecs.add_component<Tag>(button2, {});
+    ecs.add_component<Scene>(button2, {M_C_PLAYER1});
     ecs.add_component<Hitbox>(button2, {{float(1) / 10, float(1) / 10}});
     texts.clear();
     texts.insert(
@@ -1069,7 +1068,8 @@ void createConfigPlayer1Entites(ECS &ecs) {
     ecs.add_component<Position>(
         button3,
         {float(serverSize.x) / 8 * 7, float(serverSize.y) / 15 * float(7.5)});
-    ecs.add_component<Tag>(button3, {CPLAYER1});
+    ecs.add_component<Tag>(button3, {});
+    ecs.add_component<Scene>(button3, {M_C_PLAYER1});
     ecs.add_component<Hitbox>(button3, {{float(1) / 10, float(1) / 10}});
     texts.clear();
     texts.insert(
@@ -1105,7 +1105,8 @@ void createConfigPlayer1Entites(ECS &ecs) {
     Entity button4 = ecs.spawn_entity();
     ecs.add_component<Position>(button4, {float(serverSize.x) / 8 * 7,
                                           float(serverSize.y) / 15 * float(9)});
-    ecs.add_component<Tag>(button4, {CPLAYER1});
+    ecs.add_component<Tag>(button4, {});
+    ecs.add_component<Scene>(button4, {M_C_PLAYER1});
     ecs.add_component<Hitbox>(button4, {{float(1) / 10, float(1) / 10}});
     texts.clear();
     texts.insert(
@@ -1142,7 +1143,8 @@ void createConfigPlayer1Entites(ECS &ecs) {
     ecs.add_component<Position>(
         button5,
         {float(serverSize.x) / 8 * 7, float(serverSize.y) / 15 * float(10.5)});
-    ecs.add_component<Tag>(button5, {CPLAYER1});
+    ecs.add_component<Tag>(button5, {});
+    ecs.add_component<Scene>(button5, {M_C_PLAYER1});
     ecs.add_component<Hitbox>(button5, {{float(1) / 10, float(1) / 10}});
     texts.clear();
     texts.insert(
@@ -1179,7 +1181,8 @@ void createConfigPlayer1Entites(ECS &ecs) {
     ecs.add_component<Position>(
         button6,
         {float(serverSize.x) / 8 * 7, float(serverSize.y) / 15 * float(12)});
-    ecs.add_component<Tag>(button6, {CPLAYER1});
+    ecs.add_component<Tag>(button6, {});
+    ecs.add_component<Scene>(button6, {M_C_PLAYER1});
     ecs.add_component<Hitbox>(button6, {{float(1) / 10, float(1) / 10}});
     texts.clear();
     texts.insert(
@@ -1217,7 +1220,8 @@ void createConfigPlayer1Entites(ECS &ecs) {
     ecs.add_component<Position>(resetB,
                                 {float(serverSize.x) / 12 * float(2.95),
                                  float(serverSize.y) / 10 * float(8.2)});
-    ecs.add_component<Tag>(resetB, {CPLAYER1});
+    ecs.add_component<Tag>(resetB, {});
+    ecs.add_component<Scene>(resetB, {M_C_PLAYER1});
     ecs.add_component<Hitbox>(resetB, {{float(1) / 4, float(1) / 10}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("Reset")});
@@ -1247,14 +1251,14 @@ void createConfigPlayer1Entites(ECS &ecs) {
                  std::function<void(ECS &, Entity)>(resetP1)});
 }
 
-void createConfigPlayer2Entites(ECS &ecs) {
-    auto myWindow = ecs.get_components<Window>()[0].value();
+void createConfigPlayer2Entites(ECS &ecs, Window &myWindow) {
     auto serverSize = myWindow._serverSize;
 
     Entity title = ecs.spawn_entity();
     ecs.add_component<Position>(
         title, {float(serverSize.x) / 8 * 7, float(serverSize.y) / 15 * 3});
-    ecs.add_component<Tag>(title, {CPLAYER2});
+    ecs.add_component<Tag>(title, {});
+    ecs.add_component<Scene>(title, {M_C_PLAYER2});
     ecs.add_component<Hitbox>(title, {{float(1) / 4, float(1) / 15}});
     std::map<std::string, std::shared_ptr<std::string>> texts;
     texts.insert({"EN", std::make_shared<std::string>("Keyboard")});
@@ -1266,7 +1270,8 @@ void createConfigPlayer2Entites(ECS &ecs) {
     ecs.add_component<Position>(
         param1,
         {float(serverSize.x) / 8 * 6, float(serverSize.y) / 15 * float(4.5)});
-    ecs.add_component<Tag>(param1, {CPLAYER2});
+    ecs.add_component<Tag>(param1, {});
+    ecs.add_component<Scene>(param1, {M_C_PLAYER2});
     ecs.add_component<Hitbox>(param1, {{float(1) / 8, float(1) / 15}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("Top")});
@@ -1282,7 +1287,8 @@ void createConfigPlayer2Entites(ECS &ecs) {
     Entity param2 = ecs.spawn_entity();
     ecs.add_component<Position>(param2, {float(serverSize.x) / 8 * 6,
                                          float(serverSize.y) / 15 * float(6)});
-    ecs.add_component<Tag>(param2, {CPLAYER2});
+    ecs.add_component<Tag>(param2, {});
+    ecs.add_component<Scene>(param2, {M_C_PLAYER2});
     ecs.add_component<Hitbox>(param2, {{float(1) / 8, float(1) / 15}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("Down")});
@@ -1299,7 +1305,8 @@ void createConfigPlayer2Entites(ECS &ecs) {
     ecs.add_component<Position>(
         param3,
         {float(serverSize.x) / 8 * 6, float(serverSize.y) / 15 * float(7.5)});
-    ecs.add_component<Tag>(param3, {CPLAYER2});
+    ecs.add_component<Tag>(param3, {});
+    ecs.add_component<Scene>(param3, {M_C_PLAYER2});
     ecs.add_component<Hitbox>(param3, {{float(1) / 8, float(1) / 15}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("Left")});
@@ -1315,7 +1322,8 @@ void createConfigPlayer2Entites(ECS &ecs) {
     Entity param4 = ecs.spawn_entity();
     ecs.add_component<Position>(param4, {float(serverSize.x) / 8 * 6,
                                          float(serverSize.y) / 15 * float(9)});
-    ecs.add_component<Tag>(param4, {CPLAYER2});
+    ecs.add_component<Tag>(param4, {});
+    ecs.add_component<Scene>(param4, {M_C_PLAYER2});
     ecs.add_component<Hitbox>(param4, {{float(1) / 8, float(1) / 15}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("Right")});
@@ -1332,7 +1340,8 @@ void createConfigPlayer2Entites(ECS &ecs) {
     ecs.add_component<Position>(
         param5,
         {float(serverSize.x) / 8 * 6, float(serverSize.y) / 15 * float(10.5)});
-    ecs.add_component<Tag>(param5, {CPLAYER2});
+    ecs.add_component<Tag>(param5, {});
+    ecs.add_component<Scene>(param5, {M_C_PLAYER2});
     ecs.add_component<Hitbox>(param5, {{float(1) / 8, float(1) / 15}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("Shoot")});
@@ -1348,7 +1357,8 @@ void createConfigPlayer2Entites(ECS &ecs) {
     Entity param6 = ecs.spawn_entity();
     ecs.add_component<Position>(param6, {float(serverSize.x) / 8 * 6,
                                          float(serverSize.y) / 15 * float(12)});
-    ecs.add_component<Tag>(param6, {CPLAYER2});
+    ecs.add_component<Tag>(param6, {});
+    ecs.add_component<Scene>(param6, {M_C_PLAYER2});
     ecs.add_component<Hitbox>(param6, {{float(1) / 8, float(1) / 15}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("Super shoot")});
@@ -1365,7 +1375,8 @@ void createConfigPlayer2Entites(ECS &ecs) {
     ecs.add_component<Position>(
         button1,
         {float(serverSize.x) / 8 * 7, float(serverSize.y) / 15 * float(4.5)});
-    ecs.add_component<Tag>(button1, {CPLAYER2});
+    ecs.add_component<Tag>(button1, {});
+    ecs.add_component<Scene>(button1, {M_C_PLAYER2});
     ecs.add_component<Hitbox>(button1, {{float(1) / 10, float(1) / 10}});
     texts.clear();
     texts.insert(
@@ -1401,7 +1412,8 @@ void createConfigPlayer2Entites(ECS &ecs) {
     Entity button2 = ecs.spawn_entity();
     ecs.add_component<Position>(button2, {float(serverSize.x) / 8 * 7,
                                           float(serverSize.y) / 15 * float(6)});
-    ecs.add_component<Tag>(button2, {CPLAYER2});
+    ecs.add_component<Tag>(button2, {});
+    ecs.add_component<Scene>(button2, {M_C_PLAYER2});
     ecs.add_component<Hitbox>(button2, {{float(1) / 10, float(1) / 10}});
     texts.clear();
     texts.insert(
@@ -1438,7 +1450,8 @@ void createConfigPlayer2Entites(ECS &ecs) {
     ecs.add_component<Position>(
         button3,
         {float(serverSize.x) / 8 * 7, float(serverSize.y) / 15 * float(7.5)});
-    ecs.add_component<Tag>(button3, {CPLAYER2});
+    ecs.add_component<Tag>(button3, {});
+    ecs.add_component<Scene>(button3, {M_C_PLAYER2});
     ecs.add_component<Hitbox>(button3, {{float(1) / 10, float(1) / 10}});
     texts.clear();
     texts.insert(
@@ -1474,7 +1487,8 @@ void createConfigPlayer2Entites(ECS &ecs) {
     Entity button4 = ecs.spawn_entity();
     ecs.add_component<Position>(button4, {float(serverSize.x) / 8 * 7,
                                           float(serverSize.y) / 15 * float(9)});
-    ecs.add_component<Tag>(button4, {CPLAYER2});
+    ecs.add_component<Tag>(button4, {});
+    ecs.add_component<Scene>(button4, {M_C_PLAYER2});
     ecs.add_component<Hitbox>(button4, {{float(1) / 10, float(1) / 10}});
     texts.clear();
     texts.insert(
@@ -1511,7 +1525,8 @@ void createConfigPlayer2Entites(ECS &ecs) {
     ecs.add_component<Position>(
         button5,
         {float(serverSize.x) / 8 * 7, float(serverSize.y) / 15 * float(10.5)});
-    ecs.add_component<Tag>(button5, {CPLAYER2});
+    ecs.add_component<Tag>(button5, {});
+    ecs.add_component<Scene>(button5, {M_C_PLAYER2});
     ecs.add_component<Hitbox>(button5, {{float(1) / 10, float(1) / 10}});
     texts.clear();
     texts.insert(
@@ -1548,7 +1563,8 @@ void createConfigPlayer2Entites(ECS &ecs) {
     ecs.add_component<Position>(
         button6,
         {float(serverSize.x) / 8 * 7, float(serverSize.y) / 15 * float(12)});
-    ecs.add_component<Tag>(button6, {CPLAYER2});
+    ecs.add_component<Tag>(button6, {});
+    ecs.add_component<Scene>(button6, {M_C_PLAYER2});
     ecs.add_component<Hitbox>(button6, {{float(1) / 10, float(1) / 10}});
     texts.clear();
     texts.insert(
@@ -1586,7 +1602,8 @@ void createConfigPlayer2Entites(ECS &ecs) {
     ecs.add_component<Position>(resetB,
                                 {float(serverSize.x) / 12 * float(2.95),
                                  float(serverSize.y) / 10 * float(8.2)});
-    ecs.add_component<Tag>(resetB, {CPLAYER2});
+    ecs.add_component<Tag>(resetB, {});
+    ecs.add_component<Scene>(resetB, {M_C_PLAYER2});
     ecs.add_component<Hitbox>(resetB, {{float(1) / 4, float(1) / 10}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("Reset")});

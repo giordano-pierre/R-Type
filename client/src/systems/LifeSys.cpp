@@ -14,48 +14,57 @@
 
 namespace rtype::client {
 
-void LifeSys::operator()(ECS &ecs, const CreationEvent &e_create) {
+void LifeSys::operator()(ECS &ecs, const CreationEvent &e_create,
+                         SparseArray<Window> &windows) {
+    auto &myWindow = windows[0].value();
+
     ecs.clean<FrameEvent>();
     ecs.clean<InputEvent>();
     ecs.clean<TicEvent>();
     switch (e_create._type) {
     case MENU:
         loadMenuSystem(ecs);
-        createMenuEntities(ecs);
+        createMenuEntities(ecs, myWindow);
         break;
-    case MPLAYER:
+    case M_GENERAL:
         loadMenuSystem(ecs);
-        createMenuPlayerEntities(ecs);
+        createMenuGeneralEntities(ecs, myWindow);
         break;
-    case CONFIG:
+    case M_PLAYER:
         loadMenuSystem(ecs);
-        createConfigEntities(ecs);
+        createMenuPlayerEntities(ecs, myWindow);
         break;
-    case CGENERAL:
+    case M_CONFIG:
         loadMenuSystem(ecs);
-        createConfigGeneralEntites(ecs);
+        createConfigEntities(ecs, myWindow);
         break;
-    case CPLAYER1:
+    case M_C_GENERAL:
         loadMenuSystem(ecs);
-        createConfigPlayer1Entites(ecs);
+        createConfigGeneralEntites(ecs, myWindow);
         break;
-    case CPLAYER2:
+    case M_C_PLAYER1:
         loadMenuSystem(ecs);
-        createConfigPlayer2Entites(ecs);
+        createConfigPlayer1Entites(ecs, myWindow);
+        break;
+    case M_C_PLAYER2:
+        loadMenuSystem(ecs);
+        createConfigPlayer2Entites(ecs, myWindow);
+        break;
+    case GAME:
+        loadGameSystem(ecs);
+        createGameEntities(ecs, myWindow);
         break;
     default:
-        loadGameSystem(ecs);
-        createGameEntities(ecs);
         return;
     }
 }
 
 void LifeSys::operator()(ECS &ecs, const DeleteEvent &e_del,
-                         SparseArray<Tag> &tags) {
-    for (size_t i = 0; i < tags.size(); ++i) {
-        auto &tag = tags[i];
+                         SparseArray<Scene> &scenes) {
+    for (size_t i = 0; i < scenes.size(); ++i) {
+        auto &sce = scenes[i];
 
-        if (tag && tag.value()._type == e_del._type) {
+        if (sce && sce.value()._type == e_del._type) {
             ecs.kill_entity(Entity(i));
         }
     }

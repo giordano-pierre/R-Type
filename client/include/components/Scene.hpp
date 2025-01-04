@@ -1,8 +1,8 @@
 /*
-** EPITECH PROJECT, 2024
+** EPITECH PROJECT, 2025
 ** R-Type
 ** File description:
-** CreationEvent
+** Scene
 */
 
 #pragma once
@@ -10,7 +10,9 @@
 #include "tools.hpp"
 
 namespace rtype::client {
-struct CreationEvent {
+struct Scene {
+    Scene(SceneType type) : _type(type) {};
+    ~Scene() = default;
     SceneType _type;
 };
 } // namespace rtype::client

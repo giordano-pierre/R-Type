@@ -61,6 +61,7 @@ int main(int ac, char *argv[]) {
     ecs.register_component<rtype::client::Selectable>();
     ecs.register_component<rtype::client::Text>();
     ecs.register_component<rtype::client::Pressable>();
+    ecs.register_component<rtype::client::Scene>();
 
     ecs.register_event<rtype::client::FrameEvent>();
     ecs.register_event<rtype::client::InputEvent>();
@@ -82,14 +83,14 @@ int main(int ac, char *argv[]) {
     ecs.post<RequestEvent>({Protocol::CONNECT, {"action", "connect"}});
 
     Entity window = ecs.spawn_entity();
-    ecs.add_component<rtype::client::Tag>(window, {rtype::client::WINDOW});
+    ecs.add_component<rtype::client::Tag>(window, {});
     ecs.add_component<rtype::client::Window>(
         window,
         {"assets/font/retro_gaming.ttf", myShader, {1440, 810}, serverSize});
 
     auto lifeSys = rtype::client::LifeSys();
-    ecs.subscribe<rtype::client::CreationEvent>(lifeSys, true);
-    ecs.subscribe<rtype::client::DeleteEvent, rtype::client::Tag>(lifeSys,
+    ecs.subscribe<rtype::client::CreationEvent, rtype::client::Window>(lifeSys, true);
+    ecs.subscribe<rtype::client::DeleteEvent, rtype::client::Scene>(lifeSys,
                                                                   true);
 
     auto windowSys = rtype::client::WindowSys(
@@ -105,7 +106,7 @@ int main(int ac, char *argv[]) {
     ecs.subscribe<rtype::client::InputEvent, rtype::client::Window>(cheatSys,
                                                                     true);
 
-    auto frameSys = rtype::client::FrameSys();
+    auto frameSys = rtype::client::AnimeSys();
     ecs.subscribe<rtype::client::AnimeEvent, rtype::client::Drawable>(frameSys,
                                                                       true);
 
@@ -135,6 +136,7 @@ int main(int ac, char *argv[]) {
         true);
 
     ecs.post<rtype::client::CreationEvent>({rtype::client::MENU});
+    ecs.post<rtype::client::CreationEvent>({rtype::client::M_GENERAL});
 
     const auto FPS = 60;
     const timer::duration<double, std::ratio<1, FPS>> frameRate(1);

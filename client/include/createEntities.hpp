@@ -8,13 +8,21 @@
 #pragma once
 
 #include "ECS/ECS.hpp"
+#include "components/Window.hpp"
 
 namespace rtype::client {
-void createGameEntities(ECS &ecs);
-void createMenuEntities(ECS &ecs);
-void createMenuPlayerEntities(ECS &ecs);
-void createConfigEntities(ECS &ecs);
-void createConfigGeneralEntites(ECS &ecs);
-void createConfigPlayer1Entites(ECS &ecs);
-void createConfigPlayer2Entites(ECS &ecs);
+
+// Game
+void createGameEntities(ECS &ecs, Window &myWindow);
+
+// Menu Jeu
+void createMenuEntities(ECS &ecs, Window &myWindow);
+void createMenuGeneralEntities(ECS &ecs, Window &myWindow);
+void createMenuPlayerEntities(ECS &ecs, Window &myWindow);
+
+// Menu Config
+void createConfigEntities(ECS &ecs, Window &myWindow);
+void createConfigGeneralEntites(ECS &ecs, Window &myWindow);
+void createConfigPlayer1Entites(ECS &ecs, Window &myWindow);
+void createConfigPlayer2Entites(ECS &ecs, Window &myWindow);
 } // namespace rtype::client
