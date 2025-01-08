@@ -30,43 +30,43 @@ void MoveSys::operator()(ECS &ecs, const InputEvent &e_input,
     switch (e_input._myEvent) {
     case LEFT1P:
         newValue.x = -8;
-        ecs.post<RequestEvent>(
-            {CLIENT_INPUT, {{"id", uuid1}, {"type_event", "Left"}}});
+        // ecs.post<RequestEvent>(
+        //     {CLIENT_INPUT, {{"id", uuid1}, {"type_event", "Left"}}});
         break;
     case LEFT1R:
         newValue.x = 0;
-        ecs.post<RequestEvent>(
-            {CLIENT_INPUT, {{"id", uuid1}, {"type_event", "ReleasedX"}}});
+        // ecs.post<RequestEvent>(
+        //     {CLIENT_INPUT, {{"id", uuid1}, {"type_event", "ReleasedX"}}});
         break;
     case RIGHT1P:
         newValue.x = 8;
-        ecs.post<RequestEvent>(
-            {CLIENT_INPUT, {{"id", uuid1}, {"type_event", "Right"}}});
+        // ecs.post<RequestEvent>(
+        //     {CLIENT_INPUT, {{"id", uuid1}, {"type_event", "Right"}}});
         break;
     case RIGHT1R:
         newValue.x = 0;
-        ecs.post<RequestEvent>(
-            {CLIENT_INPUT, {{"id", uuid1}, {"type_event", "ReleasedX"}}});
+        // ecs.post<RequestEvent>(
+        //     {CLIENT_INPUT, {{"id", uuid1}, {"type_event", "ReleasedX"}}});
         break;
     case UP1P:
         newValue.y = -8;
-        ecs.post<RequestEvent>(
-            {CLIENT_INPUT, {{"id", uuid1}, {"type_event", "Up"}}});
+        // ecs.post<RequestEvent>(
+        //     {CLIENT_INPUT, {{"id", uuid1}, {"type_event", "Up"}}});
         break;
     case UP1R:
         newValue.y = 0;
-        ecs.post<RequestEvent>(
-            {CLIENT_INPUT, {{"id", uuid1}, {"type_event", "ReleasedY"}}});
+        // ecs.post<RequestEvent>(
+        //     {CLIENT_INPUT, {{"id", uuid1}, {"type_event", "ReleasedY"}}});
         break;
     case DOWN1P:
         newValue.y = 8;
-        ecs.post<RequestEvent>(
-            {CLIENT_INPUT, {{"id", uuid1}, {"type_event", "Down"}}});
+        // ecs.post<RequestEvent>(
+        //     {CLIENT_INPUT, {{"id", uuid1}, {"type_event", "Down"}}});
         break;
     case DOWN1R:
         newValue.y = 0;
-        ecs.post<RequestEvent>(
-            {CLIENT_INPUT, {{"id", uuid1}, {"type_event", "ReleasedY"}}});
+        // ecs.post<RequestEvent>(
+        //     {CLIENT_INPUT, {{"id", uuid1}, {"type_event", "ReleasedY"}}});
         break;
     default:
         break;

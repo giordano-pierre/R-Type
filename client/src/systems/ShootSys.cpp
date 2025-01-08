@@ -60,7 +60,7 @@ void ShootSys::operator()(ECS &ecs, const InputEvent &e_input,
                  }},
             };
 
-            ecs.post<RequestEvent>({CLIENT_CREATE, tmp});
+            // ecs.post<RequestEvent>({CLIENT_CREATE, tmp});
             Entity shot = ecs.spawn_entity();
             ecs.add_component<Position>(
                 shot, {pos.value()._server.x + (box.value()._server.x / 2),

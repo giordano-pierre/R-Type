@@ -22,7 +22,7 @@ class ServerHandlerSystem {
     void operator()(ECS &ecs, const ReceiveEvent &rec_event);
 };
 
-void serverReady(ECS &ecs, const std::string &uuid);
-void createEnemy(ECS &ecs, rtype::server::EnemyInfo enemy);
-void updateEntity(ECS &ecs);
-void gameOver(ECS &ecs);
+// void serverReady(ECS &ecs, const std::string &uuid);
+// void createEnemy(ECS &ecs, rtype::server::EnemyInfo enemy);
+// void updateEntity(ECS &ecs);
+// void gameOver(ECS &ecs);

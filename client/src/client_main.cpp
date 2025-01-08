@@ -22,15 +22,9 @@ bool is_number(char *str) {
     return true;
 }
 
-int main(int ac, char *argv[]) {
-    if (ac != 3 && ac != 1)
-        return 84;
-
-    std::string host = (ac == 1) ? "127.0.0.1" : argv[1];
-    std::string port = (ac == 1) ? "4242" : argv[2];
-    if (ac == 3 && (!is_number(host.data()) || !is_number(port.data())))
-        return 84;
-
+void createWindow(ECS &ecs)
+{
+    rtype::client::TupleUInt serverSize = {1920, 1080};
     sf::Shader myShader;
     myShader.loadFromMemory(
         R"(
@@ -48,9 +42,24 @@ int main(int ac, char *argv[]) {
             }
             )",
         sf::Shader::Fragment);
-    rtype::client::TupleUInt serverSize = {1920, 1080};
-    ECS ecs;
+    
+    Entity window = ecs.spawn_entity();
+    ecs.add_component<rtype::client::Tag>(window, {});
+    ecs.add_component<rtype::client::Window>(
+        window,
+        {"assets/font/retro_gaming.ttf", myShader, {1440, 810}, serverSize});
+}
 
+int main(int ac, char *argv[]) {
+    if (ac != 3 && ac != 1)
+        return 84;
+
+    std::string host = (ac == 1) ? "127.0.0.1" : argv[1];
+    std::string port = (ac == 1) ? "4242" : argv[2];
+    if (ac == 3 && (!is_number(host.data()) || !is_number(port.data())))
+        return 84;
+
+    ECS ecs;
     ecs.register_component<rtype::client::Window>();
     ecs.register_component<rtype::client::Tag>();
     ecs.register_component<rtype::client::Position>();
@@ -73,20 +82,13 @@ int main(int ac, char *argv[]) {
     ecs.register_event<RequestEvent>();
     ecs.register_event<ReceiveEvent>();
 
-    UDPClient client(ecs, host, port);
+    createWindow(ecs);
 
+    UDPClient client(ecs, host, port);
     ecs.subscribe<RequestEvent>(client, true);
 
     ClientHandlerSystem client_handler;
     ecs.subscribe<ReceiveEvent>(client_handler, true);
-
-    ecs.post<RequestEvent>({Protocol::CONNECT, {"action", "connect"}});
-
-    Entity window = ecs.spawn_entity();
-    ecs.add_component<rtype::client::Tag>(window, {});
-    ecs.add_component<rtype::client::Window>(
-        window,
-        {"assets/font/retro_gaming.ttf", myShader, {1440, 810}, serverSize});
 
     auto lifeSys = rtype::client::LifeSys();
     ecs.subscribe<rtype::client::CreationEvent, rtype::client::Window>(lifeSys,
@@ -112,30 +114,26 @@ int main(int ac, char *argv[]) {
                                                                       true);
 
     bool running = true;
+    ecs.subscribe<ReceiveEvent>(
+        [&running](ECS &ecs, const ReceiveEvent &rec_event) -> void {
+            if (rec_event.action == DISCONNECT)
+                running = false;
+        },
+        true);
+
     ecs.subscribe<rtype::client::InputEvent>(
-        [&running](ECS &ecs, const rtype::client::InputEvent &e_input) -> void {
+        [&client, &running](ECS &ecs, const rtype::client::InputEvent &e_input) -> void {
             if (e_input._myEvent == rtype::client::QUIT ||
                 e_input._event.type == sf::Event::Closed) {
-                running = false;
-                bool disco = false;
-                const auto &tags = ecs.get_components<rtype::client::Tag>();
-                const auto &players =
-                    ecs.get_components<rtype::client::Playable>();
-                for (size_t i = 0; i < tags.size() && i < players.size(); ++i) {
-                    const auto tag = tags[i];
-                    const auto play = players[i];
-                    if (tag && play) {
-                        disco = true;
-                        ecs.post<RequestEvent>(
-                            {CLIENT_DISCONNECT, {tag.value()._id}});
-                    }
-                }
-                if (!disco)
-                    ecs.post<RequestEvent>({CLIENT_DISCONNECT, {}});
+                    if (client.isConnected())
+                        ecs.post<RequestEvent>({DISCONNECT, {}});
+                    else
+                        running = false;
             }
         },
         true);
 
+    ecs.post<RequestEvent>({Protocol::CONNECT, {}});
     ecs.post<rtype::client::CreationEvent>({rtype::client::MENU});
     ecs.post<rtype::client::CreationEvent>({rtype::client::M_GENERAL});
 
@@ -151,8 +149,9 @@ int main(int ac, char *argv[]) {
 
     timer::time_point<timer::steady_clock> newTime;
 
+    bool trigger;
     while (running) {
-        bool trigger = false;
+        trigger = false;
         newTime = timer::steady_clock::now();
         dtimeF += newTime - frameStart;
         frameStart = newTime;

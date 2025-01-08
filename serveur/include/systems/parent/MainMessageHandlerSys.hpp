@@ -1,0 +1,26 @@
+/*
+** EPITECH PROJECT, 2025
+** R-Type
+** File description:
+** MainMessageHandlerSys
+*/
+
+#pragma once
+
+#include "ECS/ECS.hpp"
+#include "events/ReceiveEvent.hpp"
+#include "Components.hpp"
+
+namespace rtype::server {
+
+class MainMessageHandlerSys {
+    public:
+        MainMessageHandlerSys() = default;
+        ~MainMessageHandlerSys() = default;
+
+    void operator()(ECS &ecs, const ReceiveEvent &rec_event,
+                    SparseArray<Room> &rooms, SparseArray<Tag> &tags,
+                    SparseArray<Child> &children);
+};
+
+}

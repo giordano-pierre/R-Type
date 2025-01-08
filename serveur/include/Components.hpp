@@ -1,15 +1,81 @@
+/*
+** EPITECH PROJECT, 2025
+** R-Type
+** File description:
+** Components
+*/
+
 #pragma once
 
-#include "enums.hpp"
-#include <chrono>
 #include <cstddef>
 #include <cstdint>
 #include <string>
 #include <vector>
-
-namespace timer = std::chrono;
+#include "enums.hpp"
+#include "ECS/ECS.hpp"
+#include "tools.hpp"
 
 namespace rtype::server {
+
+struct Tag {
+    std::string _id;
+    EntityType _type;
+
+    Tag(std::string id, EntityType type = OTHER) : _id(id), _type(type){};
+};
+
+struct Room {
+    std::string _name;
+    std::string _master;
+    std::map<std::string, StateGame> _clients_uuid;
+    int _nbPlayer;
+    StateGame _state = WAITING;
+
+    Room(std::string name, std::string master, int nbPlayer)
+        : _name(name), _master(master), _nbPlayer(nbPlayer)
+    {
+        _clients_uuid.insert({master, WAITING});
+    }
+};
+
+struct Child {
+    ECS _ecs_child;
+
+    Child(ECS &ecs_parent, const std::string &id)
+    {
+        initSubECS(_ecs_child, ecs_parent, id);
+    };
+};
+
+struct Stage {
+    int _nb;
+    std::string _mapFile;
+    std::vector<EnemyInfo> _enemies;
+
+    Stage(int nb) : _nb(nb), _mapFile("stage_"+ std::to_string(nb) + ".json") {
+        std::vector<EnemyInfo> enemies = {
+            {2000, 500, -9, 0, 0.1f, 0.18f, 100, 60},
+            {2500, 1000, -8, 0, 0.1f, 0.18f, 100, 30},
+            {2700, 800, -7, 0, 0.1f, 0.18f, 100, 50},
+            {2250, 100, -10, 0, 0.1f, 0.18f, 100, 40}
+        }; // à créer en fonction du fichier
+        _enemies = enemies;
+    }
+};
+
+struct Client {
+    std::string _uuid;
+
+    Client(std::string uuid) : _uuid(uuid) {}
+};
+
+struct PlayerData {
+    std::string _name;
+    std::string _color;
+
+    PlayerData(std::string name, std::string color) : _color(color), _name(name){};
+};
+
 struct Position {
     int x = 0;
     int y = 0;
@@ -41,44 +107,6 @@ struct HitBox {
     };
 };
 
-struct Tag {
-    std::string id;
-    EntityType type;
-
-    Tag(std::string id, EntityType type) : id(id), type(type){};
-};
-
-struct EnemyInfo {
-    int x_pos;
-    int y_pos;
-    int x_velocity;
-    int y_velocity;
-    float x_hitbox;
-    float y_hitbox;
-    int health;
-    int score;
-};
-
-struct Basics {
-    std::vector<EnemyInfo> enemies1;
-    std::map<std::string, bool> clientInGame;
-    int minPlayer = -1;
-    int nbPlayer = 0;
-    int nbPlayerAlive = -1;
-    int level = 0;
-    int minScore = 100;
-    bool gameState = false;
-    Basics(std::vector<EnemyInfo> _enemies1) : enemies1(_enemies1){};
-};
-
-struct TicEvent {
-    TicEvent(const timer::time_point<timer::steady_clock> &time_stamp)
-        : time_stamp(time_stamp){};
-    ~TicEvent() = default;
-
-    timer::time_point<timer::steady_clock> time_stamp;
-};
-
 struct Health {
     int health = 100;
     int healthMax = 100;
@@ -87,11 +115,10 @@ struct Health {
     Health() = default;
 };
 
-struct PlayerData {
-    std::size_t id;
-    std::string name;
+struct Dead {
+    bool _isDead;
 
-    PlayerData(std::string _name, std::size_t _id = 0) : id(_id), name(_name){};
+    Dead(void) : _isDead(true) {}
 };
 
 struct Score {
@@ -99,5 +126,17 @@ struct Score {
 
     Score(int score = 0) : score(score){};
 };
+
+// struct Basics {
+//     std::vector<EnemyInfo> enemies1;
+//     std::map<std::string, bool> clientInGame;
+//     int minPlayer = -1;
+//     int nbPlayer = 0;
+//     int nbPlayerAlive = -1;
+//     int level = 0;
+//     int minScore = 100;
+//     bool gameState = false;
+//     Basics(std::vector<EnemyInfo> _enemies1) : enemies1(_enemies1){};
+// };
 
 } // namespace rtype::server

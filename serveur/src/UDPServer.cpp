@@ -55,12 +55,16 @@ void UDPServer::handle_receive(std::size_t bytes_recvd) {
 
         if (received_json.at("action_id").get<Protocol>() ==
             Protocol::CONNECT) {
-            std::string new_uuid = get_new_uuid();
-            clients_endpoint_[new_uuid] = remote_endpoint_;
+            std::string tmp_uuid = received_json.at("client_uuid").get<std::string>();
+            if (tmp_uuid == "" || clients_endpoint_.find(tmp_uuid) == clients_endpoint_.end()) {
+                std::string new_uuid = get_new_uuid();
+                std::cout << "New Client: " << new_uuid << std::endl;
+                clients_endpoint_[new_uuid] = remote_endpoint_;
 
-            json response_json = {{"client_uuid", new_uuid}};
-            ecs_.post<ReceiveEvent>(
-                {Protocol::NEW_CLIENT, response_json, new_uuid});
+                json response_json = {{"client_uuid", new_uuid}};
+                ecs_.post<RequestEvent>(
+                    {Protocol::CONNECT, response_json, new_uuid});
+            }
         } else {
             parse_request(received_json);
         }
@@ -95,6 +99,8 @@ void UDPServer::operator()(ECS &ecs, const RequestEvent &req_event) {
                               [this](boost::system::error_code, std::size_t) {
                                   start_receive();
                               });
+        if (req_event.action == DISCONNECT)
+            clients_endpoint_.erase(clients_endpoint_.find(req_event.receiver_uuid));
     } else { // ADD else : send the message to everyone (loop on
              // clients_endpoint_)
         for (const auto &client : clients_endpoint_) {

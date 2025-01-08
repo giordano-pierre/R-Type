@@ -102,8 +102,8 @@ void startGame1P(ECS &ecs, Entity i) {
     // ecs.post<CreationEvent>({PLAYER});
     auto &myWindow = ecs.get_components<Window>()[0].value();
 
-    ecs.post<RequestEvent>(
-        {CLIENT_READY, {{"nb_player_max", 1}, {"name", myWindow._name1}}});
+    // ecs.post<RequestEvent>(
+    //     {CLIENT_READY, {{"nb_player_max", 1}, {"name", myWindow._name1}}});
 }
 
 void startGame2P(ECS &ecs, Entity i) {
@@ -111,10 +111,10 @@ void startGame2P(ECS &ecs, Entity i) {
     // ecs.post<CreationEvent>({PLAYER});
     auto &myWindow = ecs.get_components<Window>()[0].value();
 
-    ecs.post<RequestEvent>(
-        {CLIENT_READY, {{"nb_player_max", 2}, {"name", myWindow._name1}}});
-    ecs.post<RequestEvent>(
-        {CLIENT_READY, {{"nb_player_max", 2}, {"name", myWindow._name2}}});
+    // ecs.post<RequestEvent>(
+    //     {CLIENT_READY, {{"nb_player_max", 2}, {"name", myWindow._name1}}});
+    // ecs.post<RequestEvent>(
+    //     {CLIENT_READY, {{"nb_player_max", 2}, {"name", myWindow._name2}}});
 }
 
 void startGameMP(ECS &ecs, Entity i) {
@@ -122,8 +122,8 @@ void startGameMP(ECS &ecs, Entity i) {
     // ecs.post<CreationEvent>({PLAYER});
     auto &myWindow = ecs.get_components<Window>()[0].value();
 
-    ecs.post<RequestEvent>(
-        {CLIENT_READY, {{"nb_player_max", 2}, {"name", myWindow._name1}}});
+    // ecs.post<RequestEvent>(
+    //     {CLIENT_READY, {{"nb_player_max", 2}, {"name", myWindow._name1}}});
 }
 
 void swapColorblind(ECS &ecs, Entity i) {

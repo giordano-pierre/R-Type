@@ -7,6 +7,8 @@
 #include "createEntities.hpp"
 #include "buttonFunctions.hpp"
 #include "ecsObjects.hpp"
+#include "events/RequestEvent.hpp"
+#include "enums.hpp"
 #include <iostream>
 
 namespace rtype::client {
@@ -92,6 +94,7 @@ void createMenuGeneralEntities(ECS &ecs, Window &myWindow) {
                  [](ECS &ecs, Entity) {
                      ecs.post<DeleteEvent>({M_GENERAL});
                      ecs.post<CreationEvent>({M_PLAYER});
+                     ecs.post<RequestEvent>({Protocol::CONNECT, {}});
                  }});
 
     Entity customB = ecs.spawn_entity();

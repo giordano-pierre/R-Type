@@ -49,6 +49,7 @@ class UDPClient {
     }
 
     void operator()(ECS &ecs, const RequestEvent &req_event);
+    bool isConnected(void);
     // void send(const json& message_json);
 
   private:

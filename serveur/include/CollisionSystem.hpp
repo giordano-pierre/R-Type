@@ -7,6 +7,7 @@
 
 #pragma once
 #include "Components.hpp"
+#include "Events.hpp"
 #include "ECS/ECS.hpp"
 
 namespace rtype::server::systems {

@@ -16,16 +16,16 @@ void GameLogicSys::operator()(ECS &ecs, const TicEvent &,
                               const SparseArray<Tag> &tags) {
 
     if (basics[0].value().nbPlayer == basics[0].value().minPlayer) {
-        for (const auto &[key, value] : basics[0].value().clientInGame) {
-            if (!value)
-                serverReady(ecs, key);
-        }
+        // for (const auto &[key, value] : basics[0].value().clientInGame) {
+            // if (!value)
+                // serverReady(ecs, key);
+        // }
         if (basics[0].value().gameState == false) {
             basics[0].value().gameState = true;
             int totalScore = 0;
             auto enemy_list = basics[0].value().enemies1;
             for (size_t i = 0; i < enemy_list.size(); ++i) {
-                createEnemy(ecs, enemy_list[i]);
+                // createEnemy(ecs, enemy_list[i]);
             }
             // for (size_t i = 0; i < scores.size(); ++i) {
             //     auto const score = scores[i];

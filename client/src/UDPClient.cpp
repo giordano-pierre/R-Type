@@ -82,7 +82,7 @@ void UDPClient::parse_request(const json &parsed_json) {
     try {
         Protocol action_id = parsed_json.at("action_id").get<Protocol>();
         json payload = parsed_json.at("payload");
-        if (action_id == Protocol::SEND_UUID && uuid_.empty()) {
+        if (action_id == Protocol::CONNECT) {
             try {
                 uuid_ = payload["client_uuid"];
             } catch (const std::exception &e) {
@@ -94,4 +94,8 @@ void UDPClient::parse_request(const json &parsed_json) {
     } catch (const std::exception &e) {
         std::cerr << "Error parsing message: " << e.what() << std::endl;
     }
+}
+
+bool UDPClient::isConnected(void) {
+    return !uuid_.empty();
 }

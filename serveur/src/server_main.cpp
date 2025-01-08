@@ -1,12 +1,21 @@
-#include "CollisionSystem.hpp"
-#include "GameLogicSystem.hpp"
-#include "HealthSystem.hpp"
-#include "MovementSystem.hpp"
-#include "ServerHandlerSystem.hpp"
-#include "UDPServer.hpp"
+/*
+** EPITECH PROJECT, 2025
+** R-Type
+** File description:
+** server_main
+*/
+
 #include <csignal>
 #include <cstdlib>
 #include <iostream>
+// #include "CollisionSystem.hpp"
+// #include "GameLogicSystem.hpp"
+// #include "HealthSystem.hpp"
+// #include "MovementSystem.hpp"
+// #include "ServerHandlerSystem.hpp"
+#include "systems/parent/MainMessageHandlerSys.hpp"
+#include "Events.hpp"
+#include "UDPServer.hpp"
 
 bool running = true;
 
@@ -16,29 +25,7 @@ void signalHandler(int signum) {
     running = false;
 }
 
-void subscribe_all_systems(ECS &ecs) {
-    auto movementSys = rtype::server::systems::MovementSys();
-    ecs.subscribe<rtype::server::TicEvent, rtype::server::Position,
-                  rtype::server::Velocity>(movementSys);
-
-    auto collisionSys = rtype::server::systems::CollisionSys();
-    ecs.subscribe<rtype::server::TicEvent, rtype::server::Position,
-                  rtype::server::HitBox, rtype::server::Tag,
-                  rtype::server::Health, rtype::server::PlayerData,
-                  rtype::server::Score>(collisionSys);
-    ecs.subscribe<rtype::server::TicEvent, rtype::server::Position,
-                  rtype::server::Tag, rtype::server::HitBox>(collisionSys);
-
-    auto healthSys = rtype::server::systems::HealthSys();
-    ecs.subscribe<rtype::server::TicEvent, rtype::server::Health,
-                  rtype::server::Basics>(healthSys);
-
-    auto gameLogicSys = rtype::server::systems::GameLogicSys();
-    ecs.subscribe<rtype::server::TicEvent, rtype::server::Basics,
-                  rtype::server::Score, rtype::server::Tag>(gameLogicSys);
-}
-
-void server_loop(ECS &ecs) {
+void serverLoop(ECS &ecs) {
     const auto FPS = 60;
     const timer::duration<double, std::ratio<1, FPS>> frameRate(1);
     timer::time_point<timer::steady_clock> frameStart;
@@ -69,7 +56,7 @@ void server_loop(ECS &ecs) {
             ecs.post<rtype::server::TicEvent>(
                 {std::chrono::steady_clock::now()});
             dtimeU = std::chrono::duration<double>::zero();
-            updateEntity(ecs);
+            // updateEntity(ecs);
             trigger = true;
         }
         if (trigger) {
@@ -84,20 +71,21 @@ void server_loop(ECS &ecs) {
 
 bool is_number(char *str) {
     for (int i = 0; i < strlen(str); i++) {
-        if (!isdigit(str[i]) || str[i] != '.')
+        if (!isdigit(str[i]))
             return false;
     }
     return true;
 }
 
-void waiting_loop(ECS &ecs) {
-    rtype::server::Basics basic =
-        ecs.get_components<rtype::server::Basics>()[0].value();
+void initMainECS(ECS &ecs) {
+    ecs.register_component<rtype::server::Tag>();
+    ecs.register_component<rtype::server::Room>();
+    ecs.register_component<rtype::server::Stage>();
+    ecs.register_component<rtype::server::Child>();
 
-    while (basic.minPlayer != basic.nbPlayer) {
-
-        basic = ecs.get_components<rtype::server::Basics>()[0].value();
-    }
+    ecs.register_event<rtype::server::TicEvent>();
+    ecs.register_event<RequestEvent>();
+    ecs.register_event<ReceiveEvent>();
 }
 
 int main(int ac, char *argv[]) {
@@ -112,50 +100,122 @@ int main(int ac, char *argv[]) {
         std::signal(SIGTERM, signalHandler);
 
         int port = (ac == 2) ? std::atoi(argv[1]) : 4242;
+        std::cout << "Démarrage du serveur R-Type..." << std::endl;
 
         ECS ecs;
-
-        ecs.register_component<rtype::server::Position>();
-        ecs.register_component<rtype::server::Velocity>();
-        ecs.register_component<rtype::server::HitBox>();
-        ecs.register_component<rtype::server::Tag>();
-        ecs.register_component<rtype::server::Score>();
-        ecs.register_component<rtype::server::Basics>();
-        ecs.register_component<rtype::server::Health>();
-        ecs.register_component<rtype::server::PlayerData>();
-
-        ecs.register_event<rtype::server::TicEvent>();
-        ecs.register_event<RequestEvent>();
-        ecs.register_event<ReceiveEvent>();
+        initMainECS(ecs);
 
         UDPServer server(ecs, port);
         ecs.subscribe<RequestEvent>(server, true);
 
-        ServerHandlerSystem server_handler;
-        ecs.subscribe<ReceiveEvent>(server_handler, true);
+        auto handler = rtype::server::MainMessageHandlerSys();
+        ecs.subscribe<ReceiveEvent, rtype::server::Room, rtype::server::Tag, rtype::server::Child>(handler, true);
 
-        Entity basics = ecs.spawn_entity();
-
-        std::vector<rtype::server::EnemyInfo> enemies = {
-            {1800, 500, -9, 0, 0.1f, 0.18f, 100, 60},
-            {2500, 1000, -8, 0, 0.1f, 0.18f, 100, 30},
-            {2700, 800, -7, 0, 0.1f, 0.18f, 100, 50},
-            {2250, 100, -10, 0, 0.1f, 0.18f, 100, 40}};
-        ecs.add_component<rtype::server::Basics>(basics, {enemies});
-
-        std::cout << "Démarrage du serveur R-Type..." << std::endl;
-        subscribe_all_systems(ecs);
-        server_loop(ecs);
+        serverLoop(ecs);
 
         std::cout << "===============================" << std::endl
                   << std::endl;
         std::cout << "... Serveur arrêté avec succès. Bien joué!" << std::endl;
         std::cout << "N'hésite pas a rejoindre Arts&Crafts ;)" << std::endl;
-        return 0;
-
     } catch (const std::exception &e) {
         std::cerr << "Aie aie aie... \nServer error: " << e.what() << std::endl;
         return 1;
     }
     return 0;
 }
+
+// int main(int ac, char *argv[]) {
+//     try {
+//         if (ac != 1 && ac != 2)
+//             return 84;
+
+//         if (ac == 3 && !is_number(argv[1]))
+//             return 84;
+
+//         std::signal(SIGINT, signalHandler);
+//         std::signal(SIGTERM, signalHandler);
+
+//         int port = (ac == 2) ? std::atoi(argv[1]) : 4242;
+
+//         ECS ecs;
+
+//         ecs.register_component<rtype::server::Position>();
+//         ecs.register_component<rtype::server::Velocity>();
+//         ecs.register_component<rtype::server::HitBox>();
+//         ecs.register_component<rtype::server::Tag>();
+//         ecs.register_component<rtype::server::Score>();
+//         ecs.register_component<rtype::server::Basics>();
+//         ecs.register_component<rtype::server::Health>();
+//         ecs.register_component<rtype::server::PlayerData>();
+
+//         ecs.register_event<rtype::server::TicEvent>();
+//         ecs.register_event<RequestEvent>();
+//         ecs.register_event<ReceiveEvent>();
+
+//         UDPServer server(ecs, port);
+//         ecs.subscribe<RequestEvent>(server, true);
+
+//         ServerHandlerSystem server_handler;
+//         ecs.subscribe<ReceiveEvent>(server_handler, true);
+
+//         Entity basics = ecs.spawn_entity();
+
+//         std::vector<rtype::server::EnemyInfo> enemies = {
+//             {2000, 500, -9, 0, 0.1f, 0.18f, 100, 60},
+//             {2500, 1000, -8, 0, 0.1f, 0.18f, 100, 30},
+//             {2700, 800, -7, 0, 0.1f, 0.18f, 100, 50},
+//             {2250, 100, -10, 0, 0.1f, 0.18f, 100, 40}};
+//         ecs.add_component<rtype::server::Basics>(basics, {enemies});
+
+//         std::cout << "Démarrage du serveur R-Type..." << std::endl;
+//         subscribe_all_systems(ecs);
+//         server_loop(ecs);
+
+//         std::cout << "===============================" << std::endl
+//                   << std::endl;
+//         std::cout << "... Serveur arrêté avec succès. Bien joué!" << std::endl;
+//         std::cout << "N'hésite pas a rejoindre Arts&Crafts ;)" << std::endl;
+//         return 0;
+
+//     } catch (const std::exception &e) {
+//         std::cerr << "Aie aie aie... \nServer error: " << e.what() << std::endl;
+//         return 1;
+//     }
+//     return 0;
+// }
+
+
+// void subscribe_all_systems(ECS &ecs) {
+//     auto movementSys = rtype::server::systems::MovementSys();
+//     ecs.subscribe<rtype::server::TicEvent, rtype::server::Position,
+//                   rtype::server::Velocity>(movementSys);
+
+//     auto collisionSys = rtype::server::systems::CollisionSys();
+//     ecs.subscribe<rtype::server::TicEvent, rtype::server::Position,
+//                   rtype::server::HitBox, rtype::server::Tag,
+//                   rtype::server::Health, rtype::server::PlayerData,
+//                   rtype::server::Score>(collisionSys);
+//     ecs.subscribe<rtype::server::TicEvent, rtype::server::Position,
+//                   rtype::server::Tag, rtype::server::HitBox>(collisionSys);
+
+//     auto healthSys = rtype::server::systems::HealthSys();
+//     ecs.subscribe<rtype::server::TicEvent, rtype::server::Health,
+//                   rtype::server::Basics>(healthSys);
+
+//     auto gameLogicSys = rtype::server::systems::GameLogicSys();
+//     ecs.subscribe<rtype::server::TicEvent, rtype::server::Basics,
+//                   rtype::server::Score, rtype::server::Tag>(gameLogicSys);
+// }
+
+//         ecs.register_component<rtype::server::Position>();
+//         ecs.register_component<rtype::server::Velocity>();
+//         ecs.register_component<rtype::server::HitBox>();
+//         ecs.register_component<rtype::server::Tag>();
+//         ecs.register_component<rtype::server::Score>();
+//         ecs.register_component<rtype::server::Basics>();
+//         ecs.register_component<rtype::server::Health>();
+//         ecs.register_component<rtype::server::PlayerData>();
+
+//         ecs.register_event<rtype::server::TicEvent>();
+//         ecs.register_event<RequestEvent>();
+//         ecs.register_event<ReceiveEvent>();
