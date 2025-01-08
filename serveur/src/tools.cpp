@@ -37,4 +37,4 @@ void initSubECS(ECS &ecs, ECS &ecs_p, const std::string &id) {
     ecs.subscribe<RemoveClient, Client>(lifeSys);
 }
 
-}
+} // namespace rtype::server

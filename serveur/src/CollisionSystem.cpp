@@ -18,7 +18,8 @@ void CollisionSys::operator()(ECS &ecs, const rtype::server::TicEvent &,
                               SparseArray<Score> &scores) {
 
     // for (size_t i = 0;
-    //      i < positions.size() && i < hitboxes.size() && i < tags.size(); ++i) {
+    //      i < positions.size() && i < hitboxes.size() && i < tags.size(); ++i)
+    //      {
 
     //     const auto &hitboxe1 = hitboxes[i];
     //     const auto &position1 = positions[i];
@@ -50,12 +51,14 @@ void CollisionSys::operator()(ECS &ecs, const rtype::server::TicEvent &,
     //             tempy2 + hitboxe2.value().height < tempy1)
     //             continue;
 
-    //         // if (tag1.value().type == PLAYER && tag2.value().type == ENEMY1) {
+    //         // if (tag1.value().type == PLAYER && tag2.value().type ==
+    //         ENEMY1) {
     //         //     if (i < healths.size() && healths[i]) {
     //         //         healths[i].value().health -= 20;
     //         //     }
     //         // }
-    //         // if (tag2.value().type == PLAYER && tag1.value().type == ENEMY1) {
+    //         // if (tag2.value().type == PLAYER && tag1.value().type ==
+    //         ENEMY1) {
     //         //     if (j < healths.size() && healths[j]) {
     //         //         healths[j].value().health -= 20;
     //         //     }
@@ -86,7 +89,8 @@ void CollisionSys::operator()(ECS &ecs, const rtype::server::TicEvent &,
                               const SparseArray<Tag> &tags,
                               const SparseArray<HitBox> &hitboxes) {
     // for (size_t i = 0;
-    //      i < positions.size() && i < tags.size() && i < hitboxes.size(); ++i) {
+    //      i < positions.size() && i < tags.size() && i < hitboxes.size(); ++i)
+    //      {
 
     //     const auto &hitboxe = hitboxes[i];
     //     const auto &tag = tags[i];

@@ -7,8 +7,8 @@
 
 #pragma once
 #include "Components.hpp"
-#include "Events.hpp"
 #include "ECS/ECS.hpp"
+#include "Events.hpp"
 
 namespace rtype::server::systems {
 class HealthSys {

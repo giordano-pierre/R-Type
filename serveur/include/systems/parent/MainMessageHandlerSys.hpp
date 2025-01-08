@@ -7,20 +7,20 @@
 
 #pragma once
 
+#include "Components.hpp"
 #include "ECS/ECS.hpp"
 #include "events/ReceiveEvent.hpp"
-#include "Components.hpp"
 
 namespace rtype::server {
 
 class MainMessageHandlerSys {
-    public:
-        MainMessageHandlerSys() = default;
-        ~MainMessageHandlerSys() = default;
+  public:
+    MainMessageHandlerSys() = default;
+    ~MainMessageHandlerSys() = default;
 
     void operator()(ECS &ecs, const ReceiveEvent &rec_event,
                     SparseArray<Room> &rooms, SparseArray<Tag> &tags,
                     SparseArray<Child> &children);
 };
 
-}
+} // namespace rtype::server

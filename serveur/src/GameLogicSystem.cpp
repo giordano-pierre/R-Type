@@ -17,8 +17,8 @@ void GameLogicSys::operator()(ECS &ecs, const TicEvent &,
 
     if (basics[0].value().nbPlayer == basics[0].value().minPlayer) {
         // for (const auto &[key, value] : basics[0].value().clientInGame) {
-            // if (!value)
-                // serverReady(ecs, key);
+        // if (!value)
+        // serverReady(ecs, key);
         // }
         if (basics[0].value().gameState == false) {
             basics[0].value().gameState = true;

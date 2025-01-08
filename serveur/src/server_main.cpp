@@ -13,9 +13,9 @@
 // #include "HealthSystem.hpp"
 // #include "MovementSystem.hpp"
 // #include "ServerHandlerSystem.hpp"
-#include "systems/parent/MainMessageHandlerSys.hpp"
 #include "Events.hpp"
 #include "UDPServer.hpp"
+#include "systems/parent/MainMessageHandlerSys.hpp"
 
 bool running = true;
 
@@ -109,7 +109,8 @@ int main(int ac, char *argv[]) {
         ecs.subscribe<RequestEvent>(server, true);
 
         auto handler = rtype::server::MainMessageHandlerSys();
-        ecs.subscribe<ReceiveEvent, rtype::server::Room, rtype::server::Tag, rtype::server::Child>(handler, true);
+        ecs.subscribe<ReceiveEvent, rtype::server::Room, rtype::server::Tag,
+                      rtype::server::Child>(handler, true);
 
         serverLoop(ecs);
 
@@ -173,17 +174,16 @@ int main(int ac, char *argv[]) {
 
 //         std::cout << "===============================" << std::endl
 //                   << std::endl;
-//         std::cout << "... Serveur arrêté avec succès. Bien joué!" << std::endl;
-//         std::cout << "N'hésite pas a rejoindre Arts&Crafts ;)" << std::endl;
-//         return 0;
+//         std::cout << "... Serveur arrêté avec succès. Bien joué!" <<
+//         std::endl; std::cout << "N'hésite pas a rejoindre Arts&Crafts ;)" <<
+//         std::endl; return 0;
 
 //     } catch (const std::exception &e) {
-//         std::cerr << "Aie aie aie... \nServer error: " << e.what() << std::endl;
-//         return 1;
+//         std::cerr << "Aie aie aie... \nServer error: " << e.what() <<
+//         std::endl; return 1;
 //     }
 //     return 0;
 // }
-
 
 // void subscribe_all_systems(ECS &ecs) {
 //     auto movementSys = rtype::server::systems::MovementSys();

@@ -55,8 +55,10 @@ void UDPServer::handle_receive(std::size_t bytes_recvd) {
 
         if (received_json.at("action_id").get<Protocol>() ==
             Protocol::CONNECT) {
-            std::string tmp_uuid = received_json.at("client_uuid").get<std::string>();
-            if (tmp_uuid == "" || clients_endpoint_.find(tmp_uuid) == clients_endpoint_.end()) {
+            std::string tmp_uuid =
+                received_json.at("client_uuid").get<std::string>();
+            if (tmp_uuid == "" ||
+                clients_endpoint_.find(tmp_uuid) == clients_endpoint_.end()) {
                 std::string new_uuid = get_new_uuid();
                 std::cout << "New Client: " << new_uuid << std::endl;
                 clients_endpoint_[new_uuid] = remote_endpoint_;
@@ -100,7 +102,8 @@ void UDPServer::operator()(ECS &ecs, const RequestEvent &req_event) {
                                   start_receive();
                               });
         if (req_event.action == DISCONNECT)
-            clients_endpoint_.erase(clients_endpoint_.find(req_event.receiver_uuid));
+            clients_endpoint_.erase(
+                clients_endpoint_.find(req_event.receiver_uuid));
     } else { // ADD else : send the message to everyone (loop on
              // clients_endpoint_)
         for (const auto &client : clients_endpoint_) {

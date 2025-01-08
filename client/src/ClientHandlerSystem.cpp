@@ -35,7 +35,8 @@
 //             entity,
 //             {rec_event.payload["pos"]["x"], rec_event.payload["pos"]["y"]});
 //         ecs.add_component<rtype::client::Velocity>(entity, {0, 0});
-//         // if (rec_event.payload.contains("uuid") && rec_event.payload["uuid"]
+//         // if (rec_event.payload.contains("uuid") &&
+//         rec_event.payload["uuid"]
 //         // == rec_event.sender_uuid)
 //         // ecs.add_component<rtype::client::Playable>(entity, {1});
 //         ecs.add_component<rtype::client::Hitbox>(entity, {{0.1, 0.12}});
@@ -71,7 +72,8 @@
 //         break;
 //     case EntityType::SHOT:
 //         ecs.add_component<rtype::client::Tag>(entity,
-//                                               {SHOT, rec_event.payload["id"]});
+//                                               {SHOT,
+//                                               rec_event.payload["id"]});
 //         ecs.add_component<rtype::client::Position>(
 //             entity,
 //             {rec_event.payload["pos"]["x"], rec_event.payload["pos"]["y"]});
@@ -108,13 +110,15 @@
 //     // }
 // }
 
-// void ClientHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
+// void ClientHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event)
+// {
 //     // std::cout << "Client HANDLER" << std::endl;
 //     // std::cout << "action : " << rec_event.action << std::endl;
 //     switch (rec_event.action) {
 //     case Protocol::GAME_START: {
-//         auto &myWindow = ecs.get_components<rtype::client::Window>()[0].value();
-//         if (!myWindow._gameState) {
+//         auto &myWindow =
+//         ecs.get_components<rtype::client::Window>()[0].value(); if
+//         (!myWindow._gameState) {
 //             ecs.post<rtype::client::DeleteEvent>({rtype::client::M_PLAYER});
 //             ecs.post<rtype::client::CreationEvent>({rtype::client::GAME});
 //             myWindow._gameState = true;
@@ -124,7 +128,7 @@
 //     }
 //     case Protocol::CREATE_ENTITY: {
 //         if (rec_event.payload.contains("tmp_id")) {
-            // auto entity = getEntityByID(ecs, rec_event.payload["tmp_id"]);
+// auto entity = getEntityByID(ecs, rec_event.payload["tmp_id"]);
 //             if (entity == -1)
 //                 return;
 //             auto &tag = ecs.get_components<rtype::client::Tag>()[entity];
@@ -135,15 +139,16 @@
 //         break;
 //     }
 //     case Protocol::CREATE_PLAYER: {
-//         auto &myWindow = ecs.get_components<rtype::client::Window>()[0].value();
-//         Entity entity = ecs.spawn_entity();
-//         ecs.add_component<rtype::client::Tag>(
+//         auto &myWindow =
+//         ecs.get_components<rtype::client::Window>()[0].value(); Entity entity
+//         = ecs.spawn_entity(); ecs.add_component<rtype::client::Tag>(
 //             entity, {PLAYER, rec_event.payload["id"]});
 //         ecs.add_component<rtype::client::Position>(
 //             entity,
 //             {rec_event.payload["pos"]["x"], rec_event.payload["pos"]["y"]});
 //         ecs.add_component<rtype::client::Velocity>(entity, {0, 0});
-//         // if (rec_event.payload.contains("uuid") && rec_event.payload["uuid"]
+//         // if (rec_event.payload.contains("uuid") &&
+//         rec_event.payload["uuid"]
 //         // == rec_event.sender_uuid)
 //         ecs.add_component<rtype::client::Playable>(entity, {1});
 //         ecs.add_component<rtype::client::Hitbox>(entity, {{0.1, 0.12}});
@@ -177,6 +182,4 @@
 //     }
 // }
 
-void ClientHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
-
-}
+void ClientHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {}

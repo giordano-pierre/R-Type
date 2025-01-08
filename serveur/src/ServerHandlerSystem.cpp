@@ -21,7 +21,8 @@
 //     ecs.add_component<rtype::server::Velocity>(
 //         newPlayer, {enemy.x_velocity, enemy.y_velocity, true});
 //     ecs.add_component<rtype::server::HitBox>(newPlayer,
-//                                              {enemy.x_hitbox, enemy.y_hitbox});
+//                                              {enemy.x_hitbox,
+//                                              enemy.y_hitbox});
 //     ecs.add_component<rtype::server::Health>(newPlayer, {});
 //     ecs.add_component<rtype::server::Score>(newPlayer, {enemy.score});
 //     ecs.add_component<rtype::server::Tag>(newPlayer,
@@ -115,7 +116,8 @@
 //     }
 // }
 
-// void ServerHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
+// void ServerHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event)
+// {
 //     // std::cout << "SERVER HANDLER" << std::endl;
 //     // std::cout << "action : " << rec_event.action << std::endl;
 
@@ -179,7 +181,8 @@
 //     //     auto temp = ecs.get_components<rtype::server::Tag>();
 //     //     for (size_t i = 0; i < temp.size(); i++) {
 //     //         if (temp[i])
-//     //             if (rec_event.payload["player_id"] == temp[i].value().id) {
+//     //             if (rec_event.payload["player_id"] == temp[i].value().id)
+//     {
 //     //                 id = i;
 //     //             }
 //     //     }
@@ -195,15 +198,16 @@
 //     //                                           {uuid, EntityType::SHOT});
 //     //     ecs.post<RequestEvent>({Protocol::CREATE_ENTITY,
 //     //                             {
-//     //                                 {"tmp_id", rec_event.payload["tmp_id"]},
+//     //                                 {"tmp_id",
+//     rec_event.payload["tmp_id"]},
 //     //                                 {"id", uuid},
 //     //                                 {"type", rec_event.payload["type"]},
 //     //                                 {"pos", rec_event.payload["pos"]},
 //     //                                 {"velocity", {{"x",
-//     //                                 rec_event.payload["velocity"]["x"]},{"y",
+//     // rec_event.payload["velocity"]["x"]},{"y",
 //     //                                 rec_event.payload["velocity"]["y"]}}},
 //     //                                 {"hitbox", {{"x",
-//     //                                 rec_event.payload["hitbox"]["x"]},{"y",
+//     // rec_event.payload["hitbox"]["x"]},{"y",
 //     //                                 rec_event.payload["hitbox"]["y"]}}},
 //     //                             },
 //     //                             ""});
@@ -280,7 +284,8 @@ void ServerHandlerSystem::operator()(ECS &ecs, const ReceiveEvent &rec_event) {
     switch (rec_event.action) {
     case Protocol::DISCONNECT: {
         std::cout << "Player Deconnexion!" << std::endl;
-        ecs.post<RequestEvent>({Protocol::DISCONNECT, {}, rec_event.sender_uuid});
+        ecs.post<RequestEvent>(
+            {Protocol::DISCONNECT, {}, rec_event.sender_uuid});
         break;
     }
     default:

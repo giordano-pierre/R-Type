@@ -7,13 +7,13 @@
 
 #pragma once
 
+#include "ECS/ECS.hpp"
+#include "enums.hpp"
+#include "tools.hpp"
 #include <cstddef>
 #include <cstdint>
 #include <string>
 #include <vector>
-#include "enums.hpp"
-#include "ECS/ECS.hpp"
-#include "tools.hpp"
 
 namespace rtype::server {
 
@@ -32,8 +32,7 @@ struct Room {
     StateGame _state = WAITING;
 
     Room(std::string name, std::string master, int nbPlayer)
-        : _name(name), _master(master), _nbPlayer(nbPlayer)
-    {
+        : _name(name), _master(master), _nbPlayer(nbPlayer) {
         _clients_uuid.insert({master, WAITING});
     }
 };
@@ -41,8 +40,7 @@ struct Room {
 struct Child {
     ECS _ecs_child;
 
-    Child(ECS &ecs_parent, const std::string &id)
-    {
+    Child(ECS &ecs_parent, const std::string &id) {
         initSubECS(_ecs_child, ecs_parent, id);
     };
 };
@@ -52,13 +50,13 @@ struct Stage {
     std::string _mapFile;
     std::vector<EnemyInfo> _enemies;
 
-    Stage(int nb) : _nb(nb), _mapFile("stage_"+ std::to_string(nb) + ".json") {
+    Stage(int nb) : _nb(nb), _mapFile("stage_" + std::to_string(nb) + ".json") {
         std::vector<EnemyInfo> enemies = {
             {2000, 500, -9, 0, 0.1f, 0.18f, 100, 60},
             {2500, 1000, -8, 0, 0.1f, 0.18f, 100, 30},
             {2700, 800, -7, 0, 0.1f, 0.18f, 100, 50},
-            {2250, 100, -10, 0, 0.1f, 0.18f, 100, 40}
-        }; // à créer en fonction du fichier
+            {2250, 100, -10, 0, 0.1f, 0.18f, 100,
+             40}}; // à créer en fonction du fichier
         _enemies = enemies;
     }
 };
@@ -73,7 +71,8 @@ struct PlayerData {
     std::string _name;
     std::string _color;
 
-    PlayerData(std::string name, std::string color) : _color(color), _name(name){};
+    PlayerData(std::string name, std::string color)
+        : _color(color), _name(name){};
 };
 
 struct Position {

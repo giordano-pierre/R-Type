@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include "enums.hpp"
 #include "ECS/ECS.hpp"
+#include "enums.hpp"
 #include <vector>
 
 namespace rtype::server {
@@ -32,4 +32,4 @@ enum StateGame {
 
 void initSubECS(ECS &ecs, ECS &ecs_p, const std::string &id);
 
-}
+} // namespace rtype::server

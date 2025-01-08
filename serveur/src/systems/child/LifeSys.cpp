@@ -10,8 +10,7 @@
 namespace rtype::server {
 
 void LifeSys::operator()(ECS &ecs, const RemoveClient &remove_event,
-                         const SparseArray<Client> &clients)
-{
+                         const SparseArray<Client> &clients) {
     for (size_t i = 0; i < clients.size(); ++i) {
         const auto &cl = clients[i];
 
@@ -20,4 +19,4 @@ void LifeSys::operator()(ECS &ecs, const RemoveClient &remove_event,
     }
 }
 
-}
+} // namespace rtype::server

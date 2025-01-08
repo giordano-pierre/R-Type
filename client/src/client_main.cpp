@@ -22,8 +22,7 @@ bool is_number(char *str) {
     return true;
 }
 
-void createWindow(ECS &ecs)
-{
+void createWindow(ECS &ecs) {
     rtype::client::TupleUInt serverSize = {1920, 1080};
     sf::Shader myShader;
     myShader.loadFromMemory(
@@ -42,7 +41,7 @@ void createWindow(ECS &ecs)
             }
             )",
         sf::Shader::Fragment);
-    
+
     Entity window = ecs.spawn_entity();
     ecs.add_component<rtype::client::Tag>(window, {});
     ecs.add_component<rtype::client::Window>(
@@ -122,13 +121,14 @@ int main(int ac, char *argv[]) {
         true);
 
     ecs.subscribe<rtype::client::InputEvent>(
-        [&client, &running](ECS &ecs, const rtype::client::InputEvent &e_input) -> void {
+        [&client, &running](ECS &ecs,
+                            const rtype::client::InputEvent &e_input) -> void {
             if (e_input._myEvent == rtype::client::QUIT ||
                 e_input._event.type == sf::Event::Closed) {
-                    if (client.isConnected())
-                        ecs.post<RequestEvent>({DISCONNECT, {}});
-                    else
-                        running = false;
+                if (client.isConnected())
+                    ecs.post<RequestEvent>({DISCONNECT, {}});
+                else
+                    running = false;
             }
         },
         true);

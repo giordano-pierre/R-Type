@@ -29,4 +29,4 @@ struct RemoveClient {
     std::string _uuid;
 };
 
-}
+} // namespace rtype::server
