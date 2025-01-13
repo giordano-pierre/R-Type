@@ -10,14 +10,13 @@
 #include "ECS/ECS.hpp"
 #include "Events.hpp"
 
-namespace rtype::server::systems {
+namespace rtype::server {
 class HealthSys {
   public:
     HealthSys() = default;
     ~HealthSys() = default;
 
-    void operator()(ECS &ecs, const rtype::server::TicEvent &,
-                    const SparseArray<Health> &healths,
-                    SparseArray<Basics> &basics);
+    void operator()(ECS &ecs, const TicEvent &,
+                    const SparseArray<Health> &healths);
 };
 } // namespace rtype::server::systems
