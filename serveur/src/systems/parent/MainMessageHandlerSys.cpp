@@ -41,9 +41,10 @@ void disconnect(ECS &ecs, const ReceiveEvent &rec_event,
             ro.value()._clients_uuid.find(rec_event.sender_uuid));
         ro.value()._nbPlayer -= nbPlayer;
         child.value()._ecs_child.post<RemoveClient>({rec_event.sender_uuid});
-        if (ro.value()._nbPlayer <= 0)
+        if (ro.value()._nbPlayer <= 0) {
             ecs.kill_entity(ecs.entity_from_index(i));
-        else {
+            std::cout << "LOSE !!!" << std::endl;
+        } else {
             if (ro.value()._master == rec_event.sender_uuid) {
                 ro.value()._master = ro.value()._clients_uuid.begin()->first;
                 ecs.post<RequestEvent>({JOIN_ROOM,
@@ -69,7 +70,7 @@ void joinRoom(ECS &ecs, const ReceiveEvent &rec_event, SparseArray<Room> &rooms,
         auto &ro = rooms[i];
 
         if (ro && ro.value()._name ==
-                      rec_event.payload["room_name"].get<std::string>()) {
+                      rec_event.payload["r_name"].get<std::string>()) {
             roomE = Entity(i);
             break;
         }
@@ -77,7 +78,7 @@ void joinRoom(ECS &ecs, const ReceiveEvent &rec_event, SparseArray<Room> &rooms,
     if (roomE == -1) {
         roomE = ecs.spawn_entity();
         std::string idRoom = fetch_new_uuid();
-        std::string nameRoom = rec_event.payload["room_name"];
+        std::string nameRoom = rec_event.payload["r_name"];
         ecs.add_component<Tag>(roomE, {idRoom});
         ecs.add_component<Room>(roomE,
                                 {nameRoom, rec_event.sender_uuid, nbPlayer});
@@ -90,9 +91,9 @@ void joinRoom(ECS &ecs, const ReceiveEvent &rec_event, SparseArray<Room> &rooms,
             {rec_event.sender_uuid, WAITING});
         rooms[roomE].value()._nbPlayer += nbPlayer;
     }
-    auto namesP = rec_event.payload["n_player"].get<std::vector<std::string>>();
+    auto namesP = rec_event.payload["p_name"].get<std::vector<std::string>>();
     auto colorsP =
-        rec_event.payload["c_player"].get<std::vector<std::string>>();
+        rec_event.payload["p_color"].get<std::vector<std::string>>();
     for (int i = 0; i < nbPlayer; i++)
         createPlayer(children[roomE].value(), namesP[i], colorsP[i],
                      rec_event.sender_uuid);
@@ -100,31 +101,138 @@ void joinRoom(ECS &ecs, const ReceiveEvent &rec_event, SparseArray<Room> &rooms,
         if (uuid == rec_event.sender_uuid)
             ecs.post<RequestEvent>({JOIN_ROOM,
                                     {{"master", true},
-                                     {"id", tags[roomE].value()._id},
-                                     {"name", rooms[roomE].value()._name},
-                                     {"slot", rooms[roomE].value()._nbPlayer}},
+                                     {"idr", tags[roomE].value()._id},
+                                     {"r_name", rooms[roomE].value()._name},
+                                     {"nbp", rooms[roomE].value()._nbPlayer}},
                                     uuid});
         if (uuid == rec_event.sender_uuid)
             ecs.post<RequestEvent>({JOIN_ROOM,
-                                    {{"id", tags[roomE].value()._id},
-                                     {"name", rooms[roomE].value()._name},
-                                     {"slot", rooms[roomE].value()._nbPlayer}},
+                                    {{"idr", tags[roomE].value()._id},
+                                     {"r_name", rooms[roomE].value()._name},
+                                     {"nbp", rooms[roomE].value()._nbPlayer}},
                                     uuid});
     }
     return;
 }
 
 void launchGame(ECS &ecs, const ReceiveEvent &rec_event,
-                SparseArray<Room> &rooms, SparseArray<Tag> &tags) {
+                const SparseArray<Room> &rooms, const SparseArray<Tag> &tags,
+                SparseArray<Child> &children)
+{
+    std::string idRoom = rec_event.payload["idr"];
+
+    for (size_t i = 0; i < rooms.size() && i < tags.size() && i < children.size(); ++i) {
+        auto &ro = rooms[i];
+        auto &tag = tags[i];
+        auto &child = children[i];
+
+        if (!ro || !tag || !child ||
+            ro.value()._clients_uuid.find(rec_event.sender_uuid) ==
+                ro.value()._clients_uuid.end())
+            continue;
+        float space = 1080 / (ro.value()._nbPlayer + 2);
+        float posY = 0;
+        const auto subTags = child.value()._ecs_child.get_components<Tag>();
+        const auto subPlayer = child.value()._ecs_child.get_components<PlayerData>();
+        const auto subClients = child.value()._ecs_child.get_components<Client>();
+        for (size_t j = 0; j < subTags.size() && j < subPlayer.size() && j < subClients.size(); ++i) {
+            const auto &subTag = subTags[j];
+            const auto &subPlay = subPlayer[j];
+            const auto &subCl = subClients[j];
+
+            if (subPlay && subTag && subCl) {
+                posY += space;
+                Entity tmpPlayer = child.value()._ecs_child.entity_from_index(i);
+                child.value()._ecs_child.add_component<HitBox>(tmpPlayer, {0.1, 0.12});
+                child.value()._ecs_child.add_component<Velocity>(tmpPlayer, {0, 0});
+                child.value()._ecs_child.add_component<Health>(tmpPlayer, {});
+                child.value()._ecs_child.add_component<Score>(tmpPlayer, {0});
+                RequestEvent req = {SV_CREATE_PLAYER, {
+                    {"id", subTag.value()._id},
+                    {"type", PLAYER},
+                    {"name", subPlay.value()._name},
+                    {"color", subPlay.value()._color},
+                    {"hit", {{"x", 0.1}, {"y", 0.12}}},
+                    {"pos", {{"x", 100}, {"y", posY}}},
+                    {"vel", {{"x", 0}, {"y", 0}}},
+                    {"hp", 10},
+                    {"sc", 0}
+                    }, subCl.value()._uuid};
+                ecs.post<RequestEvent>(req);
+                ecs.post<CheckEvent>({LAUNCH_GAME, tag.value()._id, req});
+            }
+        }
+    }
+}
+
+bool allPlayerReady(const std::map<std::string, StateGame> &client_uuid)
+{
+    for (const auto&[_, state] : client_uuid) {
+        if (state != IN_GAME)
+            return false;
+    }
+    return true;
+}
+
+void playerIsCreated(ECS &ecs, const ReceiveEvent &rec_event,
+                     SparseArray<Room> &rooms,
+                     SparseArray<Tag> &tags,
+                     SparseArray<Child> &children)
+{
+    std::string idRoom = rec_event.payload["idr"];
+
+    for (size_t i = 0; i < rooms.size() && i < tags.size() && i < children.size(); ++i) {
+        auto &ro = rooms[i];
+        auto &tag = tags[i];
+        auto &child = children[i];
+
+        if (ro && tag && child && tag.value()._id == idRoom) {
+            auto client_it = ro.value()._clients_uuid.find(rec_event.sender_uuid);
+            if (client_it == ro.value()._clients_uuid.end())
+                return;
+            client_it->second = IN_GAME;
+            if (allPlayerReady(ro.value()._clients_uuid)) {
+                ro.value()._state = IN_GAME;
+                loadSubSystem(child.value()._ecs_child);
+            }
+        }
+    }
+}
+
+void playerShoot(ECS &ecs, const ReceiveEvent &rec_event,
+                 const SparseArray<Room> &rooms,
+                 const SparseArray<Tag> &tags,
+                 SparseArray<Child> &children)
+{
+    std::string idRoom = rec_event.payload["idr"];
+
+    for (size_t i = 0; i < rooms.size() && i < tags.size() && i < children.size(); ++i) {
+        const auto &ro = rooms[i];
+        const auto &tag = tags[i];
+        auto &child = children[i];
+
+        if (ro && tag && child) {
+            if (ro.value()._clients_uuid.find(rec_event.sender_uuid) == ro.value()._clients_uuid.end())
+                return;
+            std::cout << "Client " << rec_event.sender_uuid << " Shoot !!!" << std::endl;
+        }
+    }
+}
+
+void gameOver(ECS &ecs, const ReceiveEvent rec_event,
+              SparseArray<Room> &rooms, const SparseArray<Tag> &tags)
+{
+    std::string idRoom = rec_event.payload["idr"];
+
     for (size_t i = 0; i < rooms.size() && i < tags.size(); ++i) {
         auto &ro = rooms[i];
         auto &tag = tags[i];
 
-        if (!ro || !tag ||
-            ro.value()._clients_uuid.find(rec_event.sender_uuid) ==
-                ro.value()._clients_uuid.end())
-            continue;
-        for (const auto &[uuid, _] : ro.value()._clients_uuid) {
+        if (ro && tag && tag.value()._id == idRoom) {
+            auto client_it = ro.value()._clients_uuid.find(rec_event.sender_uuid);
+            if (client_it == ro.value()._clients_uuid.end())
+                return;
+            client_it->second = WAITING;
         }
     }
 }
@@ -143,7 +251,17 @@ void MainMessageHandlerSys::operator()(ECS &ecs, const ReceiveEvent &rec_event,
         return;
     }
     case LAUNCH_GAME: {
-        launchGame(ecs, rec_event, rooms, tags);
+        launchGame(ecs, rec_event, rooms, tags, children);
+        return;
+    }
+    case SV_CREATE_PLAYER: {
+        playerIsCreated(ecs, rec_event, rooms, tags, children);
+    }
+    case CL_SHOOT: {
+        playerShoot(ecs, rec_event, rooms, tags, children);
+    }
+    case SV_GAME_OVER: {
+        gameOver(ecs, rec_event, rooms, tags);
     }
     default:
         break;
