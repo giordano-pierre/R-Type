@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "enums.hpp"
+#include "protocol.hpp"
 #include <nlohmann/json.hpp>
 #include <string>
 

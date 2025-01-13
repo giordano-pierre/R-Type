@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** R-Type
 ** File description:
-** enums
+** protocol
 */
 #pragma once
 
@@ -88,29 +88,29 @@ enum EntityType {
     OTHER
 };
 
-const std::unordered_map<EntityType, std::string> TypeToString{
-    {EntityType::ENEMY1, "Enemy1"}, {EntityType::ENEMY2, "Enemy2"},
-    {EntityType::ENEMY3, "Enemy3"}, {EntityType::ENEMY4, "Enemy4"},
-    {EntityType::ENEMY5, "Enemy5"}, {EntityType::ENEMY6, "Enemy6"},
-    {EntityType::BOSS1, "Boss1"},   {EntityType::BOSS2, "Boss2"},
-    {EntityType::PLAYER, "Player"}, {EntityType::SHOT, "Shot"},
-    {EntityType::OTHER, "Other"}};
+// const std::unordered_map<EntityType, std::string> TypeToString{
+//     {EntityType::ENEMY1, "Enemy1"}, {EntityType::ENEMY2, "Enemy2"},
+//     {EntityType::ENEMY3, "Enemy3"}, {EntityType::ENEMY4, "Enemy4"},
+//     {EntityType::ENEMY5, "Enemy5"}, {EntityType::ENEMY6, "Enemy6"},
+//     {EntityType::BOSS1, "Boss1"},   {EntityType::BOSS2, "Boss2"},
+//     {EntityType::PLAYER, "Player"}, {EntityType::SHOT, "Shot"},
+//     {EntityType::OTHER, "Other"}};
 
-const std::unordered_map<std::string, EntityType> StringToType{
-    {"Enemy1", EntityType::ENEMY1}, {"Enemy2", EntityType::ENEMY2},
-    {"Enemy3", EntityType::ENEMY3}, {"Enemy4", EntityType::ENEMY4},
-    {"Enemy5", EntityType::ENEMY5}, {"Enemy6", EntityType::ENEMY6},
-    {"Boss1", EntityType::BOSS1},   {"Boss2", EntityType::BOSS2},
-    {"Player", EntityType::PLAYER}, {"Shot", EntityType::SHOT},
-    {"Other", EntityType::OTHER}};
+// const std::unordered_map<std::string, EntityType> StringToType{
+//     {"Enemy1", EntityType::ENEMY1}, {"Enemy2", EntityType::ENEMY2},
+//     {"Enemy3", EntityType::ENEMY3}, {"Enemy4", EntityType::ENEMY4},
+//     {"Enemy5", EntityType::ENEMY5}, {"Enemy6", EntityType::ENEMY6},
+//     {"Boss1", EntityType::BOSS1},   {"Boss2", EntityType::BOSS2},
+//     {"Player", EntityType::PLAYER}, {"Shot", EntityType::SHOT},
+//     {"Other", EntityType::OTHER}};
 
-inline nlohmann::json to_json(const EntityType &type) {
-    return TypeToString.at(type);
-}
+// inline nlohmann::json to_json(const EntityType &type) {
+//     return TypeToString.at(type);
+// }
 
-inline EntityType from_json(const nlohmann::json &j) {
-    return StringToType.at(j.get<std::string>());
-}
+// inline EntityType from_json(const nlohmann::json &j) {
+//     return StringToType.at(j.get<std::string>());
+// }
 
 inline std::string fetch_new_uuid() {
     boost::uuids::random_generator uuid_generator_;

@@ -1,5 +1,5 @@
 add_library(Shared INTERFACE
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/enums.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/protocol.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/events/ReceiveEvent.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/events/RequestEvent.hpp
 )

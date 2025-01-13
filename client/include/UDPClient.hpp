@@ -8,7 +8,7 @@
 #pragma once
 
 #include "ECS/ECS.hpp"
-#include "enums.hpp"
+#include "protocol.hpp"
 #include "events/ReceiveEvent.hpp"
 #include "events/RequestEvent.hpp"
 #include <boost/asio.hpp>

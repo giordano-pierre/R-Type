@@ -101,9 +101,13 @@ void startGame1P(ECS &ecs, Entity i) {
     // ecs.post<DeleteEvent>({MENU});
     // ecs.post<CreationEvent>({PLAYER});
     auto &myWindow = ecs.get_components<Window>()[0].value();
+    nlohmann::json p_name = nlohmann::json::array();
+    p_name.push_back("Player1");
+    nlohmann::json p_color = nlohmann::json::array();
+    p_color.push_back("red");
 
-    // ecs.post<RequestEvent>(
-    //     {CLIENT_READY, {{"nb_player_max", 1}, {"name", myWindow._name1}}});
+    ecs.post<RequestEvent>(
+        {JOIN_ROOM, {{"r_name","test"}, {"p_name", p_name}, {"p_color", p_color}}});
 }
 
 void startGame2P(ECS &ecs, Entity i) {

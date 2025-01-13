@@ -7,7 +7,7 @@
 #include "createEntities.hpp"
 #include "buttonFunctions.hpp"
 #include "ecsObjects.hpp"
-#include "enums.hpp"
+#include "protocol.hpp"
 #include "events/RequestEvent.hpp"
 #include <iostream>
 

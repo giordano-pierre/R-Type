@@ -9,7 +9,7 @@
 
 #include <ostream>
 
-#include "enums.hpp"
+#include "protocol.hpp"
 #include "tools.hpp"
 
 namespace rtype::client {
