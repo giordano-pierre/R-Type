@@ -5,10 +5,10 @@
 ** MovementSystem.cpp
 */
 
-#include "MovementSystem.hpp"
+#include "systems/child/MovementSystem.hpp"
 #include <iostream>
 
-namespace rtype::server::systems {
+namespace rtype::server {
 
 auto MovementSys::operator()(ECS &ecs, const rtype::server::TicEvent &,
                              SparseArray<Position> &positions,
@@ -21,4 +21,4 @@ auto MovementSys::operator()(ECS &ecs, const rtype::server::TicEvent &,
     }
 }
 
-} // namespace rtype::server::systems
+} // namespace rtype::server

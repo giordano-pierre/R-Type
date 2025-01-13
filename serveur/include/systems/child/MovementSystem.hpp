@@ -10,7 +10,7 @@
 #include "ECS/ECS.hpp"
 #include "Events.hpp"
 
-namespace rtype::server::systems {
+namespace rtype::server {
 class MovementSys {
   public:
     MovementSys() = default;
@@ -20,4 +20,4 @@ class MovementSys {
                     SparseArray<Position> &positions,
                     const SparseArray<Velocity> &velocities) -> void;
 };
-} // namespace rtype::server::systems
+} // namespace rtype::server
