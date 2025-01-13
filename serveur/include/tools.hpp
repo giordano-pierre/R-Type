@@ -8,7 +8,7 @@
 #pragma once
 
 #include "ECS/ECS.hpp"
-#include "enums.hpp"
+#include "protocol.hpp"
 #include <vector>
 
 namespace rtype::server {
@@ -22,6 +22,8 @@ struct EnemyInfo {
     float y_hitbox;
     int health;
     int score;
+    int spawn_tic;
+    EntityType type;
 };
 
 enum StateGame {
@@ -31,5 +33,8 @@ enum StateGame {
 };
 
 void initSubECS(ECS &ecs, ECS &ecs_p, const std::string &id);
+void removeAll(ECS &ecs);
+void loadSubSystem(ECS &ecs);
+bool isEnemy(const EntityType &obj);
 
 } // namespace rtype::server
