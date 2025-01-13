@@ -5,7 +5,9 @@
 ** UDPServer
 */
 
-#include "UDPServer.hpp"
+#include "systems/parent/UDPServer.hpp"
+
+namespace rtype::server {
 
 void UDPServer::start_receive() {
     socket_.async_receive_from(
@@ -126,4 +128,6 @@ void UDPServer::operator()(ECS &ecs, const RequestEvent &req_event) {
 
 std::string UDPServer::get_new_uuid() {
     return boost::uuids::to_string(uuid_generator_());
+}
+
 }

@@ -1,7 +1,14 @@
+/*
+** EPITECH PROJECT, 2025
+** R-Type
+** File description:
+** UDPServer
+*/
+
 #pragma once
 
 #include "ECS/ECS.hpp"
-#include "enums.hpp"
+#include "protocol.hpp"
 #include "events/ReceiveEvent.hpp"
 #include "events/RequestEvent.hpp"
 #include <array>
@@ -16,6 +23,8 @@
 
 using boost::asio::ip::udp;
 using json = nlohmann::json;
+
+namespace rtype::server {
 
 class UDPServer {
   public:
@@ -61,3 +70,5 @@ class UDPServer {
     std::string get_new_uuid();
     void parse_request(const json &parsed_json);
 };
+
+}
