@@ -173,77 +173,77 @@
 //         }
 //         break;
 //     }
-//     // case Protocol::CLIENT_CREATE: {
-//     //     std::string uuid = fetch_new_uuid();
-//     //     Entity newPlayer = ecs.spawn_entity();
-//     //     std::size_t id;
+    // case Protocol::CLIENT_CREATE: {
+    //     std::string uuid = fetch_new_uuid();
+    //     Entity newPlayer = ecs.spawn_entity();
+    //     std::size_t id;
 
-//     //     auto temp = ecs.get_components<rtype::server::Tag>();
-//     //     for (size_t i = 0; i < temp.size(); i++) {
-//     //         if (temp[i])
-//     //             if (rec_event.payload["player_id"] == temp[i].value().id)
-//     {
-//     //                 id = i;
-//     //             }
-//     //     }
-//     //     ecs.add_component<rtype::server::PlayerData>(
-//     //         newPlayer, {"", id});
-//     //     ecs.add_component<rtype::server::Position>(
-//     //         newPlayer, {rec_event.payload["pos"]["x"],
-//     //                     rec_event.payload["pos"]["y"]});
-//     //     ecs.add_component<rtype::server::HitBox>(
-//     //         newPlayer, {rec_event.payload["hitbox"]["x"],
-//     //                     rec_event.payload["hitbox"]["y"]});
-//     //     ecs.add_component<rtype::server::Tag>(newPlayer,
-//     //                                           {uuid, EntityType::SHOT});
-//     //     ecs.post<RequestEvent>({Protocol::CREATE_ENTITY,
-//     //                             {
-//     //                                 {"tmp_id",
-//     rec_event.payload["tmp_id"]},
-//     //                                 {"id", uuid},
-//     //                                 {"type", rec_event.payload["type"]},
-//     //                                 {"pos", rec_event.payload["pos"]},
-//     //                                 {"velocity", {{"x",
-//     // rec_event.payload["velocity"]["x"]},{"y",
-//     //                                 rec_event.payload["velocity"]["y"]}}},
-//     //                                 {"hitbox", {{"x",
-//     // rec_event.payload["hitbox"]["x"]},{"y",
-//     //                                 rec_event.payload["hitbox"]["y"]}}},
-//     //                             },
-//     //                             ""});
-//     //     break;
-//     // }
-//     case Protocol::CLIENT_INPUT: {
+    //     auto temp = ecs.get_components<rtype::server::Tag>();
+    //     for (size_t i = 0; i < temp.size(); i++) {
+    //         if (temp[i])
+    //             if (rec_event.payload["player_id"] == temp[i].value().id)
+    //             {
+    //                 id = i;
+    //             }
+    //     }
+    //     ecs.add_component<rtype::server::PlayerData>(
+    //         newPlayer, {"", id});
+    //     ecs.add_component<rtype::server::Position>(
+    //         newPlayer, {rec_event.payload["pos"]["x"],
+    //                     rec_event.payload["pos"]["y"]});
+    //     ecs.add_component<rtype::server::HitBox>(
+    //         newPlayer, {rec_event.payload["hitbox"]["x"],
+    //                     rec_event.payload["hitbox"]["y"]});
+    //     ecs.add_component<rtype::server::Tag>(newPlayer,
+    //                                           {uuid, EntityType::SHOT});
+    //     ecs.post<RequestEvent>({Protocol::CREATE_ENTITY,
+    //                             {
+    //                                 {"tmp_id",
+    // rec_event.payload["tmp_id"]},
+    //                                 {"id", uuid},
+    //                                 {"type", rec_event.payload["type"]},
+    //                                 {"pos", rec_event.payload["pos"]},
+    //                                 {"velocity", {{"x",
+    // rec_event.payload["velocity"]["x"]},{"y",
+    //                                 rec_event.payload["velocity"]["y"]}}},
+    //                                 {"hitbox", {{"x",
+    // rec_event.payload["hitbox"]["x"]},{"y",
+    //                                 rec_event.payload["hitbox"]["y"]}}},
+    //                             },
+    //                             ""});
+    //     break;
+    // }
+    // case Protocol::CLIENT_INPUT: {
 
-//         auto input = rec_event.payload["type_event"];
-//         std::size_t id;
+    //     auto input = rec_event.payload["type_event"];
+    //     std::size_t id;
 
-//         auto temp = ecs.get_components<rtype::server::Tag>();
-//         for (size_t i = 0; i < temp.size(); i++) {
-//             if (temp[i])
-//                 if (rec_event.payload["id"] == temp[i].value().id) {
-//                     id = i;
-//                 }
-//         }
-//         auto &opt_pos = ecs.get_components<rtype::server::Velocity>()[id];
-//         if (!opt_pos)
-//             break;
+    //     auto temp = ecs.get_components<rtype::server::Tag>();
+    //     for (size_t i = 0; i < temp.size(); i++) {
+    //         if (temp[i])
+    //             if (rec_event.payload["id"] == temp[i].value().id) {
+    //                 id = i;
+    //             }
+    //     }
+    //     auto &opt_pos = ecs.get_components<rtype::server::Velocity>()[id];
+    //     if (!opt_pos)
+    //         break;
 
-//         auto &vel = opt_pos.value();
-//         if (input == "Up")
-//             vel.y = -8;
-//         if (input == "Down")
-//             vel.y = 8;
-//         if (input == "Right")
-//             vel.x = 8;
-//         if (input == "Left")
-//             vel.x = -8;
-//         if (input == "ReleasedX")
-//             vel.x = 0;
-//         if (input == "ReleasedY")
-//             vel.y = 0;
-//         break;
-//     }
+    //     auto &vel = opt_pos.value();
+    //     if (input == "Up")
+    //         vel.y = -8;
+    //     if (input == "Down")
+    //         vel.y = 8;
+    //     if (input == "Right")
+    //         vel.x = 8;
+    //     if (input == "Left")
+    //         vel.x = -8;
+    //     if (input == "ReleasedX")
+    //         vel.x = 0;
+    //     if (input == "ReleasedY")
+    //         vel.y = 0;
+    //     break;
+    // }
 
 //     case Protocol::CLIENT_DISCONNECT: {
 //         std::size_t id;
