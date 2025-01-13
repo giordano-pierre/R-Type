@@ -9,6 +9,8 @@
 
 #include <chrono>
 #include <string>
+#include "protocol.hpp"
+#include "events/RequestEvent.hpp"
 
 namespace timer = std::chrono;
 
@@ -27,6 +29,22 @@ struct RemoveClient {
     ~RemoveClient() = default;
 
     std::string _uuid;
+};
+
+struct CheckEvent {
+    CheckEvent(const Protocol &action, const std::string &idr, const RequestEvent &req) : _action(action), _idr(idr), _request(req) {};
+
+    const Protocol _action;
+    const std::string _idr;
+    const RequestEvent _request;
+};
+
+struct UpdateEvent {
+    UpdateEvent(const timer::time_point<timer::steady_clock> &time_stamp)
+        : time_stamp(time_stamp){};
+    ~UpdateEvent() = default;
+
+    timer::time_point<timer::steady_clock> time_stamp;
 };
 
 } // namespace rtype::server

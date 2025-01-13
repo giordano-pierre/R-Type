@@ -8,7 +8,7 @@
 #pragma once
 
 #include "ECS/ECS.hpp"
-#include "enums.hpp"
+#include "protocol.hpp"
 #include "tools.hpp"
 #include <cstddef>
 #include <cstdint>
@@ -29,11 +29,13 @@ struct Room {
     std::string _master;
     std::map<std::string, StateGame> _clients_uuid;
     int _nbPlayer;
+    int _lastUpdate;
     StateGame _state = WAITING;
 
     Room(std::string name, std::string master, int nbPlayer)
         : _name(name), _master(master), _nbPlayer(nbPlayer) {
         _clients_uuid.insert({master, WAITING});
+        _lastUpdate = 0;
     }
 };
 
@@ -52,11 +54,11 @@ struct Stage {
 
     Stage(int nb) : _nb(nb), _mapFile("stage_" + std::to_string(nb) + ".json") {
         std::vector<EnemyInfo> enemies = {
-            {2000, 500, -9, 0, 0.1f, 0.18f, 100, 60},
-            {2500, 1000, -8, 0, 0.1f, 0.18f, 100, 30},
-            {2700, 800, -7, 0, 0.1f, 0.18f, 100, 50},
-            {2250, 100, -10, 0, 0.1f, 0.18f, 100,
-             40}}; // à créer en fonction du fichier
+            {2000, 500, -9, 0, 0.1f, 0.18f, 100, 60, 0, ENEMY1},
+            {2000, 1000, -8, 0, 0.1f, 0.18f, 100, 30, 100, ENEMY1},
+            {2000, 800, -7, 0, 0.1f, 0.18f, 100, 50, 100, ENEMY1},
+            {2000, 100, -10, 0, 0.1f, 0.18f, 100, 40, 200, ENEMY1}};
+            // à créer en fonction du fichier
         _enemies = enemies;
     }
 };
@@ -107,11 +109,9 @@ struct HitBox {
 };
 
 struct Health {
-    int health = 100;
-    int healthMax = 100;
-    int HealthMin = 0;
+    int _health;
 
-    Health() = default;
+    Health(int health = 10) : _health(health) {};
 };
 
 struct Dead {
@@ -121,9 +121,13 @@ struct Dead {
 };
 
 struct Score {
-    int score;
+    int _score;
 
-    Score(int score = 0) : score(score){};
+    Score(int score = 0) : _score(score){};
+};
+
+struct Owner {
+    std::string _id_owner;
 };
 
 // struct Basics {
