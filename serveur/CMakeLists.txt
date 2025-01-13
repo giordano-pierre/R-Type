@@ -3,14 +3,18 @@ project(r-type_server VERSION 1.0 LANGUAGES CXX)
 set(SRC
     src/server_main.cpp
     src/tools.cpp
-    src/UDPServer.cpp
+    src/systems/parent/UDPServer.cpp
     src/systems/parent/MainMessageHandlerSys.cpp
+    src/systems/parent/ResendEventSys.cpp
+    src/systems/parent/CheckWinSys.cpp
+    src/systems/parent/LifeSys.cpp
+    src/systems/parent/TriggerChildSys.cpp
+    src/systems/parent/UpdateSys.cpp
+    src/systems/child/CollisionSystem.cpp
+    src/systems/child/HealthSystem.cpp
     src/systems/child/LifeSys.cpp
-    # src/ServerHandlerSystem.cpp
-    # src/GameLogicSystem.cpp
-    # src/CollisionSystem.cpp
-    # src/HealthSystem.cpp
-    # src/MovementSystem.cpp
+    src/systems/child/MovementSystem.cpp
+    src/systems/child/SubMessageHandlerSys.cpp
 )
 
 add_executable(r-type_server ${SRC})

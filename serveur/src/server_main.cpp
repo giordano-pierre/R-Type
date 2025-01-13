@@ -14,8 +14,14 @@
 // #include "MovementSystem.hpp"
 // #include "ServerHandlerSystem.hpp"
 #include "Events.hpp"
-#include "UDPServer.hpp"
+#include "Components.hpp"
+#include "systems/parent/UDPServer.hpp"
 #include "systems/parent/MainMessageHandlerSys.hpp"
+#include "systems/parent/ResendEventSys.hpp"
+#include "systems/parent/CheckWinSys.hpp"
+#include "systems/parent/LifeSys.hpp"
+#include "systems/parent/TriggerChildSys.hpp"
+#include "systems/parent/UpdateSys.hpp"
 
 bool running = true;
 
@@ -53,10 +59,9 @@ void serverLoop(ECS &ecs) {
             trigger = true;
         }
         if (dtimeU >= updateRate) {
-            ecs.post<rtype::server::TicEvent>(
+            ecs.post<rtype::server::UpdateEvent>(
                 {std::chrono::steady_clock::now()});
             dtimeU = std::chrono::duration<double>::zero();
-            // updateEntity(ecs);
             trigger = true;
         }
         if (trigger) {
@@ -86,6 +91,32 @@ void initMainECS(ECS &ecs) {
     ecs.register_event<rtype::server::TicEvent>();
     ecs.register_event<RequestEvent>();
     ecs.register_event<ReceiveEvent>();
+    ecs.register_event<rtype::server::CheckEvent>();
+    ecs.register_event<rtype::server::UpdateEvent>();
+}
+
+void loadMainSystems(ECS &ecs)
+{
+    auto handler = rtype::server::MainMessageHandlerSys();
+    ecs.subscribe<ReceiveEvent, rtype::server::Room, rtype::server::Tag,
+                    rtype::server::Child>(handler, true);
+    auto resend = rtype::server::ResendEventSys();
+    ecs.subscribe<rtype::server::CheckEvent, rtype::server::Room,
+                    rtype::server::Tag>(resend, true);
+    auto check = rtype::server::CheckWinSys();
+    ecs.subscribe<rtype::server::TicEvent, rtype::server::Tag,
+                    rtype::server::Room, rtype::server::Stage,
+                    rtype::server::Child>(check, true);
+    auto life = rtype::server::LifeSys();
+    ecs.subscribe<rtype::server::TicEvent, rtype::server::Child,
+                  rtype::server::Room>(life, true);
+    ecs.subscribe<rtype::server::TicEvent, rtype::server::Room,
+                  rtype::server::Stage, rtype::server::Child>(life, true);
+    auto trigger = rtype::server::TriggerChildSys();
+    ecs.subscribe<rtype::server::TicEvent, rtype::server::Child>(trigger, true);
+    auto update = rtype::server::UpdateSys();
+    ecs.subscribe<rtype::server::UpdateEvent, rtype::server::Room,
+                  rtype::server::Child>(update);
 }
 
 int main(int ac, char *argv[]) {
@@ -105,13 +136,10 @@ int main(int ac, char *argv[]) {
         ECS ecs;
         initMainECS(ecs);
 
-        UDPServer server(ecs, port);
+        rtype::server::UDPServer server(ecs, port);
         ecs.subscribe<RequestEvent>(server, true);
 
-        auto handler = rtype::server::MainMessageHandlerSys();
-        ecs.subscribe<ReceiveEvent, rtype::server::Room, rtype::server::Tag,
-                      rtype::server::Child>(handler, true);
-
+        loadMainSystems(ecs);
         serverLoop(ecs);
 
         std::cout << "===============================" << std::endl
