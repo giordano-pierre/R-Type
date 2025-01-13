@@ -1,0 +1,28 @@
+/*
+** EPITECH PROJECT, 2025
+** R-Type
+** File description:
+** CheckWinSys
+*/
+
+#pragma once
+
+#include "ECS/ECS.hpp"
+#include "Events.hpp"
+#include "Components.hpp"
+
+namespace rtype::server {
+
+class CheckWinSys {
+    public:
+        CheckWinSys() = default;
+        ~CheckWinSys() = default;
+
+    void operator()(ECS &ecs, const TicEvent &tic_event,
+                    const SparseArray<Tag> &tags,
+                    SparseArray<Room> &rooms,
+                    SparseArray<Stage> &stages,
+                    SparseArray<Child> &children);
+};
+
+}
