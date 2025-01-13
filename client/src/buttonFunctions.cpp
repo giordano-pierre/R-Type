@@ -107,7 +107,8 @@ void startGame1P(ECS &ecs, Entity i) {
     p_color.push_back("red");
 
     ecs.post<RequestEvent>(
-        {JOIN_ROOM, {{"r_name","test"}, {"p_name", p_name}, {"p_color", p_color}}});
+        {JOIN_ROOM,
+         {{"r_name", "test"}, {"p_name", p_name}, {"p_color", p_color}}});
 }
 
 void startGame2P(ECS &ecs, Entity i) {

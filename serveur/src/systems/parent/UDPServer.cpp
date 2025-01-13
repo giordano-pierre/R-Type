@@ -130,4 +130,4 @@ std::string UDPServer::get_new_uuid() {
     return boost::uuids::to_string(uuid_generator_());
 }
 
-}
+} // namespace rtype::server

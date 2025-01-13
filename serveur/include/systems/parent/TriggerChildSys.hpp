@@ -7,18 +7,19 @@
 
 #pragma once
 
+#include "Components.hpp"
 #include "ECS/ECS.hpp"
 #include "Events.hpp"
-#include "Components.hpp"
 
 namespace rtype::server {
 
 class TriggerChildSys {
-    public:
-        TriggerChildSys() = default;
-        ~TriggerChildSys() = default;
+  public:
+    TriggerChildSys() = default;
+    ~TriggerChildSys() = default;
 
-        void operator()(ECS &ecs, const TicEvent &tic_event, SparseArray<Child> &children);
+    void operator()(ECS &ecs, const TicEvent &tic_event,
+                    SparseArray<Child> &children);
 };
 
-}
+} // namespace rtype::server

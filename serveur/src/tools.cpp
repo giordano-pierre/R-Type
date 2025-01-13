@@ -10,11 +10,11 @@
 #include "Events.hpp"
 #include "events/ReceiveEvent.hpp"
 #include "events/RequestEvent.hpp"
-#include "systems/child/SubMessageHandlerSys.hpp"
+#include "systems/child/CollisionSystem.hpp"
+#include "systems/child/HealthSystem.hpp"
 #include "systems/child/LifeSys.hpp"
 #include "systems/child/MovementSystem.hpp"
-#include "systems/child/HealthSystem.hpp"
-#include "systems/child/CollisionSystem.hpp"
+#include "systems/child/SubMessageHandlerSys.hpp"
 
 namespace rtype::server {
 
@@ -57,8 +57,7 @@ void removeAll(ECS &ecs) {
     }
 }
 
-void loadSubSystem(ECS &ecs)
-{
+void loadSubSystem(ECS &ecs) {
     auto move = MovementSys();
     ecs.subscribe<TicEvent, Position, Velocity>(move);
     auto life = HealthSys();
@@ -66,11 +65,9 @@ void loadSubSystem(ECS &ecs)
     auto coll = CollisionSys();
     ecs.subscribe<TicEvent, Position, HitBox, Tag, Health, Owner, Score>(coll);
     ecs.subscribe<TicEvent, Position, Tag, HitBox>(coll);
-
 }
 
-bool isEnemy(const EntityType &obj)
-{
+bool isEnemy(const EntityType &obj) {
     if (obj >= ENEMY1 && obj <= BOSS2)
         return true;
     return false;

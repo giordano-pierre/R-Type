@@ -14,12 +14,13 @@ void CheckWinSys::operator()(ECS &ecs, const TicEvent &,
                              const SparseArray<Tag> &tags,
                              SparseArray<Room> &rooms,
                              SparseArray<Stage> &stages,
-                             SparseArray<Child> &children)
-{
+                             SparseArray<Child> &children) {
     bool win;
     bool lose;
 
-    for (size_t i = 0; i < tags.size() && i < rooms.size() && i < stages.size() && i < children.size(); ++i) {
+    for (size_t i = 0; i < tags.size() && i < rooms.size() &&
+                       i < stages.size() && i < children.size();
+         ++i) {
         const auto &tag = tags[i];
         auto &ro = rooms[i];
         auto &st = stages[i];
@@ -35,7 +36,8 @@ void CheckWinSys::operator()(ECS &ecs, const TicEvent &,
             for (size_t j = 0; j < subTags.size(); ++j) {
                 const auto &subTag = subTags[j];
 
-                if (win && subTag && subTag.value()._type >= ENEMY1 && subTag.value()._type <= ENEMY6)
+                if (win && subTag && subTag.value()._type >= ENEMY1 &&
+                    subTag.value()._type <= ENEMY6)
                     win = false;
                 if (lose && subTag && subTag.value()._type == PLAYER)
                     lose = false;
@@ -46,7 +48,8 @@ void CheckWinSys::operator()(ECS &ecs, const TicEvent &,
             //     for (size_t j = 0; j < subTags.size(); ++j) {
             //         const auto &subTag = subTags[j];
 
-            //         if (subTag && subTag.value()._type >= ENEMY1 && subTag.value()._type <= ENEMY6) {
+            //         if (subTag && subTag.value()._type >= ENEMY1 &&
+            //         subTag.value()._type <= ENEMY6) {
             //             win = false;
             //             break;
             //         }
@@ -61,11 +64,12 @@ void CheckWinSys::operator()(ECS &ecs, const TicEvent &,
                 for (const auto &[uuid, _] : ro.value()._clients_uuid) {
                     RequestEvent event = {SV_GAME_OVER, {}, uuid};
                     ecs.post<RequestEvent>(event);
-                    ecs.post<CheckEvent>({SV_GAME_OVER, tag.value()._id, event});
+                    ecs.post<CheckEvent>(
+                        {SV_GAME_OVER, tag.value()._id, event});
                 }
             }
         }
     }
 }
 
-}
+} // namespace rtype::server

@@ -7,8 +7,8 @@
 #include "createEntities.hpp"
 #include "buttonFunctions.hpp"
 #include "ecsObjects.hpp"
-#include "protocol.hpp"
 #include "events/RequestEvent.hpp"
+#include "protocol.hpp"
 #include <iostream>
 
 namespace rtype::client {

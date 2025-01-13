@@ -10,9 +10,8 @@
 
 namespace rtype::server {
 
-void HealthSys::operator()(
-    ECS &ecs, const TicEvent &,
-    const SparseArray<Health> &healths) {
+void HealthSys::operator()(ECS &ecs, const TicEvent &,
+                           const SparseArray<Health> &healths) {
 
     for (size_t i = 0; i < healths.size(); ++i) {
         const auto &health = healths[i];

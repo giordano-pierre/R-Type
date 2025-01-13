@@ -8,9 +8,9 @@
 #pragma once
 
 #include "ECS/ECS.hpp"
-#include "protocol.hpp"
 #include "events/ReceiveEvent.hpp"
 #include "events/RequestEvent.hpp"
+#include "protocol.hpp"
 #include <boost/asio.hpp>
 #include <iostream>
 #include <nlohmann/json.hpp>

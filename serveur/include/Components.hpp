@@ -58,7 +58,7 @@ struct Stage {
             {2000, 1000, -8, 0, 0.1f, 0.18f, 100, 30, 100, ENEMY1},
             {2000, 800, -7, 0, 0.1f, 0.18f, 100, 50, 100, ENEMY1},
             {2000, 100, -10, 0, 0.1f, 0.18f, 100, 40, 200, ENEMY1}};
-            // à créer en fonction du fichier
+        // à créer en fonction du fichier
         _enemies = enemies;
     }
 };
@@ -111,7 +111,7 @@ struct HitBox {
 struct Health {
     int _health;
 
-    Health(int health = 10) : _health(health) {};
+    Health(int health = 10) : _health(health){};
 };
 
 struct Dead {

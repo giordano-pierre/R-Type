@@ -11,8 +11,7 @@ namespace rtype::server {
 
 void movePlayer(ECS &ecs, const ReceiveEvent &rec_event,
                 const SparseArray<Tag> &tags,
-                SparseArray<Velocity> &velocities)
-{
+                SparseArray<Velocity> &velocities) {
     auto input = rec_event.payload["e_type"].get<std::string>();
     auto idp = rec_event.payload["idp"].get<std::string>();
 
@@ -39,16 +38,15 @@ void movePlayer(ECS &ecs, const ReceiveEvent &rec_event,
 
 void SubMessageHandlerSys::operator()(ECS &ecs, const ReceiveEvent &rec_event,
                                       const SparseArray<Tag> &tags,
-                                      SparseArray<Velocity> &velocities)
-{
+                                      SparseArray<Velocity> &velocities) {
     switch (rec_event.action) {
-        case CL_MOVE: {
-            movePlayer(ecs, rec_event, tags, velocities);
-            break;
-        }
-        default:
-            break;
+    case CL_MOVE: {
+        movePlayer(ecs, rec_event, tags, velocities);
+        break;
+    }
+    default:
+        break;
     }
 }
 
-}
+} // namespace rtype::server

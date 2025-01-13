@@ -13,14 +13,14 @@
 // #include "HealthSystem.hpp"
 // #include "MovementSystem.hpp"
 // #include "ServerHandlerSystem.hpp"
-#include "Events.hpp"
 #include "Components.hpp"
-#include "systems/parent/UDPServer.hpp"
-#include "systems/parent/MainMessageHandlerSys.hpp"
-#include "systems/parent/ResendEventSys.hpp"
+#include "Events.hpp"
 #include "systems/parent/CheckWinSys.hpp"
 #include "systems/parent/LifeSys.hpp"
+#include "systems/parent/MainMessageHandlerSys.hpp"
+#include "systems/parent/ResendEventSys.hpp"
 #include "systems/parent/TriggerChildSys.hpp"
+#include "systems/parent/UDPServer.hpp"
 #include "systems/parent/UpdateSys.hpp"
 
 bool running = true;
@@ -95,18 +95,17 @@ void initMainECS(ECS &ecs) {
     ecs.register_event<rtype::server::UpdateEvent>();
 }
 
-void loadMainSystems(ECS &ecs)
-{
+void loadMainSystems(ECS &ecs) {
     auto handler = rtype::server::MainMessageHandlerSys();
     ecs.subscribe<ReceiveEvent, rtype::server::Room, rtype::server::Tag,
-                    rtype::server::Child>(handler, true);
+                  rtype::server::Child>(handler, true);
     auto resend = rtype::server::ResendEventSys();
     ecs.subscribe<rtype::server::CheckEvent, rtype::server::Room,
-                    rtype::server::Tag>(resend, true);
+                  rtype::server::Tag>(resend, true);
     auto check = rtype::server::CheckWinSys();
     ecs.subscribe<rtype::server::TicEvent, rtype::server::Tag,
-                    rtype::server::Room, rtype::server::Stage,
-                    rtype::server::Child>(check, true);
+                  rtype::server::Room, rtype::server::Stage,
+                  rtype::server::Child>(check, true);
     auto life = rtype::server::LifeSys();
     ecs.subscribe<rtype::server::TicEvent, rtype::server::Child,
                   rtype::server::Room>(life, true);

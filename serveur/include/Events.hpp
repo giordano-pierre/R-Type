@@ -7,10 +7,10 @@
 
 #pragma once
 
+#include "events/RequestEvent.hpp"
+#include "protocol.hpp"
 #include <chrono>
 #include <string>
-#include "protocol.hpp"
-#include "events/RequestEvent.hpp"
 
 namespace timer = std::chrono;
 
@@ -32,7 +32,9 @@ struct RemoveClient {
 };
 
 struct CheckEvent {
-    CheckEvent(const Protocol &action, const std::string &idr, const RequestEvent &req) : _action(action), _idr(idr), _request(req) {};
+    CheckEvent(const Protocol &action, const std::string &idr,
+               const RequestEvent &req)
+        : _action(action), _idr(idr), _request(req){};
 
     const Protocol _action;
     const std::string _idr;

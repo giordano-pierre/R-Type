@@ -9,11 +9,11 @@
 
 namespace rtype::server {
 
-size_t getShotOwner(ECS &ecs, const SparseArray<Tag> &tags, const std::string &id)
-{
+size_t getShotOwner(ECS &ecs, const SparseArray<Tag> &tags,
+                    const std::string &id) {
     for (size_t i = 0; i < tags.size(); ++i) {
         const auto &tag = tags[i];
-        
+
         if (tag && tag.value()._id == id) {
             return i;
         }
@@ -30,8 +30,7 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
                               SparseArray<Score> &scores) {
 
     for (size_t i = 0;
-         i < positions.size() && i < hitboxes.size() && i < tags.size(); ++i)
-         {
+         i < positions.size() && i < hitboxes.size() && i < tags.size(); ++i) {
 
         const auto &box1 = hitboxes[i];
         const auto &pos1 = positions[i];
@@ -76,7 +75,8 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
             if (tag1.value()._type == SHOT && isEnemy(tag2.value()._type)) {
                 ecs.add_component<Dead>(ecs.entity_from_index(j), {});
                 if (i < owners.size() && owners[i]) {
-                    const std::size_t idPlayer = getShotOwner(ecs, tags, owners[i].value()._id_owner);
+                    const std::size_t idPlayer =
+                        getShotOwner(ecs, tags, owners[i].value()._id_owner);
                     const auto enemyScore = scores[j].value()._score;
                     scores[idPlayer].value()._score += enemyScore;
                 }
@@ -85,7 +85,8 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
                 ecs.kill_entity(Entity(i));
 
                 if (j < owners.size() && owners[j]) {
-                    const std::size_t idPlayer = getShotOwner(ecs, tags, owners[j].value()._id_owner);
+                    const std::size_t idPlayer =
+                        getShotOwner(ecs, tags, owners[j].value()._id_owner);
                     const auto enemyScore = scores[i].value()._score;
                     scores[idPlayer].value()._score += enemyScore;
                 }
@@ -99,7 +100,7 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
                               const SparseArray<Tag> &tags,
                               const SparseArray<HitBox> &hitboxes) {
     for (size_t i = 0;
-        i < positions.size() && i < tags.size() && i < hitboxes.size(); ++i) {
+         i < positions.size() && i < tags.size() && i < hitboxes.size(); ++i) {
 
         const auto &box = hitboxes[i];
         const auto &tag = tags[i];

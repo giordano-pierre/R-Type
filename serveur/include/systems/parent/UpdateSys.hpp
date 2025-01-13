@@ -7,19 +7,19 @@
 
 #pragma once
 
+#include "Components.hpp"
 #include "ECS/ECS.hpp"
 #include "Events.hpp"
-#include "Components.hpp"
 
 namespace rtype::server {
 
 class UpdateSys {
-    public:
-        UpdateSys() = default;
-        ~UpdateSys() = default;
+  public:
+    UpdateSys() = default;
+    ~UpdateSys() = default;
 
-        void operator()(ECS &ecs, const UpdateEvent &up_event,
-                        SparseArray<Room> &rooms, SparseArray<Child> &children);
+    void operator()(ECS &ecs, const UpdateEvent &up_event,
+                    SparseArray<Room> &rooms, SparseArray<Child> &children);
 };
 
-}
+} // namespace rtype::server

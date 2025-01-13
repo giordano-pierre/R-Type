@@ -7,22 +7,20 @@
 
 #pragma once
 
+#include "Components.hpp"
 #include "ECS/ECS.hpp"
 #include "Events.hpp"
-#include "Components.hpp"
 
 namespace rtype::server {
 
 class CheckWinSys {
-    public:
-        CheckWinSys() = default;
-        ~CheckWinSys() = default;
+  public:
+    CheckWinSys() = default;
+    ~CheckWinSys() = default;
 
     void operator()(ECS &ecs, const TicEvent &tic_event,
-                    const SparseArray<Tag> &tags,
-                    SparseArray<Room> &rooms,
-                    SparseArray<Stage> &stages,
-                    SparseArray<Child> &children);
+                    const SparseArray<Tag> &tags, SparseArray<Room> &rooms,
+                    SparseArray<Stage> &stages, SparseArray<Child> &children);
 };
 
-}
+} // namespace rtype::server

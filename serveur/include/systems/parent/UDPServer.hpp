@@ -8,9 +8,9 @@
 #pragma once
 
 #include "ECS/ECS.hpp"
-#include "protocol.hpp"
 #include "events/ReceiveEvent.hpp"
 #include "events/RequestEvent.hpp"
+#include "protocol.hpp"
 #include <array>
 #include <boost/asio.hpp>
 #include <boost/uuid/uuid.hpp>
@@ -71,4 +71,4 @@ class UDPServer {
     void parse_request(const json &parsed_json);
 };
 
-}
+} // namespace rtype::server

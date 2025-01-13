@@ -19,4 +19,4 @@ class HealthSys {
     void operator()(ECS &ecs, const TicEvent &,
                     const SparseArray<Health> &healths);
 };
-} // namespace rtype::server::systems
+} // namespace rtype::server
