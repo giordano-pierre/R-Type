@@ -3,7 +3,9 @@
 #include "HealthSystem.hpp"
 #include "MovementSystem.hpp"
 #include "ServerHandlerSystem.hpp"
+#include "EnemiesSystem.hpp"
 #include "UDPServer.hpp"
+#include "Singleton.hpp"
 #include <csignal>
 #include <cstdlib>
 #include <iostream>
@@ -35,6 +37,11 @@ void subscribe_all_systems(ECS &ecs) {
     auto gameLogicSys = rtype::server::systems::GameLogicSys();
     ecs.subscribe<rtype::server::TicEvent, rtype::server::Basics,
                   rtype::server::Score, rtype::server::Tag>(gameLogicSys);
+
+    auto enemiesSys = Singleton<rtype::server::systems::EnemiesSys>();
+    ecs.subscribe<rtype::server::TicEvent, rtype::server::Position,
+        rtype::server::Tag, rtype::server::EnemyAI,
+        rtype::server::Velocity>(enemiesSys.getInstance());
 }
 
 void server_loop(ECS &ecs) {
@@ -122,6 +129,7 @@ int main(int ac, char *argv[]) {
         ecs.register_component<rtype::server::Basics>();
         ecs.register_component<rtype::server::Health>();
         ecs.register_component<rtype::server::PlayerData>();
+        ecs.register_component<rtype::server::EnemyAI>();
 
         ecs.register_event<rtype::server::TicEvent>();
         ecs.register_event<RequestEvent>();
@@ -142,10 +150,18 @@ int main(int ac, char *argv[]) {
             {2250, 100, -10, 0, 0.1f, 0.18f, 100, 40}};
         ecs.add_component<rtype::server::Basics>(basics, {enemies});
 
+        createEnemyWithAI(ecs,
+            { 1900, 300, -5, 0, 0.1f, 0.18f, 100, 80 },
+            rtype::server::EnemyAI::BehaviorType::SINUSOIDAL);
+
+
         std::cout << "Attention!!! \nDémarrage du serveur R-Type...\n"
                   << std::endl;
+
         subscribe_all_systems(ecs);
+
         server_loop(ecs);
+
 
         std::cout << "===============================\n" << std::endl;
         std::cout << "\n... Serveur arrêté avec succès. Bien joué "
