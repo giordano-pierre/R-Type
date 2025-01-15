@@ -8,6 +8,7 @@
 #pragma once
 
 #include "Components.hpp"
+#include "UDPServer.hpp"
 #include "ECS/ECS.hpp"
 #include "ReceiveEvent.hpp"
 #include "RequestEvent.hpp"
@@ -26,3 +27,8 @@ void serverReady(ECS &ecs, const std::string &uuid);
 void createEnemy(ECS &ecs, rtype::server::EnemyInfo enemy);
 void updateEntity(ECS &ecs);
 void gameOver(ECS &ecs);
+void createEnemy(ECS& ecs, rtype::server::EnemyInfo enemy);
+void createEnemyWithAI(ECS& ecs, rtype::server::EnemyInfo enemyInfo, rtype::server::EnemyAI::BehaviorType behavior);
+void serverReady(ECS& ecs, const std::string& uuid);
+void gameOver(ECS& ecs);
+void updateEntity(ECS& ecs);
