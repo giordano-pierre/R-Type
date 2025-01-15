@@ -100,4 +100,21 @@ struct Score {
     Score(int score = 0) : score(score){};
 };
 
+struct EnemyAI {
+    enum class BehaviorType {
+        SINUSOIDAL,
+        CIRCULAR,
+        CHASE,
+        V_FORMATION,
+        BOSS,
+    } behaviorType;
+
+    float amplitude = 0.0f;
+    float frequency = 0.0f;
+    float radius = 0.0f;
+    float speed = 0.0f;
+    float spacing = 0.0f;
+    int index = 0;
+};
+
 } // namespace rtype::server
