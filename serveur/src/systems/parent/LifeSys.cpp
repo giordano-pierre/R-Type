@@ -20,9 +20,9 @@ void LifeSys::operator()(ECS &ecs, const TicEvent &tic_event,
 
         if (child && ro && ro.value()._state == IN_GAME) {
             auto &subDeads =
-                child.value()._ecs_child.get()->get_components<Dead>();
+                child.value()._ecs_child.get_components<Dead>();
             auto &subTags =
-                child.value()._ecs_child.get()->get_components<Tag>();
+                child.value()._ecs_child.get_components<Tag>();
 
             for (size_t j = 0; j < subDeads.size() && j < subTags.size(); ++j) {
                 auto &dead = subDeads[j];
@@ -36,8 +36,8 @@ void LifeSys::operator()(ECS &ecs, const TicEvent &tic_event,
                     }
                     std::cout << "BEFORE KILL" << std::endl;
                     // dead.value()._isDead = true;
-                    child.value()._ecs_child.get()->kill_entity(
-                        child.value()._ecs_child.get()->entity_from_index(j));
+                    child.value()._ecs_child.kill_entity(
+                        child.value()._ecs_child.entity_from_index(j));
                     std::cout << "AFTER KILL" << std::endl;
                 }
             }
@@ -61,19 +61,19 @@ void LifeSys::operator()(ECS &ecs, const TicEvent &tic_event,
 
                 ennemy.spawn_tic -= 1;
                 if (ennemy.spawn_tic <= 0) {
-                    Entity ennemyE = child.value()._ecs_child.get()->spawn_entity();
+                    Entity ennemyE = child.value()._ecs_child.spawn_entity();
                     std::string idE = fetch_new_uuid();
-                    child.value()._ecs_child.get()->add_component<Tag>(
+                    child.value()._ecs_child.add_component<Tag>(
                         ennemyE, {idE, ennemy.type});
-                    child.value()._ecs_child.get()->add_component<Position>(
+                    child.value()._ecs_child.add_component<Position>(
                         ennemyE, {ennemy.x_pos, ennemy.y_pos});
-                    child.value()._ecs_child.get()->add_component<Velocity>(
+                    child.value()._ecs_child.add_component<Velocity>(
                         ennemyE, {ennemy.x_velocity, ennemy.y_velocity});
-                    child.value()._ecs_child.get()->add_component<HitBox>(
+                    child.value()._ecs_child.add_component<HitBox>(
                         ennemyE, {ennemy.x_hitbox, ennemy.y_hitbox});
-                    child.value()._ecs_child.get()->add_component<Health>(
+                    child.value()._ecs_child.add_component<Health>(
                         ennemyE, {ennemy.health});
-                    child.value()._ecs_child.get()->add_component<Score>(
+                    child.value()._ecs_child.add_component<Score>(
                         ennemyE, {ennemy.score});
                     for (const auto &[uuid, _] : ro.value()._clients_uuid)
                         ecs.post<RequestEvent>(

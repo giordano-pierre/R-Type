@@ -33,8 +33,7 @@ enum StateGame {
 };
 
 ECS initSubECS(const std::string &id);
-void removeAll(std::shared_ptr<ECS> ecs);
-void loadSubSystem(std::shared_ptr<ECS> ecs);
+void removeAll(ECS &ecs);
 bool isEnemy(const EntityType &obj);
 
 } // namespace rtype::server

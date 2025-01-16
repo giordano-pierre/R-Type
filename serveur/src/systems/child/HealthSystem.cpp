@@ -6,7 +6,6 @@
 */
 
 #include "systems/child/HealthSystem.hpp"
-#include "ServerHandlerSystem.hpp"
 #include <iostream>
 
 namespace rtype::server {

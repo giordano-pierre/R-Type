@@ -15,7 +15,6 @@ namespace rtype::server {
 void movePlayer(const ReceiveEvent &rec_event,
                 const SparseArray<Tag> &tags,
                 SparseArray<Velocity> &velocities) {
-    // std::cout << "TEST_sub move" << std::endl;
     auto input = rec_event.payload["e_type"].get<std::string>();
     auto idp = rec_event.payload["idp"].get<std::string>();
 
@@ -38,7 +37,6 @@ void movePlayer(const ReceiveEvent &rec_event,
                 vel.value().y = 0;
         }
     }
-    // std::cout << "TEST_sub move FINNNNNNNNNNNNNNNNN" << std::endl;
 }
 
 int countPlayer(const std::map<std::string , std::pair<StateGame, int>> &clients)
@@ -52,10 +50,10 @@ int countPlayer(const std::map<std::string , std::pair<StateGame, int>> &clients
 
 void createPlayer(Child &child, const std::string &name,
                   const std::string &color, const std::string &uuid) {
-    Entity player = child._ecs_child.get()->spawn_entity();
-    child._ecs_child.get()->add_component<Client>(player, {uuid});
-    child._ecs_child.get()->add_component<Tag>(player, {fetch_new_uuid(), PLAYER});
-    child._ecs_child.get()->add_component<PlayerData>(player, {name, color});
+    Entity player = child._ecs_child.spawn_entity();
+    child._ecs_child.add_component<Client>(player, {uuid});
+    child._ecs_child.add_component<Tag>(player, {fetch_new_uuid(), PLAYER});
+    child._ecs_child.add_component<PlayerData>(player, {name, color});
     std::cout << "Player " << name << " " << color << " is created." << std::endl;
 }
 
@@ -78,7 +76,9 @@ void disconnect(ECS &ecs, const ReceiveEvent &rec_event,
             continue;
         ro.value()._clients_uuid.erase(
             ro.value()._clients_uuid.find(rec_event.sender_uuid));
-        child.value()._ecs_child.get()->post<RemoveClient>({rec_event.sender_uuid});
+        child.value()._ecs_child.post<RemoveClient>({rec_event.sender_uuid});
+        for (const auto &[uuid, _]: ro.value()._clients_uuid)
+            std::cout << uuid << std::endl;
         if (ro.value()._clients_uuid.empty()) {
             ecs.kill_entity(ecs.entity_from_index(i));
             std::cout << "Destroy Room !!!" << std::endl;
@@ -125,7 +125,7 @@ void joinRoom(ECS &ecs, const ReceiveEvent &rec_event, SparseArray<Room> &rooms,
         ecs.add_component<Child>(roomE, {idRoom});
         std::cout << "Room " << nameRoom << " created." << std::endl;
     } else {
-        if ((countPlayer(rooms[roomE].value()._clients_uuid) + nbPlayer) > 8)
+        if ((countPlayer(rooms[roomE].value()._clients_uuid) + nbPlayer) > 8 || rooms[roomE].value()._clients_uuid.find(rec_event.sender_uuid) != rooms[roomE].value()._clients_uuid.end())
             return;
         rooms[roomE].value()._clients_uuid.insert(
             {rec_event.sender_uuid, {WAITING, nbPlayer}});
@@ -169,11 +169,11 @@ void launchGame(ECS &ecs, const ReceiveEvent &rec_event,
             std::cout << "Launch " << idRoom << " game." << std::endl;
             float space = 1080 / (countPlayer(ro.value()._clients_uuid) + 2);
             float posY = 0;
-            const auto subTags = child.value()._ecs_child.get()->get_components<Tag>();
+            const auto subTags = child.value()._ecs_child.get_components<Tag>();
             const auto subPlayer =
-                child.value()._ecs_child.get()->get_components<PlayerData>();
+                child.value()._ecs_child.get_components<PlayerData>();
             const auto subClients =
-                child.value()._ecs_child.get()->get_components<Client>();
+                child.value()._ecs_child.get_components<Client>();
             for (size_t j = 0; j < subTags.size() && j < subPlayer.size() &&
                             j < subClients.size();
                 ++j) {
@@ -184,14 +184,14 @@ void launchGame(ECS &ecs, const ReceiveEvent &rec_event,
                 if (subPlay && subTag && subCl) {
                     posY += space;
                     Entity tmpPlayer =
-                        child.value()._ecs_child.get()->entity_from_index(j);
-                    child.value()._ecs_child.get()->add_component<HitBox>(tmpPlayer,
+                        child.value()._ecs_child.entity_from_index(j);
+                    child.value()._ecs_child.add_component<HitBox>(tmpPlayer,
                                                                 {0.1, 0.12});
-                    child.value()._ecs_child.get()->add_component<Velocity>(tmpPlayer,
+                    child.value()._ecs_child.add_component<Velocity>(tmpPlayer,
                                                                     {0, 0});
-                    child.value()._ecs_child.get()->add_component<Health>(tmpPlayer, {});
-                    child.value()._ecs_child.get()->add_component<Score>(tmpPlayer, {0});
-                    child.value()._ecs_child.get()->add_component<Position>(tmpPlayer, {100, posY});
+                    child.value()._ecs_child.add_component<Health>(tmpPlayer, {});
+                    child.value()._ecs_child.add_component<Score>(tmpPlayer, {0});
+                    child.value()._ecs_child.add_component<Position>(tmpPlayer, {100, posY});
                     std::cout << "SEND CREATE PLAYER" << std::endl;
                     RequestEvent req = {SV_CREATE_PLAYER,
                                         {{"id", subTag.value()._id},
@@ -239,7 +239,7 @@ void playerIsCreated(ECS &ecs, const ReceiveEvent &rec_event,
             client_it->second.first = IN_GAME;
             if (allPlayerReady(ro.value()._clients_uuid)) {
                 ro.value()._state = IN_GAME;
-                loadSubSystem(child.value()._ecs_child);
+                loadSubSystem(child.value());
             }
         }
     }
@@ -323,8 +323,8 @@ void MainMessageHandlerSys::operator()(ECS &ecs, const ReceiveEvent &rec_event,
             if (ro && child &&
                 ro.value()._clients_uuid.find(rec_event.sender_uuid) !=
                     ro.value()._clients_uuid.end()) {
-                const auto &tags = child.value()._ecs_child.get()->get_components<Tag>();
-                auto &velocities = child.value()._ecs_child.get()->get_components<Velocity>();
+                const auto &tags = child.value()._ecs_child.get_components<Tag>();
+                auto &velocities = child.value()._ecs_child.get_components<Velocity>();
 
                 movePlayer(rec_event, tags, velocities);
                 return;

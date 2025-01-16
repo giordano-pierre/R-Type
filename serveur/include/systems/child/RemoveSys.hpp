@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2025
 ** R-Type
 ** File description:
-** LifeSys
+** RemoveSys
 */
 
 #pragma once
@@ -13,15 +13,13 @@
 
 namespace rtype::server {
 
-class LifeSys {
+class RemoveSys {
   public:
-    LifeSys() = default;
-    ~LifeSys() = default;
+    RemoveSys() = default;
+    ~RemoveSys() = default;
 
     void operator()(ECS &ecs, const RemoveClient &remove_event,
                     const SparseArray<Client> &clients);
-    void operator()(ECS &ecs, const TicEvent &,
-                    const SparseArray<Dead> &deads);
 };
 
 } // namespace rtype::server

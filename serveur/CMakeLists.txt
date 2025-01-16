@@ -3,6 +3,7 @@ project(r-type_server VERSION 1.0 LANGUAGES CXX)
 set(SRC
     src/server_main.cpp
     src/tools.cpp
+    src/Child.cpp
     src/systems/parent/UDPServer.cpp
     src/systems/parent/MainMessageHandlerSys.cpp
     src/systems/parent/ResendEventSys.cpp
@@ -12,7 +13,7 @@ set(SRC
     src/systems/parent/UpdateSys.cpp
     src/systems/child/CollisionSystem.cpp
     src/systems/child/HealthSystem.cpp
-    src/systems/child/LifeSys.cpp
+    src/systems/child/RemoveSys.cpp
     src/systems/child/MovementSystem.cpp
     src/systems/child/SubMessageHandlerSys.cpp
 )

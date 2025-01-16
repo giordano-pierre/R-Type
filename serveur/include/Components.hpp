@@ -9,6 +9,7 @@
 
 #include "ECS/ECS.hpp"
 #include "protocol.hpp"
+#include "Events.hpp"
 #include "tools.hpp"
 #include <cstddef>
 #include <cstdint>
@@ -36,12 +37,6 @@ struct Room {
         _clients_uuid.insert({master, {WAITING, nbPlayer}});
         _lastUpdate = 0;
     }
-};
-
-struct Child {
-    std::shared_ptr<ECS> _ecs_child;
-
-    Child(const std::string &id) : _ecs_child(std::make_shared<ECS>(initSubECS(id))) {};
 };
 
 struct Stage {

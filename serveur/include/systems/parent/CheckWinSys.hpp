@@ -8,8 +8,8 @@
 #pragma once
 
 #include "Components.hpp"
+#include "Child.hpp"
 #include "ECS/ECS.hpp"
-#include "Events.hpp"
 
 namespace rtype::server {
 

@@ -18,19 +18,19 @@ void UpdateSys::operator()(ECS &ecs, const UpdateEvent &up_event,
         auto &child = children[i];
 
         if (ro && child && ro.value()._state == IN_GAME) {
-            const auto &tags = child.value()._ecs_child.get()->get_components<Tag>();
+            const auto &tags = child.value()._ecs_child.get_components<Tag>();
             const auto &players =
-                child.value()._ecs_child.get()->get_components<PlayerData>();
+                child.value()._ecs_child.get_components<PlayerData>();
             const auto &positions =
-                child.value()._ecs_child.get()->get_components<Position>();
+                child.value()._ecs_child.get_components<Position>();
             const auto &velocities =
-                child.value()._ecs_child.get()->get_components<Velocity>();
+                child.value()._ecs_child.get_components<Velocity>();
             const auto &hitboxes =
-                child.value()._ecs_child.get()->get_components<HitBox>();
+                child.value()._ecs_child.get_components<HitBox>();
             const auto &healths =
-                child.value()._ecs_child.get()->get_components<Health>();
+                child.value()._ecs_child.get_components<Health>();
             const auto &scores =
-                child.value()._ecs_child.get()->get_components<Score>();
+                child.value()._ecs_child.get_components<Score>();
 
             ro.value()._lastUpdate = ((ro.value()._lastUpdate + 1) > 10)
                                          ? 1

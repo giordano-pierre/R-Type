@@ -30,7 +30,7 @@ void CheckWinSys::operator()(ECS &ecs, const TicEvent &,
             win = false;
             lose = true;
             auto subTags =
-                child.value()._ecs_child.get()->get_components<Tag>();
+                child.value()._ecs_child.get_components<Tag>();
 
             if (st.value()._enemies.empty())
                 win = true;
@@ -58,7 +58,7 @@ void CheckWinSys::operator()(ECS &ecs, const TicEvent &,
             // }
             if (win) {
                 std::cout << "WIN !!!" << std::endl;
-                child.value()._ecs_child.get()->clean<TicEvent>();
+                child.value()._ecs_child.clean<TicEvent>();
                 removeAll(child.value()._ecs_child);
                 ro.value()._state = WAITING;
                 ro.value()._lastUpdate = 0;
