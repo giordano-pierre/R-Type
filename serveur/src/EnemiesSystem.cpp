@@ -10,6 +10,7 @@
 namespace rtype::server {
     namespace systems {
         EnemiesSys::EnemiesSys() {
+            initLua();
         }
 
         void EnemiesSys::initLua() {
@@ -74,8 +75,6 @@ namespace rtype::server {
             SparseArray<EnemyAI>& ais,
             SparseArray<Velocity>& velocities)
         {
-            initLua();
-
             for (size_t i = 0; i < positions.size(); ++i) {
                 if (!positions[i] || !tags[i] || !ais[i] || !velocities[i])
                     continue;
