@@ -89,16 +89,16 @@ void createMenuGeneralEntities(ECS &ecs, Window &myWindow) {
                  std::function<void(ECS &, Entity)>(select),
                  std::function<void(ECS &, Entity)>(deselect)});
     ecs.add_component<Pressable>(
-        startB, {myWindow._myTextures.getTexture(
-                     "assets/images/utils/button_config1_act.png"),
-                     std::function<void(ECS &, Entity)>(startGame1P)
-                //  [](ECS &ecs, Entity) {
-                //      ecs.post<RequestEvent>({Protocol::CONNECT, {}});
-                //      ecs.post<DeleteEvent>({M_GENERAL});
-                //      ecs.post<CreationEvent>({M_PLAYER});
-                //  }
-                }
-    );
+        startB, {
+                    myWindow._myTextures.getTexture(
+                        "assets/images/utils/button_config1_act.png"),
+                    std::function<void(ECS &, Entity)>(startGame1P)
+                    //  [](ECS &ecs, Entity) {
+                    //      ecs.post<RequestEvent>({Protocol::CONNECT, {}});
+                    //      ecs.post<DeleteEvent>({M_GENERAL});
+                    //      ecs.post<CreationEvent>({M_PLAYER});
+                    //  }
+                });
 
     Entity customB = ecs.spawn_entity();
     ecs.add_component<Position>(
@@ -219,30 +219,32 @@ void createMenuRoomEntities(ECS &ecs, Window &myWindow) {
         ecs.add_component<Hitbox>(startB, {{float(1) / 2.5, float(1) / 10}});
         std::map<std::string, std::shared_ptr<std::string>> texts;
         texts.insert({"EN", std::make_shared<std::string>("START GAME")});
-        texts.insert({"FR", std::make_shared<std::string>("COMMENCER LA PARTIE")});
+        texts.insert(
+            {"FR", std::make_shared<std::string>("COMMENCER LA PARTIE")});
         ecs.add_component<Text>(
-            startB, {texts, myWindow._font, {0.5, 0.5}, 0, 40, sf::Color::White});
-        ecs.add_component<Drawable>(startB,
-                                    {myWindow._myTextures.getTexture(
-                                        "assets/images/utils/button_config1.png"),
-                                    {402, 100},
-                                    {402, 100},
-                                    1,
-                                    1});
+            startB,
+            {texts, myWindow._font, {0.5, 0.5}, 0, 40, sf::Color::White});
+        ecs.add_component<Drawable>(
+            startB, {myWindow._myTextures.getTexture(
+                         "assets/images/utils/button_config1.png"),
+                     {402, 100},
+                     {402, 100},
+                     1,
+                     1});
         ecs.add_component<Selectable>(
             startB, {myWindow._myTextures.getTexture(
-                        "assets/images/utils/button_config1_sel.png"),
-                    std::function<void(ECS &, Entity)>(select),
-                    std::function<void(ECS &, Entity)>(deselect)});
+                         "assets/images/utils/button_config1_sel.png"),
+                     std::function<void(ECS &, Entity)>(select),
+                     std::function<void(ECS &, Entity)>(deselect)});
         ecs.add_component<Pressable>(
             startB, {myWindow._myTextures.getTexture(
-                        "assets/images/utils/button_config1_act.png"),
+                         "assets/images/utils/button_config1_act.png"),
                      [](ECS &ecs, Entity) {
-                         auto &myWindow = ecs.get_components<Window>()[0].value();
-                         ecs.post<RequestEvent>({LAUNCH_GAME, {{"idr", myWindow._idRoom}}});
-                     }
-                    }
-        );
+                         auto &myWindow =
+                             ecs.get_components<Window>()[0].value();
+                         ecs.post<RequestEvent>(
+                             {LAUNCH_GAME, {{"idr", myWindow._idRoom}}});
+                     }});
     } else {
         Entity message = ecs.spawn_entity();
         ecs.add_component<Position>(
@@ -252,16 +254,18 @@ void createMenuRoomEntities(ECS &ecs, Window &myWindow) {
         ecs.add_component<Hitbox>(message, {{float(1) / 2.5, float(1) / 10}});
         std::map<std::string, std::shared_ptr<std::string>> texts;
         texts.insert({"EN", std::make_shared<std::string>("Waiting host")});
-        texts.insert({"FR", std::make_shared<std::string>("En attente de l'hote")});
+        texts.insert(
+            {"FR", std::make_shared<std::string>("En attente de l'hote")});
         ecs.add_component<Text>(
-            message, {texts, myWindow._font, {0.5, 0.5}, 0, 40, sf::Color::White});
-        ecs.add_component<Drawable>(message,
-                                    {myWindow._myTextures.getTexture(
-                                        "assets/images/utils/button_config1.png"),
-                                    {402, 100},
-                                    {402, 100},
-                                    1,
-                                    1});
+            message,
+            {texts, myWindow._font, {0.5, 0.5}, 0, 40, sf::Color::White});
+        ecs.add_component<Drawable>(
+            message, {myWindow._myTextures.getTexture(
+                          "assets/images/utils/button_config1.png"),
+                      {402, 100},
+                      {402, 100},
+                      1,
+                      1});
     }
 }
 
@@ -278,7 +282,8 @@ void createMenuRoomEntities(ECS &ecs, Window &myWindow) {
 //     texts.insert({"EN", std::make_shared<std::string>("1 PLAYER")});
 //     texts.insert({"FR", std::make_shared<std::string>("1 JOUEUR")});
 //     ecs.add_component<Text>(
-//         player1B, {texts, myWindow._font, {0.5, 0.5}, 0, 40, sf::Color::White});
+//         player1B, {texts, myWindow._font, {0.5, 0.5}, 0, 40,
+//         sf::Color::White});
 //     ecs.add_component<Drawable>(player1B,
 //                                 {myWindow._myTextures.getTexture(
 //                                      "assets/images/utils/button_config1.png"),

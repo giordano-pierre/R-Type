@@ -8,12 +8,12 @@
 
 #include "ClientHandlerSystem.hpp"
 #include "ECS/ECS.hpp"
-#include "systems/UDPClient.hpp"
-#include "systems/MessageHandlerSys.hpp"
+#include "clientTools.hpp"
 #include "createEntities.hpp"
 #include "ecsObjects.hpp"
 #include "loadSystems.hpp"
-#include "clientTools.hpp"
+#include "systems/MessageHandlerSys.hpp"
+#include "systems/UDPClient.hpp"
 
 bool is_number(char *str) {
     for (int i = 0; i < strlen(str); i++) {
@@ -92,10 +92,10 @@ int main(int ac, char *argv[]) {
     ecs.subscribe<RequestEvent>(client, true);
 
     rtype::client::MessageHandlerSys handler;
-    ecs.subscribe<ReceiveEvent, rtype::client::Window,
-                  rtype::client::Tag, rtype::client::Position,
-                  rtype::client::Velocity, rtype::client::Health,
-                  rtype::client::Score, rtype::client::LastUpdate>(handler, true);
+    ecs.subscribe<ReceiveEvent, rtype::client::Window, rtype::client::Tag,
+                  rtype::client::Position, rtype::client::Velocity,
+                  rtype::client::Health, rtype::client::Score,
+                  rtype::client::LastUpdate>(handler, true);
 
     auto lifeSys = rtype::client::LifeSys();
     ecs.subscribe<rtype::client::CreationEvent, rtype::client::Window>(lifeSys,

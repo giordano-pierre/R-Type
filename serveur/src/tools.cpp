@@ -65,7 +65,8 @@ void loadSubSystem(std::shared_ptr<ECS> ecs) {
     auto life = HealthSys();
     ecs.get()->subscribe<TicEvent, Health>(life);
     auto coll = CollisionSys();
-    ecs.get()->subscribe<TicEvent, Position, HitBox, Tag, Health, Owner, Score>(coll);
+    ecs.get()->subscribe<TicEvent, Position, HitBox, Tag, Health, Owner, Score>(
+        coll);
     ecs.get()->subscribe<TicEvent, Position, Tag, HitBox>(coll);
 }
 

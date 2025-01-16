@@ -6,8 +6,8 @@
 */
 
 #include "ClientHandlerSystem.hpp"
-#include "ecsObjects.hpp"
 #include "clientTools.hpp"
+#include "ecsObjects.hpp"
 
 #include <iostream>
 
@@ -28,27 +28,27 @@
 //     Entity entity = ecs.spawn_entity();
 
 //     switch (from_json(rec_event.payload["type"])) {
-    // case EntityType::PLAYER:
-    //     ecs.add_component<rtype::client::Tag>(
-    //         entity, {PLAYER, rec_event.payload["id"]});
-    //     ecs.add_component<rtype::client::Position>(
-    //         entity,
-    //         {rec_event.payload["pos"]["x"], rec_event.payload["pos"]["y"]});
-    //     ecs.add_component<rtype::client::Velocity>(entity, {0, 0});
-    //     // if (rec_event.payload.contains("uuid") &&
-    //     rec_event.payload["uuid"]
-    //     // == rec_event.sender_uuid)
-    //     // ecs.add_component<rtype::client::Playable>(entity, {1});
-    //     ecs.add_component<rtype::client::Hitbox>(entity, {{0.1, 0.12}});
-    //     ecs.add_component<rtype::client::Drawable>(
-    //         entity,
-    //         {myWindow._myTextures.getTexture("assets/images/ship/red_ship.png"),
-    //          {395, 250},
-    //          {395, 250},
-    //          1,
-    //          1});
-    //     // ecs.add_component<Health>(entity, {});
-    //     break;
+// case EntityType::PLAYER:
+//     ecs.add_component<rtype::client::Tag>(
+//         entity, {PLAYER, rec_event.payload["id"]});
+//     ecs.add_component<rtype::client::Position>(
+//         entity,
+//         {rec_event.payload["pos"]["x"], rec_event.payload["pos"]["y"]});
+//     ecs.add_component<rtype::client::Velocity>(entity, {0, 0});
+//     // if (rec_event.payload.contains("uuid") &&
+//     rec_event.payload["uuid"]
+//     // == rec_event.sender_uuid)
+//     // ecs.add_component<rtype::client::Playable>(entity, {1});
+//     ecs.add_component<rtype::client::Hitbox>(entity, {{0.1, 0.12}});
+//     ecs.add_component<rtype::client::Drawable>(
+//         entity,
+//         {myWindow._myTextures.getTexture("assets/images/ship/red_ship.png"),
+//          {395, 250},
+//          {395, 250},
+//          1,
+//          1});
+//     // ecs.add_component<Health>(entity, {});
+//     break;
 //     case EntityType::ENEMY1:
 //         ecs.add_component<rtype::client::Tag>(
 //             entity, {ENEMY1, rec_event.payload["id"]});

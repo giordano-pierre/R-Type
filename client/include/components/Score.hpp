@@ -10,10 +10,10 @@
 namespace rtype::client {
 
 struct Score {
-    public:
-        Score(int score) : _score(score) {};
+  public:
+    Score(int score) : _score(score){};
 
     int _score;
 };
 
-}
+} // namespace rtype::client

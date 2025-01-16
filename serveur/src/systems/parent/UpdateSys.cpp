@@ -18,7 +18,8 @@ void UpdateSys::operator()(ECS &ecs, const UpdateEvent &up_event,
         auto &child = children[i];
 
         if (ro && child && ro.value()._state == IN_GAME) {
-            const auto &tags = child.value()._ecs_child.get()->get_components<Tag>();
+            const auto &tags =
+                child.value()._ecs_child.get()->get_components<Tag>();
             const auto &players =
                 child.value()._ecs_child.get()->get_components<PlayerData>();
             const auto &positions =
@@ -44,15 +45,15 @@ void UpdateSys::operator()(ECS &ecs, const UpdateEvent &up_event,
                     request["lu"] = ro.value()._lastUpdate;
                     if (j < hitboxes.size() && hitboxes[j]) {
                         request["hit"] = {{"x", hitboxes[j].value().x},
-                                        {"y", hitboxes[j].value().y}};
+                                          {"y", hitboxes[j].value().y}};
                     }
                     if (j < positions.size() && positions[j]) {
                         request["pos"] = {{"x", positions[j].value().x},
-                                        {"y", positions[j].value().y}};
+                                          {"y", positions[j].value().y}};
                     }
                     if (j < velocities.size() && velocities[j]) {
                         request["vel"] = {{"x", velocities[j].value().x},
-                                        {"y", velocities[j].value().y}};
+                                          {"y", velocities[j].value().y}};
                     }
                     if (j < healths.size() && healths[j]) {
                         request["hp"] = healths[j].value()._health;
@@ -65,7 +66,8 @@ void UpdateSys::operator()(ECS &ecs, const UpdateEvent &up_event,
                         request["p_color"] = players[j].value()._color;
                     }
                     for (const auto &[uuid, _] : ro.value()._clients_uuid) {
-                        ecs.post<RequestEvent>({SV_UPDATE_ENTITY, request, uuid});
+                        ecs.post<RequestEvent>(
+                            {SV_UPDATE_ENTITY, request, uuid});
                     }
                 }
             }

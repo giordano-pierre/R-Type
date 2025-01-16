@@ -100,4 +100,4 @@ void UDPClient::parse_request(const json &parsed_json) {
 
 bool UDPClient::isConnected(void) { return !uuid_.empty(); }
 
-}
+} // namespace rtype::client

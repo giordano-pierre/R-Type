@@ -41,7 +41,8 @@ struct Room {
 struct Child {
     std::shared_ptr<ECS> _ecs_child;
 
-    Child(const std::string &id) : _ecs_child(std::make_shared<ECS>(initSubECS(id))) {};
+    Child(const std::string &id)
+        : _ecs_child(std::make_shared<ECS>(initSubECS(id))){};
 };
 
 struct Stage {
@@ -79,7 +80,7 @@ struct Position {
     float y = 0;
     // float initialX = 0;
     // float initialY = 0;
-    Position(float px, float py) : x(px), y(py) {};
+    Position(float px, float py) : x(px), y(py){};
 };
 
 struct Velocity {
