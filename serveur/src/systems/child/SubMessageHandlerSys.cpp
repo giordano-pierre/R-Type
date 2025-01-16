@@ -6,12 +6,14 @@
 */
 
 #include "systems/child/SubMessageHandlerSys.hpp"
+#include <iostream>
 
 namespace rtype::server {
 
 void movePlayer(ECS &ecs, const ReceiveEvent &rec_event,
                 const SparseArray<Tag> &tags,
                 SparseArray<Velocity> &velocities) {
+    // std::cout << "TEST_sub move" << std::endl;
     auto input = rec_event.payload["e_type"].get<std::string>();
     auto idp = rec_event.payload["idp"].get<std::string>();
 
@@ -34,11 +36,13 @@ void movePlayer(ECS &ecs, const ReceiveEvent &rec_event,
                 vel.value().y = 0;
         }
     }
+    // std::cout << "TEST_sub move FINNNNNNNNNNNNNNNNN" << std::endl;
 }
 
 void SubMessageHandlerSys::operator()(ECS &ecs, const ReceiveEvent &rec_event,
                                       const SparseArray<Tag> &tags,
                                       SparseArray<Velocity> &velocities) {
+    // std::cout << "MESS" << std::endl;
     switch (rec_event.action) {
     case CL_MOVE: {
         movePlayer(ecs, rec_event, tags, velocities);
@@ -47,6 +51,7 @@ void SubMessageHandlerSys::operator()(ECS &ecs, const ReceiveEvent &rec_event,
     default:
         break;
     }
+    // std::cout << "FINNNNNNNNNN MESS" << std::endl;
 }
 
 } // namespace rtype::server

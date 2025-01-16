@@ -5,7 +5,9 @@
 ** UDPClient
 */
 
-#include "UDPClient.hpp"
+#include "systems/UDPClient.hpp"
+
+namespace rtype::client {
 
 void UDPClient::operator()(ECS &ecs, const RequestEvent &req_event) {
     std::vector<uint8_t> bson_data =
@@ -97,3 +99,5 @@ void UDPClient::parse_request(const json &parsed_json) {
 }
 
 bool UDPClient::isConnected(void) { return !uuid_.empty(); }
+
+}

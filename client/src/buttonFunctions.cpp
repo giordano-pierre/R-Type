@@ -100,6 +100,7 @@ void resetP2(ECS &ecs, Entity i) {
 void startGame1P(ECS &ecs, Entity i) {
     // ecs.post<DeleteEvent>({MENU});
     // ecs.post<CreationEvent>({PLAYER});
+    ecs.post<RequestEvent>({Protocol::CONNECT, {}});
     auto &myWindow = ecs.get_components<Window>()[0].value();
     nlohmann::json p_name = nlohmann::json::array();
     p_name.push_back("Player1");

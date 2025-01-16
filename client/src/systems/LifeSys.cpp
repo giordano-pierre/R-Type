@@ -30,9 +30,13 @@ void LifeSys::operator()(ECS &ecs, const CreationEvent &e_create,
         loadMenuSystem(ecs);
         createMenuGeneralEntities(ecs, myWindow);
         break;
-    case M_PLAYER:
+    // case M_PLAYER:
+    //     loadMenuSystem(ecs);
+    //     createMenuPlayerEntities(ecs, myWindow);
+    //     break;
+    case M_ROOM:
         loadMenuSystem(ecs);
-        createMenuPlayerEntities(ecs, myWindow);
+        createMenuRoomEntities(ecs, myWindow);
         break;
     case M_CONFIG:
         loadMenuSystem(ecs);

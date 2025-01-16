@@ -7,7 +7,7 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 
-#include "tools.hpp"
+#include "clientTools.hpp"
 
 #pragma once
 namespace rtype::client {

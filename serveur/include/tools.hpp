@@ -14,8 +14,8 @@
 namespace rtype::server {
 
 struct EnemyInfo {
-    int x_pos;
-    int y_pos;
+    float x_pos;
+    float y_pos;
     int x_velocity;
     int y_velocity;
     float x_hitbox;
@@ -32,9 +32,9 @@ enum StateGame {
     WAITING,
 };
 
-void initSubECS(ECS &ecs, ECS &ecs_p, const std::string &id);
-void removeAll(ECS &ecs);
-void loadSubSystem(ECS &ecs);
+ECS initSubECS(const std::string &id);
+void removeAll(std::shared_ptr<ECS> ecs);
+void loadSubSystem(std::shared_ptr<ECS> ecs);
 bool isEnemy(const EntityType &obj);
 
 } // namespace rtype::server

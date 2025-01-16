@@ -8,6 +8,7 @@
 #include "systems/parent/ResendEventSys.hpp"
 #include "events/ReceiveEvent.hpp"
 #include "events/RequestEvent.hpp"
+#include <iostream>
 
 namespace rtype::server {
 
@@ -42,7 +43,8 @@ void ResendEventSys::operator()(ECS &ecs, const CheckEvent &check_event,
             if (client_it == ro.value()._clients_uuid.end())
                 break;
             ;
-            if (client_it->second != target) {
+            if (client_it->second.first != target) {
+                std::cout << "RESEND CREATE PLAYER" << std::endl;
                 ecs.post<RequestEvent>(check_event._request);
                 ecs.post<CheckEvent>(check_event);
                 break;

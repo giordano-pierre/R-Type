@@ -6,6 +6,7 @@
 */
 
 #include "systems/child/CollisionSystem.hpp"
+#include <iostream>
 
 namespace rtype::server {
 
@@ -28,7 +29,7 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
                               SparseArray<Health> &healths,
                               const SparseArray<Owner> &owners,
                               SparseArray<Score> &scores) {
-
+    // std::cout << "COLLLL1" << std::endl;
     for (size_t i = 0;
          i < positions.size() && i < hitboxes.size() && i < tags.size(); ++i) {
 
@@ -56,24 +57,28 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
             float tempX2 = pos2.value().x - box2.value().width / 2;
             float tempY2 = pos2.value().y - box2.value().height / 2;
 
-            if (tempX1 + box1.value().width < tempX2 ||
-                tempX2 + box2.value().width < tempX1 ||
-                tempX1 + box1.value().height < tempY2 ||
-                tempX2 + box2.value().height < tempY1)
+            if (tempX1 > tempX2 + box2.value().width ||
+                tempX1 + box1.value().width < tempX2 ||
+                tempY1 > tempY2 + box2.value().height ||
+                tempY1 + box1.value().height < tempY2)
                 continue;
-
+            // std::cout << "AHHHHHHHHHHHHHHHHHHHHHH" << std::endl;
             if (tag1.value()._type == PLAYER && isEnemy(tag2.value()._type)) {
+                ecs.add_component<Dead>(ecs.entity_from_index(j), {});
                 if (i < healths.size() && healths[i]) {
                     healths[i].value()._health -= 10;
                 }
             }
             if (tag2.value()._type == PLAYER && isEnemy(tag1.value()._type)) {
+                ecs.add_component<Dead>(ecs.entity_from_index(i), {});
                 if (j < healths.size() && healths[j]) {
                     healths[j].value()._health -= 10;
                 }
             }
             if (tag1.value()._type == SHOT && isEnemy(tag2.value()._type)) {
+                ecs.add_component<Dead>(ecs.entity_from_index(i), {});
                 ecs.add_component<Dead>(ecs.entity_from_index(j), {});
+
                 if (i < owners.size() && owners[i]) {
                     const std::size_t idPlayer =
                         getShotOwner(ecs, tags, owners[i].value()._id_owner);
@@ -82,7 +87,8 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
                 }
             }
             if (isEnemy(tag1.value()._type) && tag2.value()._type == SHOT) {
-                ecs.kill_entity(Entity(i));
+                ecs.add_component<Dead>(ecs.entity_from_index(i), {});
+                ecs.add_component<Dead>(ecs.entity_from_index(j), {});
 
                 if (j < owners.size() && owners[j]) {
                     const std::size_t idPlayer =
@@ -93,12 +99,14 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
             }
         }
     }
+    // std::cout << "FINNNN COLLLL1" << std::endl;
 }
 
 void CollisionSys::operator()(ECS &ecs, const TicEvent &,
                               SparseArray<Position> &positions,
                               const SparseArray<Tag> &tags,
                               const SparseArray<HitBox> &hitboxes) {
+    // std::cout << "TEST" << std::endl;
     for (size_t i = 0;
          i < positions.size() && i < tags.size() && i < hitboxes.size(); ++i) {
 
@@ -151,6 +159,7 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
             break;
         }
     }
+    // std::cout << "FINNNNNN TEST" << std::endl;
 }
 
 } // namespace rtype::server

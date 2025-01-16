@@ -27,24 +27,21 @@ struct Tag {
 struct Room {
     std::string _name;
     std::string _master;
-    std::map<std::string, StateGame> _clients_uuid;
-    int _nbPlayer;
+    std::map<std::string, std::pair<StateGame, int>> _clients_uuid;
     int _lastUpdate;
     StateGame _state = WAITING;
 
     Room(std::string name, std::string master, int nbPlayer)
-        : _name(name), _master(master), _nbPlayer(nbPlayer) {
-        _clients_uuid.insert({master, WAITING});
+        : _name(name), _master(master) {
+        _clients_uuid.insert({master, {WAITING, nbPlayer}});
         _lastUpdate = 0;
     }
 };
 
 struct Child {
-    ECS _ecs_child;
+    std::shared_ptr<ECS> _ecs_child;
 
-    Child(ECS &ecs_parent, const std::string &id) {
-        initSubECS(_ecs_child, ecs_parent, id);
-    };
+    Child(const std::string &id) : _ecs_child(std::make_shared<ECS>(initSubECS(id))) {};
 };
 
 struct Stage {
@@ -54,10 +51,10 @@ struct Stage {
 
     Stage(int nb) : _nb(nb), _mapFile("stage_" + std::to_string(nb) + ".json") {
         std::vector<EnemyInfo> enemies = {
-            {2000, 500, -9, 0, 0.1f, 0.18f, 100, 60, 0, ENEMY1},
-            {2000, 1000, -8, 0, 0.1f, 0.18f, 100, 30, 100, ENEMY1},
-            {2000, 800, -7, 0, 0.1f, 0.18f, 100, 50, 100, ENEMY1},
-            {2000, 100, -10, 0, 0.1f, 0.18f, 100, 40, 200, ENEMY1}};
+            {2000, 500, -9, 0, 0.1, 0.18, 100, 60, 0, ENEMY1},
+            {2000, 1000, -8, 0, 0.1, 0.18, 100, 30, 100, ENEMY1},
+            {2000, 800, -7, 0, 0.1, 0.18, 100, 50, 100, ENEMY1},
+            {2000, 100, -10, 0, 0.1, 0.18, 100, 40, 200, ENEMY1}};
         // à créer en fonction du fichier
         _enemies = enemies;
     }
@@ -78,11 +75,11 @@ struct PlayerData {
 };
 
 struct Position {
-    int x = 0;
-    int y = 0;
-    int initialX = 0;
-    int initialY = 0;
-    Position(int px, int py) : x(px), y(py), initialX(px), initialY(py){};
+    float x = 0;
+    float y = 0;
+    // float initialX = 0;
+    // float initialY = 0;
+    Position(float px, float py) : x(px), y(py) {};
 };
 
 struct Velocity {
@@ -97,10 +94,10 @@ struct Velocity {
 };
 
 struct HitBox {
-    float x = 0.0f;
-    float y = 0.0f;
-    float width = 0.0f;
-    float height = 0.0f;
+    float x;
+    float y;
+    float width;
+    float height;
 
     HitBox(float px, float py) : x(px), y(py) {
         width = {1920 * x};

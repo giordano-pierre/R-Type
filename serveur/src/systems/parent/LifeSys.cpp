@@ -6,37 +6,44 @@
 */
 
 #include "systems/parent/LifeSys.hpp"
+#include <iostream>
 
 namespace rtype::server {
 
 void LifeSys::operator()(ECS &ecs, const TicEvent &tic_event,
                          SparseArray<Child> &childrens,
                          const SparseArray<Room> &rooms) {
+    // std::cout << "TEST2" << std::endl;
     for (size_t i = 0; i < childrens.size() && i < rooms.size(); ++i) {
         auto &child = childrens[i];
         const auto &ro = rooms[i];
 
         if (child && ro && ro.value()._state == IN_GAME) {
-            const auto &subDeads =
-                child.value()._ecs_child.get_components<Dead>();
-            const auto &subTags =
-                child.value()._ecs_child.get_components<Tag>();
+            auto &subDeads =
+                child.value()._ecs_child.get()->get_components<Dead>();
+            auto &subTags =
+                child.value()._ecs_child.get()->get_components<Tag>();
 
             for (size_t j = 0; j < subDeads.size() && j < subTags.size(); ++j) {
-                const auto &dead = subDeads[j];
-                const auto &tag = subTags[j];
+                auto &dead = subDeads[j];
+                auto &tag = subTags[j];
 
                 if (dead && tag && dead.value()._isDead) {
-                    child.value()._ecs_child.kill_entity(
-                        child.value()._ecs_child.entity_from_index(j));
                     for (const auto &[uuid, _] : ro.value()._clients_uuid) {
+                        std::cout << "M" << std::endl;
                         ecs.post<RequestEvent>(
                             {SV_KILL_ENTITY, {{"id", tag.value()._id}}, uuid});
                     }
+                    std::cout << "BEFORE KILL" << std::endl;
+                    // dead.value()._isDead = true;
+                    child.value()._ecs_child.get()->kill_entity(
+                        child.value()._ecs_child.get()->entity_from_index(j));
+                    std::cout << "AFTER KILL" << std::endl;
                 }
             }
         }
     }
+    // std::cout << "FINNNNNNNNNNN TEST2" << std::endl;
 }
 
 void LifeSys::operator()(ECS &ecs, const TicEvent &tic_event,
@@ -54,36 +61,36 @@ void LifeSys::operator()(ECS &ecs, const TicEvent &tic_event,
 
                 ennemy.spawn_tic -= 1;
                 if (ennemy.spawn_tic <= 0) {
-                    Entity ennemyE = child.value()._ecs_child.spawn_entity();
+                    Entity ennemyE = child.value()._ecs_child.get()->spawn_entity();
                     std::string idE = fetch_new_uuid();
-                    child.value()._ecs_child.add_component<Tag>(
+                    child.value()._ecs_child.get()->add_component<Tag>(
                         ennemyE, {idE, ennemy.type});
-                    child.value()._ecs_child.add_component<Position>(
+                    child.value()._ecs_child.get()->add_component<Position>(
                         ennemyE, {ennemy.x_pos, ennemy.y_pos});
-                    child.value()._ecs_child.add_component<Velocity>(
+                    child.value()._ecs_child.get()->add_component<Velocity>(
                         ennemyE, {ennemy.x_velocity, ennemy.y_velocity});
-                    child.value()._ecs_child.add_component<HitBox>(
+                    child.value()._ecs_child.get()->add_component<HitBox>(
                         ennemyE, {ennemy.x_hitbox, ennemy.y_hitbox});
-                    child.value()._ecs_child.add_component<Health>(
+                    child.value()._ecs_child.get()->add_component<Health>(
                         ennemyE, {ennemy.health});
-                    child.value()._ecs_child.add_component<Score>(
+                    child.value()._ecs_child.get()->add_component<Score>(
                         ennemyE, {ennemy.score});
                     for (const auto &[uuid, _] : ro.value()._clients_uuid)
                         ecs.post<RequestEvent>(
                             {SV_CREATE_ENTITY,
-                             {
-                                 {"type", ennemy.type},
-                                 {"pos",
-                                  {{"x", ennemy.x_pos}, {"y", ennemy.y_pos}}},
-                                 {"vel",
-                                  {{"x", ennemy.x_velocity},
-                                   {"y", ennemy.y_velocity}}},
-                                 {"hit",
-                                  {{"x", ennemy.x_hitbox},
-                                   {"y", ennemy.x_hitbox}}},
-                                 {"hp", ennemy.health},
-                                 {"sc", ennemy.score},
-                             },
+                             {{"id", idE},
+                              {"type", ennemy.type},
+                              {"pos",
+                               {{"x", ennemy.x_pos}, {"y", ennemy.y_pos}}},
+                              {"vel",
+                               {{"x", ennemy.x_velocity},
+                                {"y", ennemy.y_velocity}}},
+                              {"hit",
+                               {{"x", ennemy.x_hitbox},
+                                {"y", ennemy.x_hitbox}}},
+                              {"hp", ennemy.health},
+                              {"sc", ennemy.score},
+                              {"lu", 1}},
                              uuid});
                     st.value()._enemies.erase(st.value()._enemies.begin() + j);
                 }

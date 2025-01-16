@@ -66,13 +66,28 @@ void serverLoop(ECS &ecs) {
         }
         if (trigger) {
             while (!ecs.empty()) {
-                auto evt = ecs.front();
+                auto &evt = ecs.front();
                 evt();
                 ecs.pop_front();
             }
         }
     }
 }
+
+// void disconnectAll(ECS &ecs)
+// {
+//     const auto &rooms = ecs.get_components<rtype::server::Room>();
+
+//     for (size_t i = 0; i < rooms.size(); ++i) {
+//         const auto &ro = rooms[i];
+
+//         if (ro) {
+//             for (const auto &[uuid, _] : ro.value()._clients_uuid) {
+//                 ecs.post<
+//             }
+//         }
+//     }
+// }
 
 bool is_number(char *str) {
     for (int i = 0; i < strlen(str); i++) {
@@ -141,6 +156,12 @@ int main(int ac, char *argv[]) {
         loadMainSystems(ecs);
         serverLoop(ecs);
 
+        ecs.post<RequestEvent>({DISCONNECT, {}});
+        if (!ecs.empty()) {
+            auto evt = ecs.front();
+            evt();
+            ecs.pop_front();
+        }
         std::cout << "===============================" << std::endl
                   << std::endl;
         std::cout << "... Serveur arrêté avec succès. Bien joué!" << std::endl;

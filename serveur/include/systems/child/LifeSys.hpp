@@ -20,6 +20,8 @@ class LifeSys {
 
     void operator()(ECS &ecs, const RemoveClient &remove_event,
                     const SparseArray<Client> &clients);
+    void operator()(ECS &ecs, const TicEvent &,
+                    const SparseArray<Dead> &deads);
 };
 
 } // namespace rtype::server

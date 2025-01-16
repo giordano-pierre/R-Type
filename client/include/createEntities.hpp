@@ -18,7 +18,8 @@ void createGameEntities(ECS &ecs, Window &myWindow);
 // Menu Jeu
 void createMenuEntities(ECS &ecs, Window &myWindow);
 void createMenuGeneralEntities(ECS &ecs, Window &myWindow);
-void createMenuPlayerEntities(ECS &ecs, Window &myWindow);
+// void createMenuPlayerEntities(ECS &ecs, Window &myWindow);
+void createMenuRoomEntities(ECS &ecs, Window &myWindow);
 
 // Menu Config
 void createConfigEntities(ECS &ecs, Window &myWindow);

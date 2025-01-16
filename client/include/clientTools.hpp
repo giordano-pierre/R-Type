@@ -1,8 +1,8 @@
 /*
-** EPITECH PROJECT, 2024
+** EPITECH PROJECT, 2025
 ** R-Type
 ** File description:
-** tools
+** clientTools
 */
 
 #pragma once

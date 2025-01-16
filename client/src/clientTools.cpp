@@ -1,14 +1,14 @@
 /*
-** EPITECH PROJECT, 2024
+** EPITECH PROJECT, 2025
 ** R-Type
 ** File description:
-** tools
+** clientTools
 */
 
 #include <cmath>
 #include <iostream>
 
-#include "tools.hpp"
+#include "clientTools.hpp"
 
 namespace rtype::client {
 

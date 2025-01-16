@@ -13,7 +13,7 @@
 #include <ostream>
 
 #include "TextureManager.hpp"
-#include "tools.hpp"
+#include "clientTools.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
 
@@ -38,6 +38,8 @@ struct Window {
     sf::RenderStates _renderState;
     bool _colorblind = false;
     bool _gameState = false;
+    bool _master = false;
+    std::string _idRoom;
 };
 } // namespace rtype::client
 

@@ -8,11 +8,12 @@
 
 #include "ClientHandlerSystem.hpp"
 #include "ECS/ECS.hpp"
-#include "UDPClient.hpp"
+#include "systems/UDPClient.hpp"
+#include "systems/MessageHandlerSys.hpp"
 #include "createEntities.hpp"
 #include "ecsObjects.hpp"
 #include "loadSystems.hpp"
-#include "tools.hpp"
+#include "clientTools.hpp"
 
 bool is_number(char *str) {
     for (int i = 0; i < strlen(str); i++) {
@@ -59,17 +60,21 @@ int main(int ac, char *argv[]) {
         return 84;
 
     ECS ecs;
-    ecs.register_component<rtype::client::Window>();
-    ecs.register_component<rtype::client::Tag>();
-    ecs.register_component<rtype::client::Position>();
-    ecs.register_component<rtype::client::Velocity>();
     ecs.register_component<rtype::client::Drawable>();
-    ecs.register_component<rtype::client::Playable>();
+    ecs.register_component<rtype::client::Health>();
     ecs.register_component<rtype::client::Hitbox>();
-    ecs.register_component<rtype::client::Selectable>();
-    ecs.register_component<rtype::client::Text>();
+    ecs.register_component<rtype::client::LastUpdate>();
+    ecs.register_component<rtype::client::Playable>();
+    ecs.register_component<rtype::client::PlayerData>();
+    ecs.register_component<rtype::client::Position>();
     ecs.register_component<rtype::client::Pressable>();
     ecs.register_component<rtype::client::Scene>();
+    ecs.register_component<rtype::client::Score>();
+    ecs.register_component<rtype::client::Selectable>();
+    ecs.register_component<rtype::client::Tag>();
+    ecs.register_component<rtype::client::Text>();
+    ecs.register_component<rtype::client::Velocity>();
+    ecs.register_component<rtype::client::Window>();
 
     ecs.register_event<rtype::client::FrameEvent>();
     ecs.register_event<rtype::client::InputEvent>();
@@ -83,11 +88,14 @@ int main(int ac, char *argv[]) {
 
     createWindow(ecs);
 
-    UDPClient client(ecs, host, port);
+    rtype::client::UDPClient client(ecs, host, port);
     ecs.subscribe<RequestEvent>(client, true);
 
-    ClientHandlerSystem client_handler;
-    ecs.subscribe<ReceiveEvent>(client_handler, true);
+    rtype::client::MessageHandlerSys handler;
+    ecs.subscribe<ReceiveEvent, rtype::client::Window,
+                  rtype::client::Tag, rtype::client::Position,
+                  rtype::client::Velocity, rtype::client::Health,
+                  rtype::client::Score, rtype::client::LastUpdate>(handler, true);
 
     auto lifeSys = rtype::client::LifeSys();
     ecs.subscribe<rtype::client::CreationEvent, rtype::client::Window>(lifeSys,
@@ -125,10 +133,12 @@ int main(int ac, char *argv[]) {
                             const rtype::client::InputEvent &e_input) -> void {
             if (e_input._myEvent == rtype::client::QUIT ||
                 e_input._event.type == sf::Event::Closed) {
+                // std::cout << "FIX1" << std::endl;
                 if (client.isConnected())
                     ecs.post<RequestEvent>({DISCONNECT, {}});
                 else
                     running = false;
+                // std::cout << "FIX2" << std::endl;
             }
         },
         true);
@@ -175,7 +185,7 @@ int main(int ac, char *argv[]) {
         }
         if (trigger) {
             while (!ecs.empty()) {
-                auto evt = ecs.front();
+                auto &evt = ecs.front();
                 evt();
                 ecs.pop_front();
             }

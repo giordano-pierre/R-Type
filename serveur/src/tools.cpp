@@ -18,7 +18,9 @@
 
 namespace rtype::server {
 
-void initSubECS(ECS &ecs, ECS &ecs_p, const std::string &id) {
+ECS initSubECS(const std::string &id) {
+    ECS ecs;
+
     ecs.register_component<Tag>();
     ecs.register_component<Client>();
     ecs.register_component<PlayerData>();
@@ -32,39 +34,39 @@ void initSubECS(ECS &ecs, ECS &ecs_p, const std::string &id) {
 
     ecs.register_event<TicEvent>();
     ecs.register_event<RemoveClient>();
-    ecs.register_event<ReceiveEvent>();
-    ecs.register_event<RequestEvent>();
 
     Entity link = ecs.spawn_entity();
     ecs.add_component<Tag>(link, {id});
 
     auto lifeSys = LifeSys();
     ecs.subscribe<RemoveClient, Client>(lifeSys);
-
-    auto handler = SubMessageHandlerSys();
-    ecs.subscribe<ReceiveEvent, Tag, Velocity>(handler);
+    // ecs.subscribe<TicEvent, Dead>(lifeSys);
+    return ecs;
 }
 
-void removeAll(ECS &ecs) {
-    const auto &tags = ecs.get_components<Tag>();
+void removeAll(std::shared_ptr<ECS> ecs) {
+    const auto &tags = ecs.get()->get_components<Tag>();
 
     for (size_t i = 0; i < tags.size(); ++i) {
         const auto &tag = tags[i];
 
         if (tag && tag.value()._type != OTHER) {
-            ecs.kill_entity(ecs.entity_from_index(i));
+            ecs.get()->kill_entity(ecs.get()->entity_from_index(i));
         }
     }
 }
 
-void loadSubSystem(ECS &ecs) {
+void loadSubSystem(std::shared_ptr<ECS> ecs) {
+    // auto lifeSys = LifeSys();
+    // ecs.subscribe<RemoveClient, Client>(lifeSys);
+    // ecs.subscribe<TicEvent, Dead>(lifeSys);
     auto move = MovementSys();
-    ecs.subscribe<TicEvent, Position, Velocity>(move);
+    ecs.get()->subscribe<TicEvent, Position, Velocity>(move);
     auto life = HealthSys();
-    ecs.subscribe<TicEvent, Health>(life);
+    ecs.get()->subscribe<TicEvent, Health>(life);
     auto coll = CollisionSys();
-    ecs.subscribe<TicEvent, Position, HitBox, Tag, Health, Owner, Score>(coll);
-    ecs.subscribe<TicEvent, Position, Tag, HitBox>(coll);
+    ecs.get()->subscribe<TicEvent, Position, HitBox, Tag, Health, Owner, Score>(coll);
+    ecs.get()->subscribe<TicEvent, Position, Tag, HitBox>(coll);
 }
 
 bool isEnemy(const EntityType &obj) {

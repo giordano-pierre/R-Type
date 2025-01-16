@@ -18,6 +18,10 @@
 #include "components/Text.hpp"
 #include "components/Velocity.hpp"
 #include "components/Window.hpp"
+#include "components/PlayerData.hpp"
+#include "components/Health.hpp"
+#include "components/Score.hpp"
+#include "components/LastUpdate.hpp"
 
 #include "events/AnimeEvent.hpp"
 #include "events/ChangeKey.hpp"

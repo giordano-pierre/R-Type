@@ -20,6 +20,8 @@
 using boost::asio::ip::udp;
 using json = nlohmann::json;
 
+namespace rtype::client {
+
 class UDPClient {
   public:
     UDPClient(ECS &ecs, const std::string &host, const std::string &port)
@@ -66,3 +68,5 @@ class UDPClient {
     void handle_receive(std::size_t bytes_recvd);
     void parse_request(const json &parsed_json);
 };
+
+}
