@@ -9,8 +9,8 @@
 
 #include <ostream>
 
-#include "protocol.hpp"
 #include "clientTools.hpp"
+#include "protocol.hpp"
 
 namespace rtype::client {
 struct Tag {

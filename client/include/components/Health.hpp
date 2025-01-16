@@ -10,10 +10,10 @@
 namespace rtype::client {
 
 struct Health {
-    public:
-        Health(int health) : _health(health) {};
+  public:
+    Health(int health) : _health(health){};
 
     int _health;
 };
 
-}
+} // namespace rtype::client

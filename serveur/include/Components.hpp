@@ -74,7 +74,7 @@ struct Position {
     float y = 0;
     // float initialX = 0;
     // float initialY = 0;
-    Position(float px, float py) : x(px), y(py) {};
+    Position(float px, float py) : x(px), y(py){};
 };
 
 struct Velocity {

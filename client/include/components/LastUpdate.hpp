@@ -10,10 +10,10 @@
 namespace rtype::client {
 
 struct LastUpdate {
-    public:
-        LastUpdate(int lu) : _lastUpdate(lu) {};
+  public:
+    LastUpdate(int lu) : _lastUpdate(lu){};
 
     int _lastUpdate;
 };
 
-}
+} // namespace rtype::client

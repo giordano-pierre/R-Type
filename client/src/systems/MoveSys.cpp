@@ -30,8 +30,7 @@ void MoveSys::operator()(ECS &ecs, const InputEvent &e_input,
     switch (e_input._myEvent) {
     case LEFT1P:
         newValue.x = -8;
-        ecs.post<RequestEvent>(
-            {CL_MOVE, {{"idp", uuid1}, {"e_type", "left"}}});
+        ecs.post<RequestEvent>({CL_MOVE, {{"idp", uuid1}, {"e_type", "left"}}});
         break;
     case LEFT1R:
         newValue.x = 0;
@@ -50,8 +49,7 @@ void MoveSys::operator()(ECS &ecs, const InputEvent &e_input,
         break;
     case UP1P:
         newValue.y = -8;
-        ecs.post<RequestEvent>(
-            {CL_MOVE, {{"idp", uuid1}, {"e_type", "up"}}});
+        ecs.post<RequestEvent>({CL_MOVE, {{"idp", uuid1}, {"e_type", "up"}}});
         break;
     case UP1R:
         newValue.y = 0;
@@ -60,8 +58,7 @@ void MoveSys::operator()(ECS &ecs, const InputEvent &e_input,
         break;
     case DOWN1P:
         newValue.y = 8;
-        ecs.post<RequestEvent>(
-            {CL_MOVE, {{"idp", uuid1}, {"e_type", "down"}}});
+        ecs.post<RequestEvent>({CL_MOVE, {{"idp", uuid1}, {"e_type", "down"}}});
         break;
     case DOWN1R:
         newValue.y = 0;

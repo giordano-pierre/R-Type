@@ -69,4 +69,4 @@ class UDPClient {
     void parse_request(const json &parsed_json);
 };
 
-}
+} // namespace rtype::client

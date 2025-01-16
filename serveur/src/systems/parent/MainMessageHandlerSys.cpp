@@ -12,8 +12,7 @@
 
 namespace rtype::server {
 
-void movePlayer(const ReceiveEvent &rec_event,
-                const SparseArray<Tag> &tags,
+void movePlayer(const ReceiveEvent &rec_event, const SparseArray<Tag> &tags,
                 SparseArray<Velocity> &velocities) {
     auto input = rec_event.payload["e_type"].get<std::string>();
     auto idp = rec_event.payload["idp"].get<std::string>();
@@ -39,10 +38,10 @@ void movePlayer(const ReceiveEvent &rec_event,
     }
 }
 
-int countPlayer(const std::map<std::string , std::pair<StateGame, int>> &clients)
-{
+int countPlayer(
+    const std::map<std::string, std::pair<StateGame, int>> &clients) {
     int cmpt = 0;
-    for (const auto &[_, infos]: clients) {
+    for (const auto &[_, infos] : clients) {
         cmpt += infos.second;
     }
     return cmpt;
@@ -85,12 +84,13 @@ void disconnect(ECS &ecs, const ReceiveEvent &rec_event,
         } else {
             if (ro.value()._master == rec_event.sender_uuid) {
                 ro.value()._master = ro.value()._clients_uuid.begin()->first;
-                ecs.post<RequestEvent>({JOIN_ROOM,
-                                        {{"master", true},
-                                         {"idr", tag.value()._id},
-                                         {"r_name", ro.value()._name},
-                                         {"nbp", countPlayer(ro.value()._clients_uuid)}},
-                                        ro.value()._master});
+                ecs.post<RequestEvent>(
+                    {JOIN_ROOM,
+                     {{"master", true},
+                      {"idr", tag.value()._id},
+                      {"r_name", ro.value()._name},
+                      {"nbp", countPlayer(ro.value()._clients_uuid)}},
+                     ro.value()._master});
             }
         }
     }
@@ -138,18 +138,20 @@ void joinRoom(ECS &ecs, const ReceiveEvent &rec_event, SparseArray<Room> &rooms,
                      rec_event.sender_uuid);
     for (const auto &[uuid, _] : rooms[roomE].value()._clients_uuid) {
         if (uuid == rooms[roomE].value()._master)
-            ecs.post<RequestEvent>({JOIN_ROOM,
-                                    {{"master", true},
-                                     {"idr", tags[roomE].value()._id},
-                                     {"r_name", rooms[roomE].value()._name},
-                                     {"nbp", countPlayer(rooms[roomE].value()._clients_uuid)}},
-                                    uuid});
+            ecs.post<RequestEvent>(
+                {JOIN_ROOM,
+                 {{"master", true},
+                  {"idr", tags[roomE].value()._id},
+                  {"r_name", rooms[roomE].value()._name},
+                  {"nbp", countPlayer(rooms[roomE].value()._clients_uuid)}},
+                 uuid});
         else
-            ecs.post<RequestEvent>({JOIN_ROOM,
-                                    {{"idr", tags[roomE].value()._id},
-                                     {"r_name", rooms[roomE].value()._name},
-                                     {"nbp", countPlayer(rooms[roomE].value()._clients_uuid)}},
-                                    uuid});
+            ecs.post<RequestEvent>(
+                {JOIN_ROOM,
+                 {{"idr", tags[roomE].value()._id},
+                  {"r_name", rooms[roomE].value()._name},
+                  {"nbp", countPlayer(rooms[roomE].value()._clients_uuid)}},
+                 uuid});
     }
     return;
 }
@@ -175,8 +177,8 @@ void launchGame(ECS &ecs, const ReceiveEvent &rec_event,
             const auto subClients =
                 child.value()._ecs_child.get_components<Client>();
             for (size_t j = 0; j < subTags.size() && j < subPlayer.size() &&
-                            j < subClients.size();
-                ++j) {
+                               j < subClients.size();
+                 ++j) {
                 const auto &subTag = subTags[j];
                 const auto &subPlay = subPlayer[j];
                 const auto &subCl = subClients[j];
@@ -195,24 +197,26 @@ void launchGame(ECS &ecs, const ReceiveEvent &rec_event,
                     std::cout << "SEND CREATE PLAYER" << std::endl;
                     RequestEvent req = {SV_CREATE_PLAYER,
                                         {{"id", subTag.value()._id},
-                                        {"type", PLAYER},
-                                        {"name", subPlay.value()._name},
-                                        {"color", subPlay.value()._color},
-                                        {"hit", {{"x", 0.1}, {"y", 0.12}}},
-                                        {"pos", {{"x", 100}, {"y", posY}}},
-                                        {"vel", {{"x", 0}, {"y", 0}}},
-                                        {"hp", 10},
-                                        {"sc", 0}},
+                                         {"type", PLAYER},
+                                         {"name", subPlay.value()._name},
+                                         {"color", subPlay.value()._color},
+                                         {"hit", {{"x", 0.1}, {"y", 0.12}}},
+                                         {"pos", {{"x", 100}, {"y", posY}}},
+                                         {"vel", {{"x", 0}, {"y", 0}}},
+                                         {"hp", 10},
+                                         {"sc", 0}},
                                         subCl.value()._uuid};
                     ecs.post<RequestEvent>(req);
-                    // ecs.post<CheckEvent>({LAUNCH_GAME, tag.value()._id, req});
+                    // ecs.post<CheckEvent>({LAUNCH_GAME, tag.value()._id,
+                    // req});
                 }
             }
         }
     }
 }
 
-bool allPlayerReady(const std::map<std::string, std::pair<StateGame, int>> &client_uuid) {
+bool allPlayerReady(
+    const std::map<std::string, std::pair<StateGame, int>> &client_uuid) {
     for (const auto &[_, infos] : client_uuid) {
         if (infos.first != IN_GAME)
             return false;

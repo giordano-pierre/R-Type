@@ -8,24 +8,22 @@
 #pragma once
 
 #include "ECS/ECS.hpp"
-#include "events/ReceiveEvent.hpp"
 #include "ecsObjects.hpp"
+#include "events/ReceiveEvent.hpp"
 
 namespace rtype::client {
 
 class MessageHandlerSys {
-    public:
-        MessageHandlerSys() = default;
-        ~MessageHandlerSys() = default;
+  public:
+    MessageHandlerSys() = default;
+    ~MessageHandlerSys() = default;
 
     void operator()(ECS &ecs, const ReceiveEvent &rec_event,
-                    SparseArray<Window> &windows,
-                    const SparseArray<Tag> &tags,
+                    SparseArray<Window> &windows, const SparseArray<Tag> &tags,
                     SparseArray<Position> &positions,
                     SparseArray<Velocity> &velocities,
-                    SparseArray<Health> &healths,
-                    SparseArray<Score> &scores,
+                    SparseArray<Health> &healths, SparseArray<Score> &scores,
                     SparseArray<LastUpdate> &lastups);
 };
 
-}
+} // namespace rtype::client
