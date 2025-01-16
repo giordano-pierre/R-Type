@@ -7,14 +7,12 @@
 
 #pragma once
 
-template <typename T>
-class Singleton {
-public:
+template <typename T> class Singleton {
+  public:
     Singleton() = default;
     ~Singleton() = default;
 
-    static T& getInstance()
-    {
+    static T &getInstance() {
         static T instance;
         return instance;
     }

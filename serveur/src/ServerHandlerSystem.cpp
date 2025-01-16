@@ -12,105 +12,100 @@ void serverReady(ECS &ecs, const std::string &uuid) {
     ecs.post<RequestEvent>({NetworkActions::GAME_START, {}, uuid});
 }
 
-void createEnemyWithAI(ECS& ecs, rtype::server::EnemyInfo enemyInfo, rtype::server::EnemyAI::BehaviorType behavior) {
+void createEnemyWithAI(ECS &ecs, rtype::server::EnemyInfo enemyInfo,
+                       rtype::server::EnemyAI::BehaviorType behavior) {
     Entity entity = ecs.spawn_entity();
     std::string uuid = fetch_new_uuid();
 
-    ecs.add_component<rtype::server::Position>(entity,
-        { enemyInfo.x_pos, enemyInfo.y_pos });
+    ecs.add_component<rtype::server::Position>(
+        entity, {enemyInfo.x_pos, enemyInfo.y_pos});
 
-    ecs.add_component<rtype::server::Velocity>(entity,
-        { enemyInfo.x_velocity, enemyInfo.y_velocity, true });
+    ecs.add_component<rtype::server::Velocity>(
+        entity, {enemyInfo.x_velocity, enemyInfo.y_velocity, true});
 
-    ecs.add_component<rtype::server::HitBox>(entity,
-        { enemyInfo.x_hitbox, enemyInfo.y_hitbox });
+    ecs.add_component<rtype::server::HitBox>(
+        entity, {enemyInfo.x_hitbox, enemyInfo.y_hitbox});
 
     ecs.add_component<rtype::server::Health>(entity, {});
-    ecs.add_component<rtype::server::Score>(entity, { enemyInfo.score });
-    ecs.add_component<rtype::server::Tag>(entity, { uuid, EntityType::ENEMY1 });
+    ecs.add_component<rtype::server::Score>(entity, {enemyInfo.score});
+    ecs.add_component<rtype::server::Tag>(entity, {uuid, EntityType::ENEMY1});
 
     switch (behavior) {
     case rtype::server::EnemyAI::BehaviorType::SINUSOIDAL:
-        ecs.add_component<rtype::server::EnemyAI>(entity, rtype::server::EnemyAI{
-            .behaviorType = behavior,
-            .amplitude = 5.0f,
-            .frequency = 2.0f
-            });
+        ecs.add_component<rtype::server::EnemyAI>(
+            entity, rtype::server::EnemyAI{.behaviorType = behavior,
+                                           .amplitude = 5.0f,
+                                           .frequency = 2.0f});
         break;
 
     case rtype::server::EnemyAI::BehaviorType::CIRCULAR:
-        ecs.add_component<rtype::server::EnemyAI>(entity, rtype::server::EnemyAI{
-            .behaviorType = behavior,
-            .radius = 100.0f,
-            .speed = 2.0f
-            });
+        ecs.add_component<rtype::server::EnemyAI>(
+            entity, rtype::server::EnemyAI{.behaviorType = behavior,
+                                           .radius = 100.0f,
+                                           .speed = 2.0f});
         break;
 
     case rtype::server::EnemyAI::BehaviorType::CHASE:
-        ecs.add_component<rtype::server::EnemyAI>(entity, rtype::server::EnemyAI{
-            .behaviorType = behavior,
-            .speed = 3.0f
-            });
+        ecs.add_component<rtype::server::EnemyAI>(
+            entity,
+            rtype::server::EnemyAI{.behaviorType = behavior, .speed = 3.0f});
         break;
 
     case rtype::server::EnemyAI::BehaviorType::V_FORMATION:
-        ecs.add_component<rtype::server::EnemyAI>(entity, rtype::server::EnemyAI{
-            .behaviorType = behavior,
-            .spacing = 40.0f,
-            .index = 0
-            });
+        ecs.add_component<rtype::server::EnemyAI>(
+            entity, rtype::server::EnemyAI{.behaviorType = behavior,
+                                           .spacing = 40.0f,
+                                           .index = 0});
         break;
 
     case rtype::server::EnemyAI::BehaviorType::BOSS:
-        ecs.add_component<rtype::server::EnemyAI>(entity, rtype::server::EnemyAI{
-            .behaviorType = behavior,
-            .amplitude = 100.0f,
-            .frequency = 1.0f,
-            .radius = 200.0f,
-            .speed = 5.0f
-            });
+        ecs.add_component<rtype::server::EnemyAI>(
+            entity, rtype::server::EnemyAI{.behaviorType = behavior,
+                                           .amplitude = 100.0f,
+                                           .frequency = 1.0f,
+                                           .radius = 200.0f,
+                                           .speed = 5.0f});
         break;
     }
 
     ecs.post<RequestEvent>(
-        { NetworkActions::CREATE_ENTITY,
+        {NetworkActions::CREATE_ENTITY,
          {{"id", uuid},
           {"type", to_json(EntityType::ENEMY1)},
           {"pos", {{"x", enemyInfo.x_pos}, {"y", enemyInfo.y_pos}}},
           {"health", {enemyInfo.health}},
-          {"velocity", {{"x", enemyInfo.x_velocity}, {"y", enemyInfo.y_velocity}}},
+          {"velocity",
+           {{"x", enemyInfo.x_velocity}, {"y", enemyInfo.y_velocity}}},
           {"hitbox", {{"x", enemyInfo.x_hitbox}, {"y", enemyInfo.y_hitbox}}},
           {"score", {enemyInfo.score}}},
-         "" });
+         ""});
 }
 
-void createSineEnemy(ECS& ecs, int x, int y) {
-    rtype::server::EnemyInfo info{
-        .x_pos = x,
-        .y_pos = y,
-        .x_velocity = 2,
-        .y_velocity = 0,
-        .x_hitbox = 0.02f,
-        .y_hitbox = 0.02f,
-        .health = 100,
-        .score = 100
-    };
-    createEnemyWithAI(ecs, info, rtype::server::EnemyAI::BehaviorType::SINUSOIDAL);
+void createSineEnemy(ECS &ecs, int x, int y) {
+    rtype::server::EnemyInfo info{.x_pos = x,
+                                  .y_pos = y,
+                                  .x_velocity = 2,
+                                  .y_velocity = 0,
+                                  .x_hitbox = 0.02f,
+                                  .y_hitbox = 0.02f,
+                                  .health = 100,
+                                  .score = 100};
+    createEnemyWithAI(ecs, info,
+                      rtype::server::EnemyAI::BehaviorType::SINUSOIDAL);
 }
 
-void createVFormation(ECS& ecs, int x, int y, int numEnemies) {
+void createVFormation(ECS &ecs, int x, int y, int numEnemies) {
     for (int i = 0; i < numEnemies; i++) {
-        rtype::server::EnemyInfo info{
-            .x_pos = x,
-            .y_pos = y,
-            .x_velocity = 2,
-            .y_velocity = 0,
-            .x_hitbox = 0.02f,
-            .y_hitbox = 0.02f,
-            .health = 100,
-            .score = 150
-        };
-        createEnemyWithAI(ecs, info, rtype::server::EnemyAI::BehaviorType::V_FORMATION);
+        rtype::server::EnemyInfo info{.x_pos = x,
+                                      .y_pos = y,
+                                      .x_velocity = 2,
+                                      .y_velocity = 0,
+                                      .x_hitbox = 0.02f,
+                                      .y_hitbox = 0.02f,
+                                      .health = 100,
+                                      .score = 150};
+        createEnemyWithAI(ecs, info,
+                          rtype::server::EnemyAI::BehaviorType::V_FORMATION);
     }
 }
 

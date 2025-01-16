@@ -1,11 +1,11 @@
 #include "CollisionSystem.hpp"
+#include "EnemiesSystem.hpp"
 #include "GameLogicSystem.hpp"
 #include "HealthSystem.hpp"
 #include "MovementSystem.hpp"
 #include "ServerHandlerSystem.hpp"
-#include "EnemiesSystem.hpp"
-#include "UDPServer.hpp"
 #include "Singleton.hpp"
+#include "UDPServer.hpp"
 #include <csignal>
 #include <cstdlib>
 #include <iostream>
@@ -40,8 +40,8 @@ void subscribe_all_systems(ECS &ecs) {
 
     auto enemiesSys = Singleton<rtype::server::systems::EnemiesSys>();
     ecs.subscribe<rtype::server::TicEvent, rtype::server::Position,
-        rtype::server::Tag, rtype::server::EnemyAI,
-        rtype::server::Velocity>(enemiesSys.getInstance());
+                  rtype::server::Tag, rtype::server::EnemyAI,
+                  rtype::server::Velocity>(enemiesSys.getInstance());
 }
 
 void server_loop(ECS &ecs) {
@@ -151,10 +151,9 @@ int main(int ac, char *argv[]) {
         };
         ecs.add_component<rtype::server::Basics>(basics, {enemies});
 
-        createEnemyWithAI(ecs,
-            { 1900, 300, -5, 0, 0.1f, 0.18f, 100, 80 },
-            rtype::server::EnemyAI::BehaviorType::SINUSOIDAL);
-        //maybe add compo
+        createEnemyWithAI(ecs, {1900, 300, -5, 0, 0.1f, 0.18f, 100, 80},
+                          rtype::server::EnemyAI::BehaviorType::SINUSOIDAL);
+        // maybe add compo
 
         std::cout << "Attention!!! \nDémarrage du serveur R-Type...\n"
                   << std::endl;
@@ -164,7 +163,6 @@ int main(int ac, char *argv[]) {
         std::cout << "Subscribed systems" << std::endl;
 
         server_loop(ecs);
-
 
         std::cout << "===============================\n" << std::endl;
         std::cout << "\n... Serveur arrêté avec succès. Bien joué "
