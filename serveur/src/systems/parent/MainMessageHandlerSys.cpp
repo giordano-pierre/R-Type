@@ -131,7 +131,8 @@ void joinRoom(ECS &ecs, const ReceiveEvent &rec_event, SparseArray<Room> &rooms,
     } else {
         if ((countPlayer(rooms[roomE].value()._clients_uuid) + nbPlayer) > 8 ||
             rooms[roomE].value()._clients_uuid.find(rec_event.sender_uuid) !=
-                rooms[roomE].value()._clients_uuid.end() || rooms[roomE].value()._state != WAITING)
+                rooms[roomE].value()._clients_uuid.end() ||
+            rooms[roomE].value()._state != WAITING)
             return;
         rooms[roomE].value()._clients_uuid.insert(
             {rec_event.sender_uuid, {WAITING, nbPlayer}});
