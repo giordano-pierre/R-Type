@@ -29,7 +29,6 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
                               SparseArray<Health> &healths,
                               const SparseArray<Owner> &owners,
                               SparseArray<Score> &scores) {
-    // std::cout << "COLLLL1" << std::endl;
     for (size_t i = 0;
          i < positions.size() && i < hitboxes.size() && i < tags.size(); ++i) {
 
@@ -99,14 +98,12 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
             }
         }
     }
-    // std::cout << "FINNNN COLLLL1" << std::endl;
 }
 
 void CollisionSys::operator()(ECS &ecs, const TicEvent &,
                               SparseArray<Position> &positions,
                               const SparseArray<Tag> &tags,
                               const SparseArray<HitBox> &hitboxes) {
-    // std::cout << "TEST" << std::endl;
     for (size_t i = 0;
          i < positions.size() && i < tags.size() && i < hitboxes.size(); ++i) {
 
@@ -142,24 +139,17 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
             break;
         default:
             if ((pos.value().x + box.value().width / 2) < 0) {
-                // pos.value().x = pos.value().initialX;
-                // pos.value().y = pos.value().initialY;
                 ecs.add_component<Dead>(ecs.entity_from_index(i), {});
             }
             if ((pos.value().y + box.value().height) < 0) {
-                // pos.value().x = pos.value().initialX;
-                // pos.value().y = pos.value().initialY;
                 ecs.add_component<Dead>(ecs.entity_from_index(i), {});
             }
             if ((pos.value().y - box.value().height) > 1080) {
-                // pos.value().x = pos.value().initialX;
-                // pos.value().y = pos.value().initialY;
                 ecs.add_component<Dead>(ecs.entity_from_index(i), {});
             }
             break;
         }
     }
-    // std::cout << "FINNNNNN TEST" << std::endl;
 }
 
 } // namespace rtype::server

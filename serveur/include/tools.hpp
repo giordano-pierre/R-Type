@@ -32,7 +32,6 @@ enum StateGame {
     WAITING,
 };
 
-ECS initSubECS(const std::string &id);
 void removeAll(ECS &ecs);
 bool isEnemy(const EntityType &obj);
 

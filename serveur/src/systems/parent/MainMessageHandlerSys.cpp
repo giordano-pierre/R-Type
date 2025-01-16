@@ -123,12 +123,15 @@ void joinRoom(ECS &ecs, const ReceiveEvent &rec_event, SparseArray<Room> &rooms,
         ecs.add_component<Room>(roomE,
                                 {nameRoom, rec_event.sender_uuid, nbPlayer});
         ecs.add_component<Stage>(roomE, {1});
-        ecs.add_component<Child>(roomE, {idRoom});
+        ecs.add_component<Child>(roomE, {});
+        auto &tmp = ecs.get_components<Child>();
+        initSubECS(tmp[roomE].value()._ecs_child);
+        loadSubSystem(tmp[roomE].value());
         std::cout << "Room " << nameRoom << " created." << std::endl;
     } else {
         if ((countPlayer(rooms[roomE].value()._clients_uuid) + nbPlayer) > 8 ||
             rooms[roomE].value()._clients_uuid.find(rec_event.sender_uuid) !=
-                rooms[roomE].value()._clients_uuid.end())
+                rooms[roomE].value()._clients_uuid.end() || rooms[roomE].value()._state != WAITING)
             return;
         rooms[roomE].value()._clients_uuid.insert(
             {rec_event.sender_uuid, {WAITING, nbPlayer}});
@@ -249,7 +252,7 @@ void playerIsCreated(ECS &ecs, const ReceiveEvent &rec_event,
             client_it->second.first = IN_GAME;
             if (allPlayerReady(ro.value()._clients_uuid)) {
                 ro.value()._state = IN_GAME;
-                loadSubSystem(child.value());
+                loadSubGameSystem(child.value());
             }
         }
     }
@@ -325,27 +328,38 @@ void MainMessageHandlerSys::operator()(ECS &ecs, const ReceiveEvent &rec_event,
         gameOver(ecs, rec_event, rooms, tags);
         return;
     }
-    case CL_MOVE: {
-        for (size_t i = 0; i < rooms.size() && i < children.size(); ++i) {
-            auto &ro = rooms[i];
-            auto &child = children[i];
+    // case CL_MOVE: {
+    //     for (size_t i = 0; i < rooms.size() && i < children.size(); ++i) {
+    //         auto &ro = rooms[i];
+    //         auto &child = children[i];
 
-            if (ro && child &&
-                ro.value()._clients_uuid.find(rec_event.sender_uuid) !=
-                    ro.value()._clients_uuid.end()) {
-                const auto &tags =
-                    child.value()._ecs_child.get_components<Tag>();
-                auto &velocities =
-                    child.value()._ecs_child.get_components<Velocity>();
+    //         if (ro && child &&
+    //             ro.value()._clients_uuid.find(rec_event.sender_uuid) !=
+    //                 ro.value()._clients_uuid.end()) {
+    //             const auto &tags =
+    //                 child.value()._ecs_child.get_components<Tag>();
+    //             auto &velocities =
+    //                 child.value()._ecs_child.get_components<Velocity>();
 
-                movePlayer(rec_event, tags, velocities);
-                return;
-            }
-        }
-        return;
-    }
+    //             movePlayer(rec_event, tags, velocities);
+    //             return;
+    //         }
+    //     }
+    //     return;
+    // }
     default:
         break;
+    }
+    for (size_t i = 0; i < rooms.size() && i < children.size(); ++i) {
+        auto &ro = rooms[i];
+        auto &child = children[i];
+
+        if (ro && child &&
+            ro.value()._clients_uuid.find(rec_event.sender_uuid) !=
+                ro.value()._clients_uuid.end()) {
+            child.value()._ecs_child.post<ReceiveEvent>(rec_event);
+            return;
+        }
     }
 }
 

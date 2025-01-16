@@ -58,6 +58,7 @@ void createDrawable(ECS &ecs, Entity &entity, Window &myWindow,
              {395, 250},
              1,
              1});
+        break;
     case SHOOT1:
         ecs.add_component<Drawable>(entity,
                                     {myWindow._myTextures.getTexture(
@@ -66,6 +67,7 @@ void createDrawable(ECS &ecs, Entity &entity, Window &myWindow,
                                      {251, 144},
                                      1,
                                      2});
+        break;
     case ENEMY1:
         ecs.add_component<Drawable>(entity,
                                     {myWindow._myTextures.getTexture(
@@ -74,6 +76,7 @@ void createDrawable(ECS &ecs, Entity &entity, Window &myWindow,
                                      {290, 290},
                                      35,
                                      1});
+        break;
     }
 }
 
@@ -188,8 +191,8 @@ void MessageHandlerSys::operator()(
     SparseArray<Score> &scores, SparseArray<LastUpdate> &lastups) {
     auto &myWindow = windows[0].value();
 
-    // std::cout << rec_event.action << std::endl;
-    // std::cout << rec_event.payload.dump() << std::endl;
+    std::cout << rec_event.action << std::endl;
+    std::cout << rec_event.payload.dump() << std::endl;
     switch (rec_event.action) {
     case JOIN_ROOM: {
         joinRoom(ecs, rec_event, myWindow);

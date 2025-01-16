@@ -72,8 +72,6 @@ struct PlayerData {
 struct Position {
     float x = 0;
     float y = 0;
-    // float initialX = 0;
-    // float initialY = 0;
     Position(float px, float py) : x(px), y(py){};
 };
 
