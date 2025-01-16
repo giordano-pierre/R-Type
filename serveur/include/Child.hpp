@@ -9,8 +9,8 @@
 
 #include "systems/child/CollisionSystem.hpp"
 #include "systems/child/HealthSystem.hpp"
-#include "systems/child/RemoveSys.hpp"
 #include "systems/child/MovementSystem.hpp"
+#include "systems/child/RemoveSys.hpp"
 
 namespace rtype::server {
 
@@ -21,12 +21,11 @@ struct Child {
     HealthSys _hpSys;
     CollisionSys _collSys;
 
-    Child(const std::string &id) : _ecs_child(initSubECS(id))
-    {
+    Child(const std::string &id) : _ecs_child(initSubECS(id)) {
         _ecs_child.subscribe<RemoveClient, Client>(_removeSys, true);
     };
 };
 
 void loadSubSystem(Child &child);
 
-}
+} // namespace rtype::server

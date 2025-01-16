@@ -11,7 +11,7 @@
 namespace rtype::server {
 
 void RemoveSys::operator()(ECS &ecs, const RemoveClient &remove_event,
-                         const SparseArray<Client> &clients) {
+                           const SparseArray<Client> &clients) {
     // std::cout << "LIFE" << std::endl;
     for (size_t i = 0; i < clients.size(); ++i) {
         const auto &cl = clients[i];

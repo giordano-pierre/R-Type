@@ -8,8 +8,8 @@
 #pragma once
 
 #include "ECS/ECS.hpp"
-#include "protocol.hpp"
 #include "Events.hpp"
+#include "protocol.hpp"
 #include "tools.hpp"
 #include <cstddef>
 #include <cstdint>

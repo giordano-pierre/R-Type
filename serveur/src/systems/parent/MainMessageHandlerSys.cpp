@@ -53,7 +53,8 @@ void createPlayer(Child &child, const std::string &name,
     child._ecs_child.add_component<Client>(player, {uuid});
     child._ecs_child.add_component<Tag>(player, {fetch_new_uuid(), PLAYER});
     child._ecs_child.add_component<PlayerData>(player, {name, color});
-    std::cout << "Player " << name << " " << color << " is created." << std::endl;
+    std::cout << "Player " << name << " " << color << " is created."
+              << std::endl;
 }
 
 void disconnect(ECS &ecs, const ReceiveEvent &rec_event,
@@ -76,7 +77,7 @@ void disconnect(ECS &ecs, const ReceiveEvent &rec_event,
         ro.value()._clients_uuid.erase(
             ro.value()._clients_uuid.find(rec_event.sender_uuid));
         child.value()._ecs_child.post<RemoveClient>({rec_event.sender_uuid});
-        for (const auto &[uuid, _]: ro.value()._clients_uuid)
+        for (const auto &[uuid, _] : ro.value()._clients_uuid)
             std::cout << uuid << std::endl;
         if (ro.value()._clients_uuid.empty()) {
             ecs.kill_entity(ecs.entity_from_index(i));
@@ -125,7 +126,9 @@ void joinRoom(ECS &ecs, const ReceiveEvent &rec_event, SparseArray<Room> &rooms,
         ecs.add_component<Child>(roomE, {idRoom});
         std::cout << "Room " << nameRoom << " created." << std::endl;
     } else {
-        if ((countPlayer(rooms[roomE].value()._clients_uuid) + nbPlayer) > 8 || rooms[roomE].value()._clients_uuid.find(rec_event.sender_uuid) != rooms[roomE].value()._clients_uuid.end())
+        if ((countPlayer(rooms[roomE].value()._clients_uuid) + nbPlayer) > 8 ||
+            rooms[roomE].value()._clients_uuid.find(rec_event.sender_uuid) !=
+                rooms[roomE].value()._clients_uuid.end())
             return;
         rooms[roomE].value()._clients_uuid.insert(
             {rec_event.sender_uuid, {WAITING, nbPlayer}});
@@ -188,12 +191,15 @@ void launchGame(ECS &ecs, const ReceiveEvent &rec_event,
                     Entity tmpPlayer =
                         child.value()._ecs_child.entity_from_index(j);
                     child.value()._ecs_child.add_component<HitBox>(tmpPlayer,
-                                                                {0.1, 0.12});
+                                                                   {0.1, 0.12});
                     child.value()._ecs_child.add_component<Velocity>(tmpPlayer,
-                                                                    {0, 0});
-                    child.value()._ecs_child.add_component<Health>(tmpPlayer, {});
-                    child.value()._ecs_child.add_component<Score>(tmpPlayer, {0});
-                    child.value()._ecs_child.add_component<Position>(tmpPlayer, {100, posY});
+                                                                     {0, 0});
+                    child.value()._ecs_child.add_component<Health>(tmpPlayer,
+                                                                   {});
+                    child.value()._ecs_child.add_component<Score>(tmpPlayer,
+                                                                  {0});
+                    child.value()._ecs_child.add_component<Position>(
+                        tmpPlayer, {100, posY});
                     std::cout << "SEND CREATE PLAYER" << std::endl;
                     RequestEvent req = {SV_CREATE_PLAYER,
                                         {{"id", subTag.value()._id},
@@ -327,8 +333,10 @@ void MainMessageHandlerSys::operator()(ECS &ecs, const ReceiveEvent &rec_event,
             if (ro && child &&
                 ro.value()._clients_uuid.find(rec_event.sender_uuid) !=
                     ro.value()._clients_uuid.end()) {
-                const auto &tags = child.value()._ecs_child.get_components<Tag>();
-                auto &velocities = child.value()._ecs_child.get_components<Velocity>();
+                const auto &tags =
+                    child.value()._ecs_child.get_components<Tag>();
+                auto &velocities =
+                    child.value()._ecs_child.get_components<Velocity>();
 
                 movePlayer(rec_event, tags, velocities);
                 return;

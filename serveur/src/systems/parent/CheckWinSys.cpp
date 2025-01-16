@@ -29,8 +29,7 @@ void CheckWinSys::operator()(ECS &ecs, const TicEvent &,
         if (tag && ro && st && child && ro.value()._state == IN_GAME) {
             win = false;
             lose = true;
-            auto subTags =
-                child.value()._ecs_child.get_components<Tag>();
+            auto subTags = child.value()._ecs_child.get_components<Tag>();
 
             if (st.value()._enemies.empty())
                 win = true;

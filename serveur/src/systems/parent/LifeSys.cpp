@@ -19,10 +19,8 @@ void LifeSys::operator()(ECS &ecs, const TicEvent &tic_event,
         const auto &ro = rooms[i];
 
         if (child && ro && ro.value()._state == IN_GAME) {
-            auto &subDeads =
-                child.value()._ecs_child.get_components<Dead>();
-            auto &subTags =
-                child.value()._ecs_child.get_components<Tag>();
+            auto &subDeads = child.value()._ecs_child.get_components<Dead>();
+            auto &subTags = child.value()._ecs_child.get_components<Tag>();
 
             for (size_t j = 0; j < subDeads.size() && j < subTags.size(); ++j) {
                 auto &dead = subDeads[j];
