@@ -144,21 +144,24 @@ int main(int ac, char *argv[]) {
         Entity basics = ecs.spawn_entity();
 
         std::vector<rtype::server::EnemyInfo> enemies = {
-            {1800, 500, -9, 0, 0.1f, 0.18f, 100, 60},
-            {2500, 1000, -8, 0, 0.1f, 0.18f, 100, 30},
-            {2700, 800, -7, 0, 0.1f, 0.18f, 100, 50},
-            {2250, 100, -10, 0, 0.1f, 0.18f, 100, 40}};
+            // {1800, 500, -9, 0, 0.1f, 0.18f, 100, 60},
+            // {2500, 1000, -8, 0, 0.1f, 0.18f, 100, 30},
+            // {2700, 800, -7, 0, 0.1f, 0.18f, 100, 50},
+            // {2250, 100, -10, 0, 0.1f, 0.18f, 100, 40}
+        };
         ecs.add_component<rtype::server::Basics>(basics, {enemies});
 
         createEnemyWithAI(ecs,
             { 1900, 300, -5, 0, 0.1f, 0.18f, 100, 80 },
             rtype::server::EnemyAI::BehaviorType::SINUSOIDAL);
-
+        //maybe add compo
 
         std::cout << "Attention!!! \nDémarrage du serveur R-Type...\n"
                   << std::endl;
 
         subscribe_all_systems(ecs);
+
+        std::cout << "Subscribed systems" << std::endl;
 
         server_loop(ecs);
 
