@@ -33,7 +33,7 @@ void createEnemyWithAI(ECS& ecs, rtype::server::EnemyInfo enemyInfo, rtype::serv
     case rtype::server::EnemyAI::BehaviorType::SINUSOIDAL:
         ecs.add_component<rtype::server::EnemyAI>(entity, rtype::server::EnemyAI{
             .behaviorType = behavior,
-            .amplitude = 50.0f,
+            .amplitude = 5.0f,
             .frequency = 2.0f
             });
         break;
