@@ -1,0 +1,31 @@
+Mouvement sinusoïdal :
+L'ennemi se déplace de gauche à droite en faisant des vagues
+need: amplitude, frequency
+
+
+Pattern en cercle :
+L'ennemi tourne autour d'un point fixe
+need: radius, speed
+
+
+Attaque speed :
+L'ennemi fonce directement sur le joueur (Il calcule la direction vers le joueur et se déplace vers lui)
+need: speed
+
+
+Formation en V :
+Permet de créer des groupes d'ennemis en formation en V
+nee: spacing, index_pos
+
+
+Tir en éventail :
+Tire 3 projectiles en forme d'éventail
+need: angle, bulletspeed
+
+
+Comportement de boss :
+Multiples phases :
+Phase 1 : Mouvement en vagues avec tirs simples réguliers
+Phase 2 : Séquence de charges vers le joueur suivies de retraits
+Phase 3 : Mouvement circulaire avec tirs en éventail plus fréquents
+
