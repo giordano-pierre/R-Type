@@ -179,8 +179,11 @@ void killEntity(ECS &ecs, const ReceiveEvent &rec_event,
         const auto &tag = tags[i];
 
         if (tag &&
-            tag.value()._id == rec_event.payload["id"].get<std::string>())
+            tag.value()._id == rec_event.payload["id"].get<std::string>()) {
+            std::cout << "B KILL" << std::endl;
             ecs.kill_entity(ecs.entity_from_index(i));
+            std::cout << "A KILL" << std::endl;
+        }
     }
 }
 
