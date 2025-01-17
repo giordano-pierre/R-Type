@@ -13,6 +13,7 @@
 #include "ecsObjects.hpp"
 #include "loadSystems.hpp"
 #include "tools.hpp"
+#include "events/CaptureInputEvent.hpp"
 
 bool is_number(char *str) {
     for (int i = 0; i < strlen(str); i++) {
@@ -71,6 +72,7 @@ int main(int ac, char *argv[]) {
     ecs.register_event<rtype::client::AnimeEvent>();
     ecs.register_event<RequestEvent>();
     ecs.register_event<ReceiveEvent>();
+    ecs.register_event<rtype::client::CaptureInputEvent>();
 
     UDPClient client(ecs, host, port);
 
@@ -99,7 +101,11 @@ int main(int ac, char *argv[]) {
                   rtype::client::Drawable, rtype::client::Text,
                   rtype::client::Selectable>(windowSys, true);
     ecs.subscribe<rtype::client::ChangeKey, rtype::client::Window>(windowSys,
-                                                                   true);
+                                                                    true);
+    ecs.subscribe<rtype::client::CaptureInputEvent, rtype::client::Window,
+                  rtype::client::Position, rtype::client::Hitbox,
+                  rtype::client::Drawable, rtype::client::Text,
+                  rtype::client::Selectable>(windowSys, true);
 
     auto cheatSys = rtype::client::CheatSys();
     ecs.subscribe<rtype::client::InputEvent, rtype::client::Window>(cheatSys,
