@@ -45,12 +45,15 @@ void ResendEventSys::operator()(ECS &ecs, const CheckEvent &check_event,
             ;
             if (client_it->second.first != target) {
                 if (check_event._time > 0) {
-                    ecs.post<CheckEvent>({check_event._action, check_event._idr, check_event._request, check_event._time - 1});
+                    ecs.post<CheckEvent>({check_event._action, check_event._idr,
+                                          check_event._request,
+                                          check_event._time - 1});
                     break;
                 }
                 std::cout << "RESEND CREATE PLAYER" << std::endl;
                 ecs.post<RequestEvent>(check_event._request);
-                ecs.post<CheckEvent>({check_event._action, check_event._idr, check_event._request, 120});
+                ecs.post<CheckEvent>({check_event._action, check_event._idr,
+                                      check_event._request, 120});
                 break;
             }
         }

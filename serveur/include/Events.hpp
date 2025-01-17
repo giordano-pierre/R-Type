@@ -34,7 +34,7 @@ struct RemoveClient {
 struct CheckEvent {
     CheckEvent(const Protocol &action, const std::string &idr,
                const RequestEvent &req, int time)
-        : _action(action), _idr(idr), _request(req), _time(time) {};
+        : _action(action), _idr(idr), _request(req), _time(time){};
 
     const Protocol _action;
     const std::string _idr;
