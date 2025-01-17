@@ -9,6 +9,7 @@
 #include "buttonFunctions.hpp"
 #include "components/Pressable.hpp"
 #include "events/InputEvent.hpp"
+#include <iostream>
 
 namespace rtype::client {
 
@@ -216,14 +217,15 @@ void WindowSys::drawHitboxes(SparseArray<Position> &positions,
     }
 }
 
-void WindowSys::operator()(ECS &ecs, const FrameEvent &,
-                           const SparseArray<Window> &windows,
-                           SparseArray<Position> &positions,
-                           SparseArray<Hitbox> &hitboxs,
-                           SparseArray<Drawable> &sprites,
-                           SparseArray<Text> &texts,
-                           SparseArray<Selectable> &selectables) {
-    auto &myWindow = windows[0].value();
+void WindowSys::draw(ECS &ecs,
+              const SparseArray<Window> &windows,
+              SparseArray<Position> &positions,
+              SparseArray<Hitbox> &hitboxs,
+              SparseArray<Drawable> &sprites,
+              SparseArray<Text> &texts,
+              SparseArray<Selectable> &selectables)
+{
+        auto &myWindow = windows[0].value();
     // bool displayHitbox = (windows.size() > 0 && windows[0])
     //                          ? windows[0].value()._displayHitboxs
     //                          : false;
@@ -258,6 +260,16 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
 
     while (_window.pollEvent(event))
         extractInput(ecs, event, myWindow._inputConfig);
+}
+
+void WindowSys::operator()(ECS &ecs, const FrameEvent &,
+                           const SparseArray<Window> &windows,
+                           SparseArray<Position> &positions,
+                           SparseArray<Hitbox> &hitboxs,
+                           SparseArray<Drawable> &sprites,
+                           SparseArray<Text> &texts,
+                           SparseArray<Selectable> &selectables) {
+    draw(ecs, windows, positions, hitboxs, sprites, texts, selectables);
 }
 
 bool isBanKey(sf::Keyboard::Key key) {
@@ -345,5 +357,71 @@ void WindowSys::operator()(ECS &ecs, const ChangeKey &e_changeK,
         }
     }
     press(ecs, e_changeK._i);
+}
+
+// helper func to get the pressed char
+char mapKeyToChar(const sf::Event::KeyEvent &keyEvent) {
+    static const std::unordered_map<sf::Keyboard::Key, char> keyToChar = {
+        {sf::Keyboard::A, 'a'}, {sf::Keyboard::B, 'b'}, {sf::Keyboard::C, 'c'},
+        {sf::Keyboard::D, 'd'}, {sf::Keyboard::E, 'e'}, {sf::Keyboard::F, 'f'},
+        {sf::Keyboard::G, 'g'}, {sf::Keyboard::H, 'h'}, {sf::Keyboard::I, 'i'},
+        {sf::Keyboard::J, 'j'}, {sf::Keyboard::K, 'k'}, {sf::Keyboard::L, 'l'},
+        {sf::Keyboard::M, 'm'}, {sf::Keyboard::N, 'n'}, {sf::Keyboard::O, 'o'},
+        {sf::Keyboard::P, 'p'}, {sf::Keyboard::Q, 'q'}, {sf::Keyboard::R, 'r'},
+        {sf::Keyboard::S, 's'}, {sf::Keyboard::T, 't'}, {sf::Keyboard::U, 'u'},
+        {sf::Keyboard::V, 'v'}, {sf::Keyboard::W, 'w'}, {sf::Keyboard::X, 'x'},
+        {sf::Keyboard::Y, 'y'}, {sf::Keyboard::Z, 'z'},
+        {sf::Keyboard::Num1, '1'}, {sf::Keyboard::Num2, '2'}, {sf::Keyboard::Num3, '3'},
+        {sf::Keyboard::Num4, '4'}, {sf::Keyboard::Num5, '5'}, {sf::Keyboard::Num6, '6'},
+        {sf::Keyboard::Num7, '7'}, {sf::Keyboard::Num8, '8'}, {sf::Keyboard::Num9, '9'},
+        {sf::Keyboard::Num0, '0'},
+        {sf::Keyboard::Space, ' '}, {sf::Keyboard::Dash, '-'}, {sf::Keyboard::Equal, '='}
+    };
+
+    if (keyToChar.find(keyEvent.code) != keyToChar.end()) {
+        return keyToChar.at(keyEvent.code);
+    }
+    return '\0';
+}
+
+void WindowSys::operator()(ECS &ecs, const CaptureInputEvent &e_capture,
+                            const SparseArray<Window> &windows,
+                            SparseArray<Position> &positions,
+                            SparseArray<Hitbox> &hitboxs,
+                            SparseArray<Drawable> &sprites,
+                            SparseArray<Text> &texts,
+                            SparseArray<Selectable> &selectables) {
+    bool run = true;
+    sf::Event event;
+
+    while (run) {
+        while (_window.pollEvent(event)) {
+            if (event.type == sf::Event::KeyReleased) {
+                if (e_capture._i >= texts.size() || !texts[e_capture._i]) {
+                    press(ecs, e_capture._i);
+                    return;
+                }
+                //managing the leave of the edit mode
+                if (event.key.code == sf::Keyboard::Escape || event.key.code == sf::Keyboard::Enter) {
+                    press(ecs, e_capture._i);
+                    run = false;
+                } else if (event.key.code == sf::Keyboard::Backspace) {
+                    // handling bakspace
+                    auto &text = texts[e_capture._i];
+                    if (!text->_str["DEFAULT"]->empty()) {
+                        text->_str["DEFAULT"]->pop_back();
+                    }
+                } else {
+                    char pressedChar = mapKeyToChar(event.key); //appending the pressed char
+                    if (pressedChar != '\0') {
+                        auto &text = texts[e_capture._i];
+
+                        text->_str["DEFAULT"]->append(1, pressedChar);
+                    }
+                }
+                draw(ecs, windows, positions, hitboxs, sprites, texts, selectables);
+            }
+        }
+    }
 }
 } // namespace rtype::client
