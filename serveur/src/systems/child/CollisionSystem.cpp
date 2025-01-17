@@ -61,7 +61,6 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
                 tempY1 > tempY2 + box2.value().height ||
                 tempY1 + box1.value().height < tempY2)
                 continue;
-            // std::cout << "AHHHHHHHHHHHHHHHHHHHHHH" << std::endl;
             if (tag1.value()._type == PLAYER && isEnemy(tag2.value()._type)) {
                 ecs.add_component<Dead>(ecs.entity_from_index(j), {});
                 if (i < healths.size() && healths[i]) {

@@ -84,8 +84,7 @@ void LifeSys::operator()(ECS &ecs, const TicEvent &tic_event,
                                {{"x", ennemy.x_hitbox},
                                 {"y", ennemy.y_hitbox}}},
                               {"hp", ennemy.health},
-                              {"sc", ennemy.score},
-                              {"lu", 1}},
+                              {"sc", ennemy.score}},
                              uuid});
                     st.value()._enemies.erase(st.value()._enemies.begin() + j);
                 }

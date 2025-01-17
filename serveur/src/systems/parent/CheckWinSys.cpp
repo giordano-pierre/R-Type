@@ -58,6 +58,22 @@ void CheckWinSys::operator()(ECS &ecs, const TicEvent &,
                 }
                 std::cout << "WIN3 !!!" << std::endl;
             }
+            if (lose) {
+                std::cout << "LOSE !!!" << std::endl;
+                child.value()._ecs_child.clean<TicEvent>();
+                std::cout << "LOSE1 !!!" << std::endl;
+                removeAll(child.value()._ecs_child);
+                std::cout << "LOSE2 !!!" << std::endl;
+                ro.value()._state = WAITING;
+                ro.value()._lastUpdate = 0;
+                for (const auto &[uuid, _] : ro.value()._clients_uuid) {
+                    RequestEvent event = {SV_GAME_OVER, {}, uuid};
+                    ecs.post<RequestEvent>(event);
+                    // ecs.post<CheckEvent>(
+                    //     {SV_GAME_OVER, tag.value()._id, event, 60});
+                }
+                std::cout << "LOSE3 !!!" << std::endl;
+            }
         }
     }
 }

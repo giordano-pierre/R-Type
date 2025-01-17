@@ -29,9 +29,11 @@ void joinRoom(ECS &ecs, const ReceiveEvent &rec_event, Window &myWindow) {
         myWindow._master = true;
     else
         myWindow._master = false;
-    ecs.post<DeleteEvent>({M_GENERAL});
-    ecs.post<DeleteEvent>({M_ROOM});
-    ecs.post<CreationEvent>({M_ROOM});
+    if (!myWindow._gameState) {
+        ecs.post<DeleteEvent>({M_GENERAL});
+        ecs.post<DeleteEvent>({M_ROOM});
+        ecs.post<CreationEvent>({M_ROOM});
+    }
 }
 
 int countPlayer(ECS &ecs) {
@@ -59,7 +61,7 @@ void createDrawable(ECS &ecs, Entity &entity, Window &myWindow,
              1,
              1});
         break;
-    case SHOOT1:
+    case SHOT:
         ecs.add_component<Drawable>(entity,
                                     {myWindow._myTextures.getTexture(
                                          "assets/images/shot/purple_shot.png"),
@@ -112,6 +114,7 @@ void createEntity(ECS &ecs, Entity &entity, const ReceiveEvent &rec_event,
     if (rec_event.payload.contains("sc"))
         ecs.add_component<Score>(entity, {rec_event.payload["sc"].get<int>()});
     ecs.add_component<LastUpdate>(entity, {1});
+    ecs.add_component<Scene>(entity, {GAME});
 }
 
 bool entityExist(const ReceiveEvent &rec_event, const SparseArray<Tag> &tags) {

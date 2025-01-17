@@ -39,42 +39,7 @@ void ShootSys::operator()(ECS &ecs, const InputEvent &e_input,
 
         if (play && pos && box && tag && player1Shoot &&
             play.value()._id == 1) {
-            nlohmann::json tmp = {
-                {"player_id", tag.value()._id},
-                {"tmp_id", fetch_new_uuid()},
-                {"type", EntityType::SHOT},
-                {"pos",
-                 {
-                     {"x", pos.value()._server.x + (box.value()._server.x / 2)},
-                     {"y", pos.value()._server.y},
-                 }},
-                {"velocity",
-                 {
-                     {"x", 15},
-                     {"y", 0},
-                 }},
-                {"hitbox",
-                 {
-                     {"x", 0.07},
-                     {"y", 0.05},
-                 }},
-            };
-
-            // ecs.post<RequestEvent>({CLIENT_CREATE, tmp});
-            Entity shot = ecs.spawn_entity();
-            ecs.add_component<Position>(
-                shot, {pos.value()._server.x + (box.value()._server.x / 2),
-                       pos.value()._server.y});
-            ecs.add_component<Velocity>(shot, {15, 0});
-            ecs.add_component<Tag>(shot, {SHOT});
-            ecs.add_component<Hitbox>(shot, {{0.07, 0.05}});
-            ecs.add_component<Drawable>(
-                shot, {windows[0].value()._myTextures.getTexture(
-                           "assets/images/shot/purple_shot.png"),
-                       {251, 144},
-                       {251, 144},
-                       1,
-                       2});
+            ecs.post<RequestEvent>({CL_SHOOT, {{"idp", tag.value()._id}}});
         }
     }
 }

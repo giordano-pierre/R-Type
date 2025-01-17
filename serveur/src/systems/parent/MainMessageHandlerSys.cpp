@@ -12,6 +12,16 @@
 
 namespace rtype::server {
 
+Entity getEntityByID(const std::string &id, const SparseArray<Tag> &tags) {
+    for (size_t i = 0; i < tags.size(); ++i) {
+        const auto &tag = tags[i];
+
+        if (tag && tag.value()._id == id)
+            return Entity(i);
+    }
+    return Entity(0);
+}
+
 void movePlayer(const ReceiveEvent &rec_event, const SparseArray<Tag> &tags,
                 SparseArray<Velocity> &velocities) {
     auto input = rec_event.payload["e_type"].get<std::string>();
@@ -262,8 +272,6 @@ void playerIsCreated(ECS &ecs, const ReceiveEvent &rec_event,
 void playerShoot(ECS &ecs, const ReceiveEvent &rec_event,
                  const SparseArray<Room> &rooms, const SparseArray<Tag> &tags,
                  SparseArray<Child> &children) {
-    std::string idRoom = rec_event.payload["idr"];
-
     for (size_t i = 0;
          i < rooms.size() && i < tags.size() && i < children.size(); ++i) {
         const auto &ro = rooms[i];
@@ -274,8 +282,40 @@ void playerShoot(ECS &ecs, const ReceiveEvent &rec_event,
             if (ro.value()._clients_uuid.find(rec_event.sender_uuid) ==
                 ro.value()._clients_uuid.end())
                 return;
-            std::cout << "Client " << rec_event.sender_uuid << " Shoot !!!"
-                      << std::endl;
+            auto &subTags = child.value()._ecs_child.get_components<Tag>();
+            auto &subPosistions = child.value()._ecs_child.get_components<Position>();
+            auto &subHitboxs = child.value()._ecs_child.get_components<HitBox>();
+            Entity player = getEntityByID(rec_event.payload["idp"], subTags);
+            std::string newId = fetch_new_uuid();
+            nlohmann::json tmp = {
+                {"id", newId},
+                {"type", EntityType::SHOT},
+                {"idp", rec_event.payload["idp"]},
+                {"pos",
+                 {
+                     {"x", subPosistions[player].value().x + (subHitboxs[player].value().x / 2)},
+                     {"y", subPosistions[player].value().y},
+                 }},
+                {"vel",
+                 {
+                     {"x", 15},
+                     {"y", 0},
+                 }},
+                {"hit",
+                 {
+                     {"x", 0.07},
+                     {"y", 0.05},
+                 }},
+            };
+            Entity newShot = child.value()._ecs_child.spawn_entity();
+            child.value()._ecs_child.add_component<Tag>(newShot, {newId, SHOT});
+            child.value()._ecs_child.add_component<Owner>(newShot, {rec_event.payload["idp"]});
+            child.value()._ecs_child.add_component<Position>(newShot, { subPosistions[player].value().x + (subHitboxs[player].value().x / 2), subPosistions[player].value().y});
+            child.value()._ecs_child.add_component<Velocity>(newShot, {15, 0});
+            child.value()._ecs_child.add_component<HitBox>(newShot, {0.07, 0.05});
+            for (const auto &[uuid, _] : ro.value()._clients_uuid) {
+                ecs.post<RequestEvent>({SV_CREATE_ENTITY, tmp, uuid});
+            }
         }
     }
 }

@@ -39,16 +39,16 @@ enum Protocol {
     // Room Handler
     // (info_room = id, nb_max, nb_cur)
     // (info_player = id, color)
-    // GET_ROOM, // -> Serveur envoi les rooms au client (vide, info_rooms)
-    // CREATE_ROOM, // -> Serveur crée une nouvelle room avec le client pour
+    GET_ROOM, // -> Serveur envoi les rooms au client (vide, info_rooms)
+    CREATE_ROOM, // -> Serveur crée une nouvelle room avec le client pour
     // chef (info_room, id_room)
     JOIN_ROOM, // -> Serveur ajoute le joueur à la room -> informe les autres
                // clients (id room, info_player) ?? sécu
 
     // Stage Handler
     // (info_stage = nb, diff, lock)
-    // GET_STAGE, // -> Serveur envoi les niveaux au client (vide, info_stages)
-    // SELECT_STAGE, // -> Serveur selectionne le niveaux pour la partie ->
+    GET_STAGE, // -> Serveur envoi les niveaux au client (vide, info_stages)
+    SELECT_STAGE, // -> Serveur selectionne le niveaux pour la partie ->
     // informe les autres clients (id_stage, info_stage)
 
     // Game Handler
