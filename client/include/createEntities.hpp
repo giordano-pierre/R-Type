@@ -17,4 +17,5 @@ void createConfigEntities(ECS &ecs);
 void createConfigGeneralEntites(ECS &ecs);
 void createConfigPlayer1Entites(ECS &ecs);
 void createConfigPlayer2Entites(ECS &ecs);
+void createMenuRoomEntities(ECS &ecs);
 } // namespace rtype::client
