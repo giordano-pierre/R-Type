@@ -283,8 +283,10 @@ void playerShoot(ECS &ecs, const ReceiveEvent &rec_event,
                 ro.value()._clients_uuid.end())
                 return;
             auto &subTags = child.value()._ecs_child.get_components<Tag>();
-            auto &subPosistions = child.value()._ecs_child.get_components<Position>();
-            auto &subHitboxs = child.value()._ecs_child.get_components<HitBox>();
+            auto &subPosistions =
+                child.value()._ecs_child.get_components<Position>();
+            auto &subHitboxs =
+                child.value()._ecs_child.get_components<HitBox>();
             Entity player = getEntityByID(rec_event.payload["idp"], subTags);
             std::string newId = fetch_new_uuid();
             nlohmann::json tmp = {
@@ -293,7 +295,8 @@ void playerShoot(ECS &ecs, const ReceiveEvent &rec_event,
                 {"idp", rec_event.payload["idp"]},
                 {"pos",
                  {
-                     {"x", subPosistions[player].value().x + (subHitboxs[player].value().x / 2)},
+                     {"x", subPosistions[player].value().x +
+                               (subHitboxs[player].value().x / 2)},
                      {"y", subPosistions[player].value().y},
                  }},
                 {"vel",
@@ -309,10 +312,15 @@ void playerShoot(ECS &ecs, const ReceiveEvent &rec_event,
             };
             Entity newShot = child.value()._ecs_child.spawn_entity();
             child.value()._ecs_child.add_component<Tag>(newShot, {newId, SHOT});
-            child.value()._ecs_child.add_component<Owner>(newShot, {rec_event.payload["idp"]});
-            child.value()._ecs_child.add_component<Position>(newShot, { subPosistions[player].value().x + (subHitboxs[player].value().x / 2), subPosistions[player].value().y});
+            child.value()._ecs_child.add_component<Owner>(
+                newShot, {rec_event.payload["idp"]});
+            child.value()._ecs_child.add_component<Position>(
+                newShot, {subPosistions[player].value().x +
+                              (subHitboxs[player].value().x / 2),
+                          subPosistions[player].value().y});
             child.value()._ecs_child.add_component<Velocity>(newShot, {15, 0});
-            child.value()._ecs_child.add_component<HitBox>(newShot, {0.07, 0.05});
+            child.value()._ecs_child.add_component<HitBox>(newShot,
+                                                           {0.07, 0.05});
             for (const auto &[uuid, _] : ro.value()._clients_uuid) {
                 ecs.post<RequestEvent>({SV_CREATE_ENTITY, tmp, uuid});
             }
