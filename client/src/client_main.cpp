@@ -11,9 +11,9 @@
 #include "UDPClient.hpp"
 #include "createEntities.hpp"
 #include "ecsObjects.hpp"
+#include "events/CaptureInputEvent.hpp"
 #include "loadSystems.hpp"
 #include "tools.hpp"
-#include "events/CaptureInputEvent.hpp"
 
 bool is_number(char *str) {
     for (int i = 0; i < strlen(str); i++) {
@@ -101,7 +101,7 @@ int main(int ac, char *argv[]) {
                   rtype::client::Drawable, rtype::client::Text,
                   rtype::client::Selectable>(windowSys, true);
     ecs.subscribe<rtype::client::ChangeKey, rtype::client::Window>(windowSys,
-                                                                    true);
+                                                                   true);
     ecs.subscribe<rtype::client::CaptureInputEvent, rtype::client::Window,
                   rtype::client::Position, rtype::client::Hitbox,
                   rtype::client::Drawable, rtype::client::Text,

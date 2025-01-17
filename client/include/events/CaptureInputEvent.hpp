@@ -10,7 +10,7 @@
 #include "ECS/ECS.hpp"
 
 namespace rtype::client {
-    struct CaptureInputEvent {
-        Entity _i;
-    };
-}
+struct CaptureInputEvent {
+    Entity _i;
+};
+} // namespace rtype::client

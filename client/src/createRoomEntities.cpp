@@ -4,9 +4,9 @@
 ** File description:
 ** createEntities
 */
-#include "createEntities.hpp"
 #include "RequestEvent.hpp"
 #include "buttonFunctions.hpp"
+#include "createEntities.hpp"
 #include "ecsObjects.hpp"
 #include <iostream>
 
@@ -30,15 +30,15 @@ void createMenuRoomEntities(ECS &ecs) {
                                  {768, 432},
                                  48});
 
-    //the input button
+    // the input button
     Entity button1 = ecs.spawn_entity();
     ecs.add_component<Position>(
-        button1,
-        {float(serverSize.x) / 2, float(serverSize.y) / 2});
+        button1, {float(serverSize.x) / 2, float(serverSize.y) / 2});
     ecs.add_component<Tag>(button1, {CPLAYER1});
     ecs.add_component<Hitbox>(button1, {{float(1) / 10, float(1) / 10}});
     texts.clear();
-    texts.insert({"DEFAULT", std::make_shared<std::string>("Enter Room Number:")});
+    texts.insert(
+        {"DEFAULT", std::make_shared<std::string>("Enter Room Number:")});
     // texts.insert({"EN", std::make_shared<std::string>("")});
     ecs.add_component<Text>(button1, {texts,
                                       myWindow._font,
@@ -63,18 +63,16 @@ void createMenuRoomEntities(ECS &ecs) {
         button1, {myWindow._myTextures.getTexture(
                       "assets/images/utils/button_config2_act.png"),
                   [](ECS &ecs, Entity i) {
-                    auto textOpt = ecs.get_components<Text>()[i];
-                    if (textOpt.has_value()) {
-                        auto &text = *textOpt;
-                        if (text._str["DEFAULT"]) {
-                            text._str["DEFAULT"]->clear();
-                        }
-                    }
+                      auto textOpt = ecs.get_components<Text>()[i];
+                      if (textOpt.has_value()) {
+                          auto &text = *textOpt;
+                          if (text._str["DEFAULT"]) {
+                              text._str["DEFAULT"]->clear();
+                          }
+                      }
                       press(ecs, i);
                       ecs.post<CaptureInputEvent>({i});
                   }});
-
-
 
     // title
     Entity title = ecs.spawn_entity();
@@ -91,7 +89,6 @@ void createMenuRoomEntities(ECS &ecs) {
                                     sf::Color::White,
                                     sf::Text::Style::Bold});
     // ecs.add_component<Drawable>(title,
-                                // );
-
+    // );
 }
-}
+} // namespace rtype::client
