@@ -13,7 +13,6 @@ namespace rtype::server {
 void LifeSys::operator()(ECS &ecs, const TicEvent &tic_event,
                          SparseArray<Child> &childrens,
                          const SparseArray<Room> &rooms) {
-    // std::cout << "TEST2" << std::endl;
     for (size_t i = 0; i < childrens.size() && i < rooms.size(); ++i) {
         auto &child = childrens[i];
         const auto &ro = rooms[i];
@@ -33,7 +32,6 @@ void LifeSys::operator()(ECS &ecs, const TicEvent &tic_event,
                             {SV_KILL_ENTITY, {{"id", tag.value()._id}}, uuid});
                     }
                     std::cout << "BEFORE KILL" << std::endl;
-                    // dead.value()._isDead = true;
                     child.value()._ecs_child.kill_entity(
                         child.value()._ecs_child.entity_from_index(j));
                     std::cout << "AFTER KILL" << std::endl;
@@ -41,7 +39,6 @@ void LifeSys::operator()(ECS &ecs, const TicEvent &tic_event,
             }
         }
     }
-    // std::cout << "FINNNNNNNNNNN TEST2" << std::endl;
 }
 
 void LifeSys::operator()(ECS &ecs, const TicEvent &tic_event,
@@ -85,7 +82,7 @@ void LifeSys::operator()(ECS &ecs, const TicEvent &tic_event,
                                 {"y", ennemy.y_velocity}}},
                               {"hit",
                                {{"x", ennemy.x_hitbox},
-                                {"y", ennemy.x_hitbox}}},
+                                {"y", ennemy.y_hitbox}}},
                               {"hp", ennemy.health},
                               {"sc", ennemy.score},
                               {"lu", 1}},

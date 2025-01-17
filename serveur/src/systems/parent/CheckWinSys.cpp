@@ -42,19 +42,6 @@ void CheckWinSys::operator()(ECS &ecs, const TicEvent &,
                 if (lose && subTag && subTag.value()._type == PLAYER)
                     lose = false;
             }
-            // if (st.value()._enemies.empty()) {
-            //     win = true;
-
-            //     for (size_t j = 0; j < subTags.size(); ++j) {
-            //         const auto &subTag = subTags[j];
-
-            //         if (subTag && subTag.value()._type >= ENEMY1 &&
-            //         subTag.value()._type <= ENEMY6) {
-            //             win = false;
-            //             break;
-            //         }
-            //     }
-            // }
             if (win) {
                 std::cout << "WIN !!!" << std::endl;
                 child.value()._ecs_child.clean<TicEvent>();
@@ -66,8 +53,8 @@ void CheckWinSys::operator()(ECS &ecs, const TicEvent &,
                 for (const auto &[uuid, _] : ro.value()._clients_uuid) {
                     RequestEvent event = {SV_GAME_OVER, {}, uuid};
                     ecs.post<RequestEvent>(event);
-                    ecs.post<CheckEvent>(
-                        {SV_GAME_OVER, tag.value()._id, event});
+                    // ecs.post<CheckEvent>(
+                    //     {SV_GAME_OVER, tag.value()._id, event, 60});
                 }
                 std::cout << "WIN3 !!!" << std::endl;
             }
