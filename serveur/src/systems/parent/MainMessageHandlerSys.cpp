@@ -302,8 +302,6 @@ void MainMessageHandlerSys::operator()(ECS &ecs, const ReceiveEvent &rec_event,
                                        SparseArray<Room> &rooms,
                                        SparseArray<Tag> &tags,
                                        SparseArray<Child> &children) {
-    // std::cout << rec_event.action << std::endl;
-    // std::cout << rec_event.payload.dump() << std::endl;
     switch (rec_event.action) {
     case DISCONNECT: {
         disconnect(ecs, rec_event, rooms, tags, children);
@@ -329,25 +327,6 @@ void MainMessageHandlerSys::operator()(ECS &ecs, const ReceiveEvent &rec_event,
         gameOver(ecs, rec_event, rooms, tags);
         return;
     }
-    // case CL_MOVE: {
-    //     for (size_t i = 0; i < rooms.size() && i < children.size(); ++i) {
-    //         auto &ro = rooms[i];
-    //         auto &child = children[i];
-
-    //         if (ro && child &&
-    //             ro.value()._clients_uuid.find(rec_event.sender_uuid) !=
-    //                 ro.value()._clients_uuid.end()) {
-    //             const auto &tags =
-    //                 child.value()._ecs_child.get_components<Tag>();
-    //             auto &velocities =
-    //                 child.value()._ecs_child.get_components<Velocity>();
-
-    //             movePlayer(rec_event, tags, velocities);
-    //             return;
-    //         }
-    //     }
-    //     return;
-    // }
     default:
         break;
     }
