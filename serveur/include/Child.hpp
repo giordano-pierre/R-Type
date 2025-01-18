@@ -8,11 +8,11 @@
 #pragma once
 
 #include "systems/child/CollisionSystem.hpp"
+#include "systems/child/EnemiesSystem.hpp"
 #include "systems/child/HealthSystem.hpp"
 #include "systems/child/MovementSystem.hpp"
 #include "systems/child/RemoveSys.hpp"
 #include "systems/child/SubMessageHandlerSys.hpp"
-#include "systems/child/EnemiesSystem.hpp"
 
 namespace rtype::server {
 

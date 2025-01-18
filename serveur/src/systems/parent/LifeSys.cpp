@@ -5,8 +5,8 @@
 ** LifeSys
 */
 
-#include "systems/child/EnemiesSystem.hpp"
 #include "systems/parent/LifeSys.hpp"
+#include "systems/child/EnemiesSystem.hpp"
 #include <iostream>
 
 namespace rtype::server {
@@ -57,7 +57,8 @@ void LifeSys::operator()(ECS &ecs, const TicEvent &tic_event,
 
                 ennemy.spawn_tic -= 1;
                 if (ennemy.spawn_tic <= 0) {
-                    auto resp = createSineEnemy(child.value()._ecs_child, ennemy.x_pos, ennemy.y_pos);
+                    auto resp = createSineEnemy(child.value()._ecs_child,
+                                                ennemy.x_pos, ennemy.y_pos);
                     // Entity ennemyE = child.value()._ecs_child.spawn_entity();
                     // std::string idE = fetch_new_uuid();
                     // child.value()._ecs_child.add_component<Tag>(
@@ -74,9 +75,7 @@ void LifeSys::operator()(ECS &ecs, const TicEvent &tic_event,
                     //     ennemyE, {ennemy.score});
                     for (const auto &[uuid, _] : ro.value()._clients_uuid)
                         ecs.post<RequestEvent>(
-                            {SV_CREATE_ENTITY,
-                             resp.payload,
-                             uuid});
+                            {SV_CREATE_ENTITY, resp.payload, uuid});
                     st.value()._enemies.erase(st.value()._enemies.begin() + j);
                 }
             }
