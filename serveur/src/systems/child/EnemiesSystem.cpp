@@ -18,48 +18,47 @@ void EnemiesSys::initLua() {
 }
 void EnemiesSys::registerComponents() {
     lua.new_enum<EnemyAI::BehaviorType>(
-        "BehaviorType", { {"SINUSOIDAL", EnemyAI::BehaviorType::SINUSOIDAL},
+        "BehaviorType", {{"SINUSOIDAL", EnemyAI::BehaviorType::SINUSOIDAL},
                          {"CIRCULAR", EnemyAI::BehaviorType::CIRCULAR},
                          {"CHASE", EnemyAI::BehaviorType::CHASE},
                          {"V_FORMATION", EnemyAI::BehaviorType::V_FORMATION},
-                         {"BOSS", EnemyAI::BehaviorType::BOSS} });
+                         {"BOSS", EnemyAI::BehaviorType::BOSS}});
 
     lua.new_usertype<EnemyAI>("EnemyAI", "behaviorType", &EnemyAI::behaviorType,
-        "amplitude", &EnemyAI::amplitude, "frequency",
-        &EnemyAI::frequency, "radius", &EnemyAI::radius,
-        "speed", &EnemyAI::speed, "spacing",
-        &EnemyAI::spacing, "index", &EnemyAI::index);
+                              "amplitude", &EnemyAI::amplitude, "frequency",
+                              &EnemyAI::frequency, "radius", &EnemyAI::radius,
+                              "speed", &EnemyAI::speed, "spacing",
+                              &EnemyAI::spacing, "index", &EnemyAI::index);
 
     lua.new_usertype<Position>("Position", "x", &Position::x, "y",
-        &Position::y);
+                               &Position::y);
 
     lua.new_usertype<Velocity>("Velocity", "x", &Velocity::x, "y",
-        &Velocity::y);
+                               &Velocity::y);
 }
 
 void EnemiesSys::loadBehaviors() {
     try {
         lua.script_file(scriptsPath);
-    }
-    catch (const sol::error& e) {
+    } catch (const sol::error &e) {
         std::cerr << "Erreur lors du chargement des comportements: " << e.what()
-            << std::endl;
+                  << std::endl;
     }
 }
 
-void EnemiesSys::operator()(ECS& ecs, const rtype::server::TicEvent& tic,
-    SparseArray<Position>& positions,
-    const SparseArray<Tag>& tags,
-    SparseArray<EnemyAI>& ais,
-    SparseArray<Velocity>& velocities) {
+void EnemiesSys::operator()(ECS &ecs, const rtype::server::TicEvent &tic,
+                            SparseArray<Position> &positions,
+                            const SparseArray<Tag> &tags,
+                            SparseArray<EnemyAI> &ais,
+                            SparseArray<Velocity> &velocities) {
     for (size_t i = 0; i < positions.size(); ++i) {
         if (!positions[i] || !tags[i] || !ais[i] || !velocities[i])
             continue;
         if ((*tags[i])._type != EntityType::ENEMY1)
             continue;
-        auto& pos = *positions[i];
-        auto& ai = *ais[i];
-        auto& vel = *velocities[i];
+        auto &pos = *positions[i];
+        auto &ai = *ais[i];
+        auto &vel = *velocities[i];
         static timer::time_point<timer::steady_clock> lastTic = tic.time_stamp;
         float delta =
             std::chrono::duration<float>(tic.time_stamp - lastTic).count();
@@ -68,8 +67,8 @@ void EnemiesSys::operator()(ECS& ecs, const rtype::server::TicEvent& tic,
     }
 }
 
-void EnemiesSys::updateBehavior(Position& pos, Velocity& vel, EnemyAI& ai,
-    float dt) {
+void EnemiesSys::updateBehavior(Position &pos, Velocity &vel, EnemyAI &ai,
+                                float dt) {
     switch (ai.behaviorType) {
     case EnemyAI::BehaviorType::SINUSOIDAL: {
         sol::function update = lua["SineMovement"]["update"];
@@ -113,7 +112,6 @@ void EnemiesSys::updateBehavior(Position& pos, Velocity& vel, EnemyAI& ai,
     }
     }
 }
-
 
 } // namespace systems
 } // namespace rtype::server
