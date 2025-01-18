@@ -83,3 +83,16 @@ BossBehavior = {
     }
 }
 
+function BossBehavior:update(position, velocity, ai, playerPos, dt)
+    self.phaseTimer = self.phaseTimer + dt
+
+    if self.phaseTimer >= self.phaseDuration then
+        self.currentPhase = (self.currentPhase % #self.phases) + 1
+        self.phaseTimer = 0
+    end
+
+    local phase = self.phases[self.currentPhase]
+    if phase then
+        phase(self, position, velocity, ai, playerPos, dt)
+    end
+end
