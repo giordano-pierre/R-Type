@@ -117,3 +117,59 @@ void EnemiesSys::updateBehavior(Position& pos, Velocity& vel, EnemyAI& ai,
 
 } // namespace systems
 } // namespace rtype::server
+
+void createEnemyWithAI(ECS& ecs, rtype::server::EnemyInfo enemyInfo,
+    rtype::server::EnemyAI::BehaviorType behavior) {
+    Entity entity = ecs.spawn_entity();
+    std::string uuid = fetch_new_uuid();
+
+    ecs.add_component<rtype::server::Position>(
+        entity, { enemyInfo.x_pos, enemyInfo.y_pos });
+
+    ecs.add_component<rtype::server::Velocity>(
+        entity, { enemyInfo.x_velocity, enemyInfo.y_velocity, true });
+
+    ecs.add_component<rtype::server::HitBox>(
+        entity, { enemyInfo.x_hitbox, enemyInfo.y_hitbox });
+
+    ecs.add_component<rtype::server::Health>(entity, {});
+    ecs.add_component<rtype::server::Score>(entity, { enemyInfo.score });
+    ecs.add_component<rtype::server::Tag>(entity, { uuid, EntityType::ENEMY1 });
+
+    switch (behavior) {
+    case rtype::server::EnemyAI::BehaviorType::SINUSOIDAL:
+        ecs.add_component<rtype::server::EnemyAI>(
+            entity, rtype::server::EnemyAI{ .behaviorType = behavior,
+                                           .amplitude = 5.0f,
+                                           .frequency = 2.0f });
+        break;
+
+    case rtype::server::EnemyAI::BehaviorType::CIRCULAR:
+        ecs.add_component<rtype::server::EnemyAI>(
+            entity, rtype::server::EnemyAI{ .behaviorType = behavior,
+                                           .radius = 100.0f,
+                                           .speed = 2.0f });
+        break;
+
+    case rtype::server::EnemyAI::BehaviorType::CHASE:
+        ecs.add_component<rtype::server::EnemyAI>(
+            entity,
+            rtype::server::EnemyAI{ .behaviorType = behavior, .speed = 3.0f });
+        break;
+
+    case rtype::server::EnemyAI::BehaviorType::V_FORMATION:
+        ecs.add_component<rtype::server::EnemyAI>(
+            entity, rtype::server::EnemyAI{ .behaviorType = behavior,
+                                           .spacing = 40.0f,
+                                           .index = 0 });
+        break;
+
+    case rtype::server::EnemyAI::BehaviorType::BOSS:
+        ecs.add_component<rtype::server::EnemyAI>(
+            entity, rtype::server::EnemyAI{ .behaviorType = behavior,
+                                           .amplitude = 100.0f,
+                                           .frequency = 1.0f,
+                                           .radius = 200.0f,
+                                           .speed = 5.0f });
+        break;
+    }
