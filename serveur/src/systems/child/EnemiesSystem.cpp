@@ -173,3 +173,15 @@ void createEnemyWithAI(ECS& ecs, rtype::server::EnemyInfo enemyInfo,
                                            .speed = 5.0f });
         break;
     }
+    ecs.post<RequestEvent>(
+        { Protocol::SV_CREATE_ENTITY,
+         {{"id", uuid},
+          {"type", to_json(EntityType::ENEMY1)},
+          {"pos", {{"x", enemyInfo.x_pos}, {"y", enemyInfo.y_pos}}},
+          {"health", {enemyInfo.health}},
+          {"velocity",
+           {{"x", enemyInfo.x_velocity}, {"y", enemyInfo.y_velocity}}},
+          {"hitbox", {{"x", enemyInfo.x_hitbox}, {"y", enemyInfo.y_hitbox}}},
+          {"score", {enemyInfo.score}}},
+         "" });
+}
