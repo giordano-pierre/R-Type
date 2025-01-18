@@ -120,6 +120,16 @@ struct Owner {
     std::string _id_owner;
 };
 
+struct EnemyAI {
+    enum class BehaviorType {
+        SINUSOIDAL,
+        CIRCULAR,
+        CHASE,
+        V_FORMATION,
+        BOSS,
+    } behaviorType;
+};
+
 // struct Basics {
 //     std::vector<EnemyInfo> enemies1;
 //     std::map<std::string, bool> clientInGame;
