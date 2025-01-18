@@ -22,6 +22,7 @@
 #include "systems/parent/TriggerChildSys.hpp"
 #include "systems/parent/UDPServer.hpp"
 #include "systems/parent/UpdateSys.hpp"
+#include "systems/child/EnemiesSystem.hpp"
 
 bool running = true;
 
