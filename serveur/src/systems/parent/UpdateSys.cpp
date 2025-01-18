@@ -35,9 +35,9 @@ void UpdateSys::operator()(ECS &ecs, const UpdateEvent &up_event,
             ro.value()._lastUpdate = ((ro.value()._lastUpdate + 1) > 10)
                                          ? 1
                                          : (ro.value()._lastUpdate + 1);
+
             for (size_t j = 0; j < tags.size(); ++j) {
                 nlohmann::json request;
-
                 if (tags[j] && tags[j].value()._type != OTHER) {
                     request["id"] = tags[j].value()._id;
                     request["type"] = tags[j].value()._type;
