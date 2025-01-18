@@ -35,3 +35,9 @@ public:
 };
 } // namespace systems
 } // namespace rtype::server
+
+void createEnemyWithAI(ECS& ecs, rtype::server::EnemyInfo enemyInfo,
+  rtype::server::EnemyAI::BehaviorType behavior);
+void serverReady(ECS& ecs, const std::string& uuid);
+void gameOver(ECS& ecs);
+void updateEntity(ECS& ecs);
