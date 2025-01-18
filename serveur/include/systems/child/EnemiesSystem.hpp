@@ -36,5 +36,5 @@ class EnemiesSys {
 } // namespace systems
 } // namespace rtype::server
 
-void createEnemyWithAI(ECS& ecs, rtype::server::EnemyInfo enemyInfo,
-  rtype::server::EnemyAI::BehaviorType behavior);
+void createEnemyWithAI(ECS &ecs, rtype::server::EnemyInfo enemyInfo,
+                       rtype::server::EnemyAI::BehaviorType behavior);
