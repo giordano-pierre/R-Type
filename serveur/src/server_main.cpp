@@ -105,6 +105,7 @@ void initMainECS(ECS &ecs) {
     ecs.register_component<rtype::server::Stage>();
     ecs.register_component<rtype::server::Child>();
     ecs.register_component<rtype::server::EnemyAI>();
+    ecs.register_component<rtype::server::Position>();
     ecs.register_component<rtype::server::Velocity>();
 
     ecs.register_event<rtype::server::TicEvent>();
@@ -134,7 +135,7 @@ void loadMainSystems(ECS &ecs) {
     ecs.subscribe<rtype::server::TicEvent, rtype::server::Child>(trigger, true);
     auto update = rtype::server::UpdateSys();
     ecs.subscribe<rtype::server::UpdateEvent, rtype::server::Room,
-                  rtype::server::Child>(update, true);
+                  rtype::server::Child>(update);
 
     auto enemiesSys = Singleton<rtype::server::systems::EnemiesSys>();
     ecs.subscribe<rtype::server::TicEvent, rtype::server::Position,
