@@ -63,7 +63,7 @@ def run_vcpkg():
     os.chdir("vcpkg")
     vcpkg_command = "vcpkg.exe" if get_os_system() == "WINDOWS" else "./vcpkg"
     try:
-        packages = ["sfml", "nlohmann-json", "boost-asio", "boost-uuid"]
+        packages = ["sfml", "nlohmann-json", "boost-asio", "boost-uuid", "sol2"]
         for package in packages:
             print(f"Installation du package {package}...")
             subprocess.run([vcpkg_command, "install", package], check=True)
