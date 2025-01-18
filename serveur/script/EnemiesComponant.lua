@@ -21,3 +21,13 @@ CircleMovement = {
     centerX = 0,
     centerY = 0
 }
+function CircleMovement:update(position, velocity, ai, dt)
+    if self.centerX == 0 and self.centerY == 0 then
+        self.centerX = position.x
+        self.centerY = position.y
+    end
+
+    self.angle = self.angle + ai.speed * dt
+    position.x = math.floor(self.centerX + ai.radius * math.cos(self.angle))
+    position.y = math.floor(self.centerY + ai.radius * math.sin(self.angle))
+end
