@@ -24,7 +24,14 @@ class EnemiesSys {
     void loadBehaviors();
     void updateBehavior(Position &pos, Velocity &vel, EnemyAI &ai, float dt);
 
+public:
+  EnemiesSys();
+  ~EnemiesSys() = default;
 
+  void operator()(ECS& ecs, const rtype::server::TicEvent& tic,
+    SparseArray<Position>& positions,
+    const SparseArray<Tag>& tags, SparseArray<EnemyAI>& ais,
+    SparseArray<Velocity>& velocities);
 };
 } // namespace systems
 } // namespace rtype::server
