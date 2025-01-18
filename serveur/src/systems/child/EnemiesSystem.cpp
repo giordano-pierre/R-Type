@@ -37,5 +37,16 @@ void EnemiesSys::registerComponents() {
         &Velocity::y);
 }
 
+void EnemiesSys::loadBehaviors() {
+    try {
+        lua.script_file(scriptsPath);
+    }
+    catch (const sol::error& e) {
+        std::cerr << "Erreur lors du chargement des comportements: " << e.what()
+            << std::endl;
+    }
+}
+
+
 } // namespace systems
 } // namespace rtype::server
