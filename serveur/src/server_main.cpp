@@ -23,6 +23,7 @@
 #include "systems/parent/UDPServer.hpp"
 #include "systems/parent/UpdateSys.hpp"
 #include "systems/child/EnemiesSystem.hpp"
+#include "systems/child/Singleton.hpp"
 
 bool running = true;
 
@@ -134,6 +135,7 @@ void loadMainSystems(ECS &ecs) {
     auto update = rtype::server::UpdateSys();
     ecs.subscribe<rtype::server::UpdateEvent, rtype::server::Room,
                   rtype::server::Child>(update);
+
     auto enemiesSys = Singleton<rtype::server::systems::EnemiesSys>();
     ecs.subscribe<rtype::server::TicEvent, rtype::server::Position,
         rtype::server::Tag, rtype::server::EnemyAI,
