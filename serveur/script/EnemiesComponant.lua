@@ -5,3 +5,6 @@
 ** EnemiesComponant.lua
 --]]
 
+SineMovement = {
+    time = 0
+}
