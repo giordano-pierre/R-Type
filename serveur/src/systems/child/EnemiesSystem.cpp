@@ -198,3 +198,18 @@ void createSineEnemy(ECS& ecs, int x, int y) {
     createEnemyWithAI(ecs, info,
         rtype::server::EnemyAI::BehaviorType::SINUSOIDAL);
 }
+
+void createVFormation(ECS& ecs, int x, int y, int numEnemies) {
+    for (int i = 0; i < numEnemies; i++) {
+        rtype::server::EnemyInfo info{ .x_pos = x,
+                                      .y_pos = y,
+                                      .x_velocity = 2,
+                                      .y_velocity = 0,
+                                      .x_hitbox = 0.02f,
+                                      .y_hitbox = 0.02f,
+                                      .health = 100,
+                                      .score = 150 };
+        createEnemyWithAI(ecs, info,
+            rtype::server::EnemyAI::BehaviorType::V_FORMATION);
+    }
+}
