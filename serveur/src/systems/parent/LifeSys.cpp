@@ -5,6 +5,7 @@
 ** LifeSys
 */
 
+#include "systems/child/EnemiesSystem.hpp"
 #include "systems/parent/LifeSys.hpp"
 #include <iostream>
 
@@ -56,35 +57,25 @@ void LifeSys::operator()(ECS &ecs, const TicEvent &tic_event,
 
                 ennemy.spawn_tic -= 1;
                 if (ennemy.spawn_tic <= 0) {
-                    Entity ennemyE = child.value()._ecs_child.spawn_entity();
-                    std::string idE = fetch_new_uuid();
-                    child.value()._ecs_child.add_component<Tag>(
-                        ennemyE, {idE, ennemy.type});
-                    child.value()._ecs_child.add_component<Position>(
-                        ennemyE, {ennemy.x_pos, ennemy.y_pos});
-                    child.value()._ecs_child.add_component<Velocity>(
-                        ennemyE, {ennemy.x_velocity, ennemy.y_velocity});
-                    child.value()._ecs_child.add_component<HitBox>(
-                        ennemyE, {ennemy.x_hitbox, ennemy.y_hitbox});
-                    child.value()._ecs_child.add_component<Health>(
-                        ennemyE, {ennemy.health});
-                    child.value()._ecs_child.add_component<Score>(
-                        ennemyE, {ennemy.score});
+                    auto resp = createSineEnemy(child.value()._ecs_child, ennemy.x_pos, ennemy.y_pos);
+                    // Entity ennemyE = child.value()._ecs_child.spawn_entity();
+                    // std::string idE = fetch_new_uuid();
+                    // child.value()._ecs_child.add_component<Tag>(
+                    //     ennemyE, {idE, ennemy.type});
+                    // child.value()._ecs_child.add_component<Position>(
+                    //     ennemyE, {ennemy.x_pos, ennemy.y_pos});
+                    // child.value()._ecs_child.add_component<Velocity>(
+                    //     ennemyE, {ennemy.x_velocity, ennemy.y_velocity});
+                    // child.value()._ecs_child.add_component<HitBox>(
+                    //     ennemyE, {ennemy.x_hitbox, ennemy.y_hitbox});
+                    // child.value()._ecs_child.add_component<Health>(
+                    //     ennemyE, {ennemy.health});
+                    // child.value()._ecs_child.add_component<Score>(
+                    //     ennemyE, {ennemy.score});
                     for (const auto &[uuid, _] : ro.value()._clients_uuid)
                         ecs.post<RequestEvent>(
                             {SV_CREATE_ENTITY,
-                             {{"id", idE},
-                              {"type", ennemy.type},
-                              {"pos",
-                               {{"x", ennemy.x_pos}, {"y", ennemy.y_pos}}},
-                              {"vel",
-                               {{"x", ennemy.x_velocity},
-                                {"y", ennemy.y_velocity}}},
-                              {"hit",
-                               {{"x", ennemy.x_hitbox},
-                                {"y", ennemy.y_hitbox}}},
-                              {"hp", ennemy.health},
-                              {"sc", ennemy.score}},
+                             resp.payload,
                              uuid});
                     st.value()._enemies.erase(st.value()._enemies.begin() + j);
                 }
