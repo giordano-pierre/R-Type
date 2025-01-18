@@ -185,3 +185,16 @@ void createEnemyWithAI(ECS& ecs, rtype::server::EnemyInfo enemyInfo,
           {"score", {enemyInfo.score}}},
          "" });
 }
+
+void createSineEnemy(ECS& ecs, int x, int y) {
+    rtype::server::EnemyInfo info{ .x_pos = x,
+                                  .y_pos = y,
+                                  .x_velocity = 2,
+                                  .y_velocity = 0,
+                                  .x_hitbox = 0.02f,
+                                  .y_hitbox = 0.02f,
+                                  .health = 100,
+                                  .score = 100 };
+    createEnemyWithAI(ecs, info,
+        rtype::server::EnemyAI::BehaviorType::SINUSOIDAL);
+}
