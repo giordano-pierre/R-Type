@@ -102,6 +102,8 @@ void initMainECS(ECS &ecs) {
     ecs.register_component<rtype::server::Room>();
     ecs.register_component<rtype::server::Stage>();
     ecs.register_component<rtype::server::Child>();
+    ecs.register_component<rtype::server::EnemyAI>();
+
 
     ecs.register_event<rtype::server::TicEvent>();
     ecs.register_event<RequestEvent>();
