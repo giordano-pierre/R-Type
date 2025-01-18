@@ -47,6 +47,26 @@ void EnemiesSys::loadBehaviors() {
     }
 }
 
+void EnemiesSys::operator()(ECS& ecs, const rtype::server::TicEvent& tic,
+    SparseArray<Position>& positions,
+    const SparseArray<Tag>& tags,
+    SparseArray<EnemyAI>& ais,
+    SparseArray<Velocity>& velocities) {
+    for (size_t i = 0; i < positions.size(); ++i) {
+        if (!positions[i] || !tags[i] || !ais[i] || !velocities[i])
+            continue;
+        if ((*tags[i])._type != EntityType::ENEMY1)
+            continue;
+        auto& pos = *positions[i];
+        auto& ai = *ais[i];
+        auto& vel = *velocities[i];
+        static timer::time_point<timer::steady_clock> lastTic = tic.time_stamp;
+        float delta =
+            std::chrono::duration<float>(tic.time_stamp - lastTic).count();
+        lastTic = tic.time_stamp;
+        updateBehavior(pos, vel, ai, delta);
+    }
+}
 
 } // namespace systems
 } // namespace rtype::server
