@@ -64,3 +64,22 @@ function VFormation:update(position, velocity, ai, leaderPos, dt)
     end
 end
 
+BossBehavior = {
+    currentPhase = 1,
+    phaseTimer = 0,
+    phaseDuration = 30,
+    phases = {
+        function(self, position, velocity, ai, dt)
+            SineMovement:update(position, velocity, ai, dt)
+        end,
+
+        function(self, position, velocity, ai, playerPos, dt)
+            PlayerChase:update(position, velocity, ai, playerPos, dt)
+        end,
+
+        function(self, position, velocity, ai, dt)
+            CircleMovement:update(position, velocity, ai, dt)
+        end
+    }
+}
+
