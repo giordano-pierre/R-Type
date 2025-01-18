@@ -31,3 +31,19 @@ function CircleMovement:update(position, velocity, ai, dt)
     position.x = math.floor(self.centerX + ai.radius * math.cos(self.angle))
     position.y = math.floor(self.centerY + ai.radius * math.sin(self.angle))
 end
+
+PlayerChase = {}
+
+function PlayerChase:update(position, velocity, ai, playerPos, dt)
+    if playerPos then
+        local dx = playerPos.x - position.x
+        local dy = playerPos.y - position.y
+        local distance = math.sqrt(dx * dx + dy * dy)
+
+        if distance > 0 then
+            position.x = math.floor(position.x + (dx / distance) * ai.speed * dt)
+            position.y = math.floor(position.y + (dy / distance) * ai.speed * dt)
+        end
+    end
+end
+
