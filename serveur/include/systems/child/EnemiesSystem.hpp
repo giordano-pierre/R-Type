@@ -12,7 +12,6 @@
 #include <string>
 
 namespace rtype::server {
-namespace systems {
 class EnemiesSys {
   private:
     sol::state lua;
@@ -33,8 +32,8 @@ class EnemiesSys {
                     const SparseArray<Tag> &tags, SparseArray<EnemyAI> &ais,
                     SparseArray<Velocity> &velocities);
 };
-} // namespace systems
 } // namespace rtype::server
 
-void createEnemyWithAI(ECS &ecs, rtype::server::EnemyInfo enemyInfo,
+RequestEvent createSineEnemy(ECS& ecs, int x, int y);
+RequestEvent createEnemyWithAI(ECS& ecs, rtype::server::EnemyInfo enemyInfo,
                        rtype::server::EnemyAI::BehaviorType behavior);
