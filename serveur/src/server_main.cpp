@@ -16,7 +16,6 @@
 #include "Components.hpp"
 #include "Events.hpp"
 #include "systems/child/EnemiesSystem.hpp"
-#include "systems/child/Singleton.hpp"
 #include "systems/parent/CheckWinSys.hpp"
 #include "systems/parent/LifeSys.hpp"
 #include "systems/parent/MainMessageHandlerSys.hpp"
@@ -104,12 +103,7 @@ void initMainECS(ECS &ecs) {
     ecs.register_component<rtype::server::Room>();
     ecs.register_component<rtype::server::Stage>();
     ecs.register_component<rtype::server::Child>();
-    ecs.register_component<rtype::server::EnemyAI>();
     ecs.register_component<rtype::server::Position>();
-    ecs.register_component<rtype::server::Velocity>();
-    ecs.register_component<rtype::server::HitBox>();
-    ecs.register_component<rtype::server::Health>();
-    ecs.register_component<rtype::server::Score>();
 
     ecs.register_event<rtype::server::TicEvent>();
     ecs.register_event<RequestEvent>();
@@ -139,11 +133,6 @@ void loadMainSystems(ECS &ecs) {
     auto update = rtype::server::UpdateSys();
     ecs.subscribe<rtype::server::UpdateEvent, rtype::server::Room,
                   rtype::server::Child>(update);
-
-    auto enemiesSys = Singleton<rtype::server::systems::EnemiesSys>();
-    ecs.subscribe<rtype::server::TicEvent, rtype::server::Position,
-                  rtype::server::Tag, rtype::server::EnemyAI,
-                  rtype::server::Velocity>(enemiesSys.getInstance());
 }
 
 int main(int ac, char *argv[]) {
@@ -165,9 +154,6 @@ int main(int ac, char *argv[]) {
 
         rtype::server::UDPServer server(ecs, port);
         ecs.subscribe<RequestEvent>(server, true);
-
-        createEnemyWithAI(ecs, { 1900, 300, -5, 0, 0.1f, 0.18f, 100, 80 },
-            rtype::server::EnemyAI::BehaviorType::SINUSOIDAL);
 
         loadMainSystems(ecs);
         serverLoop(ecs);
