@@ -8,7 +8,6 @@
 #include "systems/child/EnemiesSystem.hpp"
 
 namespace rtype::server {
-namespace systems {
 EnemiesSys::EnemiesSys() { initLua(); }
 
 void EnemiesSys::initLua() {
@@ -114,9 +113,8 @@ void EnemiesSys::updateBehavior(Position &pos, Velocity &vel, EnemyAI &ai,
 }
 
 } // namespace systems
-} // namespace rtype::server
 
-void createEnemyWithAI(ECS &ecs, rtype::server::EnemyInfo enemyInfo,
+RequestEvent createEnemyWithAI(ECS& ecs, rtype::server::EnemyInfo enemyInfo,
                        rtype::server::EnemyAI::BehaviorType behavior) {
     Entity entity = ecs.spawn_entity();
     std::string uuid = fetch_new_uuid();
@@ -171,29 +169,28 @@ void createEnemyWithAI(ECS &ecs, rtype::server::EnemyInfo enemyInfo,
                                            .speed = 5.0f});
         break;
     }
-    ecs.post<RequestEvent>(
-        {Protocol::SV_CREATE_ENTITY,
+    return RequestEvent({ Protocol::SV_CREATE_ENTITY,
          {{"id", uuid},
-          {"type", to_json(EntityType::ENEMY1)},
+          {"type", EntityType::ENEMY1},
           {"pos", {{"x", enemyInfo.x_pos}, {"y", enemyInfo.y_pos}}},
-          {"health", {enemyInfo.health}},
-          {"velocity",
+          {"hp", enemyInfo.health},
+          {"vel",
            {{"x", enemyInfo.x_velocity}, {"y", enemyInfo.y_velocity}}},
-          {"hitbox", {{"x", enemyInfo.x_hitbox}, {"y", enemyInfo.y_hitbox}}},
-          {"score", {enemyInfo.score}}},
+          {"hit", {{"x", enemyInfo.x_hitbox}, {"y", enemyInfo.y_hitbox}}},
+          {"sc", enemyInfo.score}},
          ""});
 }
 
-void createSineEnemy(ECS &ecs, int x, int y) {
+RequestEvent createSineEnemy(ECS& ecs, int x, int y) {
     rtype::server::EnemyInfo info{.x_pos = x,
                                   .y_pos = y,
-                                  .x_velocity = 2,
+                                  .x_velocity = -2,
                                   .y_velocity = 0,
                                   .x_hitbox = 0.02f,
                                   .y_hitbox = 0.02f,
                                   .health = 100,
                                   .score = 100};
-    createEnemyWithAI(ecs, info,
+    return createEnemyWithAI(ecs, info,
                       rtype::server::EnemyAI::BehaviorType::SINUSOIDAL);
 }
 
