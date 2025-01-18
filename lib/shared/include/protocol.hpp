@@ -89,8 +89,7 @@ enum EntityType {
 };
 
 const std::unordered_map<EntityType, std::string> TypeToString{
-    {EntityType::ENEMY1, "Enemy1"}
-};
+    {EntityType::ENEMY1, "Enemy1"}};
 
 // const std::unordered_map<std::string, EntityType> StringToType{
 //     {"Enemy1", EntityType::ENEMY1}, {"Enemy2", EntityType::ENEMY2},

@@ -15,6 +15,8 @@
 // #include "ServerHandlerSystem.hpp"
 #include "Components.hpp"
 #include "Events.hpp"
+#include "systems/child/EnemiesSystem.hpp"
+#include "systems/child/Singleton.hpp"
 #include "systems/parent/CheckWinSys.hpp"
 #include "systems/parent/LifeSys.hpp"
 #include "systems/parent/MainMessageHandlerSys.hpp"
@@ -22,8 +24,6 @@
 #include "systems/parent/TriggerChildSys.hpp"
 #include "systems/parent/UDPServer.hpp"
 #include "systems/parent/UpdateSys.hpp"
-#include "systems/child/EnemiesSystem.hpp"
-#include "systems/child/Singleton.hpp"
 
 bool running = true;
 
@@ -106,7 +106,6 @@ void initMainECS(ECS &ecs) {
     ecs.register_component<rtype::server::Child>();
     ecs.register_component<rtype::server::EnemyAI>();
 
-
     ecs.register_event<rtype::server::TicEvent>();
     ecs.register_event<RequestEvent>();
     ecs.register_event<ReceiveEvent>();
@@ -138,8 +137,8 @@ void loadMainSystems(ECS &ecs) {
 
     auto enemiesSys = Singleton<rtype::server::systems::EnemiesSys>();
     ecs.subscribe<rtype::server::TicEvent, rtype::server::Position,
-        rtype::server::Tag, rtype::server::EnemyAI,
-        rtype::server::Velocity>(enemiesSys.getInstance());
+                  rtype::server::Tag, rtype::server::EnemyAI,
+                  rtype::server::Velocity>(enemiesSys.getInstance());
 }
 
 int main(int ac, char *argv[]) {
