@@ -107,6 +107,9 @@ void initMainECS(ECS &ecs) {
     ecs.register_component<rtype::server::EnemyAI>();
     ecs.register_component<rtype::server::Position>();
     ecs.register_component<rtype::server::Velocity>();
+    ecs.register_component<rtype::server::HitBox>();
+    ecs.register_component<rtype::server::Health>();
+    ecs.register_component<rtype::server::Score>();
 
     ecs.register_event<rtype::server::TicEvent>();
     ecs.register_event<RequestEvent>();
@@ -144,7 +147,7 @@ void loadMainSystems(ECS &ecs) {
 }
 
 int main(int ac, char *argv[]) {
-    try {
+    // try {
         if (ac != 1 && ac != 2)
             return 84;
 
@@ -163,6 +166,9 @@ int main(int ac, char *argv[]) {
         rtype::server::UDPServer server(ecs, port);
         ecs.subscribe<RequestEvent>(server, true);
 
+        createEnemyWithAI(ecs, { 1900, 300, -5, 0, 0.1f, 0.18f, 100, 80 },
+            rtype::server::EnemyAI::BehaviorType::SINUSOIDAL);
+
         loadMainSystems(ecs);
         serverLoop(ecs);
 
@@ -176,10 +182,10 @@ int main(int ac, char *argv[]) {
                   << std::endl;
         std::cout << "... Serveur arrêté avec succès. Bien joué!" << std::endl;
         std::cout << "N'hésite pas a rejoindre Arts&Crafts ;)" << std::endl;
-    } catch (const std::exception &e) {
-        std::cerr << "Aie aie aie... \nServer error: " << e.what() << std::endl;
-        return 1;
-    }
+    // } catch (const std::exception &e) {
+    //     std::cerr << "Aie aie aie... \nServer error: " << e.what() << std::endl;
+    //     return 1;
+    // }
     return 0;
 }
 
