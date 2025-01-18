@@ -16,3 +16,8 @@ function SineMovement:update(position, velocity, ai, dt)
     position.x = math.floor(position.x - velocity.x)
 end
 
+CircleMovement = {
+    angle = 0,
+    centerX = 0,
+    centerY = 0
+}
