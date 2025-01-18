@@ -68,5 +68,52 @@ void EnemiesSys::operator()(ECS& ecs, const rtype::server::TicEvent& tic,
     }
 }
 
+void EnemiesSys::updateBehavior(Position& pos, Velocity& vel, EnemyAI& ai,
+    float dt) {
+    switch (ai.behaviorType) {
+    case EnemyAI::BehaviorType::SINUSOIDAL: {
+        sol::function update = lua["SineMovement"]["update"];
+        if (update.valid()) {
+            sol::protected_function_result result =
+                update(lua["SineMovement"], pos, vel, ai, dt);
+            if (!result.valid()) {
+                sol::error err = result;
+                std::cerr << "Lua error: " << err.what() << std::endl;
+            }
+        }
+        break;
+    }
+    case EnemyAI::BehaviorType::CIRCULAR: {
+        sol::function update = lua["CircleMovement"]["update"];
+        if (update.valid()) {
+            update(pos, vel, ai, dt);
+        }
+        break;
+    }
+    case EnemyAI::BehaviorType::CHASE: {
+        sol::function update = lua["PlayerChase"]["update"];
+        if (update.valid()) {
+            update(pos, vel, ai, dt);
+        }
+        break;
+    }
+    case EnemyAI::BehaviorType::V_FORMATION: {
+        sol::function update = lua["VFormation"]["update"];
+        if (update.valid()) {
+            update(pos, vel, ai, dt);
+        }
+        break;
+    }
+    case EnemyAI::BehaviorType::BOSS: {
+        sol::function update = lua["BossBehavior"]["update"];
+        if (update.valid()) {
+            update(pos, vel, ai, dt);
+        }
+        break;
+    }
+    }
+}
+
+
 } // namespace systems
 } // namespace rtype::server
