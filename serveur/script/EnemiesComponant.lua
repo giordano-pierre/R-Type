@@ -47,3 +47,20 @@ function PlayerChase:update(position, velocity, ai, playerPos, dt)
     end
 end
 
+VFormation = {}
+
+function VFormation:update(position, velocity, ai, leaderPos, dt)
+    if leaderPos then
+        local angle = math.pi / 4
+        local xOffset = math.cos(angle) * ai.spacing * ai.index
+        local yOffset = math.sin(angle) * ai.spacing * ai.index
+
+        if ai.index % 2 == 0 then
+            yOffset = -yOffset
+        end
+
+        position.x = math.floor(leaderPos.x - xOffset)
+        position.y = math.floor(leaderPos.y + yOffset)
+    end
+end
+
