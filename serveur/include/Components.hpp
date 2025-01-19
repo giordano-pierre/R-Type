@@ -127,6 +127,7 @@ struct EnemyAI {
         CHASE,
         V_FORMATION,
         BOSS,
+        UPDOWN,
     } behaviorType;
 
     float amplitude = 0.0f;
