@@ -108,8 +108,7 @@ void WindowSys::drawSprite(SparseArray<Position> &positions,
 void WindowSys::drawSel(SparseArray<Position> &positions,
                         SparseArray<Hitbox> &hitboxs,
                         SparseArray<Selectable> &selectables,
-                        const Configs &myConfig,
-                        const SFMLObjects &SFMLObj) {
+                        const Configs &myConfig, const SFMLObjects &SFMLObj) {
     for (size_t i = 0;
          i < positions.size() && i < hitboxs.size() && i < selectables.size();
          ++i) {
@@ -134,8 +133,7 @@ void WindowSys::drawSel(SparseArray<Position> &positions,
 void WindowSys::drawText(SparseArray<Position> &positions,
                          SparseArray<Hitbox> &hitboxs, SparseArray<Text> &texts,
                          bool isResize, sf::Vector2u sizeClient,
-                         const Configs &myConfig,
-                         const SFMLObjects &SFMLObj) {
+                         const Configs &myConfig, const SFMLObjects &SFMLObj) {
     for (size_t i = 0;
          i < positions.size() && i < hitboxs.size() && i < texts.size(); ++i) {
         auto &pos = positions[i];
@@ -220,14 +218,11 @@ void WindowSys::drawHitboxes(SparseArray<Position> &positions,
     }
 }
 
-void WindowSys::operator()(ECS &ecs, const FrameEvent &,
-                           const SparseArray<Configs> &configs,
-                           const SparseArray<SFMLObjects> &SFMLObjs,
-                           SparseArray<Position> &positions,
-                           SparseArray<Hitbox> &hitboxs,
-                           SparseArray<Drawable> &sprites,
-                           SparseArray<Text> &texts,
-                           SparseArray<Selectable> &selectables) {
+void WindowSys::operator()(
+    ECS &ecs, const FrameEvent &, const SparseArray<Configs> &configs,
+    const SparseArray<SFMLObjects> &SFMLObjs, SparseArray<Position> &positions,
+    SparseArray<Hitbox> &hitboxs, SparseArray<Drawable> &sprites,
+    SparseArray<Text> &texts, SparseArray<Selectable> &selectables) {
     const auto &myConfig = configs[0].value();
     const auto &SFMLObj = SFMLObjs[0].value();
     bool isResize = false;
@@ -240,7 +235,8 @@ void WindowSys::operator()(ECS &ecs, const FrameEvent &,
     for (int i = 0; i <= 3; i++)
         drawSprite(positions, hitboxs, sprites, i, myConfig, SFMLObj);
     drawSel(positions, hitboxs, selectables, myConfig, SFMLObj);
-    drawText(positions, hitboxs, texts, isResize, sizeWindow, myConfig, SFMLObj);
+    drawText(positions, hitboxs, texts, isResize, sizeWindow, myConfig,
+             SFMLObj);
     drawHitboxes(positions, hitboxs, myConfig, SFMLObj);
     _window.display();
 

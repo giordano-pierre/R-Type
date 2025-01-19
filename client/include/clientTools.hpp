@@ -32,8 +32,8 @@ enum SceneType {
     M_PLAYER, // à modifier
     M_ROOM,   // à faire
     M_IN_ROOM,
-    M_STAGE,  // à faire
-    M_PERSO,  // à faire
+    M_STAGE, // à faire
+    M_PERSO, // à faire
     M_CONFIG,
     M_C_GENERAL,
     M_C_PLAYER1,

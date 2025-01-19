@@ -32,7 +32,8 @@ void MoveSys::operator()(ECS &ecs, const InputEvent &e_input,
         switch (e_input._myEvent) {
         case LEFT1P:
             newValue1.x = -8;
-            ecs.post<RequestEvent>({CL_MOVE, {{"idp", uuid1}, {"e_type", "left"}}});
+            ecs.post<RequestEvent>(
+                {CL_MOVE, {{"idp", uuid1}, {"e_type", "left"}}});
             break;
         case LEFT1R:
             newValue1.x = 0;
@@ -51,7 +52,8 @@ void MoveSys::operator()(ECS &ecs, const InputEvent &e_input,
             break;
         case UP1P:
             newValue1.y = -8;
-            ecs.post<RequestEvent>({CL_MOVE, {{"idp", uuid1}, {"e_type", "up"}}});
+            ecs.post<RequestEvent>(
+                {CL_MOVE, {{"idp", uuid1}, {"e_type", "up"}}});
             break;
         case UP1R:
             newValue1.y = 0;
@@ -60,7 +62,8 @@ void MoveSys::operator()(ECS &ecs, const InputEvent &e_input,
             break;
         case DOWN1P:
             newValue1.y = 8;
-            ecs.post<RequestEvent>({CL_MOVE, {{"idp", uuid1}, {"e_type", "down"}}});
+            ecs.post<RequestEvent>(
+                {CL_MOVE, {{"idp", uuid1}, {"e_type", "down"}}});
             break;
         case DOWN1R:
             newValue1.y = 0;
@@ -75,7 +78,8 @@ void MoveSys::operator()(ECS &ecs, const InputEvent &e_input,
         switch (e_input._myEvent) {
         case LEFT2P:
             newValue2.x = -8;
-            ecs.post<RequestEvent>({CL_MOVE, {{"idp", uuid2}, {"e_type", "left"}}});
+            ecs.post<RequestEvent>(
+                {CL_MOVE, {{"idp", uuid2}, {"e_type", "left"}}});
             break;
         case LEFT2R:
             newValue2.x = 0;
@@ -94,7 +98,8 @@ void MoveSys::operator()(ECS &ecs, const InputEvent &e_input,
             break;
         case UP2P:
             newValue2.y = -8;
-            ecs.post<RequestEvent>({CL_MOVE, {{"idp", uuid2}, {"e_type", "up"}}});
+            ecs.post<RequestEvent>(
+                {CL_MOVE, {{"idp", uuid2}, {"e_type", "up"}}});
             break;
         case UP2R:
             newValue2.y = 0;
@@ -103,7 +108,8 @@ void MoveSys::operator()(ECS &ecs, const InputEvent &e_input,
             break;
         case DOWN2P:
             newValue2.y = 8;
-            ecs.post<RequestEvent>({CL_MOVE, {{"idp", uuid2}, {"e_type", "down"}}});
+            ecs.post<RequestEvent>(
+                {CL_MOVE, {{"idp", uuid2}, {"e_type", "down"}}});
             break;
         case DOWN2R:
             newValue2.y = 0;

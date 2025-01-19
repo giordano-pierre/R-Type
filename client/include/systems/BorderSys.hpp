@@ -8,10 +8,10 @@
 #pragma once
 
 #include "ECS/ECS.hpp"
+#include "components/Configs.hpp"
 #include "components/Hitbox.hpp"
 #include "components/Position.hpp"
 #include "components/Tag.hpp"
-#include "components/Configs.hpp"
 #include "events/TicEvent.hpp"
 
 namespace rtype::client {

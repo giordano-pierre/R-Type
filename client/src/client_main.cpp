@@ -46,7 +46,8 @@ void createWindow(ECS &ecs) {
     Entity base = ecs.spawn_entity();
     ecs.add_component<rtype::client::Tag>(base, {});
     ecs.add_component<rtype::client::Configs>(base, {{1440, 810}, serverSize});
-    ecs.add_component<rtype::client::SFMLObjects>(base, {"assets/font/retro_gaming.ttf", myShader});
+    ecs.add_component<rtype::client::SFMLObjects>(
+        base, {"assets/font/retro_gaming.ttf", myShader});
     ecs.add_component<rtype::client::Room>(base, {});
     ecs.add_component<rtype::client::PlayerInfo>(base, {});
 }
@@ -99,7 +100,8 @@ int main(int ac, char *argv[]) {
     ecs.subscribe<ReceiveEvent, rtype::client::Room, rtype::client::SFMLObjects,
                   rtype::client::Tag, rtype::client::Position,
                   rtype::client::Velocity, rtype::client::Health,
-                  rtype::client::Score, rtype::client::LastUpdate>(handler, true);
+                  rtype::client::Score, rtype::client::LastUpdate>(handler,
+                                                                   true);
 
     auto lifeSys = rtype::client::LifeSys();
     ecs.subscribe<rtype::client::CreationEvent, rtype::client::Configs,
@@ -113,13 +115,14 @@ int main(int ac, char *argv[]) {
     ecs.subscribe<rtype::client::FrameEvent, rtype::client::Configs,
                   rtype::client::SFMLObjects, rtype::client::Position,
                   rtype::client::Hitbox, rtype::client::Drawable,
-                  rtype::client::Text, rtype::client::Selectable>(windowSys, true);
+                  rtype::client::Text, rtype::client::Selectable>(windowSys,
+                                                                  true);
     ecs.subscribe<rtype::client::ChangeKey, rtype::client::Configs>(windowSys,
-                                                                   true);
+                                                                    true);
 
     auto cheatSys = rtype::client::CheatSys();
     ecs.subscribe<rtype::client::InputEvent, rtype::client::Configs>(cheatSys,
-                                                                    true);
+                                                                     true);
 
     auto frameSys = rtype::client::AnimeSys();
     ecs.subscribe<rtype::client::AnimeEvent, rtype::client::Drawable>(frameSys,

@@ -19,4 +19,4 @@ struct SFMLObjects {
     sf::RenderStates _renderState;
 };
 
-}
+} // namespace rtype::client

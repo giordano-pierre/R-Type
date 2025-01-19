@@ -133,9 +133,11 @@ void createRoom(ECS &ecs, Entity i) {
         p_color.push_back(playerInfo._color2);
     }
 
-    ecs.post<RequestEvent>(
-        {CREATE_ROOM,
-         {{"r_name", "test"}, {"p_name", p_name}, {"p_color", p_color}, {"nbp", playerInfo._nbPlayer}}});
+    ecs.post<RequestEvent>({CREATE_ROOM,
+                            {{"r_name", "test"},
+                             {"p_name", p_name},
+                             {"p_color", p_color},
+                             {"nbp", playerInfo._nbPlayer}}});
 }
 
 void joinRoom(ECS &ecs, Entity i) {
@@ -150,9 +152,11 @@ void joinRoom(ECS &ecs, Entity i) {
         p_color.push_back(playerInfo._color2);
     }
 
-    ecs.post<RequestEvent>(
-        {JOIN_ROOM,
-         {{"idr", tag._id}, {"p_name", p_name}, {"p_color", p_color}, {"nbp", playerInfo._nbPlayer}}});
+    ecs.post<RequestEvent>({JOIN_ROOM,
+                            {{"idr", tag._id},
+                             {"p_name", p_name},
+                             {"p_color", p_color},
+                             {"nbp", playerInfo._nbPlayer}}});
 }
 
 // void startGame2P(ECS &ecs, Entity i) {
@@ -161,9 +165,11 @@ void joinRoom(ECS &ecs, Entity i) {
 //     // auto &myWindow = ecs.get_components<Window>()[0].value();
 
 //     // ecs.post<RequestEvent>(
-//     //     {CLIENT_READY, {{"nb_player_max", 2}, {"name", myWindow._name1}}});
+//     //     {CLIENT_READY, {{"nb_player_max", 2}, {"name",
+//     myWindow._name1}}});
 //     // ecs.post<RequestEvent>(
-//     //     {CLIENT_READY, {{"nb_player_max", 2}, {"name", myWindow._name2}}});
+//     //     {CLIENT_READY, {{"nb_player_max", 2}, {"name",
+//     myWindow._name2}}});
 // }
 
 // void startGameMP(ECS &ecs, Entity i) {
@@ -172,7 +178,8 @@ void joinRoom(ECS &ecs, Entity i) {
 //     // auto &myWindow = ecs.get_components<Window>()[0].value();
 
 //     // ecs.post<RequestEvent>(
-//     //     {CLIENT_READY, {{"nb_player_max", 2}, {"name", myWindow._name1}}});
+//     //     {CLIENT_READY, {{"nb_player_max", 2}, {"name",
+//     myWindow._name1}}});
 // }
 
 } // namespace rtype::client

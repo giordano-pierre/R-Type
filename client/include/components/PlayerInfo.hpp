@@ -19,4 +19,4 @@ struct PlayerInfo {
     std::string _color2 = "red";
 };
 
-}
+} // namespace rtype::client

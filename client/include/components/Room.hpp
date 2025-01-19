@@ -18,4 +18,4 @@ struct Room {
     std::string _level = "";
 };
 
-}
+} // namespace rtype::client

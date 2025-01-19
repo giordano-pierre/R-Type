@@ -42,7 +42,8 @@ void LifeSys::operator()(ECS &ecs, const CreationEvent &e_create,
         break;
     case M_ROOM:
         loadMenuSystem(ecs);
-        createMenuRoomEntities(ecs, e_create._param.value(), myConfig, SFMLObj, playerInfo, myRoom);
+        createMenuRoomEntities(ecs, e_create._param.value(), myConfig, SFMLObj,
+                               playerInfo, myRoom);
         break;
     case M_CONFIG:
         loadMenuSystem(ecs);

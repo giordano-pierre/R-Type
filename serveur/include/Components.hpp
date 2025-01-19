@@ -9,14 +9,14 @@
 
 #include "ECS/ECS.hpp"
 #include "Events.hpp"
+#include "LevelLoader.hpp"
 #include "protocol.hpp"
 #include "tools.hpp"
-#include "LevelLoader.hpp"
 #include <cstddef>
 #include <cstdint>
+#include <fstream>
 #include <string>
 #include <vector>
-#include <fstream>
 
 namespace rtype::server {
 

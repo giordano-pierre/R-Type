@@ -5,9 +5,6 @@
 ** server_main
 */
 
-#include <csignal>
-#include <cstdlib>
-#include <iostream>
 #include "Components.hpp"
 #include "Events.hpp"
 #include "systems/parent/CheckWinSys.hpp"
@@ -17,6 +14,9 @@
 #include "systems/parent/TriggerChildSys.hpp"
 #include "systems/parent/UDPServer.hpp"
 #include "systems/parent/UpdateSys.hpp"
+#include <csignal>
+#include <cstdlib>
+#include <iostream>
 
 bool running = true;
 

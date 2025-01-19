@@ -7,24 +7,24 @@
 
 #pragma once
 
+#include "components/Configs.hpp"
 #include "components/Drawable.hpp"
 #include "components/Health.hpp"
 #include "components/Hitbox.hpp"
 #include "components/LastUpdate.hpp"
 #include "components/Playable.hpp"
 #include "components/PlayerData.hpp"
+#include "components/PlayerInfo.hpp"
 #include "components/Position.hpp"
 #include "components/Pressable.hpp"
+#include "components/Room.hpp"
+#include "components/SFMLObjects.hpp"
 #include "components/Scene.hpp"
 #include "components/Score.hpp"
 #include "components/Selectable.hpp"
 #include "components/Tag.hpp"
 #include "components/Text.hpp"
 #include "components/Velocity.hpp"
-#include "components/Configs.hpp"
-#include "components/SFMLObjects.hpp"
-#include "components/Room.hpp"
-#include "components/PlayerInfo.hpp"
 
 #include "events/AnimeEvent.hpp"
 #include "events/ChangeKey.hpp"

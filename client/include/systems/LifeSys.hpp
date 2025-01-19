@@ -8,11 +8,11 @@
 #pragma once
 
 #include "ECS/ECS.hpp"
-#include "components/Scene.hpp"
 #include "components/Configs.hpp"
-#include "components/SFMLObjects.hpp"
 #include "components/PlayerInfo.hpp"
 #include "components/Room.hpp"
+#include "components/SFMLObjects.hpp"
+#include "components/Scene.hpp"
 #include "events/CreateEvent.hpp"
 #include "events/DeleteEvent.hpp"
 

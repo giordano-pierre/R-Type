@@ -25,4 +25,4 @@ struct Configs {
     bool _displayHitboxs = false;
 };
 
-}
+} // namespace rtype::client

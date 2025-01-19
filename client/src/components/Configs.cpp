@@ -10,11 +10,10 @@
 namespace rtype::client {
 
 Configs::Configs(TupleUInt size, TupleUInt serverSize)
-    : _size(size), _serverSize(serverSize)
-{
+    : _size(size), _serverSize(serverSize) {
     initGeneralInput(_inputConfig.first);
     initPlay1Input(_inputConfig);
     initPlay2Input(_inputConfig);
 }
 
-}
+} // namespace rtype::client

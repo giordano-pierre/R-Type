@@ -11,13 +11,13 @@
 #include <utility>
 
 #include "ECS/ECS.hpp"
+#include "components/Configs.hpp"
 #include "components/Drawable.hpp"
 #include "components/Hitbox.hpp"
 #include "components/Position.hpp"
+#include "components/SFMLObjects.hpp"
 #include "components/Selectable.hpp"
 #include "components/Text.hpp"
-#include "components/Configs.hpp"
-#include "components/SFMLObjects.hpp"
 #include "events/ChangeKey.hpp"
 #include "events/FrameEvent.hpp"
 
@@ -50,19 +50,16 @@ class WindowSys {
     void drawSprite(SparseArray<Position> &positions,
                     SparseArray<Hitbox> &hitboxs,
                     SparseArray<Drawable> &sprites, int order,
-                    const Configs &myConfig,
-                    const SFMLObjects &SFMLObj);
+                    const Configs &myConfig, const SFMLObjects &SFMLObj);
     void drawSel(SparseArray<Position> &positions, SparseArray<Hitbox> &hitboxs,
                  SparseArray<Selectable> &selectables, const Configs &myConfig,
                  const SFMLObjects &SFMLObj);
     void drawText(SparseArray<Position> &positions,
                   SparseArray<Hitbox> &hitboxs, SparseArray<Text> &texts,
                   bool isResize, sf::Vector2u sizeClient,
-                  const Configs &myConfig,
-                  const SFMLObjects &SFMLObj);
+                  const Configs &myConfig, const SFMLObjects &SFMLObj);
     void drawHitboxes(SparseArray<Position> &positions,
-                      SparseArray<Hitbox> &hitboxs,
-                      const Configs &myConfig,
+                      SparseArray<Hitbox> &hitboxs, const Configs &myConfig,
                       const SFMLObjects &SFMLObj);
 };
 } // namespace rtype::client

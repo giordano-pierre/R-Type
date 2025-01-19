@@ -25,7 +25,8 @@ void CheatSys::operator()(ECS &ecs, const InputEvent &e_input,
     }
 
     if (changeState)
-        configs[0].value()._displayHitboxs = !configs[0].value()._displayHitboxs;
+        configs[0].value()._displayHitboxs =
+            !configs[0].value()._displayHitboxs;
 }
 
 } // namespace rtype::client

@@ -23,8 +23,7 @@ void loadGameSystem(ECS &ecs) {
     ecs.subscribe<TicEvent, Configs, Tag, Hitbox, Position>(borderSys);
 
     auto shootSys = ShootSys();
-    ecs.subscribe<InputEvent, Playable, Position, Hitbox, Tag>(
-        shootSys);
+    ecs.subscribe<InputEvent, Playable, Position, Hitbox, Tag>(shootSys);
 
     auto selSys = SelectSys();
     ecs.subscribe<InputEvent, Position, Drawable, Hitbox, Selectable>(selSys);

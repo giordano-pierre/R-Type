@@ -58,30 +58,28 @@ void createDrawable(ECS &ecs, Entity &entity, SFMLObjects &SFMLObj,
         ecs.add_component<Drawable>(
             entity,
             {SFMLObj._myTextures.getTexture("assets/images/ship/red_ship.png"),
-            {395, 250},
-            {395, 250},
-            1,
-            1});
+             {395, 250},
+             {395, 250},
+             1,
+             1});
         break;
     case SHOT:
-        ecs.add_component<Drawable>(
-            entity,
-            {SFMLObj._myTextures.getTexture(
-                "assets/images/shot/purple_shot.png"),
-            {251, 144},
-            {251, 144},
-            1,
-            2});
+        ecs.add_component<Drawable>(entity,
+                                    {SFMLObj._myTextures.getTexture(
+                                         "assets/images/shot/purple_shot.png"),
+                                     {251, 144},
+                                     {251, 144},
+                                     1,
+                                     2});
         break;
     case ENEMY1:
-        ecs.add_component<Drawable>(
-            entity,
-            {SFMLObj._myTextures.getTexture(
-                "assets/images/ship/enemy_ship_1.png"),
-            {2030, 1450},
-            {290, 290},
-            35,
-            1});
+        ecs.add_component<Drawable>(entity,
+                                    {SFMLObj._myTextures.getTexture(
+                                         "assets/images/ship/enemy_ship_1.png"),
+                                     {2030, 1450},
+                                     {290, 290},
+                                     35,
+                                     1});
         break;
     }
 }
@@ -132,8 +130,8 @@ bool entityExist(const ReceiveEvent &rec_event, const SparseArray<Tag> &tags) {
     return false;
 }
 
-void createPlayer(ECS &ecs, const ReceiveEvent &rec_event, Room &myRoom, SFMLObjects &SFMLObj,
-                  const SparseArray<Tag> &tags) {
+void createPlayer(ECS &ecs, const ReceiveEvent &rec_event, Room &myRoom,
+                  SFMLObjects &SFMLObj, const SparseArray<Tag> &tags) {
     if (!entityExist(rec_event, tags)) {
         Entity player = ecs.spawn_entity();
         createEntity(ecs, player, rec_event, SFMLObj);
@@ -196,14 +194,10 @@ void killEntity(ECS &ecs, const ReceiveEvent &rec_event,
 }
 
 void MessageHandlerSys::operator()(
-    ECS &ecs, const ReceiveEvent &rec_event,
-    SparseArray<Room> &rooms,
-    SparseArray<SFMLObjects> &SFMLObjs,
-    const SparseArray<Tag> &tags,
-    SparseArray<Position> &positions,
-    SparseArray<Velocity> &velocities,
-    SparseArray<Health> &healths,
-    SparseArray<Score> &scores,
+    ECS &ecs, const ReceiveEvent &rec_event, SparseArray<Room> &rooms,
+    SparseArray<SFMLObjects> &SFMLObjs, const SparseArray<Tag> &tags,
+    SparseArray<Position> &positions, SparseArray<Velocity> &velocities,
+    SparseArray<Health> &healths, SparseArray<Score> &scores,
     SparseArray<LastUpdate> &lastups) {
     auto &myRoom = rooms[0].value();
     auto &SFMLObj = SFMLObjs[0].value();
