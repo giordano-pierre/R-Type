@@ -10,7 +10,8 @@ set(SRC
     src/components/Velocity.cpp
     src/components/Playable.cpp
     src/components/Tag.cpp
-    src/components/Window.cpp
+    src/components/Configs.cpp
+    src/components/SFMLObjects.cpp
     src/components/Hitbox.cpp
     src/components/Text.cpp
     src/components/Selectable.cpp
