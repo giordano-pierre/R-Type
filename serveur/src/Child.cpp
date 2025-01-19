@@ -41,7 +41,8 @@ void loadSubGameSystem(Child &child) {
             child._collSys);
     child._ecs_child.subscribe<TicEvent, Position, Tag, HitBox>(child._collSys);
     auto enemiesSys = Singleton<EnemiesSys>();
-    child._ecs_child.subscribe<TicEvent, Position, Tag, EnemyAI, Velocity>(enemiesSys.getInstance());
+    child._ecs_child.subscribe<TicEvent, Position, Tag, EnemyAI, Velocity>(
+        enemiesSys.getInstance());
 }
 
 } // namespace rtype::server

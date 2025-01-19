@@ -112,10 +112,10 @@ void EnemiesSys::updateBehavior(Position &pos, Velocity &vel, EnemyAI &ai,
     }
 }
 
-} // namespace systems
+} // namespace rtype::server
 
-RequestEvent createEnemyWithAI(ECS& ecs, rtype::server::EnemyInfo enemyInfo,
-                       rtype::server::EnemyAI::BehaviorType behavior) {
+RequestEvent createEnemyWithAI(ECS &ecs, rtype::server::EnemyInfo enemyInfo,
+                               rtype::server::EnemyAI::BehaviorType behavior) {
     Entity entity = ecs.spawn_entity();
     std::string uuid = fetch_new_uuid();
 
@@ -169,13 +169,13 @@ RequestEvent createEnemyWithAI(ECS& ecs, rtype::server::EnemyInfo enemyInfo,
                                            .speed = 5.0f});
         break;
     }
-    return RequestEvent({ Protocol::SV_CREATE_ENTITY,
+    return RequestEvent(
+        {Protocol::SV_CREATE_ENTITY,
          {{"id", uuid},
           {"type", EntityType::ENEMY1},
           {"pos", {{"x", enemyInfo.x_pos}, {"y", enemyInfo.y_pos}}},
           {"hp", enemyInfo.health},
-          {"vel",
-           {{"x", enemyInfo.x_velocity}, {"y", enemyInfo.y_velocity}}},
+          {"vel", {{"x", enemyInfo.x_velocity}, {"y", enemyInfo.y_velocity}}},
           {"hit", {{"x", enemyInfo.x_hitbox}, {"y", enemyInfo.y_hitbox}}},
           {"sc", enemyInfo.score}},
          ""});
@@ -191,7 +191,7 @@ RequestEvent createSineEnemy(ECS& ecs, rtype::server::EnemyInfo enemy) {
                                   .health = 100,
                                   .score = 100};
     return createEnemyWithAI(ecs, info,
-                      rtype::server::EnemyAI::BehaviorType::SINUSOIDAL);
+                             rtype::server::EnemyAI::BehaviorType::SINUSOIDAL);
 }
 
 void createVFormation(ECS &ecs, int x, int y, int numEnemies) {
