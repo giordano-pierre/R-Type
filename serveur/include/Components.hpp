@@ -11,12 +11,18 @@
 #include "Events.hpp"
 #include "protocol.hpp"
 #include "tools.hpp"
+#include "LevelLoader.hpp"
 #include <cstddef>
 #include <cstdint>
 #include <string>
 #include <vector>
+#include <fstream>
 
 namespace rtype::server {
+
+struct Utils {
+    LevelLoader _levels;
+};
 
 struct Tag {
     std::string _id;
@@ -40,18 +46,20 @@ struct Room {
 };
 
 struct Stage {
-    int _nb;
     std::string _mapFile;
+    nlohmann::json _json;
     std::vector<EnemyInfo> _enemies;
 
-    Stage(int nb) : _nb(nb), _mapFile("stage_" + std::to_string(nb) + ".json") {
-        std::vector<EnemyInfo> enemies = {
-            {2000, 500, -9, 0, 0.1, 0.18, 100, 60, 0, ENEMY1},
-            {2000, 1000, -8, 0, 0.1, 0.18, 100, 30, 100, ENEMY1},
-            {2000, 800, -7, 0, 0.1, 0.18, 100, 50, 100, ENEMY1},
-            {2000, 100, -10, 0, 0.1, 0.18, 100, 40, 200, ENEMY1}};
-        // à créer en fonction du fichier
-        _enemies = enemies;
+    Stage(const std::string &file) : _mapFile(file) {
+        std::ifstream f(file);
+        _json = nlohmann::json::parse(f);
+        // std::vector<EnemyInfo> enemies = {
+        //     {2000, 500, -9, 0, 0.1, 0.18, 100, 60, 0, ENEMY1},
+        //     {2000, 1000, -8, 0, 0.1, 0.18, 100, 30, 100, ENEMY1},
+        //     {2000, 800, -7, 0, 0.1, 0.18, 100, 50, 100, ENEMY1},
+        //     {2000, 100, -10, 0, 0.1, 0.18, 100, 40, 200, ENEMY1}};
+        // // à créer en fonction du fichier
+        // _enemies = enemies;
     }
 };
 

@@ -2,6 +2,7 @@ project(r-type_server VERSION 1.0 LANGUAGES CXX)
 
 set(SRC
     src/server_main.cpp
+    src/LevelLoader.cpp
     src/tools.cpp
     src/Child.cpp
     src/systems/parent/UDPServer.cpp
