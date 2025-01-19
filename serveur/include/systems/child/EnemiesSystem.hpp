@@ -40,3 +40,4 @@ RequestEvent createEnemyWithAI(ECS& ecs, rtype::server::EnemyInfo enemyInfo,
 std::vector<RequestEvent> createVFormation(ECS& ecs, rtype::server::EnemyInfo enemy);
 std::vector<RequestEvent> createCircle(ECS& ecs, rtype::server::EnemyInfo enemy);
 std::vector<RequestEvent> createChase(ECS& ecs, rtype::server::EnemyInfo enemy);
+std::vector<RequestEvent> createUpDown(ECS& ecs, rtype::server::EnemyInfo enemy);

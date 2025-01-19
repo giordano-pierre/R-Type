@@ -96,16 +96,14 @@ namespace rtype::server {
         case EnemyAI::BehaviorType::CIRCULAR: {
             sol::function update = lua["CircleMovement"]["update"];
             if (update.valid()) {
-                update(pos, vel, ai, dt);
+                update(lua["CircleMovement"], pos, vel, ai, dt);
             }
             break;
         }
         case EnemyAI::BehaviorType::CHASE: {
             sol::function update = lua["PlayerChase"]["update"];
             if (update.valid()) {
-            std::cout << "HEEEEEELOOOOOOOO" << std::endl;
             update(lua["PlayerChase"], pos, vel, ai, posPlayer, dt);
-                std::cout << "ICI VEL :" << pos.x << " " << pos.y << " | " << posPlayer.x << " " << posPlayer.y << std::endl;
             }
             break;
         }
@@ -119,7 +117,14 @@ namespace rtype::server {
         case EnemyAI::BehaviorType::BOSS: {
             sol::function update = lua["BossBehavior"]["update"];
             if (update.valid()) {
-                update(pos, vel, ai, dt);
+                update(lua["BossBehavior"],pos, vel, ai, dt);
+            }
+            break;
+        }
+        case EnemyAI::BehaviorType::UPDOWN: {
+            sol::function update = lua["UpDown"]["update"];
+            if (update.valid()) {
+                update(lua["UpDown"], pos, vel, ai, dt);
             }
             break;
         }
@@ -182,6 +187,12 @@ RequestEvent createEnemyWithAI(ECS& ecs, rtype::server::EnemyInfo enemyInfo,
                                            .radius = 200.0f,
                                            .speed = 5.0f });
         break;
+
+    case rtype::server::EnemyAI::BehaviorType::UPDOWN:
+        ecs.add_component<rtype::server::EnemyAI>(
+            entity, rtype::server::EnemyAI{ .behaviorType = behavior,
+                                           .speed = 5.0f });
+        break;
     }
     return RequestEvent(
         { Protocol::SV_CREATE_ENTITY,
@@ -223,7 +234,7 @@ std::vector<RequestEvent> createVFormation(ECS& ecs, rtype::server::EnemyInfo en
         rtype::server::EnemyInfo info{ .x_pos = pos[i].x,
                                       .y_pos = pos[i].y,
                                       .x_velocity = -2,
-                                      .y_velocity = 0,
+                                      .y_velocity = 1,
                                       .x_hitbox = enemy.x_hitbox,
                                       .y_hitbox = enemy.y_hitbox,
                                       .health = 100,
@@ -259,4 +270,30 @@ std::vector<RequestEvent> createChase(ECS& ecs, rtype::server::EnemyInfo enemy) 
                                   .score = 100 };
     return { createEnemyWithAI(ecs, info,
                              rtype::server::EnemyAI::BehaviorType::CHASE) };
+}
+
+std::vector<RequestEvent> createUpDown(ECS& ecs, rtype::server::EnemyInfo enemy) {
+    rtype::server::EnemyInfo info{ .x_pos = enemy.x_pos,
+                                  .y_pos = enemy.y_pos,
+                                  .x_velocity = -3,
+                                  .y_velocity = -6,
+                                  .x_hitbox = enemy.x_hitbox,
+                                  .y_hitbox = enemy.y_hitbox,
+                                  .health = 100,
+                                  .score = 100 };
+    return { createEnemyWithAI(ecs, info,
+                             rtype::server::EnemyAI::BehaviorType::UPDOWN) };
+}
+
+std::vector<RequestEvent> createBoss(ECS& ecs, rtype::server::EnemyInfo enemy) {
+    rtype::server::EnemyInfo info{ .x_pos = enemy.x_pos,
+                                  .y_pos = enemy.y_pos,
+                                  .x_velocity = -3,
+                                  .y_velocity = -6,
+                                  .x_hitbox = enemy.x_hitbox,
+                                  .y_hitbox = enemy.y_hitbox,
+                                  .health = 100,
+                                  .score = 100 };
+    return { createEnemyWithAI(ecs, info,
+                             rtype::server::EnemyAI::BehaviorType::UPDOWN) };
 }
