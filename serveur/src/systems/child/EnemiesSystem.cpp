@@ -181,13 +181,13 @@ RequestEvent createEnemyWithAI(ECS& ecs, rtype::server::EnemyInfo enemyInfo,
          ""});
 }
 
-RequestEvent createSineEnemy(ECS& ecs, int x, int y) {
-    rtype::server::EnemyInfo info{.x_pos = x,
-                                  .y_pos = y,
+RequestEvent createSineEnemy(ECS& ecs, rtype::server::EnemyInfo enemy) {
+    rtype::server::EnemyInfo info{.x_pos = enemy.x_pos,
+                                  .y_pos = enemy.y_pos,
                                   .x_velocity = -2,
                                   .y_velocity = 0,
-                                  .x_hitbox = 0.02f,
-                                  .y_hitbox = 0.02f,
+                                  .x_hitbox = enemy.x_hitbox,
+                                  .y_hitbox = enemy.y_hitbox,
                                   .health = 100,
                                   .score = 100};
     return createEnemyWithAI(ecs, info,
