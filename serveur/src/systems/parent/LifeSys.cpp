@@ -28,14 +28,14 @@ namespace rtype::server {
 
                     if (dead && tag && dead.value()._isDead) {
                         for (const auto& [uuid, _] : ro.value()._clients_uuid) {
-                            std::cout << "M" << std::endl;
+                            // std::cout << "M" << std::endl;
                             ecs.post<RequestEvent>(
                                 { SV_KILL_ENTITY, {{"id", tag.value()._id}}, uuid });
                         }
-                        std::cout << "BEFORE KILL" << std::endl;
+                        // std::cout << "BEFORE KILL" << std::endl;
                         child.value()._ecs_child.kill_entity(
                             child.value()._ecs_child.entity_from_index(j));
-                        std::cout << "AFTER KILL" << std::endl;
+                        // std::cout << "AFTER KILL" << std::endl;
                     }
                 }
             }
@@ -58,7 +58,8 @@ namespace rtype::server {
                     ennemy.spawn_tic -= 1;
                     if (ennemy.spawn_tic <= 0) {
                         // auto resp = createSineEnemy(child.value()._ecs_child, ennemy);
-                        auto resp = createVFormation(child.value()._ecs_child, ennemy);
+                        // auto resp = createCircle(child.value()._ecs_child, ennemy);
+                        auto resp = createChase(child.value()._ecs_child, ennemy);
                         // Entity ennemyE = child.value()._ecs_child.spawn_entity();
                         // std::string idE = fetch_new_uuid();
                         // child.value()._ecs_child.add_component<Tag>(
