@@ -186,9 +186,7 @@ void killEntity(ECS &ecs, const ReceiveEvent &rec_event,
 
         if (tag &&
             tag.value()._id == rec_event.payload["id"].get<std::string>()) {
-            std::cout << "B KILL" << std::endl;
             ecs.kill_entity(ecs.entity_from_index(i));
-            std::cout << "A KILL" << std::endl;
         }
     }
 }
@@ -202,15 +200,17 @@ void MessageHandlerSys::operator()(
     auto &myRoom = rooms[0].value();
     auto &SFMLObj = SFMLObjs[0].value();
 
+    std::cout << rec_event.action << std::endl;
+    std::cout << rec_event.payload.dump() << std::endl;
     switch (rec_event.action) {
     case JOIN_ROOM: {
         joinRoom(ecs, rec_event, myRoom);
-        return;
+        break;
     }
     case SV_CREATE_PLAYER: {
         createPlayer(ecs, rec_event, myRoom, SFMLObj, tags);
         ecs.post<RequestEvent>({SV_CREATE_PLAYER, {{"idr", myRoom._idRoom}}});
-        return;
+        break;
     }
     case SV_GAME_OVER: {
         ecs.post<DeleteEvent>({GAME});
@@ -218,14 +218,14 @@ void MessageHandlerSys::operator()(
         ecs.post<CreationEvent>({MENU});
         myRoom._gameState = false;
         ecs.post<RequestEvent>({SV_GAME_OVER, {{"idr", myRoom._idRoom}}});
-        return;
+        break;
     }
     case SV_CREATE_ENTITY: {
         if (!entityExist(rec_event, tags)) {
             Entity entity = ecs.spawn_entity();
             createEntity(ecs, entity, rec_event, SFMLObj);
         }
-        return;
+        break;
     }
     case SV_UPDATE_ENTITY: {
         if (!entityExist(rec_event, tags)) {
@@ -237,15 +237,17 @@ void MessageHandlerSys::operator()(
             updateEntity(entity, rec_event, positions, velocities, healths,
                          scores, lastups);
         }
-        return;
+        break;
     }
     case SV_KILL_ENTITY: {
         killEntity(ecs, rec_event, tags);
+        break;
     }
     case GET_ROOM: {
         ecs.post<DeleteEvent>({M_PLAYER});
         ecs.post<DeleteEvent>({M_ROOM});
         ecs.post<CreationEvent>({M_ROOM, rec_event});
+        break;
     }
     default:
         break;

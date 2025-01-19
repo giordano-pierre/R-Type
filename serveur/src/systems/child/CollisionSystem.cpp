@@ -6,6 +6,7 @@
 */
 
 #include "systems/child/CollisionSystem.hpp"
+#include "tools.hpp"
 #include <iostream>
 
 namespace rtype::server {

@@ -9,6 +9,7 @@
 
 #include "Child.hpp"
 #include "Components.hpp"
+#include "tools.hpp"
 #include "ECS/ECS.hpp"
 #include "events/ReceiveEvent.hpp"
 

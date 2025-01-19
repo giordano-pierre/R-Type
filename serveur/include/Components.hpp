@@ -11,7 +11,7 @@
 #include "Events.hpp"
 #include "LevelLoader.hpp"
 #include "protocol.hpp"
-#include "tools.hpp"
+#include "LevelLoader.hpp"
 #include <cstddef>
 #include <cstdint>
 #include <fstream>
@@ -19,6 +19,31 @@
 #include <vector>
 
 namespace rtype::server {
+
+enum StateGame {
+    IN_GAME,
+    IN_PAUSE,
+    WAITING,
+};
+
+struct EnemyInfo {
+    float x_pos;
+    float y_pos;
+    int x_velocity;
+    int y_velocity;
+    float x_hitbox;
+    float y_hitbox;
+    int health;
+    int score;
+    int spawn_tic;
+    EntityType type;
+};
+
+struct PlayerInfo {
+    std::vector<std::string> _name;
+    std::vector<std::string> _color;
+    StateGame _state;
+};
 
 struct Utils {
     LevelLoader _levels;
@@ -34,13 +59,12 @@ struct Tag {
 struct Room {
     std::string _name;
     std::string _master;
-    std::map<std::string, std::pair<StateGame, int>> _clients_uuid;
+    std::map<std::string, std::pair<PlayerInfo, int>> _clients_uuid;
     int _lastUpdate;
     StateGame _state = WAITING;
 
     Room(std::string name, std::string master, int nbPlayer)
         : _name(name), _master(master) {
-        _clients_uuid.insert({master, {WAITING, nbPlayer}});
         _lastUpdate = 0;
     }
 };

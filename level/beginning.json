@@ -11,16 +11,16 @@
       "spawn_time": 0,
       "position": { "x": 2000, "y": 500 },
       "velocity": { "x": -9, "y": 0 },
-      "hitbox": { "x": 0.08, "y": 0.08 },
+      "hitbox": { "x": 0.1, "y": 0.18 },
       "hp": 100,
       "score": 10
     },
     {
         "type": 1,
-        "spawn_time": 1000,
+        "spawn_time": 20,
         "position": { "x": 2000, "y": 1000 },
         "velocity": { "x": -8, "y": 0 },
-        "hitbox": { "x": 0.08, "y": 0.08 },
+        "hitbox": { "x": 0.1, "y": 0.18 },
         "hp": 100,
         "score": 10
       },
@@ -29,7 +29,7 @@
         "spawn_time": 550,
         "position": { "x": 2000, "y": 500 },
         "velocity": { "x": -7, "y": 0 },
-        "hitbox": { "x": 0.08, "y": 0.08 },
+        "hitbox": { "x": 0.1, "y": 0.18 },
         "hp": 100,
         "score": 10
       },
@@ -38,7 +38,7 @@
         "spawn_time": 600,
         "position": { "x": 2000, "y": 100 },
         "velocity": { "x": -9, "y": 0 },
-        "hitbox": { "x": 0.08, "y": 0.08 },
+        "hitbox": { "x": 0.1, "y": 0.18 },
         "hp": 100,
         "score": 10
       }
