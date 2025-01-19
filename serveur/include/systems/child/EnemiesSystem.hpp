@@ -34,6 +34,7 @@ class EnemiesSys {
 };
 } // namespace rtype::server
 
-RequestEvent createSineEnemy(ECS& ecs,  rtype::server::EnemyInfo enemy);
+std::vector<RequestEvent> createSineEnemy(ECS& ecs,  rtype::server::EnemyInfo enemy);
 RequestEvent createEnemyWithAI(ECS& ecs, rtype::server::EnemyInfo enemyInfo,
                        rtype::server::EnemyAI::BehaviorType behavior);
+std::vector<RequestEvent> createVFormation(ECS& ecs, rtype::server::EnemyInfo enemy);

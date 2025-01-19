@@ -8,7 +8,7 @@
 SineMovement = {
     time = 0
 }
--- add gestion d'eereur division par 0
+
 function SineMovement:update(position, velocity, ai, dt)
     self.time = (self.time or 0) + dt
     velocity.y = math.floor(ai.amplitude * math.sin(self.time))
@@ -48,18 +48,18 @@ end
 VFormation = {}
 
 function VFormation:update(position, velocity, ai, leaderPos, dt)
-    if leaderPos then
-        local angle = math.pi / 4
-        local xOffset = math.cos(angle) * ai.spacing * ai.index
-        local yOffset = math.sin(angle) * ai.spacing * ai.index
+    -- if leaderPos then
+    --     local angle = math.pi / 4
+    --     local xOffset = math.cos(angle) * ai.spacing * ai.index
+    --     local yOffset = math.sin(angle) * ai.spacing * ai.index
 
-        if ai.index % 2 == 0 then
-            yOffset = -yOffset
-        end
+    --     if ai.index % 2 == 0 then
+    --         yOffset = -yOffset
+    --     end
 
-        position.x = math.floor(leaderPos.x - xOffset)
-        position.y = math.floor(leaderPos.y + yOffset)
-    end
+    --     position.x = math.floor(leaderPos.x - xOffset)
+    --     position.y = math.floor(leaderPos.y + yOffset)
+    -- end
 end
 
 BossBehavior = {
