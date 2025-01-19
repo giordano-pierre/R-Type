@@ -21,7 +21,8 @@ class EnemiesSys {
     void initLua();
     void registerComponents();
     void loadBehaviors();
-    void updateBehavior(Position &pos, Velocity &vel, EnemyAI &ai, float dt, rtype::server::Position &posPlayer);
+    void updateBehavior(Position &pos, Velocity &vel, EnemyAI &ai, float dt,
+                        rtype::server::Position &posPlayer);
 
   public:
     EnemiesSys();
@@ -34,9 +35,12 @@ class EnemiesSys {
 };
 } // namespace rtype::server
 
-std::vector<RequestEvent> createSineEnemy(ECS& ecs,  rtype::server::EnemyInfo enemy);
-RequestEvent createEnemyWithAI(ECS& ecs, rtype::server::EnemyInfo enemyInfo,
-                       rtype::server::EnemyAI::BehaviorType behavior);
-std::vector<RequestEvent> createVFormation(ECS& ecs, rtype::server::EnemyInfo enemy);
-std::vector<RequestEvent> createCircle(ECS& ecs, rtype::server::EnemyInfo enemy);
-std::vector<RequestEvent> createChase(ECS& ecs, rtype::server::EnemyInfo enemy);
+std::vector<RequestEvent> createSineEnemy(ECS &ecs,
+                                          rtype::server::EnemyInfo enemy);
+RequestEvent createEnemyWithAI(ECS &ecs, rtype::server::EnemyInfo enemyInfo,
+                               rtype::server::EnemyAI::BehaviorType behavior);
+std::vector<RequestEvent> createVFormation(ECS &ecs,
+                                           rtype::server::EnemyInfo enemy);
+std::vector<RequestEvent> createCircle(ECS &ecs,
+                                       rtype::server::EnemyInfo enemy);
+std::vector<RequestEvent> createChase(ECS &ecs, rtype::server::EnemyInfo enemy);
