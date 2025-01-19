@@ -15,33 +15,26 @@ function SineMovement:update(position, velocity, ai, dt)
 end
 
 CircleMovement = {
-    angle = 0,
-    centerX = 0,
-    centerY = 0
+    targetX = 500
 }
-function CircleMovement:update(position, velocity, ai, dt)
-    if self.centerX == 0 and self.centerY == 0 then
-        self.centerX = position.x
-        self.centerY = position.y
-    end
 
-    self.angle = self.angle + ai.speed * dt
-    position.x = math.floor(self.centerX + ai.radius * math.cos(self.angle))
-    position.y = math.floor(self.centerY + ai.radius * math.sin(self.angle))
+function CircleMovement:update(position, velocity, ai, dt)
+    if position.x <= self.targetX then
+        velocity.x = 0
+        velocity.y = 0
+    end
 end
 
 PlayerChase = {}
 
 function PlayerChase:update(position, velocity, ai, playerPos, dt)
-    if playerPos then
-        local dx = playerPos.x - position.x
-        local dy = playerPos.y - position.y
-        local distance = math.sqrt(dx * dx + dy * dy)
+    local dx = playerPos.x - position.x
+    local dy = playerPos.y - position.y
+    local distance = math.sqrt(dx * dx + dy * dy)
 
-        if distance > 0 then
-            position.x = math.floor(position.x + (dx / distance) * ai.speed * dt)
-            position.y = math.floor(position.y + (dy / distance) * ai.speed * dt)
-        end
+    if distance > 0 then
+        velocity.x = math.floor((dx / distance) * ai.speed)
+        velocity.y = math.floor((dy / distance) * ai.speed)
     end
 end
 
@@ -59,7 +52,6 @@ function VFormation:update(position, velocity, ai, leaderPos, dt)
 
     --     position.x = math.floor(leaderPos.x - xOffset)
     --     position.y = math.floor(leaderPos.y + yOffset)
-    -- end
 end
 
 BossBehavior = {
