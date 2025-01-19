@@ -15,8 +15,14 @@
 namespace rtype::client {
 
 void LifeSys::operator()(ECS &ecs, const CreationEvent &e_create,
-                         SparseArray<Window> &windows) {
-    auto &myWindow = windows[0].value();
+                         SparseArray<Configs> &configs,
+                         SparseArray<SFMLObjects> &SFMLObjs,
+                         SparseArray<PlayerInfo> &playerInfos,
+                         SparseArray<Room> &rooms) {
+    auto &myConfig = configs[0].value();
+    auto &SFMLObj = SFMLObjs[0].value();
+    auto &playerInfo = playerInfos[0].value();
+    auto &myRoom = rooms[0].value();
 
     ecs.clean<FrameEvent>();
     ecs.clean<InputEvent>();
@@ -24,40 +30,43 @@ void LifeSys::operator()(ECS &ecs, const CreationEvent &e_create,
     switch (e_create._type) {
     case MENU:
         loadMenuSystem(ecs);
-        createMenuEntities(ecs, myWindow);
+        createMenuEntities(ecs, myConfig, SFMLObj);
         break;
     case M_GENERAL:
         loadMenuSystem(ecs);
-        createMenuGeneralEntities(ecs, myWindow);
+        createMenuGeneralEntities(ecs, myConfig, SFMLObj);
         break;
-    // case M_PLAYER:
-    //     loadMenuSystem(ecs);
-    //     createMenuPlayerEntities(ecs, myWindow);
-    //     break;
+    case M_PLAYER:
+        loadMenuSystem(ecs);
+        createMenuPlayerEntities(ecs, myConfig, SFMLObj);
+        break;
     case M_ROOM:
         loadMenuSystem(ecs);
-        createMenuRoomEntities(ecs, myWindow);
+        createMenuRoomEntities(ecs, e_create._param.value(), myConfig, SFMLObj, playerInfo, myRoom);
         break;
     case M_CONFIG:
         loadMenuSystem(ecs);
-        createConfigEntities(ecs, myWindow);
+        createConfigEntities(ecs, myConfig, SFMLObj);
         break;
     case M_C_GENERAL:
         loadMenuSystem(ecs);
-        createConfigGeneralEntites(ecs, myWindow);
+        createConfigGeneralEntites(ecs, myConfig, SFMLObj);
         break;
     case M_C_PLAYER1:
         loadMenuSystem(ecs);
-        createConfigPlayer1Entites(ecs, myWindow);
+        createConfigPlayer1Entites(ecs, myConfig, SFMLObj);
         break;
     case M_C_PLAYER2:
         loadMenuSystem(ecs);
-        createConfigPlayer2Entites(ecs, myWindow);
+        createConfigPlayer2Entites(ecs, myConfig, SFMLObj);
         break;
     case GAME:
         loadGameSystem(ecs);
-        createGameEntities(ecs, myWindow);
+        createGameEntities(ecs, myConfig, SFMLObj);
         break;
+    case M_IN_ROOM:
+        loadMenuSystem(ecs);
+        createMenuInRoomEntities(ecs, myConfig, SFMLObj, myRoom);
     default:
         return;
     }

@@ -43,11 +43,12 @@ void createWindow(ECS &ecs) {
             )",
         sf::Shader::Fragment);
 
-    Entity window = ecs.spawn_entity();
-    ecs.add_component<rtype::client::Tag>(window, {});
-    ecs.add_component<rtype::client::Window>(
-        window,
-        {"assets/font/retro_gaming.ttf", myShader, {1440, 810}, serverSize});
+    Entity base = ecs.spawn_entity();
+    ecs.add_component<rtype::client::Tag>(base, {});
+    ecs.add_component<rtype::client::Configs>(base, {{1440, 810}, serverSize});
+    ecs.add_component<rtype::client::SFMLObjects>(base, {"assets/font/retro_gaming.ttf", myShader});
+    ecs.add_component<rtype::client::Room>(base, {});
+    ecs.add_component<rtype::client::PlayerInfo>(base, {});
 }
 
 int main(int ac, char *argv[]) {
@@ -74,7 +75,10 @@ int main(int ac, char *argv[]) {
     ecs.register_component<rtype::client::Tag>();
     ecs.register_component<rtype::client::Text>();
     ecs.register_component<rtype::client::Velocity>();
-    ecs.register_component<rtype::client::Window>();
+    ecs.register_component<rtype::client::Configs>();
+    ecs.register_component<rtype::client::SFMLObjects>();
+    ecs.register_component<rtype::client::Room>();
+    ecs.register_component<rtype::client::PlayerInfo>();
 
     ecs.register_event<rtype::client::FrameEvent>();
     ecs.register_event<rtype::client::InputEvent>();
@@ -92,28 +96,29 @@ int main(int ac, char *argv[]) {
     ecs.subscribe<RequestEvent>(client, true);
 
     rtype::client::MessageHandlerSys handler;
-    ecs.subscribe<ReceiveEvent, rtype::client::Window, rtype::client::Tag,
-                  rtype::client::Position, rtype::client::Velocity,
-                  rtype::client::Health, rtype::client::Score,
-                  rtype::client::LastUpdate>(handler, true);
+    ecs.subscribe<ReceiveEvent, rtype::client::Room, rtype::client::SFMLObjects,
+                  rtype::client::Tag, rtype::client::Position,
+                  rtype::client::Velocity, rtype::client::Health,
+                  rtype::client::Score, rtype::client::LastUpdate>(handler, true);
 
     auto lifeSys = rtype::client::LifeSys();
-    ecs.subscribe<rtype::client::CreationEvent, rtype::client::Window>(lifeSys,
-                                                                       true);
+    ecs.subscribe<rtype::client::CreationEvent, rtype::client::Configs,
+                  rtype::client::SFMLObjects, rtype::client::PlayerInfo,
+                  rtype::client::Room>(lifeSys, true);
     ecs.subscribe<rtype::client::DeleteEvent, rtype::client::Scene>(lifeSys,
                                                                     true);
 
     auto windowSys = rtype::client::WindowSys(
         {1920, 1080, 32}, "R-type", sf::Style::Titlebar | sf::Style::Close);
-    ecs.subscribe<rtype::client::FrameEvent, rtype::client::Window,
-                  rtype::client::Position, rtype::client::Hitbox,
-                  rtype::client::Drawable, rtype::client::Text,
-                  rtype::client::Selectable>(windowSys, true);
-    ecs.subscribe<rtype::client::ChangeKey, rtype::client::Window>(windowSys,
+    ecs.subscribe<rtype::client::FrameEvent, rtype::client::Configs,
+                  rtype::client::SFMLObjects, rtype::client::Position,
+                  rtype::client::Hitbox, rtype::client::Drawable,
+                  rtype::client::Text, rtype::client::Selectable>(windowSys, true);
+    ecs.subscribe<rtype::client::ChangeKey, rtype::client::Configs>(windowSys,
                                                                    true);
 
     auto cheatSys = rtype::client::CheatSys();
-    ecs.subscribe<rtype::client::InputEvent, rtype::client::Window>(cheatSys,
+    ecs.subscribe<rtype::client::InputEvent, rtype::client::Configs>(cheatSys,
                                                                     true);
 
     auto frameSys = rtype::client::AnimeSys();

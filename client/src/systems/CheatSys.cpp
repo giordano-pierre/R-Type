@@ -10,7 +10,7 @@
 namespace rtype::client {
 
 void CheatSys::operator()(ECS &ecs, const InputEvent &e_input,
-                          SparseArray<Window> &window) {
+                          SparseArray<Configs> &configs) {
     bool changeState = false;
 
     if (e_input._myEvent != NOTHING)
@@ -25,7 +25,7 @@ void CheatSys::operator()(ECS &ecs, const InputEvent &e_input,
     }
 
     if (changeState)
-        window[0].value()._displayHitboxs = !window[0].value()._displayHitboxs;
+        configs[0].value()._displayHitboxs = !configs[0].value()._displayHitboxs;
 }
 
 } // namespace rtype::client

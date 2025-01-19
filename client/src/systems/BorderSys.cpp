@@ -11,12 +11,12 @@
 namespace rtype::client {
 
 void BorderSys::operator()(ECS &ecs, const TicEvent &e_tic,
-                           const SparseArray<Window> &windows,
+                           const SparseArray<Configs> &configs,
                            const SparseArray<Tag> &tags,
                            const SparseArray<Hitbox> &hitboxs,
                            SparseArray<Position> &positions) {
-    TupleUInt serverSize = (windows.size() > 0 && windows[0])
-                               ? windows[0].value()._serverSize
+    TupleUInt serverSize = (configs.size() > 0 && configs[0])
+                               ? configs[0].value()._serverSize
                                : TupleUInt{1920, 1080};
 
     for (size_t i = 0;
