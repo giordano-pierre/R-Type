@@ -7,9 +7,9 @@
 
 #pragma once
 
+#include "Components.hpp"
 #include "ECS/ECS.hpp"
 #include "protocol.hpp"
-#include "Components.hpp"
 #include <vector>
 
 namespace rtype::server {

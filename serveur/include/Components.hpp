@@ -11,7 +11,6 @@
 #include "Events.hpp"
 #include "LevelLoader.hpp"
 #include "protocol.hpp"
-#include "LevelLoader.hpp"
 #include <cstddef>
 #include <cstdint>
 #include <fstream>

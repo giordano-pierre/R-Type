@@ -108,8 +108,7 @@ EnemyInfo extractEnnemy(const nlohmann::json &item) {
     return ennemy;
 }
 
-void loadLevel(Stage &stage)
-{
+void loadLevel(Stage &stage) {
     stage._enemies.clear();
     if (!stage._json.contains("enemies")) {
         std::cerr << "no ennemies in level!" << std::endl;
