@@ -181,7 +181,7 @@ RequestEvent createEnemyWithAI(ECS &ecs, rtype::server::EnemyInfo enemyInfo,
          ""});
 }
 
-RequestEvent createSineEnemy(ECS& ecs, rtype::server::EnemyInfo enemy) {
+RequestEvent createSineEnemy(ECS &ecs, rtype::server::EnemyInfo enemy) {
     rtype::server::EnemyInfo info{.x_pos = enemy.x_pos,
                                   .y_pos = enemy.y_pos,
                                   .x_velocity = -2,
