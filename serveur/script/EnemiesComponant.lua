@@ -15,7 +15,7 @@ function SineMovement:update(position, velocity, ai, dt)
 end
 
 CircleMovement = {
-    targetX = 500
+    targetX = 1600
 }
 
 function CircleMovement:update(position, velocity, ai, dt)
@@ -23,6 +23,9 @@ function CircleMovement:update(position, velocity, ai, dt)
         velocity.x = 0
         velocity.y = 0
     end
+    self.angle = self.angle + ai.speed * dt
+    position.x = math.floor(self.centerX + ai.radius * math.cos(self.angle))
+    position.y = math.floor(self.centerY + ai.radius * math.sin(self.angle))
 end
 
 PlayerChase = {}
@@ -54,6 +57,24 @@ function VFormation:update(position, velocity, ai, leaderPos, dt)
     --     position.y = math.floor(leaderPos.y + yOffset)
 end
 
+UpDown = {
+    targetY = 0
+}
+
+function UpDown:update(position, velocity, ai, dt)
+    if position.x < 1500 then
+        velocity.x = 0
+    end
+    if position.y < self.targetY and self.targetY == 0 and velocity.y < 0 then
+        self.targetY = 1000
+        velocity.y = 6
+    elseif position.y > self.targetY and self.targetY == 1000 and velocity.y > 0 then
+        self.targetY = 0
+        velocity.y = -6
+    end
+end
+
+
 BossBehavior = {
     currentPhase = 1,
     phaseTimer = 0,
@@ -68,7 +89,7 @@ BossBehavior = {
         end,
 
         function(self, position, velocity, ai, dt)
-            CircleMovement:update(position, velocity, ai, dt)
+            UpDown:update(position, velocity, ai, dt)
         end
     }
 }
