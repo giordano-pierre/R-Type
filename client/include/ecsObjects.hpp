@@ -21,7 +21,10 @@
 #include "components/Tag.hpp"
 #include "components/Text.hpp"
 #include "components/Velocity.hpp"
-#include "components/Window.hpp"
+#include "components/Configs.hpp"
+#include "components/SFMLObjects.hpp"
+#include "components/Room.hpp"
+#include "components/PlayerInfo.hpp"
 
 #include "events/AnimeEvent.hpp"
 #include "events/ChangeKey.hpp"

@@ -20,7 +20,9 @@ class MainMessageHandlerSys {
     ~MainMessageHandlerSys() = default;
 
     void operator()(ECS &ecs, const ReceiveEvent &rec_event,
+                    SparseArray<Utils> &utils,
                     SparseArray<Room> &rooms, SparseArray<Tag> &tags,
+                    SparseArray<Stage> &stages,
                     SparseArray<Child> &children);
 };
 

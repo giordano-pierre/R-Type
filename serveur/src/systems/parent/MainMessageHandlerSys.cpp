@@ -69,18 +69,19 @@ void createPlayer(Child &child, const std::string &name,
 
 void disconnect(ECS &ecs, const ReceiveEvent &rec_event,
                 SparseArray<Room> &rooms, SparseArray<Tag> &tags,
-                SparseArray<Child> &children) {
+                SparseArray<Child> &children, const SparseArray<Stage> &stages) {
     int nbPlayer = (rec_event.payload.contains("nbp"))
                        ? rec_event.payload["nbp"].get<int>()
                        : 1;
 
     for (size_t i = 0;
-         i < rooms.size() && i < tags.size() && i < children.size(); ++i) {
+         i < rooms.size() && i < tags.size() && i < children.size() && i < stages.size(); ++i) {
         auto &ro = rooms[i];
         auto &tag = tags[i];
         auto &child = children[i];
+        const auto &st = stages[i];
 
-        if (!ro || !tag ||
+        if (!ro || !tag || !child || !st ||
             ro.value()._clients_uuid.find(rec_event.sender_uuid) ==
                 ro.value()._clients_uuid.end())
             continue;
@@ -100,6 +101,7 @@ void disconnect(ECS &ecs, const ReceiveEvent &rec_event,
                      {{"master", true},
                       {"idr", tag.value()._id},
                       {"r_name", ro.value()._name},
+                      {"st", st.value()._mapFile},
                       {"nbp", countPlayer(ro.value()._clients_uuid)}},
                      ro.value()._master});
             }
@@ -109,68 +111,139 @@ void disconnect(ECS &ecs, const ReceiveEvent &rec_event,
     ecs.post<RequestEvent>({Protocol::DISCONNECT, {}, rec_event.sender_uuid});
 }
 
-void joinRoom(ECS &ecs, const ReceiveEvent &rec_event, SparseArray<Room> &rooms,
-              SparseArray<Tag> &tags, SparseArray<Child> &children) {
-    Entity roomE = Entity(-1);
+int countRoom(const SparseArray<Room> &rooms)
+{
+    int cmpt = 0;
+
+    for (size_t i = 0; i < rooms.size(); ++i) {
+        const auto &ro = rooms[i];
+
+        if (ro)
+            cmpt += 1;
+    }
+    return cmpt;
+}
+
+void createRoom(ECS &ecs, const ReceiveEvent &rec_event, SparseArray<Room> &rooms,
+              SparseArray<Tag> &tags, SparseArray<Child> &children, const SparseArray<Stage> &stages, Utils &utils)
+{
+    std::cout << rec_event.payload.dump() << std::endl;
     int nbPlayer = (rec_event.payload.contains("nbp"))
                        ? rec_event.payload["nbp"].get<int>()
                        : 1;
-    for (size_t i = 0; i < rooms.size(); ++i) {
-        auto &ro = rooms[i];
-
-        if (ro && ro.value()._name ==
-                      rec_event.payload["r_name"].get<std::string>()) {
-            roomE = Entity(i);
-            std::cout << "Room " << ro.value()._name << " found." << std::endl;
-            break;
-        }
-    }
-    if (roomE == -1) {
-        roomE = ecs.spawn_entity();
-        std::string idRoom = fetch_new_uuid();
-        std::string nameRoom = rec_event.payload["r_name"];
-        ecs.add_component<Tag>(roomE, {idRoom});
-        ecs.add_component<Room>(roomE,
-                                {nameRoom, rec_event.sender_uuid, nbPlayer});
-        ecs.add_component<Stage>(roomE, {1});
-        ecs.add_component<Child>(roomE, {});
-        auto &tmp = ecs.get_components<Child>();
-        initSubECS(tmp[roomE].value()._ecs_child);
-        loadSubSystem(tmp[roomE].value());
-        std::cout << "Room " << nameRoom << " created." << std::endl;
-    } else {
-        if ((countPlayer(rooms[roomE].value()._clients_uuid) + nbPlayer) > 8 ||
-            rooms[roomE].value()._clients_uuid.find(rec_event.sender_uuid) !=
-                rooms[roomE].value()._clients_uuid.end() ||
-            rooms[roomE].value()._state != WAITING)
-            return;
-        rooms[roomE].value()._clients_uuid.insert(
-            {rec_event.sender_uuid, {WAITING, nbPlayer}});
-        std::cout << "Player add." << std::endl;
-    }
+    if (countRoom(rooms) >= 10)
+        return;
+    Entity roomE = ecs.spawn_entity();
+    std::string idRoom = fetch_new_uuid();
+    std::string nameRoom = rec_event.payload["r_name"];
+    ecs.add_component<Tag>(roomE, {idRoom});
+    ecs.add_component<Room>(roomE,
+                            {nameRoom, rec_event.sender_uuid, nbPlayer});
+    ecs.add_component<Stage>(roomE, {utils._levels.getOneLevel(1)});
+    ecs.add_component<Child>(roomE, {});
+    auto &tmp = ecs.get_components<Child>();
+    initSubECS(tmp[roomE].value()._ecs_child);
+    loadSubSystem(tmp[roomE].value());
+    std::cout << "Room " << nameRoom << " created." << std::endl;
     auto namesP = rec_event.payload["p_name"].get<std::vector<std::string>>();
     auto colorsP = rec_event.payload["p_color"].get<std::vector<std::string>>();
     for (int i = 0; i < nbPlayer; i++)
         createPlayer(children[roomE].value(), namesP[i], colorsP[i],
                      rec_event.sender_uuid);
-    for (const auto &[uuid, _] : rooms[roomE].value()._clients_uuid) {
-        if (uuid == rooms[roomE].value()._master)
-            ecs.post<RequestEvent>(
-                {JOIN_ROOM,
-                 {{"master", true},
-                  {"idr", tags[roomE].value()._id},
-                  {"r_name", rooms[roomE].value()._name},
-                  {"nbp", countPlayer(rooms[roomE].value()._clients_uuid)}},
-                 uuid});
-        else
-            ecs.post<RequestEvent>(
-                {JOIN_ROOM,
-                 {{"idr", tags[roomE].value()._id},
-                  {"r_name", rooms[roomE].value()._name},
-                  {"nbp", countPlayer(rooms[roomE].value()._clients_uuid)}},
-                 uuid});
+    ecs.post<RequestEvent>({JOIN_ROOM,
+    {{"master", true},
+     {"idr", tags[roomE].value()._id},
+     {"r_name", rooms[roomE].value()._name},
+     {"st", stages[roomE].value()._mapFile},
+     {"nbp", countPlayer(rooms[roomE].value()._clients_uuid)}},
+    rec_event.sender_uuid});
+}
+
+void joinRoom(ECS &ecs, const ReceiveEvent &rec_event, SparseArray<Room> &rooms,
+              SparseArray<Tag> &tags, SparseArray<Child> &children, const SparseArray<Stage> &stages, Utils &utils) {
+    // Entity roomE = Entity(-1);
+    int nbPlayer = (rec_event.payload.contains("nbp"))
+                       ? rec_event.payload["nbp"].get<int>()
+                       : 1;
+    for (size_t i = 0; i < tags.size() && i < rooms.size() && i < children.size() && i < stages.size(); ++i) {
+        auto &tag = tags[i];
+        auto &ro = rooms[i];
+        auto &child = children[i];
+        const auto &st = stages[i];
+
+        if (tag && ro && child && st && tag.value()._id ==
+                      rec_event.payload["idr"].get<std::string>()) {
+            if ((countPlayer(ro.value()._clients_uuid) + nbPlayer) > 8 ||
+                ro.value()._clients_uuid.find(rec_event.sender_uuid) !=
+                ro.value()._clients_uuid.end() ||
+                ro.value()._state != WAITING)
+                return;
+            ro.value()._clients_uuid.insert({rec_event.sender_uuid, {WAITING, nbPlayer}});
+            std::cout << "Player add." << std::endl;
+            auto namesP = rec_event.payload["p_name"].get<std::vector<std::string>>();
+            auto colorsP = rec_event.payload["p_color"].get<std::vector<std::string>>();
+            for (int i = 0; i < nbPlayer; i++)
+                createPlayer(child.value(), namesP[i], colorsP[i], rec_event.sender_uuid);
+            for (const auto &[uuid, _] : ro.value()._clients_uuid) {
+                if (uuid == ro.value()._master)
+                    ecs.post<RequestEvent>({JOIN_ROOM, {
+                        {"master", true},
+                        {"idr", tag.value()._id},
+                        {"r_name", ro.value()._name},
+                        {"st", st.value()._mapFile},
+                        {"nbp", countPlayer(ro.value()._clients_uuid)}},
+                    uuid});
+                else
+                    ecs.post<RequestEvent>({JOIN_ROOM, {
+                        {"idr", tag.value()._id},
+                        {"r_name", ro.value()._name},
+                        {"st", st.value()._mapFile},
+                        {"nbp", countPlayer(ro.value()._clients_uuid)}},
+                    uuid});
+            }
+            return;
+        }
     }
-    return;
+    // }
+    // // if (roomE == -1) {
+    // //     roomE = ecs.spawn_entity();
+    // //     std::string idRoom = fetch_new_uuid();
+    // //     std::string nameRoom = rec_event.payload["r_name"];
+    // //     ecs.add_component<Tag>(roomE, {idRoom});
+    // //     ecs.add_component<Room>(roomE,
+    // //                             {nameRoom, rec_event.sender_uuid, nbPlayer});
+    // //     ecs.add_component<Stage>(roomE, {utils._levels.getOneLevel(1)});
+    // //     ecs.add_component<Child>(roomE, {});
+    // //     auto &tmp = ecs.get_components<Child>();
+    // //     initSubECS(tmp[roomE].value()._ecs_child);
+    // //     loadSubSystem(tmp[roomE].value());
+    // //     std::cout << "Room " << nameRoom << " created." << std::endl;
+    // // } else {
+        
+    // }
+    // auto namesP = rec_event.payload["p_name"].get<std::vector<std::string>>();
+    // auto colorsP = rec_event.payload["p_color"].get<std::vector<std::string>>();
+    // for (int i = 0; i < nbPlayer; i++)
+    //     createPlayer(children[roomE].value(), namesP[i], colorsP[i],
+    //                  rec_event.sender_uuid);
+    // for (const auto &[uuid, _] : rooms[roomE].value()._clients_uuid) {
+    //     if (uuid == rooms[roomE].value()._master)
+    //         ecs.post<RequestEvent>(
+    //             {JOIN_ROOM,
+    //              {{"master", true},
+    //               {"idr", tags[roomE].value()._id},
+    //               {"r_name", rooms[roomE].value()._name},
+    //               {"nbp", countPlayer(rooms[roomE].value()._clients_uuid)}},
+    //              uuid});
+    //     else
+    //         ecs.post<RequestEvent>(
+    //             {JOIN_ROOM,
+    //              {{"idr", tags[roomE].value()._id},
+    //               {"r_name", rooms[roomE].value()._name},
+    //               {"nbp", countPlayer(rooms[roomE].value()._clients_uuid)}},
+    //              uuid});
+    // }
+    // return;
 }
 
 void launchGame(ECS &ecs, const ReceiveEvent &rec_event,
@@ -186,7 +259,7 @@ void launchGame(ECS &ecs, const ReceiveEvent &rec_event,
 
         if (ro && tag && child && tag.value()._id == idRoom) {
             std::cout << "Launch " << idRoom << " game." << std::endl;
-            float space = 1080 / (countPlayer(ro.value()._clients_uuid) + 2);
+            float space = 1080 / (countPlayer(ro.value()._clients_uuid) + 1);
             float posY = 0;
             const auto subTags = child.value()._ecs_child.get_components<Tag>();
             const auto subPlayer =
@@ -346,17 +419,55 @@ void gameOver(ECS &ecs, const ReceiveEvent rec_event, SparseArray<Room> &rooms,
     }
 }
 
+void getRoom(ECS &ecs, const ReceiveEvent &rec_event, SparseArray<Room> &rooms, SparseArray<Tag> &tags, SparseArray<Stage> &stages)
+{
+    nlohmann::json r_name = nlohmann::json::array();
+    nlohmann::json r_nbp = nlohmann::json::array();
+    nlohmann::json r_id = nlohmann::json::array();
+    nlohmann::json r_stage = nlohmann::json::array();
+
+    for (size_t i = 0; i < rooms.size() && i < tags.size() && i < stages.size(); ++i) {
+        auto &ro = rooms[i];
+        auto &tag = tags[i];
+        auto &st = stages[i];
+
+        if (ro && tag && st && ro.value()._state == WAITING) {
+            r_name.push_back(ro.value()._name);
+            r_id.push_back(tag.value()._id);
+            r_nbp.push_back(countPlayer(ro.value()._clients_uuid));
+            if (st.value()._json.contains("stage") && st.value()._json["stage"].contains("name"))
+                r_stage.push_back(st.value()._json["stage"]["name"]);
+            else
+                r_stage.push_back("");
+        }
+    }
+    ecs.post<RequestEvent>({GET_ROOM, {
+        {"idr", r_id},
+        {"r_name", r_name},
+        {"r_nbp", r_nbp},
+        {"r_st", r_stage}
+    }, rec_event.sender_uuid});
+}
+
 void MainMessageHandlerSys::operator()(ECS &ecs, const ReceiveEvent &rec_event,
+                                       SparseArray<Utils> &utils,
                                        SparseArray<Room> &rooms,
                                        SparseArray<Tag> &tags,
+                                       SparseArray<Stage> &stages,
                                        SparseArray<Child> &children) {
+    auto &util = utils[0].value();
+
     switch (rec_event.action) {
     case DISCONNECT: {
-        disconnect(ecs, rec_event, rooms, tags, children);
+        disconnect(ecs, rec_event, rooms, tags, children, stages);
+        return;
+    }
+    case CREATE_ROOM: {
+        createRoom(ecs, rec_event, rooms, tags, children, stages, util);
         return;
     }
     case JOIN_ROOM: {
-        joinRoom(ecs, rec_event, rooms, tags, children);
+        joinRoom(ecs, rec_event, rooms, tags, children, stages, util);
         return;
     }
     case LAUNCH_GAME: {
@@ -374,6 +485,9 @@ void MainMessageHandlerSys::operator()(ECS &ecs, const ReceiveEvent &rec_event,
     case SV_GAME_OVER: {
         gameOver(ecs, rec_event, rooms, tags);
         return;
+    }
+    case GET_ROOM: {
+        getRoom(ecs, rec_event, rooms, tags, stages);
     }
     default:
         break;

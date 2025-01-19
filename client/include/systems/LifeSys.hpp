@@ -9,7 +9,10 @@
 
 #include "ECS/ECS.hpp"
 #include "components/Scene.hpp"
-#include "components/Window.hpp"
+#include "components/Configs.hpp"
+#include "components/SFMLObjects.hpp"
+#include "components/PlayerInfo.hpp"
+#include "components/Room.hpp"
 #include "events/CreateEvent.hpp"
 #include "events/DeleteEvent.hpp"
 
@@ -20,7 +23,10 @@ class LifeSys {
     ~LifeSys() = default;
 
     void operator()(ECS &ecs, const CreationEvent &e_create,
-                    SparseArray<Window> &windows);
+                    SparseArray<Configs> &configs,
+                    SparseArray<SFMLObjects> &SFMLObjs,
+                    SparseArray<PlayerInfo> &playerInfo,
+                    SparseArray<Room> &rooms);
     void operator()(ECS &ecs, const DeleteEvent &e_del,
                     SparseArray<Scene> &scenes);
 };
