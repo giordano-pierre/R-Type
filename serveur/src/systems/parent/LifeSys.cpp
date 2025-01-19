@@ -59,7 +59,9 @@ namespace rtype::server {
                     if (ennemy.spawn_tic <= 0) {
                         // auto resp = createSineEnemy(child.value()._ecs_child, ennemy);
                         // auto resp = createCircle(child.value()._ecs_child, ennemy);
-                        auto resp = createChase(child.value()._ecs_child, ennemy);
+                        // auto resp = createUpDown(child.value()._ecs_child, ennemy);
+                        auto resp = createUpDown(child.value()._ecs_child, ennemy);
+                        // auto resp = createChase(child.value()._ecs_child, ennemy);
                         // Entity ennemyE = child.value()._ecs_child.spawn_entity();
                         // std::string idE = fetch_new_uuid();
                         // child.value()._ecs_child.add_component<Tag>(
