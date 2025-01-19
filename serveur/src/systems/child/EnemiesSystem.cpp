@@ -51,6 +51,17 @@ namespace rtype::server {
         const SparseArray<Tag>& tags,
         SparseArray<EnemyAI>& ais,
         SparseArray<Velocity>& velocities) {
+        const auto& players =
+            ecs.get_components<PlayerData>();
+
+        rtype::server::Position posPlayer(0, 0);
+
+        for (size_t i = 0; i < players.size(); ++i){
+            if(players[i]) {
+                posPlayer = *positions[i];
+                break;
+            }
+        }
         for (size_t i = 0; i < positions.size(); ++i) {
             if (!positions[i] || !tags[i] || !ais[i] || !velocities[i])
                 continue;
@@ -63,12 +74,12 @@ namespace rtype::server {
             float delta =
                 std::chrono::duration<float>(tic.time_stamp - lastTic).count();
             lastTic = tic.time_stamp;
-            updateBehavior(pos, vel, ai, delta);
+            updateBehavior(pos, vel, ai, delta, posPlayer);
         }
     }
 
     void EnemiesSys::updateBehavior(Position& pos, Velocity& vel, EnemyAI& ai,
-        float dt) {
+        float dt, rtype::server::Position &posPlayer) {
         switch (ai.behaviorType) {
         case EnemyAI::BehaviorType::SINUSOIDAL: {
             sol::function update = lua["SineMovement"]["update"];
@@ -92,7 +103,9 @@ namespace rtype::server {
         case EnemyAI::BehaviorType::CHASE: {
             sol::function update = lua["PlayerChase"]["update"];
             if (update.valid()) {
-                update(pos, vel, ai, dt);
+            std::cout << "HEEEEEELOOOOOOOO" << std::endl;
+            update(lua["PlayerChase"], pos, vel, ai, posPlayer, dt);
+                std::cout << "ICI VEL :" << pos.x << " " << pos.y << " | " << posPlayer.x << " " << posPlayer.y << std::endl;
             }
             break;
         }
@@ -144,8 +157,8 @@ RequestEvent createEnemyWithAI(ECS& ecs, rtype::server::EnemyInfo enemyInfo,
     case rtype::server::EnemyAI::BehaviorType::CIRCULAR:
         ecs.add_component<rtype::server::EnemyAI>(
             entity, rtype::server::EnemyAI{ .behaviorType = behavior,
-                                           .radius = 100.0f,
-                                           .speed = 2.0f });
+                                           .radius = 50.0f,
+                                           .speed = 3.0f });
         break;
 
     case rtype::server::EnemyAI::BehaviorType::CHASE:
@@ -185,7 +198,7 @@ RequestEvent createEnemyWithAI(ECS& ecs, rtype::server::EnemyInfo enemyInfo,
 std::vector<RequestEvent> createSineEnemy(ECS& ecs, rtype::server::EnemyInfo enemy) {
     rtype::server::EnemyInfo info{ .x_pos = enemy.x_pos,
                                   .y_pos = enemy.y_pos,
-                                  .x_velocity = -2,
+                                  .x_velocity = 0,
                                   .y_velocity = 0,
                                   .x_hitbox = enemy.x_hitbox,
                                   .y_hitbox = enemy.y_hitbox,
@@ -219,4 +232,31 @@ std::vector<RequestEvent> createVFormation(ECS& ecs, rtype::server::EnemyInfo en
             rtype::server::EnemyAI::BehaviorType::V_FORMATION));
     }
     return response;
+}
+
+
+std::vector<RequestEvent> createCircle(ECS& ecs, rtype::server::EnemyInfo enemy) {
+    rtype::server::EnemyInfo info{ .x_pos = enemy.x_pos,
+                                  .y_pos = enemy.y_pos,
+                                  .x_velocity = -2,
+                                  .y_velocity = 0,
+                                  .x_hitbox = enemy.x_hitbox,
+                                  .y_hitbox = enemy.y_hitbox,
+                                  .health = 100,
+                                  .score = 100 };
+    return { createEnemyWithAI(ecs, info,
+                             rtype::server::EnemyAI::BehaviorType::CIRCULAR) };
+}
+
+std::vector<RequestEvent> createChase(ECS& ecs, rtype::server::EnemyInfo enemy) {
+    rtype::server::EnemyInfo info{ .x_pos = enemy.x_pos,
+                                  .y_pos = enemy.y_pos,
+                                  .x_velocity = -2,
+                                  .y_velocity = 0,
+                                  .x_hitbox = enemy.x_hitbox,
+                                  .y_hitbox = enemy.y_hitbox,
+                                  .health = 100,
+                                  .score = 100 };
+    return { createEnemyWithAI(ecs, info,
+                             rtype::server::EnemyAI::BehaviorType::CHASE) };
 }
