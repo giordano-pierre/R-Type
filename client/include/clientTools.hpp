@@ -7,9 +7,9 @@
 
 #pragma once
 
+#include "ECS/ECS.hpp"
 #include <SFML/Graphics.hpp>
 #include <memory>
-#include "ECS/ECS.hpp"
 
 namespace rtype::client {
 struct TupleInt {

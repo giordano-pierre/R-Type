@@ -5,16 +5,15 @@
 ** clientTools
 */
 
+#include "components/Tag.hpp"
 #include <cmath>
 #include <iostream>
-#include "components/Tag.hpp"
 
 #include "clientTools.hpp"
 
 namespace rtype::client {
 
-void killMyEntity(ECS &ecs, Entity i)
-{
+void killMyEntity(ECS &ecs, Entity i) {
     auto tag = ecs.get_components<Tag>()[i].value();
 
     if (tag._type >= ENEMY1 && tag._type <= PLAYER) {

@@ -13,11 +13,11 @@
 namespace rtype::client {
 
 class KillEntity {
-    public:
-        KillEntity() = default;
-        ~KillEntity() = default;
+  public:
+    KillEntity() = default;
+    ~KillEntity() = default;
 
-        void operator()(ECS &ecs, SparseArray<LastUpdate> &lastups);
+    void operator()(ECS &ecs, SparseArray<LastUpdate> &lastups);
 };
 
-}
+} // namespace rtype::client

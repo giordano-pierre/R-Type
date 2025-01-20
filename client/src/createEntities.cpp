@@ -533,8 +533,7 @@ void createMenuInRoomEntities(ECS &ecs, const Configs &myConfig,
         ecs.add_component<Hitbox>(startB, {{float(1) / 3, float(1) / 10}});
         std::map<std::string, std::shared_ptr<std::string>> texts;
         texts.insert({"EN", std::make_shared<std::string>("START GAME")});
-        texts.insert(
-            {"FR", std::make_shared<std::string>("COMMENCER")});
+        texts.insert({"FR", std::make_shared<std::string>("COMMENCER")});
         ecs.add_component<Text>(
             startB,
             {texts, SFMLObj._font, {0.5, 0.5}, 0, 40, sf::Color::White});

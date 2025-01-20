@@ -176,7 +176,8 @@ void updateEntity(Entity &entity, const ReceiveEvent &rec_event,
         lastups[entity]) {
         lastups[entity].value()._lastUpdate =
             rec_event.payload["lu"].get<int>();
-        if (lastups[0].value()._lastUpdate != rec_event.payload["lu"].get<int>()) {
+        if (lastups[0].value()._lastUpdate !=
+            rec_event.payload["lu"].get<int>()) {
             lastups[0].value()._lastUpdate = rec_event.payload["lu"].get<int>();
         }
     }
