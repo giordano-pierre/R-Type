@@ -8,6 +8,7 @@
 #pragma once
 
 #include "ECS/ECS.hpp"
+#include <string>
 
 namespace rtype::client {
 void loadGameSystem(ECS &ecs);

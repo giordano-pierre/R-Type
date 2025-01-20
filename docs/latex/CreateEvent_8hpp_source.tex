@@ -11,12 +11,15 @@
 \DoxyCodeLine{00007\ }
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00009\ }
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}tools.hpp"{}}}
-\DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }rtype::client\ \{}
-\DoxyCodeLine{00013\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrtype_1_1client_1_1CreationEvent}{CreationEvent}}\ \{}
-\DoxyCodeLine{00014\ \ \ \ \ ObjectType\ \_type;}
-\DoxyCodeLine{00015\ \};}
-\DoxyCodeLine{00016\ \}\ \textcolor{comment}{//\ namespace\ rtype::client}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}clientTools.hpp"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}events/ReceiveEvent.hpp"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <optional>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }rtype::client\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrtype_1_1client_1_1CreationEvent}{CreationEvent}}\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ SceneType\ \_type;}
+\DoxyCodeLine{00017\ \ \ \ \ std::optional<ReceiveEvent>\ \_param;}
+\DoxyCodeLine{00018\ \};}
+\DoxyCodeLine{00019\ \}\ \textcolor{comment}{//\ namespace\ rtype::client}}
 
 \end{DoxyCode}

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: lib/others/events/include/ReceiveEvent.hpp Source File</title>
+<title>My Project: lib/shared/include/events/ReceiveEvent.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,7 +74,7 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html">lib</a></li><li class="navelem"><a class="el" href="dir_253a7d91443f7176adc72afb3f87969b.html">others</a></li><li class="navelem"><a class="el" href="dir_d37ef4a9a26e18b046a5a91da0da498e.html">events</a></li><li class="navelem"><a class="el" href="dir_290c6f777d849707c195f1f90cd99d84.html">include</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html">lib</a></li><li class="navelem"><a class="el" href="dir_0ce1951afc5b1d55c9adea1f4ae57fb4.html">shared</a></li><li class="navelem"><a class="el" href="dir_672ac6aaa2e16eeacff85d5426bf6943.html">include</a></li><li class="navelem"><a class="el" href="dir_dcbd17c4a825df6bdc302ef5adc42e9b.html">events</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -90,7 +90,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;NetworkActions.hpp&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;protocol.hpp&quot;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;nlohmann/json.hpp&gt;</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
@@ -100,7 +100,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="comment">// std::string &amp;sender_uuid=&quot;&quot;):</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="comment">//     action(action), payload(payload), sender_uuid(sender_uuid) {};</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">const</span> NetworkActions action;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">const</span> Protocol action;</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">const</span> nlohmann::json payload;</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">const</span> std::string sender_uuid = <span class="stringliteral">&quot;&quot;</span>;</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>};</div>

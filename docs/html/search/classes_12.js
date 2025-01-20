@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['zipper_0',['Zipper',['../classZipper.html',1,'']]],
-  ['zipperiterator_1',['ZipperIterator',['../classZipperIterator.html',1,'']]]
+  ['windowsys_0',['WindowSys',['../classrtype_1_1client_1_1WindowSys.html',1,'rtype::client']]]
 ];

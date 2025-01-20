@@ -9,13 +9,14 @@
 
 #include <ostream>
 
-#include "tools.hpp"
+#include "clientTools.hpp"
+#include "protocol.hpp"
 
 namespace rtype::client {
 struct Tag {
-    Tag(ObjectType type, std::string id = "") : _type(type), _id(id){};
+    Tag(EntityType type = OTHER, std::string id = "") : _type(type), _id(id){};
     ~Tag() = default;
-    ObjectType _type;
+    EntityType _type;
     std::string _id;
 };
 } // namespace rtype::client

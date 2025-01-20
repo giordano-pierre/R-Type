@@ -1,10 +1,12 @@
 var searchData=
 [
-  ['tag_0',['tag',['../structrtype_1_1client_1_1Tag.html',1,'rtype::client::Tag'],['../structrtype_1_1server_1_1Tag.html',1,'rtype::server::Tag']]],
-  ['text_1',['Text',['../structrtype_1_1client_1_1Text.html',1,'rtype::client']]],
-  ['texturemanager_2',['TextureManager',['../classrtype_1_1client_1_1TextureManager.html',1,'rtype::client']]],
-  ['ticevent_3',['ticevent',['../structrtype_1_1client_1_1TicEvent.html',1,'rtype::client::TicEvent'],['../structrtype_1_1server_1_1TicEvent.html',1,'rtype::server::TicEvent']]],
-  ['tuplefloat_4',['TupleFloat',['../structrtype_1_1client_1_1TupleFloat.html',1,'rtype::client']]],
-  ['tupleint_5',['TupleInt',['../structrtype_1_1client_1_1TupleInt.html',1,'rtype::client']]],
-  ['tupleuint_6',['TupleUInt',['../structrtype_1_1client_1_1TupleUInt.html',1,'rtype::client']]]
+  ['scene_0',['Scene',['../structrtype_1_1client_1_1Scene.html',1,'rtype::client']]],
+  ['score_1',['score',['../structrtype_1_1client_1_1Score.html',1,'rtype::client::Score'],['../structrtype_1_1server_1_1Score.html',1,'rtype::server::Score']]],
+  ['selectable_2',['Selectable',['../structrtype_1_1client_1_1Selectable.html',1,'rtype::client']]],
+  ['selectsys_3',['SelectSys',['../classrtype_1_1client_1_1SelectSys.html',1,'rtype::client']]],
+  ['sfmlobjects_4',['SFMLObjects',['../structrtype_1_1client_1_1SFMLObjects.html',1,'rtype::client']]],
+  ['shootsys_5',['ShootSys',['../classrtype_1_1client_1_1ShootSys.html',1,'rtype::client']]],
+  ['sparsearray_6',['SparseArray',['../classSparseArray.html',1,'']]],
+  ['stage_7',['Stage',['../structrtype_1_1server_1_1Stage.html',1,'rtype::server']]],
+  ['submessagehandlersys_8',['SubMessageHandlerSys',['../classrtype_1_1server_1_1SubMessageHandlerSys.html',1,'rtype::server']]]
 ];

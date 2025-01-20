@@ -8,10 +8,10 @@
 #pragma once
 
 #include "ECS/ECS.hpp"
+#include "components/Configs.hpp"
 #include "components/Hitbox.hpp"
 #include "components/Position.hpp"
 #include "components/Tag.hpp"
-#include "components/Window.hpp"
 #include "events/TicEvent.hpp"
 
 namespace rtype::client {
@@ -21,7 +21,7 @@ class BorderSys {
     ~BorderSys() = default;
 
     void operator()(ECS &ecs, const TicEvent &e_tic,
-                    const SparseArray<Window> &windows,
+                    const SparseArray<Configs> &configs,
                     const SparseArray<Tag> &tags,
                     const SparseArray<Hitbox> &hitboxs,
                     SparseArray<Position> &positions);

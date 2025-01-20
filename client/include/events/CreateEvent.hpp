@@ -7,10 +7,13 @@
 
 #pragma once
 
-#include "tools.hpp"
+#include "clientTools.hpp"
+#include "events/ReceiveEvent.hpp"
+#include <optional>
 
 namespace rtype::client {
 struct CreationEvent {
-    ObjectType _type;
+    SceneType _type;
+    std::optional<ReceiveEvent> _param;
 };
 } // namespace rtype::client
