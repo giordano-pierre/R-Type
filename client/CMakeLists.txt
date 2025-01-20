@@ -29,6 +29,7 @@ set(SRC
     src/systems/ShootSys.cpp
     src/systems/UDPClient.cpp
     src/systems/WindowSys.cpp
+    src/systems/KillEntity.cpp
     src/buttonFunctions.cpp
     src/createEntities.cpp
     src/loadSystems.cpp

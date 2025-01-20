@@ -59,7 +59,7 @@ void BorderSys::operator()(ECS &ecs, const TicEvent &e_tic,
                 pos.value()._server.x + sizeObj.x < 0 ||
                 pos.value()._server.y - sizeObj.y > serverSize.y ||
                 pos.value()._server.y + sizeObj.y < 0)
-                ecs.kill_entity(Entity(i));
+                killMyEntity(ecs, Entity(i));
             break;
         default:
             break;

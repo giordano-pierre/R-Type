@@ -88,6 +88,7 @@ int main(int ac, char *argv[]) {
         base, {"assets/font/retro_gaming.ttf", myShader});
     ecs.add_component<rtype::client::Room>(base, {});
     ecs.add_component<rtype::client::PlayerInfo>(base, {});
+    ecs.add_component<rtype::client::LastUpdate>(base, {1});
 
     rtype::client::UDPClient client(ecs, host, port);
     ecs.subscribe<RequestEvent>(client, true);
@@ -137,12 +138,10 @@ int main(int ac, char *argv[]) {
                             const rtype::client::InputEvent &e_input) -> void {
             if (e_input._myEvent == rtype::client::QUIT ||
                 e_input._event.type == sf::Event::Closed) {
-                // std::cout << "FIX1" << std::endl;
                 if (client.isConnected())
                     ecs.post<RequestEvent>({DISCONNECT, {}});
                 else
                     running = false;
-                // std::cout << "FIX2" << std::endl;
             }
         },
         true);

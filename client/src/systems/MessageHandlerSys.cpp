@@ -176,6 +176,9 @@ void updateEntity(Entity &entity, const ReceiveEvent &rec_event,
         lastups[entity]) {
         lastups[entity].value()._lastUpdate =
             rec_event.payload["lu"].get<int>();
+        if (lastups[0].value()._lastUpdate != rec_event.payload["lu"].get<int>()) {
+            lastups[0].value()._lastUpdate = rec_event.payload["lu"].get<int>();
+        }
     }
 }
 
@@ -186,7 +189,7 @@ void killEntity(ECS &ecs, const ReceiveEvent &rec_event,
 
         if (tag &&
             tag.value()._id == rec_event.payload["id"].get<std::string>()) {
-            ecs.kill_entity(ecs.entity_from_index(i));
+            killMyEntity(ecs, ecs.entity_from_index(i));
         }
     }
 }

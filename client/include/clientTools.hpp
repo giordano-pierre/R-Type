@@ -9,6 +9,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include "ECS/ECS.hpp"
 
 namespace rtype::client {
 struct TupleInt {
@@ -86,4 +87,5 @@ void initPlay2Input(
     std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key,
                                             std::shared_ptr<std::string>>>,
               std::map<UserInput, sf::Keyboard::Key>> &inputConfig);
+void killMyEntity(ECS &ecs, Entity i);
 } // namespace rtype::client

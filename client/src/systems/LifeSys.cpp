@@ -79,7 +79,7 @@ void LifeSys::operator()(ECS &ecs, const DeleteEvent &e_del,
         auto &sce = scenes[i];
 
         if (sce && sce.value()._type == e_del._type) {
-            ecs.kill_entity(Entity(i));
+            killMyEntity(ecs, Entity(i));
         }
     }
 }
