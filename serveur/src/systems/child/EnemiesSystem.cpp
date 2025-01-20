@@ -290,7 +290,7 @@ std::vector<RequestEvent> createVFormation(ECS &ecs,
                                       .y_hitbox = enemy.y_hitbox,
                                       .health = 100,
                                       .score = 150,
-                                      .type = EntityType::ENEMY1 };
+                                      .type = EntityType::ENEMY1};
         response.push_back(createEnemyWithAI(
             ecs, info, rtype::server::EnemyAI::BehaviorType::V_FORMATION));
     }
@@ -351,9 +351,9 @@ std::vector<RequestEvent> createCharge(ECS &ecs,
                                   .y_hitbox = enemy.y_hitbox,
                                   .health = 100,
                                   .score = 100,
-                                  .type = EntityType::ENEMY5 };
-    return { createEnemyWithAI(ecs, info,
-                              rtype::server::EnemyAI::BehaviorType::CHARGE) };
+                                  .type = EntityType::ENEMY5};
+    return {createEnemyWithAI(ecs, info,
+                              rtype::server::EnemyAI::BehaviorType::CHARGE)};
 }
 
 std::vector<RequestEvent> createBoss(ECS &ecs, rtype::server::EnemyInfo enemy) {
