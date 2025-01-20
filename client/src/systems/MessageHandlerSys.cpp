@@ -133,7 +133,8 @@ bool entityExist(const ReceiveEvent &rec_event, const SparseArray<Tag> &tags) {
 }
 
 void createPlayer(ECS &ecs, const ReceiveEvent &rec_event, Room &myRoom,
-                  SFMLObjects &SFMLObj, const SparseArray<Tag> &tags, LastUpdate &lastup) {
+                  SFMLObjects &SFMLObj, const SparseArray<Tag> &tags,
+                  LastUpdate &lastup) {
     if (!entityExist(rec_event, tags)) {
         Entity player = ecs.spawn_entity();
         createEntity(ecs, player, rec_event, SFMLObj, lastup);
@@ -177,10 +178,11 @@ void updateEntity(Entity &entity, const ReceiveEvent &rec_event,
     }
     if (rec_event.payload.contains("lu") && entity < lastups.size() &&
         lastups[entity]) {
-        lastups[entity].value()._lastUpdate = rec_event.payload["lu"].get<int>();
+        lastups[entity].value()._lastUpdate =
+            rec_event.payload["lu"].get<int>();
     }
-    if (rec_event.payload.contains("lu") && lastups[0].value()._lastUpdate !=
-            rec_event.payload["lu"].get<int>()) {
+    if (rec_event.payload.contains("lu") &&
+        lastups[0].value()._lastUpdate != rec_event.payload["lu"].get<int>()) {
         lastups[0].value()._lastUpdate = rec_event.payload["lu"].get<int>();
     }
 }
