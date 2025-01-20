@@ -7,7 +7,7 @@
   },
   "enemies": [
     {
-      "type": 1,
+      "type": 3,
       "spawn_time": 0,
       "position": { "x": 2000, "y": 500 },
       "velocity": { "x": -9, "y": 0 },
@@ -16,7 +16,7 @@
       "score": 10
     },
     {
-        "type": 1,
+        "type": 3,
         "spawn_time": 20,
         "position": { "x": 2000, "y": 1000 },
         "velocity": { "x": -8, "y": 0 },
@@ -25,7 +25,7 @@
         "score": 10
       },
       {
-        "type": 1,
+        "type": 2,
         "spawn_time": 550,
         "position": { "x": 2000, "y": 500 },
         "velocity": { "x": -7, "y": 0 },
