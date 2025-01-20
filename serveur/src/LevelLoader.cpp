@@ -36,7 +36,10 @@ void LevelLoader::reset(void) {
     }
 }
 
-const std::map<int, std::string> &LevelLoader::getLevels(void) { reset(); return _map; }
+const std::map<int, std::string> &LevelLoader::getLevels(void) {
+    reset();
+    return _map;
+}
 
 std::string LevelLoader::getOneLevel(int nb) {
     if (_map.find(nb) != _map.end())

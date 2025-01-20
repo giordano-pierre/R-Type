@@ -37,6 +37,7 @@
 #include "systems/AnimeSys.hpp"
 #include "systems/BorderSys.hpp"
 #include "systems/CheatSys.hpp"
+#include "systems/KillEntity.hpp"
 #include "systems/LifeSys.hpp"
 #include "systems/MoveSys.hpp"
 #include "systems/PauseSys.hpp"
@@ -44,4 +45,3 @@
 #include "systems/SelectSys.hpp"
 #include "systems/ShootSys.hpp"
 #include "systems/WindowSys.hpp"
-#include "systems/KillEntity.hpp"

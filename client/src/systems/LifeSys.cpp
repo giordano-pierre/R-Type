@@ -47,7 +47,8 @@ void LifeSys::operator()(ECS &ecs, const CreationEvent &e_create,
         break;
     case M_MY_ROOM:
         loadMenuSystem(ecs);
-        createMenuBaseRoomEntities(ecs, myConfig, SFMLObj, myRoom, e_create._param.value());
+        createMenuBaseRoomEntities(ecs, myConfig, SFMLObj, myRoom,
+                                   e_create._param.value());
         break;
     case M_CREATE_ROOM:
         loadMenuSystem(ecs);

@@ -131,7 +131,8 @@ void disconnect(ECS &ecs, const ReceiveEvent &rec_event,
         }
     }
     // std::cout << "Player Deconnexion!" << std::endl;
-    // ecs.post<RequestEvent>({Protocol::DISCONNECT, {}, rec_event.sender_uuid});
+    // ecs.post<RequestEvent>({Protocol::DISCONNECT, {},
+    // rec_event.sender_uuid});
 }
 
 int countRoom(const SparseArray<Room> &rooms) {
@@ -148,7 +149,8 @@ int countRoom(const SparseArray<Room> &rooms) {
 
 void createRoom(ECS &ecs, const ReceiveEvent &rec_event,
                 SparseArray<Room> &rooms, SparseArray<Tag> &tags,
-                SparseArray<Child> &children, const SparseArray<Stage> &stages) {
+                SparseArray<Child> &children,
+                const SparseArray<Stage> &stages) {
     std::cout << rec_event.payload.dump() << std::endl;
     int nbPlayer = (rec_event.payload.contains("nbp"))
                        ? rec_event.payload["nbp"].get<int>()
@@ -159,8 +161,10 @@ void createRoom(ECS &ecs, const ReceiveEvent &rec_event,
     std::string idRoom = fetch_new_uuid();
     std::string nameRoom = rec_event.payload["r_name"];
     ecs.add_component<Tag>(roomE, {idRoom});
-    ecs.add_component<Room>(roomE, {nameRoom, rec_event.sender_uuid, nbPlayer, rec_event.payload["diff"].get<int>()});
-    ecs.add_component<Stage>(roomE, {rec_event.payload["st"].get<std::string>()});
+    ecs.add_component<Room>(roomE, {nameRoom, rec_event.sender_uuid, nbPlayer,
+                                    rec_event.payload["diff"].get<int>()});
+    ecs.add_component<Stage>(roomE,
+                             {rec_event.payload["st"].get<std::string>()});
     ecs.add_component<Child>(roomE, {});
     auto &tmp = ecs.get_components<Child>();
     initSubECS(tmp[roomE].value()._ecs_child);
@@ -181,10 +185,10 @@ void createRoom(ECS &ecs, const ReceiveEvent &rec_event,
          rec_event.sender_uuid});
 }
 
-
 void updateRoom(ECS &ecs, const ReceiveEvent &rec_event,
                 SparseArray<Room> &rooms, SparseArray<Tag> &tags,
-                SparseArray<Child> &children, const SparseArray<Stage> &stages) {
+                SparseArray<Child> &children,
+                const SparseArray<Stage> &stages) {
     int nbPlayer = (rec_event.payload.contains("nbp"))
                        ? rec_event.payload["nbp"].get<int>()
                        : 1;
@@ -201,26 +205,28 @@ void updateRoom(ECS &ecs, const ReceiveEvent &rec_event,
             tag.value()._id == rec_event.payload["idr"].get<std::string>()) {
             ro.value()._name = rec_event.payload["r_name"].get<std::string>();
             ro.value()._diff = rec_event.payload["diff"].get<int>();
-            ecs.emplace_component<Stage>(Entity(i), rec_event.payload["st"].get<std::string>());
+            ecs.emplace_component<Stage>(
+                Entity(i), rec_event.payload["st"].get<std::string>());
             for (const auto &[uuid, _] : ro.value()._clients_uuid) {
                 if (uuid == ro.value()._master) {
                     ecs.post<RequestEvent>(
-                        {JOIN_ROOM, {{"master", true},
-                        {"diff", ro.value()._diff},
-                        {"idr", tag.value()._id},
-                        {"r_name", ro.value()._name},
-                        {"st", st.value()._mapFile},
-                        {"nbp", countPlayer(ro.value()._clients_uuid)}},
-                        uuid});
+                        {JOIN_ROOM,
+                         {{"master", true},
+                          {"diff", ro.value()._diff},
+                          {"idr", tag.value()._id},
+                          {"r_name", ro.value()._name},
+                          {"st", st.value()._mapFile},
+                          {"nbp", countPlayer(ro.value()._clients_uuid)}},
+                         uuid});
                 } else {
                     ecs.post<RequestEvent>(
-                        {JOIN_ROOM, {
-                        {"diff", ro.value()._diff},
-                        {"idr", tag.value()._id},
-                        {"r_name", ro.value()._name},
-                        {"st", st.value()._mapFile},
-                        {"nbp", countPlayer(ro.value()._clients_uuid)}},
-                        uuid});
+                        {JOIN_ROOM,
+                         {{"diff", ro.value()._diff},
+                          {"idr", tag.value()._id},
+                          {"r_name", ro.value()._name},
+                          {"st", st.value()._mapFile},
+                          {"nbp", countPlayer(ro.value()._clients_uuid)}},
+                         uuid});
                 }
             }
         }
@@ -552,8 +558,7 @@ void getStage(ECS &ecs, const ReceiveEvent &rec_event, Utils &util) {
     }
 
     ecs.post<RequestEvent>({GET_STAGE,
-                            {{"l_name", l_name},
-                             {"l_file", l_file}},
+                            {{"l_name", l_name}, {"l_file", l_file}},
                             rec_event.sender_uuid});
 }
 
@@ -571,13 +576,15 @@ void MainMessageHandlerSys::operator()(ECS &ecs, const ReceiveEvent &rec_event,
     case DISCONNECT: {
         disconnect(ecs, rec_event, rooms, tags, children, stages);
         std::cout << "Player Deconnexion!" << std::endl;
-        ecs.post<RequestEvent>({Protocol::DISCONNECT, {}, rec_event.sender_uuid});
+        ecs.post<RequestEvent>(
+            {Protocol::DISCONNECT, {}, rec_event.sender_uuid});
         return;
     }
     case QUIT_ROOM: {
         disconnect(ecs, rec_event, rooms, tags, children, stages);
         std::cout << "Player quit Room!" << std::endl;
-        ecs.post<RequestEvent>({Protocol::QUIT_ROOM, {}, rec_event.sender_uuid});
+        ecs.post<RequestEvent>(
+            {Protocol::QUIT_ROOM, {}, rec_event.sender_uuid});
         return;
     }
     case CREATE_ROOM: {

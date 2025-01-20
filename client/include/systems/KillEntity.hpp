@@ -18,7 +18,8 @@ class KillEntity {
     KillEntity() = default;
     ~KillEntity() = default;
 
-    void operator()(ECS &ecs, const TicEvent &, SparseArray<LastUpdate> &lastups);
+    void operator()(ECS &ecs, const TicEvent &,
+                    SparseArray<LastUpdate> &lastups);
 };
 
 } // namespace rtype::client
