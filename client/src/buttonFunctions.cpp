@@ -133,15 +133,15 @@ void createRoom(ECS &ecs, Entity i) {
     if (myRoom._idRoom.empty()) {
         ecs.post<RequestEvent>({CREATE_ROOM,
                                 {{"r_name", myRoom._name.get()->data()},
-                                {"st", myRoom._levelFile},
-                                {"diff", myRoom._diff},
-                                {"p_name", p_name},
-                                {"p_color", p_color},
-                                {"nbp", playerInfo._nbPlayer}}});
+                                 {"st", myRoom._levelFile},
+                                 {"diff", myRoom._diff},
+                                 {"p_name", p_name},
+                                 {"p_color", p_color},
+                                 {"nbp", playerInfo._nbPlayer}}});
     } else {
         ecs.post<RequestEvent>({CREATE_ROOM,
                                 {{"idr", myRoom._idRoom},
-                                 {"r_name",myRoom._name.get()->data()},
+                                 {"r_name", myRoom._name.get()->data()},
                                  {"st", myRoom._levelFile},
                                  {"diff", myRoom._diff},
                                  {"p_name", p_name},

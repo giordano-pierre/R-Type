@@ -12,7 +12,8 @@
 
 namespace rtype::client {
 
-void KillEntity::operator()(ECS &ecs, const TicEvent &, SparseArray<LastUpdate> &lastUp) {
+void KillEntity::operator()(ECS &ecs, const TicEvent &,
+                            SparseArray<LastUpdate> &lastUp) {
     int base = lastUp[0].value()._lastUpdate;
     std::cout << "Base: " << base << std::endl;
 

@@ -31,7 +31,7 @@ enum Protocol {
 
     // Stage Handler
     // (info_stage = nb, diff, lock)
-    GET_STAGE,    // -> Serveur envoi les niveaux au client (vide, info_stages)
+    GET_STAGE, // -> Serveur envoi les niveaux au client (vide, info_stages)
 
     // Game Handler
     // (info_players = id, hp, sc)
