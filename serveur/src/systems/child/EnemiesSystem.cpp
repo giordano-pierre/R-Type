@@ -25,9 +25,8 @@ void EnemiesSys::registerComponents() {
                          {"CHASE", EnemyAI::BehaviorType::CHASE},
                          {"V_FORMATION", EnemyAI::BehaviorType::V_FORMATION},
                          {"BOSS", EnemyAI::BehaviorType::BOSS},
-                         { "UPDOWN", EnemyAI::BehaviorType::UPDOWN},
-                         { "CHARGE", EnemyAI::BehaviorType::CHARGE}
-                         });
+                         {"UPDOWN", EnemyAI::BehaviorType::UPDOWN},
+                         {"CHARGE", EnemyAI::BehaviorType::CHARGE}});
 
     lua.new_usertype<EnemyAI>("EnemyAI", "behaviorType", &EnemyAI::behaviorType,
                               "amplitude", &EnemyAI::amplitude, "frequency",
@@ -237,7 +236,7 @@ RequestEvent createEnemyWithAI(ECS &ecs, rtype::server::EnemyInfo enemyInfo,
     case rtype::server::EnemyAI::BehaviorType::CHARGE:
         ecs.add_component<rtype::server::EnemyAI>(
             entity,
-            rtype::server::EnemyAI{ .behaviorType = behavior, .speed = 5.0f });
+            rtype::server::EnemyAI{.behaviorType = behavior, .speed = 5.0f});
         break;
     }
     return RequestEvent(
@@ -330,18 +329,18 @@ std::vector<RequestEvent> createUpDown(ECS &ecs,
                               rtype::server::EnemyAI::BehaviorType::UPDOWN)};
 }
 
-std::vector<RequestEvent> createCharge(ECS& ecs,
-    rtype::server::EnemyInfo enemy) {
-    rtype::server::EnemyInfo info{ .x_pos = enemy.x_pos,
+std::vector<RequestEvent> createCharge(ECS &ecs,
+                                       rtype::server::EnemyInfo enemy) {
+    rtype::server::EnemyInfo info{.x_pos = enemy.x_pos,
                                   .y_pos = enemy.y_pos,
                                   .x_velocity = -10,
                                   .y_velocity = 0,
                                   .x_hitbox = enemy.x_hitbox,
                                   .y_hitbox = enemy.y_hitbox,
                                   .health = 100,
-                                  .score = 100 };
-    return { createEnemyWithAI(ecs, info,
-                              rtype::server::EnemyAI::BehaviorType::CHARGE) };
+                                  .score = 100};
+    return {createEnemyWithAI(ecs, info,
+                              rtype::server::EnemyAI::BehaviorType::CHARGE)};
 }
 
 std::vector<RequestEvent> createBoss(ECS &ecs, rtype::server::EnemyInfo enemy) {

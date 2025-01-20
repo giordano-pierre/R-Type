@@ -53,4 +53,5 @@ std::vector<RequestEvent> createUpDown(ECS &ecs,
                                        rtype::server::EnemyInfo enemy);
 std::vector<RequestEvent> createBoss(ECS &ecs, rtype::server::EnemyInfo enemy);
 
-std::vector<RequestEvent> createCharge(ECS& ecs, rtype::server::EnemyInfo enemy);
+std::vector<RequestEvent> createCharge(ECS &ecs,
+                                       rtype::server::EnemyInfo enemy);
