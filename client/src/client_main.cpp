@@ -23,35 +23,6 @@ bool is_number(char *str) {
     return true;
 }
 
-void createWindow(ECS &ecs) {
-    rtype::client::TupleUInt serverSize = {1920, 1080};
-    sf::Shader myShader;
-    myShader.loadFromMemory(
-        R"(
-            uniform sampler2D texture;
-            void main()
-            {
-                vec4 pixel = texture2D(texture, gl_TexCoord[0].xy);
-
-                // Apply a color-blind friendly filter (Protanopia example)
-                float r = 0.567 * pixel.r + 0.433 * pixel.g;
-                float g = 0.558 * pixel.r + 0.442 * pixel.g;
-                float b = pixel.b;
-
-                gl_FragColor = vec4(r, g, b, pixel.a);
-            }
-            )",
-        sf::Shader::Fragment);
-
-    Entity base = ecs.spawn_entity();
-    ecs.add_component<rtype::client::Tag>(base, {});
-    ecs.add_component<rtype::client::Configs>(base, {{1440, 810}, serverSize});
-    ecs.add_component<rtype::client::SFMLObjects>(
-        base, {"assets/font/retro_gaming.ttf", myShader});
-    ecs.add_component<rtype::client::Room>(base, {});
-    ecs.add_component<rtype::client::PlayerInfo>(base, {});
-}
-
 int main(int ac, char *argv[]) {
     if (ac != 3 && ac != 1)
         return 84;
@@ -91,7 +62,32 @@ int main(int ac, char *argv[]) {
     ecs.register_event<RequestEvent>();
     ecs.register_event<ReceiveEvent>();
 
-    createWindow(ecs);
+    rtype::client::TupleUInt serverSize = {1920, 1080};
+    sf::Shader myShader;
+    myShader.loadFromMemory(
+        R"(
+            uniform sampler2D texture;
+            void main()
+            {
+                vec4 pixel = texture2D(texture, gl_TexCoord[0].xy);
+
+                // Apply a color-blind friendly filter (Protanopia example)
+                float r = 0.567 * pixel.r + 0.433 * pixel.g;
+                float g = 0.558 * pixel.r + 0.442 * pixel.g;
+                float b = pixel.b;
+
+                gl_FragColor = vec4(r, g, b, pixel.a);
+            }
+            )",
+        sf::Shader::Fragment);
+
+    Entity base = ecs.spawn_entity();
+    ecs.add_component<rtype::client::Tag>(base, {});
+    ecs.add_component<rtype::client::Configs>(base, {{1440, 810}, serverSize});
+    ecs.add_component<rtype::client::SFMLObjects>(
+        base, {"assets/font/retro_gaming.ttf", myShader});
+    ecs.add_component<rtype::client::Room>(base, {});
+    ecs.add_component<rtype::client::PlayerInfo>(base, {});
 
     rtype::client::UDPClient client(ecs, host, port);
     ecs.subscribe<RequestEvent>(client, true);
