@@ -9,6 +9,7 @@
 
 #include "ECS/ECS.hpp"
 #include "components/LastUpdate.hpp"
+#include "events/TicEvent.hpp"
 
 namespace rtype::client {
 
@@ -17,7 +18,7 @@ class KillEntity {
     KillEntity() = default;
     ~KillEntity() = default;
 
-    void operator()(ECS &ecs, SparseArray<LastUpdate> &lastups);
+    void operator()(ECS &ecs, const TicEvent &, SparseArray<LastUpdate> &lastups);
 };
 
 } // namespace rtype::client

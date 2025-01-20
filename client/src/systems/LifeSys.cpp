@@ -40,10 +40,18 @@ void LifeSys::operator()(ECS &ecs, const CreationEvent &e_create,
         loadMenuSystem(ecs);
         createMenuPlayerEntities(ecs, myConfig, SFMLObj);
         break;
-    case M_ROOM:
+    case M_ALL_ROOM:
         loadMenuSystem(ecs);
         createMenuRoomEntities(ecs, e_create._param.value(), myConfig, SFMLObj,
                                playerInfo, myRoom);
+        break;
+    case M_MY_ROOM:
+        loadMenuSystem(ecs);
+        createMenuBaseRoomEntities(ecs, myConfig, SFMLObj, myRoom, e_create._param.value());
+        break;
+    case M_CREATE_ROOM:
+        loadMenuSystem(ecs);
+        createMenuCreateRoomEntities(ecs, myConfig, SFMLObj, myRoom);
         break;
     case M_CONFIG:
         loadMenuSystem(ecs);
@@ -64,14 +72,6 @@ void LifeSys::operator()(ECS &ecs, const CreationEvent &e_create,
     case GAME:
         loadGameSystem(ecs);
         createGameEntities(ecs, myConfig, SFMLObj);
-        break;
-    case M_IN_ROOM:
-        loadMenuSystem(ecs);
-        createMenuInRoomEntities(ecs, myConfig, SFMLObj, myRoom);
-        break;
-    case MENUROOM:
-        loadMenuSystem(ecs);
-        createMenuRoomEntities(ecs, myConfig, SFMLObj);
         break;
     default:
         return;

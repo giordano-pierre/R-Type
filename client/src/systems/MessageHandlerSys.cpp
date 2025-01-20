@@ -26,15 +26,17 @@ Entity getEntityByID(const std::string &id, const SparseArray<Tag> &tags) {
 void joinRoom(ECS &ecs, const ReceiveEvent &rec_event, Room &myRoom) {
     myRoom._idRoom = rec_event.payload["idr"].get<std::string>();
 
-    myRoom._level = rec_event.payload["st"];
-    if (rec_event.payload.contains("master"))
+    myRoom._levelFile = rec_event.payload["st"];
+    myRoom._diff = rec_event.payload["diff"];
+    myRoom._nbPlayer = rec_event.payload["nbp"];
+    *(myRoom._name) = rec_event.payload["r_name"];
+    if (rec_event.payload.contains("master")) {
         myRoom._master = true;
-    else
+    } else {
         myRoom._master = false;
+    }
     if (!myRoom._gameState) {
-        ecs.post<DeleteEvent>({M_ROOM});
-        ecs.post<DeleteEvent>({M_IN_ROOM});
-        ecs.post<CreationEvent>({M_IN_ROOM});
+        ecs.post<RequestEvent>({GET_STAGE, {}});
     }
 }
 
@@ -139,7 +141,8 @@ void createPlayer(ECS &ecs, const ReceiveEvent &rec_event, Room &myRoom,
         ecs.add_component<Playable>(player, {countPlayer(ecs) + 1});
         if (myRoom._gameState)
             return;
-        ecs.post<DeleteEvent>({M_IN_ROOM});
+        ecs.post<DeleteEvent>({M_MY_ROOM});
+        ecs.post<DeleteEvent>({M_CREATE_ROOM});
         ecs.post<DeleteEvent>({MENU});
         ecs.post<CreationEvent>({GAME});
         myRoom._gameState = true;
@@ -218,8 +221,8 @@ void MessageHandlerSys::operator()(
     }
     case SV_GAME_OVER: {
         ecs.post<DeleteEvent>({GAME});
-        ecs.post<CreationEvent>({M_IN_ROOM});
         ecs.post<CreationEvent>({MENU});
+        ecs.post<RequestEvent>({GET_STAGE, {{}}});
         myRoom._gameState = false;
         ecs.post<RequestEvent>({SV_GAME_OVER, {{"idr", myRoom._idRoom}}});
         break;
@@ -249,8 +252,23 @@ void MessageHandlerSys::operator()(
     }
     case GET_ROOM: {
         ecs.post<DeleteEvent>({M_PLAYER});
-        ecs.post<DeleteEvent>({M_ROOM});
-        ecs.post<CreationEvent>({M_ROOM, rec_event});
+        ecs.post<DeleteEvent>({M_CREATE_ROOM});
+        ecs.post<DeleteEvent>({M_ALL_ROOM});
+        ecs.post<CreationEvent>({M_ALL_ROOM, rec_event});
+        break;
+    }
+    case QUIT_ROOM: {
+        ecs.post<DeleteEvent>({M_CREATE_ROOM});
+        ecs.post<DeleteEvent>({M_MY_ROOM});
+        ecs.post<CreationEvent>({M_PLAYER});
+        break;
+    }
+    case GET_STAGE: {
+        ecs.post<DeleteEvent>({M_ALL_ROOM});
+        ecs.post<DeleteEvent>({M_MY_ROOM});
+        ecs.post<DeleteEvent>({M_CREATE_ROOM});
+        ecs.post<CreationEvent>({M_MY_ROOM, rec_event});
+        ecs.post<CreationEvent>({M_CREATE_ROOM});
         break;
     }
     default:

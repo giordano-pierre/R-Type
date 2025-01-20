@@ -108,8 +108,6 @@ void selectOnePlayer(ECS &ecs, Entity i) {
     auto &playerInfo = ecs.get_components<PlayerInfo>()[0].value();
 
     playerInfo._nbPlayer = 1;
-    // ecs.post<DeleteEvent>({M_PLAYER});
-    // ecs.post<CreationEvent>({M_ROOM});
     ecs.post<RequestEvent>({GET_ROOM, {}});
 }
 
@@ -117,27 +115,39 @@ void selectTwoPlayer(ECS &ecs, Entity i) {
     auto &playerInfo = ecs.get_components<PlayerInfo>()[0].value();
 
     playerInfo._nbPlayer = 2;
-    // ecs.post<DeleteEvent>({M_PLAYER});
-    // ecs.post<CreationEvent>({M_ROOM});
     ecs.post<RequestEvent>({GET_ROOM, {}});
 }
 
 void createRoom(ECS &ecs, Entity i) {
     auto &playerInfo = ecs.get_components<PlayerInfo>()[0].value();
+    auto &myRoom = ecs.get_components<Room>()[0].value();
     nlohmann::json p_name = nlohmann::json::array();
     nlohmann::json p_color = nlohmann::json::array();
+
     p_name.push_back(playerInfo._name1);
     p_color.push_back(playerInfo._color1);
     if (playerInfo._nbPlayer == 2) {
         p_name.push_back(playerInfo._name2);
         p_color.push_back(playerInfo._color2);
     }
-
-    ecs.post<RequestEvent>({CREATE_ROOM,
-                            {{"r_name", "test"},
-                             {"p_name", p_name},
-                             {"p_color", p_color},
-                             {"nbp", playerInfo._nbPlayer}}});
+    if (myRoom._idRoom.empty()) {
+        ecs.post<RequestEvent>({CREATE_ROOM,
+                                {{"r_name", myRoom._name.get()->data()},
+                                {"st", myRoom._levelFile},
+                                {"diff", myRoom._diff},
+                                {"p_name", p_name},
+                                {"p_color", p_color},
+                                {"nbp", playerInfo._nbPlayer}}});
+    } else {
+        ecs.post<RequestEvent>({CREATE_ROOM,
+                                {{"idr", myRoom._idRoom},
+                                 {"r_name",myRoom._name.get()->data()},
+                                 {"st", myRoom._levelFile},
+                                 {"diff", myRoom._diff},
+                                 {"p_name", p_name},
+                                 {"p_color", p_color},
+                                 {"nbp", playerInfo._nbPlayer}}});
+    }
 }
 
 void joinRoom(ECS &ecs, Entity i) {
@@ -157,6 +167,35 @@ void joinRoom(ECS &ecs, Entity i) {
                              {"p_name", p_name},
                              {"p_color", p_color},
                              {"nbp", playerInfo._nbPlayer}}});
+}
+
+void selectDiff1(ECS &ecs, Entity i) {
+    auto &myRoom = ecs.get_components<Room>()[0].value();
+
+    myRoom._diff = 1;
+    press(ecs, i);
+}
+
+void selectDiff2(ECS &ecs, Entity i) {
+    auto &myRoom = ecs.get_components<Room>()[0].value();
+
+    myRoom._diff = 2;
+    press(ecs, i);
+}
+
+void selectDiff3(ECS &ecs, Entity i) {
+    auto &myRoom = ecs.get_components<Room>()[0].value();
+
+    myRoom._diff = 3;
+    press(ecs, i);
+}
+
+void selectLevel(ECS &ecs, Entity i) {
+    auto &myRoom = ecs.get_components<Room>()[0].value();
+    auto &tag = ecs.get_components<Tag>()[i].value();
+
+    myRoom._levelFile = tag._id;
+    press(ecs, i);
 }
 
 // void startGame2P(ECS &ecs, Entity i) {

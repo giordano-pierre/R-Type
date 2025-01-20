@@ -61,9 +61,10 @@ struct Room {
     std::map<std::string, std::pair<PlayerInfo, int>> _clients_uuid;
     int _lastUpdate;
     StateGame _state = WAITING;
+    int _diff;
 
-    Room(std::string name, std::string master, int nbPlayer)
-        : _name(name), _master(master) {
+    Room(std::string name, std::string master, int nbPlayer, int diff)
+        : _name(name), _master(master), _diff(diff) {
         _lastUpdate = 0;
     }
 };

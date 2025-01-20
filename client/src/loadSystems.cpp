@@ -31,6 +31,9 @@ void loadGameSystem(ECS &ecs) {
     auto pressSys = PressButtonSys();
     ecs.subscribe<InputEvent, Position, Hitbox, Selectable, Pressable>(
         pressSys);
+
+    auto kill = KillEntity();
+    ecs.subscribe<TicEvent, LastUpdate>(kill);
 }
 
 void loadMenuSystem(ECS &ecs) {

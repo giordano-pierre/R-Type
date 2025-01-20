@@ -319,7 +319,7 @@ void createMenuRoomEntities(ECS &ecs, const ReceiveEvent &rec_event,
     ecs.add_component<Position>(
         createRoomB, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 3});
     ecs.add_component<Tag>(createRoomB, {});
-    ecs.add_component<Scene>(createRoomB, {M_ROOM});
+    ecs.add_component<Scene>(createRoomB, {M_ALL_ROOM});
     ecs.add_component<Hitbox>(createRoomB, {{float(1) / 3, float(1) / 10}});
     std::map<std::string, std::shared_ptr<std::string>> texts;
     texts.insert({"EN", std::make_shared<std::string>("CREATE ROOM")});
@@ -346,13 +346,15 @@ void createMenuRoomEntities(ECS &ecs, const ReceiveEvent &rec_event,
     ecs.add_component<Pressable>(
         createRoomB, {SFMLObj._myTextures.getTexture(
                           "assets/images/utils/button_config1_act.png"),
-                      std::function<void(ECS &, Entity)>(createRoom)});
+                      [](ECS &ecs, Entity) {
+                        ecs.post<RequestEvent>({GET_STAGE, {}});
+                      }});
 
     Entity refreshRoomB = ecs.spawn_entity();
     ecs.add_component<Position>(
         refreshRoomB, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 4});
     ecs.add_component<Tag>(refreshRoomB, {});
-    ecs.add_component<Scene>(refreshRoomB, {M_ROOM});
+    ecs.add_component<Scene>(refreshRoomB, {M_ALL_ROOM});
     ecs.add_component<Hitbox>(refreshRoomB, {{float(1) / 3, float(1) / 10}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("REFRESH ROOMS")});
@@ -386,7 +388,7 @@ void createMenuRoomEntities(ECS &ecs, const ReceiveEvent &rec_event,
     ecs.add_component<Position>(
         quitB, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 6});
     ecs.add_component<Tag>(quitB, {});
-    ecs.add_component<Scene>(quitB, {M_ROOM});
+    ecs.add_component<Scene>(quitB, {M_ALL_ROOM});
     ecs.add_component<Hitbox>(quitB, {{float(1) / 3, float(1) / 10}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("BACK")});
@@ -414,7 +416,7 @@ void createMenuRoomEntities(ECS &ecs, const ReceiveEvent &rec_event,
         quitB, {SFMLObj._myTextures.getTexture(
                     "assets/images/utils/button_config1_act.png"),
                 [](ECS &ecs, Entity) {
-                    ecs.post<DeleteEvent>({M_ROOM});
+                    ecs.post<DeleteEvent>({M_ALL_ROOM});
                     ecs.post<CreationEvent>({M_PLAYER});
                 }});
 
@@ -431,7 +433,7 @@ void createMenuRoomEntities(ECS &ecs, const ReceiveEvent &rec_event,
                                     {float(serverSize.x) / 5 * float(3.5),
                                      float(serverSize.y) / 15 * (i + 5)});
         ecs.add_component<Tag>(roomB, {OTHER, r_id[i]});
-        ecs.add_component<Scene>(roomB, {M_ROOM});
+        ecs.add_component<Scene>(roomB, {M_ALL_ROOM});
         ecs.add_component<Hitbox>(roomB, {{float(1) / 2, float(1) / 15}});
         texts.clear();
         texts.insert({"DEFAULT", std::make_shared<std::string>(r_name[i])});
@@ -463,7 +465,7 @@ void createMenuRoomEntities(ECS &ecs, const ReceiveEvent &rec_event,
                                     {float(serverSize.x) / 5 * float(3.5),
                                      float(serverSize.y) / 15 * (i + 5)});
         ecs.add_component<Tag>(level, {});
-        ecs.add_component<Scene>(level, {M_ROOM});
+        ecs.add_component<Scene>(level, {M_ALL_ROOM});
         ecs.add_component<Hitbox>(level, {{float(1) / 2, float(1) / 15}});
         texts.clear();
         texts.insert({"DEFAULT", std::make_shared<std::string>(r_stage[i])});
@@ -479,7 +481,7 @@ void createMenuRoomEntities(ECS &ecs, const ReceiveEvent &rec_event,
                                     {float(serverSize.x) / 5 * float(3.5),
                                      float(serverSize.y) / 15 * (i + 5)});
         ecs.add_component<Tag>(players, {});
-        ecs.add_component<Scene>(players, {M_ROOM});
+        ecs.add_component<Scene>(players, {M_ALL_ROOM});
         ecs.add_component<Hitbox>(players, {{float(1) / 2, float(1) / 15}});
         texts.clear();
         texts.insert({"DEFAULT", std::make_shared<std::string>(
@@ -498,7 +500,7 @@ void createMenuRoomEntities(ECS &ecs, const ReceiveEvent &rec_event,
                                     {float(serverSize.x) / 5 * float(3.5),
                                      float(serverSize.y) / 15 * (8)});
         ecs.add_component<Tag>(noRoom, {});
-        ecs.add_component<Scene>(noRoom, {M_ROOM});
+        ecs.add_component<Scene>(noRoom, {M_ALL_ROOM});
         ecs.add_component<Hitbox>(noRoom, {{float(1) / 3, float(1) / 5}});
         texts.clear();
         texts.insert({"EN", std::make_shared<std::string>("NO ROOM")});
@@ -520,18 +522,494 @@ void createMenuRoomEntities(ECS &ecs, const ReceiveEvent &rec_event,
     }
 }
 
-void createMenuInRoomEntities(ECS &ecs, const Configs &myConfig,
-                              SFMLObjects &SFMLObj, Room &myRoom) {
+void createMenuBaseRoomEntities(ECS &ecs, const Configs &myConfig,
+                                  SFMLObjects &SFMLObj, Room &myRoom, const ReceiveEvent &rec_event)
+{
     auto serverSize = myConfig._serverSize;
+
+    Entity back2 = ecs.spawn_entity();
+    ecs.add_component<Position>(
+        back2, {serverSize.x / float(2), serverSize.y * float(0.9) / float(2)});
+    ecs.add_component<Tag>(back2, {});
+    ecs.add_component<Scene>(back2, {M_MY_ROOM});
+    ecs.add_component<Hitbox>(back2, {{1, 0.9}, false});
+    ecs.add_component<Drawable>(
+        back2, {SFMLObj._myTextures.getTexture(
+                    "assets/images/background/back_config.png"),
+                {512, 288},
+                {512, 288},
+                1,
+                1});
+
+    Entity diffP = ecs.spawn_entity();
+    ecs.add_component<Position>(diffP,
+                                {float(serverSize.x) / 8 * float(3.5),
+                                 float(serverSize.y) / 15 * float(10.2)});
+    ecs.add_component<Tag>(diffP, {});
+    ecs.add_component<Scene>(diffP, {M_MY_ROOM});
+    ecs.add_component<Hitbox>(diffP, {{float(1) / 4, float(1) / 10}});
+    std::map<std::string, std::shared_ptr<std::string>> texts;
+    texts.insert({"EN", std::make_shared<std::string>("DIFFICULTY :")});
+    texts.insert({"FR", std::make_shared<std::string>("DIFFICULTE :")});
+    ecs.add_component<Text>(diffP, {texts,
+                                    SFMLObj._font,
+                                    {1, 1},
+                                    0,
+                                    30,
+                                    sf::Color::White,
+                                    sf::Text::Style::Regular});
+    
+    Entity diff3B = ecs.spawn_entity();
+    ecs.add_component<Position>(diff3B,
+                                {float(serverSize.x) / 8 * float(4.4),
+                                 float(serverSize.y) / 15 * float(11.8)});
+    ecs.add_component<Tag>(diff3B, {});
+    ecs.add_component<Scene>(diff3B, {M_MY_ROOM});
+    ecs.add_component<Hitbox>(diff3B, {{float(1) / 10, float(1) / 10}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("HARD")});
+    texts.insert({"FR", std::make_shared<std::string>("DIFFICILE")});
+    ecs.add_component<Text>(diff3B, {texts,
+                                    SFMLObj._font,
+                                    {1, 1},
+                                    0,
+                                    20,
+                                    sf::Color::White,
+                                    sf::Text::Style::Regular});
+    if (myRoom._master || myRoom._idRoom.empty()) {
+        ecs.add_component<Drawable>(diff3B,
+                                    {SFMLObj._myTextures.getTexture(
+                                        "assets/images/utils/button_config2.png"),
+                                    {128, 64},
+                                    {128, 64},
+                                    1,
+                                    2});
+        ecs.add_component<Selectable>(
+            diff3B, {SFMLObj._myTextures.getTexture(
+                        "assets/images/utils/button_config2_sel.png"),
+                    std::function<void(ECS &, Entity)>(select),
+                    std::function<void(ECS &, Entity)>(deselect)});
+        ecs.add_component<Pressable>(
+            diff3B, {SFMLObj._myTextures.getTexture(
+                        "assets/images/utils/button_config2_act.png"),
+                    std::function<void(ECS &, Entity)>(selectDiff3), 2});
+        if (myRoom._diff == 3)
+            press(ecs, diff3B);
+    } else {
+        if (myRoom._diff == 3) {
+            ecs.add_component<Drawable>(diff3B,
+                                    {SFMLObj._myTextures.getTexture(
+                                        "assets/images/utils/button_config2_act.png"),
+                                    {128, 64},
+                                    {128, 64},
+                                    1,
+                                    2});
+        } else {
+            ecs.add_component<Drawable>(diff3B,
+                                    {SFMLObj._myTextures.getTexture(
+                                        "assets/images/utils/button_config2.png"),
+                                    {128, 64},
+                                    {128, 64},
+                                    1,
+                                    2});
+        }
+    }
+
+    Entity diff2B = ecs.spawn_entity();
+    ecs.add_component<Position>(diff2B,
+                                {float(serverSize.x) / 8 * float(3.5),
+                                 float(serverSize.y) / 15 * float(11.8)});
+    ecs.add_component<Tag>(diff2B, {});
+    ecs.add_component<Scene>(diff2B, {M_MY_ROOM});
+    ecs.add_component<Hitbox>(diff2B, {{float(1) / 10, float(1) / 10}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("MEDIUM")});
+    texts.insert({"FR", std::make_shared<std::string>("NORMALE")});
+    ecs.add_component<Text>(diff2B, {texts,
+                                    SFMLObj._font,
+                                    {1, 1},
+                                    0,
+                                    20,
+                                    sf::Color::White,
+                                    sf::Text::Style::Regular});
+    if (myRoom._master || myRoom._idRoom.empty()) {
+        ecs.add_component<Drawable>(diff2B,
+                                    {SFMLObj._myTextures.getTexture(
+                                        "assets/images/utils/button_config2.png"),
+                                    {128, 64},
+                                    {128, 64},
+                                    1,
+                                    2});
+        ecs.add_component<Selectable>(
+            diff2B, {SFMLObj._myTextures.getTexture(
+                        "assets/images/utils/button_config2_sel.png"),
+                    std::function<void(ECS &, Entity)>(select),
+                    std::function<void(ECS &, Entity)>(deselect)});
+        ecs.add_component<Pressable>(
+            diff2B, {SFMLObj._myTextures.getTexture(
+                        "assets/images/utils/button_config2_act.png"),
+                    std::function<void(ECS &, Entity)>(selectDiff2), 2});
+        if (myRoom._diff == 2)
+            press(ecs, diff2B);
+    } else {
+        if (myRoom._diff == 2) {
+            ecs.add_component<Drawable>(diff2B,
+                                    {SFMLObj._myTextures.getTexture(
+                                        "assets/images/utils/button_config2_act.png"),
+                                    {128, 64},
+                                    {128, 64},
+                                    1,
+                                    2});
+        } else {
+            ecs.add_component<Drawable>(diff2B,
+                                    {SFMLObj._myTextures.getTexture(
+                                        "assets/images/utils/button_config2.png"),
+                                    {128, 64},
+                                    {128, 64},
+                                    1,
+                                    2});
+        }
+    }
+
+    Entity diff1B = ecs.spawn_entity();
+    ecs.add_component<Position>(diff1B,
+                                {float(serverSize.x) / 8 * float(2.6),
+                                 float(serverSize.y) / 15 * float(11.8)});
+    ecs.add_component<Tag>(diff1B, {});
+    ecs.add_component<Scene>(diff1B, {M_MY_ROOM});
+    ecs.add_component<Hitbox>(diff1B, {{float(1) / 10, float(1) / 10}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("EASY")});
+    texts.insert({"FR", std::make_shared<std::string>("FACILE")});
+    ecs.add_component<Text>(diff1B, {texts,
+                                    SFMLObj._font,
+                                    {1, 1},
+                                    0,
+                                    20,
+                                    sf::Color::White,
+                                    sf::Text::Style::Regular});
+    if (myRoom._master || myRoom._idRoom.empty()) {
+        ecs.add_component<Drawable>(diff1B,
+                                    {SFMLObj._myTextures.getTexture(
+                                        "assets/images/utils/button_config2.png"),
+                                    {128, 64},
+                                    {128, 64},
+                                    1,
+                                    2});
+        ecs.add_component<Selectable>(
+            diff1B, {SFMLObj._myTextures.getTexture(
+                        "assets/images/utils/button_config2_sel.png"),
+                    std::function<void(ECS &, Entity)>(select),
+                    std::function<void(ECS &, Entity)>(deselect)});
+        ecs.add_component<Pressable>(
+            diff1B, {SFMLObj._myTextures.getTexture(
+                        "assets/images/utils/button_config2_act.png"),
+                    std::function<void(ECS &, Entity)>(selectDiff1), 2});
+        if (myRoom._diff == 1)
+            press(ecs, diff1B);
+    } else {
+        if (myRoom._diff == 1) {
+            ecs.add_component<Drawable>(diff1B,
+                                    {SFMLObj._myTextures.getTexture(
+                                        "assets/images/utils/button_config2_act.png"),
+                                    {128, 64},
+                                    {128, 64},
+                                    1,
+                                    2});
+        } else {
+            ecs.add_component<Drawable>(diff1B,
+                                    {SFMLObj._myTextures.getTexture(
+                                        "assets/images/utils/button_config2.png"),
+                                    {128, 64},
+                                    {128, 64},
+                                    1,
+                                    2});
+        }
+    }
+
+    Entity playerP = ecs.spawn_entity();
+    ecs.add_component<Position>(playerP,
+                                {float(serverSize.x) / 5 * float(4.3),
+                                 float(serverSize.y) / 15 * float(10.2)});
+    ecs.add_component<Tag>(playerP, {});
+    ecs.add_component<Scene>(playerP, {M_MY_ROOM});
+    ecs.add_component<Hitbox>(playerP, {{float(1) / 4, float(1) / 10}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("PLAYERS :")});
+    texts.insert({"FR", std::make_shared<std::string>("JOUEURS :")});
+    ecs.add_component<Text>(playerP, {texts,
+                                    SFMLObj._font,
+                                    {1, 1},
+                                    0,
+                                    30,
+                                    sf::Color::White,
+                                    sf::Text::Style::Regular});
+
+    Entity players = ecs.spawn_entity();
+    ecs.add_component<Position>(players,
+                                {float(serverSize.x) / 5 * float(4.3),
+                                    float(serverSize.y) / 15 * float(11.8)});
+    ecs.add_component<Tag>(players, {});
+    ecs.add_component<Scene>(players, {M_MY_ROOM});
+    ecs.add_component<Hitbox>(players, {{float(1) / 4, float(1) / 15}});
+    texts.clear();
+    texts.insert({"DEFAULT", std::make_shared<std::string>(
+                                    std::to_string(myRoom._nbPlayer) + " / 8")});
+    ecs.add_component<Text>(players, {texts,
+                                        SFMLObj._font,
+                                        {1, 1},
+                                        0,
+                                        40,
+                                        sf::Color::White,
+                                        sf::Text::Style::Regular});
+
+    Entity quitB = ecs.spawn_entity();
+    ecs.add_component<Position>(quitB,
+                                {float(serverSize.x) / 12 * float(2.17),
+                                 float(serverSize.y) / 10 * float(5.2)});
+    ecs.add_component<Tag>(quitB, {});
+    ecs.add_component<Scene>(quitB, {M_MY_ROOM});
+    ecs.add_component<Hitbox>(quitB, {{float(1) / 4, float(1) / 10}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("BACK")});
+    texts.insert({"FR", std::make_shared<std::string>("RETOUR")});
+    ecs.add_component<Text>(quitB, {texts,
+                                       SFMLObj._font,
+                                       {0.5, 0.5},
+                                       0,
+                                       40,
+                                       sf::Color::White,
+                                       sf::Text::Style::Regular});
+    ecs.add_component<Drawable>(quitB,
+                                {SFMLObj._myTextures.getTexture(
+                                     "assets/images/utils/button_config1.png"),
+                                 {402, 100},
+                                 {402, 100},
+                                 1,
+                                 2});
+    ecs.add_component<Selectable>(
+        quitB, {SFMLObj._myTextures.getTexture(
+                       "assets/images/utils/button_config1_sel.png"),
+                   std::function<void(ECS &, Entity)>(select),
+                   std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        quitB, {SFMLObj._myTextures.getTexture(
+                       "assets/images/utils/button_config1_act.png"),
+                   [](ECS &ecs, Entity i) {
+                       ecs.post<RequestEvent>({QUIT_ROOM, {}});
+                   }});
+    
+    Entity levelP = ecs.spawn_entity();
+    ecs.add_component<Position>(levelP,
+                                {float(serverSize.x) / 5 * float(4.3),
+                                 float(serverSize.y) / 15 * float(4)});
+    ecs.add_component<Tag>(levelP, {});
+    ecs.add_component<Scene>(levelP, {M_MY_ROOM});
+    ecs.add_component<Hitbox>(levelP, {{float(1) / 4, float(1) / 15}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("LEVELS :")});
+    texts.insert({"FR", std::make_shared<std::string>("NIVEAUX :")});
+    ecs.add_component<Text>(levelP, {texts,
+                                    SFMLObj._font,
+                                    {1, 1},
+                                    0,
+                                    30,
+                                    sf::Color::White,
+                                    sf::Text::Style::Regular});
+    
+    Entity nameP = ecs.spawn_entity();
+    ecs.add_component<Position>(nameP,
+                                {float(serverSize.x) / 5 * float(2.7),
+                                    float(serverSize.y) / 15 * 6});
+    ecs.add_component<Tag>(nameP, {});
+    ecs.add_component<Scene>(nameP, {M_MY_ROOM});
+    ecs.add_component<Hitbox>(nameP, {{float(1) / 4, float(1) / 15}});
+    texts.clear();
+    texts.insert({"EN", std::make_shared<std::string>("NAME :")});
+    texts.insert({"FR", std::make_shared<std::string>("NOM :")});
+    ecs.add_component<Text>(nameP, {texts,
+                                    SFMLObj._font,
+                                    {1, 1},
+                                    0,
+                                    30,
+                                    sf::Color::White,
+                                    sf::Text::Style::Regular});
+
+    Entity nameB = ecs.spawn_entity();
+    ecs.add_component<Position>(nameB,
+                                {float(serverSize.x) / 5 * float(2.7),
+                                    float(serverSize.y) / 15 * 7});
+    ecs.add_component<Tag>(nameB, {});
+    ecs.add_component<Scene>(nameB, {M_MY_ROOM});
+    ecs.add_component<Hitbox>(nameB, {{float(1) / 4, float(1) / 15}});
+    texts.clear();
+    texts.insert({"DEFAULT", myRoom._name});
+    ecs.add_component<Text>(nameB, {texts,
+                                    SFMLObj._font,
+                                    {1, 1},
+                                    0,
+                                    30,
+                                    sf::Color::White,
+                                    sf::Text::Style::Regular});
+    ecs.add_component<Drawable>(nameB,
+                                {SFMLObj._myTextures.getTexture(
+                                    "assets/images/utils/button_room.png"),
+                                {710, 64},
+                                {710, 64},
+                                1,
+                                2});
+    if (myRoom._master || myRoom._idRoom.empty()) {
+    ecs.add_component<Selectable>(
+    nameB, {SFMLObj._myTextures.getTexture(
+                    "assets/images/utils/button_room_sel.png"),
+                std::function<void(ECS &, Entity)>(select),
+                std::function<void(ECS &, Entity)>(deselect)});
+    ecs.add_component<Pressable>(
+        nameB, {SFMLObj._myTextures.getTexture(
+                    "assets/images/utils/button_room_act.png"),
+                [](ECS &ecs, Entity i) {
+                    auto textOpt = ecs.get_components<Text>()[i];
+                    if (textOpt.has_value()) {
+                        auto &text = *textOpt;
+                        if (text._str["DEFAULT"]) {
+                            text._str["DEFAULT"]->clear();
+                        }
+                    }
+                    press(ecs, i);
+                    ecs.post<CaptureInputEvent>({i});
+                }});
+    }
+
+    std::vector<std::string> l_name = rec_event.payload["l_name"];
+    std::vector<std::string> l_file = rec_event.payload["l_file"];
+
+    for (size_t i = 0; i < l_name.size(); i++) {
+        Entity levelB = ecs.spawn_entity();
+        ecs.add_component<Position>(levelB,
+                                    {float(serverSize.x) / 5 * float(4.3),
+                                     float(serverSize.y) / 15 * (i + 5)});
+        ecs.add_component<Tag>(levelB, {OTHER, l_file[i]});
+        ecs.add_component<Scene>(levelB, {M_MY_ROOM});
+        ecs.add_component<Hitbox>(levelB, {{float(1) / 4, float(1) / 15}});
+        texts.clear();
+        texts.insert({"DEFAULT", std::make_shared<std::string>(l_name[i])});
+        ecs.add_component<Text>(levelB, {texts,
+                                        SFMLObj._font,
+                                        {1, 1},
+                                        0,
+                                        30,
+                                        sf::Color::White,
+                                        sf::Text::Style::Regular});
+        if (myRoom._master || myRoom._idRoom.empty()) {
+            ecs.add_component<Drawable>(levelB,
+                                        {SFMLObj._myTextures.getTexture(
+                                            "assets/images/utils/button_room.png"),
+                                        {710, 64},
+                                        {710, 64},
+                                        1,
+                                        2});
+            ecs.add_component<Selectable>(
+                levelB, {SFMLObj._myTextures.getTexture(
+                            "assets/images/utils/button_room_sel.png"),
+                        std::function<void(ECS &, Entity)>(select),
+                        std::function<void(ECS &, Entity)>(deselect)});
+            ecs.add_component<Pressable>(
+                levelB, {SFMLObj._myTextures.getTexture(
+                            "assets/images/utils/button_room_act.png"),
+                        std::function<void(ECS &, Entity)>(selectLevel), 1});
+            if (myRoom._levelFile == "" && i == 0) {
+                selectLevel(ecs, levelB);
+            }
+            if (myRoom._levelFile == l_file[i])
+                press(ecs, levelB);
+        } else {
+            if (myRoom._levelFile == l_file[i] || (myRoom._levelFile == "" && i == 0)) {
+                ecs.add_component<Drawable>(levelB,
+                                            {SFMLObj._myTextures.getTexture(
+                                                "assets/images/utils/button_room_act.png"),
+                                            {710, 64},
+                                            {710, 64},
+                                            1,
+                                            2});
+            } else {
+                ecs.add_component<Drawable>(levelB,
+                                            {SFMLObj._myTextures.getTexture(
+                                                "assets/images/utils/button_room.png"),
+                                            {710, 64},
+                                            {710, 64},
+                                            1,
+                                            2});
+            }
+        }
+    }
+}
+
+void createMenuCreateRoomEntities(ECS &ecs, const Configs &myConfig,
+                                  SFMLObjects &SFMLObj, Room &myRoom) {
+    auto serverSize = myConfig._serverSize;
+
+    std::map<std::string, std::shared_ptr<std::string>> texts;
+    if (myRoom._master || myRoom._idRoom.empty()) {
+        Entity createB = ecs.spawn_entity();
+        ecs.add_component<Position>(createB,
+                                    {float(serverSize.x) / 12 * float(4.11),
+                                    float(serverSize.y) / 10 * float(2.6)});
+        ecs.add_component<Tag>(createB, {});
+        ecs.add_component<Scene>(createB, {M_CREATE_ROOM});
+        ecs.add_component<Hitbox>(createB, {{float(1) / 4, float(1) / 10}});
+        texts.clear();
+        texts.insert({"EN", std::make_shared<std::string>("CREATE")});
+        texts.insert({"FR", std::make_shared<std::string>("CREER")});
+        ecs.add_component<Text>(
+            createB, {texts, SFMLObj._font, {0.5, 0.5}, 0, 40, sf::Color::White});
+        ecs.add_component<Drawable>(createB,
+                                    {SFMLObj._myTextures.getTexture(
+                                        "assets/images/utils/button_config1.png"),
+                                    {402, 100},
+                                    {402, 100},
+                                    1,
+                                    2});
+        ecs.add_component<Selectable>(
+            createB, {SFMLObj._myTextures.getTexture(
+                        "assets/images/utils/button_config1_sel.png"),
+                    std::function<void(ECS &, Entity)>(select),
+                    std::function<void(ECS &, Entity)>(deselect)});
+        ecs.add_component<Pressable>(
+            createB, {SFMLObj._myTextures.getTexture(
+                        "assets/images/utils/button_config1_act.png"),
+                    std::function<void(ECS &, Entity)>(createRoom)});
+    } else {
+        Entity message = ecs.spawn_entity();
+        ecs.add_component<Position>(message, {float(serverSize.x) / 12 * float(3.14),
+                                 float(serverSize.y) / 10 * float(3.9)});
+        ecs.add_component<Tag>(message, {});
+        ecs.add_component<Scene>(message, {M_CREATE_ROOM});
+        ecs.add_component<Hitbox>(message, {{float(1) / 4, float(1) / 10}});
+        texts.clear();
+        texts.insert({"EN", std::make_shared<std::string>("Waiting host")});
+        texts.insert(
+            {"FR", std::make_shared<std::string>("En attente")});
+        ecs.add_component<Text>(
+            message,
+            {texts, SFMLObj._font, {0.5, 0.5}, 0, 40, sf::Color::White});
+        ecs.add_component<Drawable>(
+            message, {SFMLObj._myTextures.getTexture(
+                          "assets/images/utils/button_config1.png"),
+                      {402, 100},
+                      {402, 100},
+                      1,
+                      1});
+    }
 
     if (myRoom._master) {
         Entity startB = ecs.spawn_entity();
         ecs.add_component<Position>(
-            startB, {float(serverSize.x) / 5 * 4, float(serverSize.y) / 7 * 6});
+            startB, {float(serverSize.x) / 12 * float(3.14),
+                                 float(serverSize.y) / 10 * float(3.9)});
         ecs.add_component<Tag>(startB, {});
-        ecs.add_component<Scene>(startB, {M_IN_ROOM});
-        ecs.add_component<Hitbox>(startB, {{float(1) / 3, float(1) / 10}});
-        std::map<std::string, std::shared_ptr<std::string>> texts;
+        ecs.add_component<Scene>(startB, {M_CREATE_ROOM});
+        ecs.add_component<Hitbox>(startB, {{float(1) / 4, float(1) / 10}});
+        texts.clear();
         texts.insert({"EN", std::make_shared<std::string>("START GAME")});
         texts.insert({"FR", std::make_shared<std::string>("COMMENCER")});
         ecs.add_component<Text>(
@@ -557,163 +1035,108 @@ void createMenuInRoomEntities(ECS &ecs, const Configs &myConfig,
                          ecs.post<RequestEvent>(
                              {LAUNCH_GAME, {{"idr", myRoom._idRoom}}});
                      }});
-    } else {
-        Entity message = ecs.spawn_entity();
-        ecs.add_component<Position>(message, {float(serverSize.x) / 5 * 4,
-                                              float(serverSize.y) / 7 * 6});
-        ecs.add_component<Tag>(message, {});
-        ecs.add_component<Scene>(message, {M_IN_ROOM});
-        ecs.add_component<Hitbox>(message, {{float(1) / 3, float(1) / 10}});
-        std::map<std::string, std::shared_ptr<std::string>> texts;
-        texts.insert({"EN", std::make_shared<std::string>("Waiting host")});
-        texts.insert(
-            {"FR", std::make_shared<std::string>("En attente de l'hote")});
-        ecs.add_component<Text>(
-            message,
-            {texts, SFMLObj._font, {0.5, 0.5}, 0, 40, sf::Color::White});
-        ecs.add_component<Drawable>(
-            message, {SFMLObj._myTextures.getTexture(
-                          "assets/images/utils/button_config1.png"),
-                      {402, 100},
-                      {402, 100},
-                      1,
-                      1});
     }
+
+    // Entity player1B = ecs.spawn_entity();
+    // ecs.add_component<Position>(player1B,
+    //                             {float(serverSize.x) / 12 * float(3.14),
+    //                              float(serverSize.y) / 10 * float(3.9)});
+    // ecs.add_component<Tag>(player1B, {});
+    // ecs.add_component<Scene>(player1B, {M_CREATE_ROOM});
+    // ecs.add_component<Hitbox>(player1B, {{float(1) / 4, float(1) / 10}});
+    // texts.clear();
+    // texts.insert({"EN", std::make_shared<std::string>("Player 1")});
+    // texts.insert({"FR", std::make_shared<std::string>("Joueur 1")});
+    // ecs.add_component<Text>(player1B, {texts,
+    //                                    SFMLObj._font,
+    //                                    {0.5, 0.5},
+    //                                    0,
+    //                                    40,
+    //                                    sf::Color::White,
+    //                                    sf::Text::Style::Regular});
+    // ecs.add_component<Drawable>(player1B,
+    //                             {SFMLObj._myTextures.getTexture(
+    //                                  "assets/images/utils/button_config1.png"),
+    //                              {402, 100},
+    //                              {402, 100},
+    //                              1,
+    //                              2});
+    // ecs.add_component<Selectable>(
+    //     player1B, {SFMLObj._myTextures.getTexture(
+    //                    "assets/images/utils/button_config1_sel.png"),
+    //                std::function<void(ECS &, Entity)>(select),
+    //                std::function<void(ECS &, Entity)>(deselect)});
+    // ecs.add_component<Pressable>(
+    //     player1B, {SFMLObj._myTextures.getTexture(
+    //                    "assets/images/utils/button_config1_act.png"),
+    //                [](ECS &ecs, Entity i) {
+    //                    press(ecs, i);
+    //                    ecs.post<DeleteEvent>({M_C_GENERAL});
+    //                    ecs.post<DeleteEvent>({M_C_PLAYER2});
+    //                    ecs.post<CreationEvent>({M_C_PLAYER1});
+    //                },
+    //                1});
 }
 
-// void createMenuPlayerEntities(ECS &ecs, Window &myWindow) {
-//     auto serverSize = myWindow._serverSize;
+// void createMenuInRoomEntities(ECS &ecs, const Configs &myConfig,
+//                               SFMLObjects &SFMLObj, Room &myRoom) {
+//     auto serverSize = myConfig._serverSize;
 
-//     Entity player1B = ecs.spawn_entity();
-//     ecs.add_component<Position>(
-//         player1B, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 3});
-//     ecs.add_component<Tag>(player1B, {});
-//     ecs.add_component<Scene>(player1B, {M_PLAYER});
-//     ecs.add_component<Hitbox>(player1B, {{float(1) / 3, float(1) / 10}});
-//     std::map<std::string, std::shared_ptr<std::string>> texts;
-//     texts.insert({"EN", std::make_shared<std::string>("1 PLAYER")});
-//     texts.insert({"FR", std::make_shared<std::string>("1 JOUEUR")});
-//     ecs.add_component<Text>(
-//         player1B, {texts, myWindow._font, {0.5, 0.5}, 0, 40,
-//         sf::Color::White});
-//     ecs.add_component<Drawable>(player1B,
-//                                 {myWindow._myTextures.getTexture(
-//                                      "assets/images/utils/button_config1.png"),
-//                                  {402, 100},
-//                                  {402, 100},
-//                                  1,
-//                                  1});
-//     ecs.add_component<Selectable>(
-//         player1B, {myWindow._myTextures.getTexture(
-//                        "assets/images/utils/button_config1_sel.png"),
-//                    std::function<void(ECS &, Entity)>(select),
-//                    std::function<void(ECS &, Entity)>(deselect)});
-//     ecs.add_component<Pressable>(
-//         player1B, {myWindow._myTextures.getTexture(
-//                        "assets/images/utils/button_config1_act.png"),
-//                    std::function<void(ECS &, Entity)>(startGame1P)});
-
-//     Entity player2B = ecs.spawn_entity();
-//     ecs.add_component<Position>(
-//         player2B, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 4});
-//     ecs.add_component<Tag>(player2B, {});
-//     ecs.add_component<Scene>(player2B, {M_PLAYER});
-//     ecs.add_component<Hitbox>(player2B, {{float(1) / 3, float(1) / 10}});
-//     texts.clear();
-//     texts.insert({"EN", std::make_shared<std::string>("2 PLAYER")});
-//     texts.insert({"FR", std::make_shared<std::string>("2 JOUEUR")});
-//     ecs.add_component<Text>(player2B, {texts,
-//                                        myWindow._font,
-//                                        {0.5, 0.5},
-//                                        0,
-//                                        40,
-//                                        sf::Color::White,
-//                                        sf::Text::Style::Regular});
-//     ecs.add_component<Drawable>(player2B,
-//                                 {myWindow._myTextures.getTexture(
-//                                      "assets/images/utils/button_config1.png"),
-//                                  {402, 100},
-//                                  {402, 100},
-//                                  1,
-//                                  1});
-//     ecs.add_component<Selectable>(
-//         player2B, {myWindow._myTextures.getTexture(
-//                        "assets/images/utils/button_config1_sel.png"),
-//                    std::function<void(ECS &, Entity)>(select),
-//                    std::function<void(ECS &, Entity)>(deselect)});
-//     ecs.add_component<Pressable>(
-//         player2B, {myWindow._myTextures.getTexture(
-//                        "assets/images/utils/button_config1_act.png"),
-//                    std::function<void(ECS &, Entity)>(startGame2P)});
-
-//     Entity multiB = ecs.spawn_entity();
-//     ecs.add_component<Position>(
-//         multiB, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 5});
-//     ecs.add_component<Tag>(multiB, {});
-//     ecs.add_component<Scene>(multiB, {M_PLAYER});
-//     ecs.add_component<Hitbox>(multiB, {{float(1) / 3, float(1) / 10}});
-//     texts.clear();
-//     texts.insert({"EN", std::make_shared<std::string>("MULTIPLAYER")});
-//     texts.insert({"FR", std::make_shared<std::string>("MULTIJOUEUR")});
-//     ecs.add_component<Text>(multiB, {texts,
-//                                      myWindow._font,
-//                                      {0.5, 0.5},
-//                                      0,
-//                                      40,
-//                                      sf::Color::White,
-//                                      sf::Text::Style::Regular});
-//     ecs.add_component<Drawable>(multiB,
-//                                 {myWindow._myTextures.getTexture(
-//                                      "assets/images/utils/button_config1.png"),
-//                                  {402, 100},
-//                                  {402, 100},
-//                                  1,
-//                                  1});
-//     ecs.add_component<Selectable>(
-//         multiB, {myWindow._myTextures.getTexture(
-//                      "assets/images/utils/button_config1_sel.png"),
-//                  std::function<void(ECS &, Entity)>(select),
-//                  std::function<void(ECS &, Entity)>(deselect)});
-//     ecs.add_component<Pressable>(
-//         multiB, {myWindow._myTextures.getTexture(
-//                      "assets/images/utils/button_config1_act.png"),
-//                  std::function<void(ECS &, Entity)>(startGameMP)});
-
-//     Entity backB = ecs.spawn_entity();
-//     ecs.add_component<Position>(
-//         backB, {float(serverSize.x) / 5, float(serverSize.y) / 7 * 6});
-//     ecs.add_component<Tag>(backB, {});
-//     ecs.add_component<Scene>(backB, {M_PLAYER});
-//     ecs.add_component<Hitbox>(backB, {{float(1) / 3, float(1) / 10}});
-//     texts.clear();
-//     texts.insert({"EN", std::make_shared<std::string>("BACK")});
-//     texts.insert({"FR", std::make_shared<std::string>("RETOUR")});
-//     ecs.add_component<Text>(backB, {texts,
-//                                     myWindow._font,
-//                                     {0.5, 0.5},
-//                                     0,
-//                                     40,
-//                                     sf::Color::White,
-//                                     sf::Text::Style::Regular});
-//     ecs.add_component<Drawable>(backB,
-//                                 {myWindow._myTextures.getTexture(
-//                                      "assets/images/utils/button_config1.png"),
-//                                  {402, 100},
-//                                  {402, 100},
-//                                  1,
-//                                  1});
-//     ecs.add_component<Selectable>(
-//         backB, {myWindow._myTextures.getTexture(
-//                     "assets/images/utils/button_config1_sel.png"),
-//                 std::function<void(ECS &, Entity)>(select),
-//                 std::function<void(ECS &, Entity)>(deselect)});
-//     ecs.add_component<Pressable>(
-//         backB, {myWindow._myTextures.getTexture(
-//                     "assets/images/utils/button_config1_act.png"),
-//                 [](ECS &ecs, Entity) {
-//                     ecs.post<DeleteEvent>({M_PLAYER});
-//                     ecs.post<CreationEvent>({M_GENERAL});
-//                 }});
+//     if (myRoom._master) {
+//         Entity startB = ecs.spawn_entity();
+//         ecs.add_component<Position>(
+//             startB, {float(serverSize.x) / 5 * 4, float(serverSize.y) / 7 * 6});
+//         ecs.add_component<Tag>(startB, {});
+//         ecs.add_component<Scene>(startB, {M_IN_ROOM});
+//         ecs.add_component<Hitbox>(startB, {{float(1) / 3, float(1) / 10}});
+//         std::map<std::string, std::shared_ptr<std::string>> texts;
+//         texts.insert({"EN", std::make_shared<std::string>("START GAME")});
+//         texts.insert({"FR", std::make_shared<std::string>("COMMENCER")});
+//         ecs.add_component<Text>(
+//             startB,
+//             {texts, SFMLObj._font, {0.5, 0.5}, 0, 40, sf::Color::White});
+//         ecs.add_component<Drawable>(
+//             startB, {SFMLObj._myTextures.getTexture(
+//                          "assets/images/utils/button_config1.png"),
+//                      {402, 100},
+//                      {402, 100},
+//                      1,
+//                      1});
+//         ecs.add_component<Selectable>(
+//             startB, {SFMLObj._myTextures.getTexture(
+//                          "assets/images/utils/button_config1_sel.png"),
+//                      std::function<void(ECS &, Entity)>(select),
+//                      std::function<void(ECS &, Entity)>(deselect)});
+//         ecs.add_component<Pressable>(
+//             startB, {SFMLObj._myTextures.getTexture(
+//                          "assets/images/utils/button_config1_act.png"),
+//                      [](ECS &ecs, Entity) {
+//                          auto &myRoom = ecs.get_components<Room>()[0].value();
+//                          ecs.post<RequestEvent>(
+//                              {LAUNCH_GAME, {{"idr", myRoom._idRoom}}});
+//                      }});
+//     } else {
+//         Entity message = ecs.spawn_entity();
+//         ecs.add_component<Position>(message, {float(serverSize.x) / 5 * 4,
+//                                               float(serverSize.y) / 7 * 6});
+//         ecs.add_component<Tag>(message, {});
+//         ecs.add_component<Scene>(message, {M_IN_ROOM});
+//         ecs.add_component<Hitbox>(message, {{float(1) / 3, float(1) / 10}});
+//         std::map<std::string, std::shared_ptr<std::string>> texts;
+//         texts.insert({"EN", std::make_shared<std::string>("Waiting host")});
+//         texts.insert(
+//             {"FR", std::make_shared<std::string>("En attente de l'hote")});
+//         ecs.add_component<Text>(
+//             message,
+//             {texts, SFMLObj._font, {0.5, 0.5}, 0, 40, sf::Color::White});
+//         ecs.add_component<Drawable>(
+//             message, {SFMLObj._myTextures.getTexture(
+//                           "assets/images/utils/button_config1.png"),
+//                       {402, 100},
+//                       {402, 100},
+//                       1,
+//                       1});
+//     }
 // }
 
 void createConfigEntities(ECS &ecs, const Configs &myConfig,
