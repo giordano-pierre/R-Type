@@ -79,6 +79,10 @@ namespace rtype::server {
                             resp = createUpDown(child.value()._ecs_child, ennemy);
                             break;
                         }
+                        case BOSS1: {
+                            resp = createBoss(child.value()._ecs_child, ennemy);
+                            break;
+                        }
                         }
 
                         for (const auto evt : resp) {
