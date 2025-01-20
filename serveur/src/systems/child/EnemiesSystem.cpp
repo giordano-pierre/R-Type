@@ -108,9 +108,15 @@ void EnemiesSys::updateBoss(ECS &ecs, Position &pos, Velocity &vel, EnemyAI &ai,
         }
         _bossTick++;
         if (_bossTick == 300) {
-            // createSineEnemy(ecs, )
-
-            // spawnQueue.add(rtype::server::EnemyAI::BehaviorType::SINUSOIDAL);
+            createSineEnemy(ecs, {
+                .x_pos = 2000,
+                .y_pos = 100,
+                .x_velocity = -10,
+                .y_velocity = 0,
+                .x_hitbox = 0.1,
+                .y_hitbox = 0.18
+            });
+           // spawnQueue.add(rtype::server::EnemyAI::BehaviorType::SINUSOIDAL);
             _bossTick = 0;
         }
     }
@@ -354,6 +360,7 @@ std::vector<RequestEvent> createBoss(ECS &ecs, rtype::server::EnemyInfo enemy) {
     rtype::server::EnemyInfo info{.x_pos = enemy.x_pos,
                                   .y_pos = enemy.y_pos,
                                   .x_velocity = enemy.x_velocity,
+                                  .y_velocity = enemy.y_velocity,
                                   .x_hitbox = enemy.x_hitbox,
                                   .y_hitbox = enemy.y_hitbox,
                                   .health = 100,
