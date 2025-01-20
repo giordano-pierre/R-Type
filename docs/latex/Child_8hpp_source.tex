@@ -1,0 +1,39 @@
+\doxysection{Child.\+hpp}
+\hypertarget{Child_8hpp_source}{}\label{Child_8hpp_source}\index{serveur/include/Child.hpp@{serveur/include/Child.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ EPITECH\ PROJECT,\ 2025}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**\ R-\/Type}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**\ File\ description:}}
+\DoxyCodeLine{00005\ \textcolor{comment}{**\ Child}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}systems/child/CollisionSystem.hpp"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}systems/child/HealthSystem.hpp"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}systems/child/MovementSystem.hpp"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}systems/child/RemoveSys.hpp"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}systems/child/SubMessageHandlerSys.hpp"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }rtype::server\ \{}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrtype_1_1server_1_1Child}{Child}}\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{classECS}{ECS}}\ \_ecs\_child;}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1server_1_1RemoveSys}{RemoveSys}}\ \_removeSys;}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1server_1_1SubMessageHandlerSys}{SubMessageHandlerSys}}\ \_messHandler;}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1server_1_1MovementSys}{MovementSys}}\ \_moveSys;}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1server_1_1HealthSys}{HealthSys}}\ \_hpSys;}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1server_1_1CollisionSys}{CollisionSys}}\ \_collSys;}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1server_1_1Child}{Child}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00027\ \};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keywordtype}{void}\ loadSubSystem(\mbox{\hyperlink{structrtype_1_1server_1_1Child}{Child}}\ \&child);}
+\DoxyCodeLine{00030\ \textcolor{keywordtype}{void}\ loadSubGameSystem(\mbox{\hyperlink{structrtype_1_1server_1_1Child}{Child}}\ \&child);}
+\DoxyCodeLine{00031\ \textcolor{keywordtype}{void}\ initSubECS(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs);}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \}\ \textcolor{comment}{//\ namespace\ rtype::server}}
+
+\end{DoxyCode}

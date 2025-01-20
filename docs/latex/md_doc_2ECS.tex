@@ -52,11 +52,11 @@ To set up the \doxylink{classECS}{ECS} for a game\+:
 \DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}ECS.hpp"{}}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{//\ Define\ components}}
-\DoxyCodeLine{\textcolor{keyword}{struct\ }\mbox{\hyperlink{structPosition}{Position}}\ \{}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }Position\ \{}
 \DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{float}\ x,\ y;}
 \DoxyCodeLine{\};}
 \DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{keyword}{struct\ }\mbox{\hyperlink{structVelocity}{Velocity}}\ \{}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }Velocity\ \{}
 \DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{float}\ dx,\ dy;}
 \DoxyCodeLine{\};}
 \DoxyCodeLine{}
@@ -69,16 +69,16 @@ To set up the \doxylink{classECS}{ECS} for a game\+:
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classECS}{ECS}}\ ecs;}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Register\ components}}
-\DoxyCodeLine{\ \ \ \ ecs.register\_component<\mbox{\hyperlink{structPosition}{Position}}>();}
-\DoxyCodeLine{\ \ \ \ ecs.register\_component<\mbox{\hyperlink{structVelocity}{Velocity}}>();}
+\DoxyCodeLine{\ \ \ \ ecs.register\_component<Position>();}
+\DoxyCodeLine{\ \ \ \ ecs.register\_component<Velocity>();}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Spawn\ entity}}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classEntity}{Entity}}\ player\ =\ ecs.spawn\_entity();}
-\DoxyCodeLine{\ \ \ \ ecs.add\_component(player,\ \mbox{\hyperlink{structPosition}{Position}}\{0.0f,\ 0.0f\});}
-\DoxyCodeLine{\ \ \ \ ecs.add\_component(player,\ \mbox{\hyperlink{structVelocity}{Velocity}}\{1.0f,\ 0.5f\});}
+\DoxyCodeLine{\ \ \ \ ecs.add\_component(player,\ Position\{0.0f,\ 0.0f\});}
+\DoxyCodeLine{\ \ \ \ ecs.add\_component(player,\ Velocity\{1.0f,\ 0.5f\});}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Subscribe\ a\ system\ to\ update\ positions}}
-\DoxyCodeLine{\ \ \ \ ecs.subscribe<UpdateEvent,\ \mbox{\hyperlink{structPosition}{Position}},\ \mbox{\hyperlink{structVelocity}{Velocity}}>(}
+\DoxyCodeLine{\ \ \ \ ecs.subscribe<UpdateEvent,\ Position,\ Velocity>(}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ [](\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ UpdateEvent\ \&event,\ \mbox{\hyperlink{classSparseArray}{SparseArray<Position>}}\ \&positions,\ \mbox{\hyperlink{classSparseArray}{SparseArray<Velocity>}}\ \&velocities)\ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ positions.size();\ ++i)\ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (positions[i]\ \&\&\ velocities[i])\ \{}
@@ -101,8 +101,8 @@ Components can be added to entities using {\ttfamily add\+\_\+component} or {\tt
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{ecs.add\_component(player,\ \mbox{\hyperlink{structPosition}{Position}}\{100.0f,\ 200.0f\});}
-\DoxyCodeLine{ecs.emplace\_component<\mbox{\hyperlink{structVelocity}{Velocity}}>(player,\ 2.0f,\ 1.5f);}
+\DoxyCodeLine{ecs.add\_component(player,\ Position\{100.0f,\ 200.0f\});}
+\DoxyCodeLine{ecs.emplace\_component<Velocity>(player,\ 2.0f,\ 1.5f);}
 
 \end{DoxyCode}
 \hypertarget{md_doc_2ECS_autotoc_md15}{}\doxysubsection{\texorpdfstring{Removing Components}{Removing Components}}\label{md_doc_2ECS_autotoc_md15}
@@ -110,7 +110,7 @@ Remove components when they are no longer needed\+:
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{ecs.remove\_component<\mbox{\hyperlink{structPosition}{Position}}>(player);}
+\DoxyCodeLine{ecs.remove\_component<Position>(player);}
 
 \end{DoxyCode}
 \hypertarget{md_doc_2ECS_autotoc_md16}{}\doxysubsection{\texorpdfstring{Cleaning Systems}{Cleaning Systems}}\label{md_doc_2ECS_autotoc_md16}
@@ -130,7 +130,7 @@ When subscribing a system, set {\ttfamily permanent = true} to ensure it persist
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{ecs.subscribe<UpdateEvent,\ \mbox{\hyperlink{structPosition}{Position}}>(}
+\DoxyCodeLine{ecs.subscribe<UpdateEvent,\ Position>(}
 \DoxyCodeLine{\ \ \ \ [](\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ UpdateEvent\ \&event,\ \mbox{\hyperlink{classSparseArray}{SparseArray<Position>}}\ \&positions)\ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Logic\ for\ permanent\ system}}
 \DoxyCodeLine{\ \ \ \ \},}
@@ -148,7 +148,7 @@ Define custom events and use them to trigger specific systems. For example\+:
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classEntity}{Entity}}\ entity2;}
 \DoxyCodeLine{\};}
 \DoxyCodeLine{}
-\DoxyCodeLine{ecs.subscribe<CollisionEvent,\ \mbox{\hyperlink{structPosition}{Position}}>(}
+\DoxyCodeLine{ecs.subscribe<CollisionEvent,\ Position>(}
 \DoxyCodeLine{\ \ \ \ [](\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ CollisionEvent\ \&event,\ \mbox{\hyperlink{classSparseArray}{SparseArray<Position>}}\ \&positions)\ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Handle\ collision}}
 \DoxyCodeLine{\ \ \ \ \}}

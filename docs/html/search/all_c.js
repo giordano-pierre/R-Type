@@ -8,7 +8,6 @@ var searchData=
   ['for_20serialization_5',['4. BSON Format for Serialization',['../md_doc_2TechnicalStudy.html#autotoc_md78',1,'']]],
   ['format_20for_20serialization_6',['4. BSON Format for Serialization',['../md_doc_2TechnicalStudy.html#autotoc_md78',1,'']]],
   ['frameevent_7',['FrameEvent',['../structrtype_1_1client_1_1FrameEvent.html',1,'rtype::client']]],
-  ['framesys_8',['FrameSys',['../classrtype_1_1client_1_1FrameSys.html',1,'rtype::client']]],
-  ['function_20client_9',['Main Function (Client)',['../md_doc_2NETWORK.html#autotoc_md35',1,'']]],
-  ['function_20server_10',['Main Function (Server)',['../md_doc_2NETWORK.html#autotoc_md29',1,'']]]
+  ['function_20client_8',['Main Function (Client)',['../md_doc_2NETWORK.html#autotoc_md35',1,'']]],
+  ['function_20server_9',['Main Function (Server)',['../md_doc_2NETWORK.html#autotoc_md29',1,'']]]
 ];

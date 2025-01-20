@@ -7,9 +7,9 @@ This documentation provides a detailed explanation of the {\bfseries{Network Mod
 
 The module is composed of the following components\+:
 \begin{DoxyEnumerate}
-\item {\bfseries{\doxylink{classUDPServer}{UDPServer}}}\+: Handles server-\/side communication.
-\item {\bfseries{\doxylink{classUDPClient}{UDPClient}}}\+: Handles client-\/side communication.
-\item {\bfseries{\doxylink{classServerHandlerSystem}{Server\+Handler\+System}}}\+: Processes incoming requests on the server.
+\item {\bfseries{UDPServer}}\+: Handles server-\/side communication.
+\item {\bfseries{UDPClient}}\+: Handles client-\/side communication.
+\item {\bfseries{Server\+Handler\+System}}\+: Processes incoming requests on the server.
 \item {\bfseries{\doxylink{classClientHandlerSystem}{Client\+Handler\+System}}}\+: Processes incoming responses on the client.
 \item {\bfseries{Events}}\+: {\ttfamily \doxylink{structRequestEvent}{Request\+Event}} and {\ttfamily \doxylink{structReceiveEvent}{Receive\+Event}} are used to manage communication.
 \end{DoxyEnumerate}
@@ -26,8 +26,8 @@ The server\textquotesingle{}s main function initializes the \doxylink{classECS}{
 \DoxyCodeLine{\textcolor{keywordtype}{int}\ main()\ \{}
 \DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{try}\ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{classECS}{ECS}}\ ecs;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{classServerHandlerSystem}{ServerHandlerSystem}}\ server\_handler;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{classUDPServer}{UDPServer}}\ server(ecs,\ 4242);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ServerHandlerSystem\ server\_handler;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ UDPServer\ server(ecs,\ 4242);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ ecs.register\_event<\mbox{\hyperlink{structRequestEvent}{RequestEvent}}>();}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ ecs.register\_event<\mbox{\hyperlink{structReceiveEvent}{ReceiveEvent}}>();}
@@ -52,17 +52,17 @@ The server\textquotesingle{}s main function initializes the \doxylink{classECS}{
 \hypertarget{md_doc_2NETWORK_autotoc_md30}{}\doxysubsection{\texorpdfstring{Components\+:}{Components:}}\label{md_doc_2NETWORK_autotoc_md30}
 
 \begin{DoxyEnumerate}
-\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily \doxylink{classUDPServer}{UDPServer}}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+:
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily UDPServer}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+:
 \begin{DoxyItemize}
 \item Listens for incoming requests on a specified port (e.\+g., {\ttfamily 4242}).
 \item Handles events of type {\ttfamily \doxylink{structRequestEvent}{Request\+Event}} and sends responses back to clients.
-\item Constructor\+: {\ttfamily \doxylink{classUDPServer}{UDPServer}(\doxylink{classECS}{ECS} \&ecs, unsigned short port)}
+\item Constructor\+: {\ttfamily UDPServer(\doxylink{classECS}{ECS} \&ecs, unsigned short port)}
 \begin{DoxyItemize}
 \item {\ttfamily ecs}\+: Reference to the \doxylink{classECS}{ECS} instance.
 \item {\ttfamily port}\+: The port on which the server listens for incoming requests.
 \end{DoxyItemize}
 \end{DoxyItemize}
-\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily \doxylink{classServerHandlerSystem}{Server\+Handler\+System}}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+:
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily Server\+Handler\+System}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+:
 \begin{DoxyItemize}
 \item Processes events of type {\ttfamily \doxylink{structReceiveEvent}{Receive\+Event}}.
 \item Implements the logic to handle data received from the client.
@@ -75,9 +75,9 @@ The server\textquotesingle{}s main function initializes the \doxylink{classECS}{
 \end{DoxyItemize}\hypertarget{md_doc_2NETWORK_autotoc_md32}{}\doxysubsection{\texorpdfstring{Flow\+:}{Flow:}}\label{md_doc_2NETWORK_autotoc_md32}
 
 \begin{DoxyEnumerate}
-\item The server listens for incoming requests using {\ttfamily \doxylink{classUDPServer}{UDPServer}}.
+\item The server listens for incoming requests using {\ttfamily UDPServer}.
 \item Incoming requests trigger a {\ttfamily \doxylink{structRequestEvent}{Request\+Event}}.
-\item The {\ttfamily \doxylink{classServerHandlerSystem}{Server\+Handler\+System}} processes the {\ttfamily \doxylink{structReceiveEvent}{Receive\+Event}} and handles the data.
+\item The {\ttfamily Server\+Handler\+System} processes the {\ttfamily \doxylink{structReceiveEvent}{Receive\+Event}} and handles the data.
 \item Responses can be sent back to clients as needed.
 \end{DoxyEnumerate}
 
@@ -92,7 +92,7 @@ The client\textquotesingle{}s main function initializes the \doxylink{classECS}{
 \DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{try}\ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{classECS}{ECS}}\ ecs;}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{classClientHandlerSystem}{ClientHandlerSystem}}\ client\_handler;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{classUDPClient}{UDPClient}}\ client(ecs,\ \textcolor{stringliteral}{"{}127.0.0.1"{}},\ \textcolor{stringliteral}{"{}4242"{}});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ UDPClient\ client(ecs,\ \textcolor{stringliteral}{"{}127.0.0.1"{}},\ \textcolor{stringliteral}{"{}4242"{}});}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ ecs.register\_event<\mbox{\hyperlink{structRequestEvent}{RequestEvent}}>();}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ ecs.register\_event<\mbox{\hyperlink{structReceiveEvent}{ReceiveEvent}}>();}
@@ -119,11 +119,11 @@ The client\textquotesingle{}s main function initializes the \doxylink{classECS}{
 \hypertarget{md_doc_2NETWORK_autotoc_md36}{}\doxysubsection{\texorpdfstring{Components\+:}{Components:}}\label{md_doc_2NETWORK_autotoc_md36}
 
 \begin{DoxyEnumerate}
-\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily \doxylink{classUDPClient}{UDPClient}}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+:
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily UDPClient}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+:
 \begin{DoxyItemize}
 \item Establishes communication with the server at a given IP address and port.
 \item Handles events of type {\ttfamily \doxylink{structRequestEvent}{Request\+Event}} and sends requests to the server.
-\item Constructor\+: {\ttfamily \doxylink{classUDPClient}{UDPClient}(\doxylink{classECS}{ECS} \&ecs, const std\+::string \&ip, const std\+::string \&port)}
+\item Constructor\+: {\ttfamily UDPClient(\doxylink{classECS}{ECS} \&ecs, const std\+::string \&ip, const std\+::string \&port)}
 \begin{DoxyItemize}
 \item {\ttfamily ecs}\+: Reference to the \doxylink{classECS}{ECS} instance.
 \item {\ttfamily ip}\+: The IP address of the server.
@@ -144,7 +144,7 @@ The client\textquotesingle{}s main function initializes the \doxylink{classECS}{
 
 \begin{DoxyEnumerate}
 \item The client posts a {\ttfamily \doxylink{structRequestEvent}{Request\+Event}} to initiate communication with the server.
-\item The {\ttfamily \doxylink{classUDPClient}{UDPClient}} handles the {\ttfamily \doxylink{structRequestEvent}{Request\+Event}} and sends data to the server.
+\item The {\ttfamily UDPClient} handles the {\ttfamily \doxylink{structRequestEvent}{Request\+Event}} and sends data to the server.
 \item Incoming responses trigger a {\ttfamily \doxylink{structReceiveEvent}{Receive\+Event}}.
 \item The {\ttfamily \doxylink{classClientHandlerSystem}{Client\+Handler\+System}} processes the {\ttfamily \doxylink{structReceiveEvent}{Receive\+Event}} and handles the data.
 \end{DoxyEnumerate}
@@ -190,14 +190,14 @@ This event is triggered when data is received over the network.\hypertarget{md_d
 \hypertarget{md_doc_2NETWORK_autotoc_md47}{}\doxysubsection{\texorpdfstring{Server Workflow\+:}{Server Workflow:}}\label{md_doc_2NETWORK_autotoc_md47}
 
 \begin{DoxyEnumerate}
-\item The server starts and listens for requests on a specific port using {\ttfamily \doxylink{classUDPServer}{UDPServer}}.
+\item The server starts and listens for requests on a specific port using {\ttfamily UDPServer}.
 \item A client sends a request, triggering a {\ttfamily \doxylink{structRequestEvent}{Request\+Event}}.
 \item The server processes the event and generates a {\ttfamily \doxylink{structReceiveEvent}{Receive\+Event}}.
-\item The {\ttfamily \doxylink{classServerHandlerSystem}{Server\+Handler\+System}} processes the received data and sends a response back if necessary.
+\item The {\ttfamily Server\+Handler\+System} processes the received data and sends a response back if necessary.
 \end{DoxyEnumerate}\hypertarget{md_doc_2NETWORK_autotoc_md48}{}\doxysubsection{\texorpdfstring{Client Workflow\+:}{Client Workflow:}}\label{md_doc_2NETWORK_autotoc_md48}
 
 \begin{DoxyEnumerate}
-\item The client initializes and connects to the server using {\ttfamily \doxylink{classUDPClient}{UDPClient}}.
+\item The client initializes and connects to the server using {\ttfamily UDPClient}.
 \item A {\ttfamily \doxylink{structRequestEvent}{Request\+Event}} is posted to send data to the server.
 \item The server processes the request and sends a response.
 \item The client processes the response using {\ttfamily \doxylink{classClientHandlerSystem}{Client\+Handler\+System}} when a {\ttfamily \doxylink{structReceiveEvent}{Receive\+Event}} is triggered.

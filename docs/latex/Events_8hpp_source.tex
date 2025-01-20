@@ -1,0 +1,59 @@
+\doxysection{Events.\+hpp}
+\hypertarget{Events_8hpp_source}{}\label{Events_8hpp_source}\index{serveur/include/Events.hpp@{serveur/include/Events.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ EPITECH\ PROJECT,\ 2025}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**\ R-\/Type}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**\ File\ description:}}
+\DoxyCodeLine{00005\ \textcolor{comment}{**\ Events}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}events/RequestEvent.hpp"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}protocol.hpp"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }timer\ =\ std::chrono;}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }rtype::server\ \{}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrtype_1_1server_1_1TicEvent}{TicEvent}}\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1server_1_1TicEvent}{TicEvent}}(\textcolor{keyword}{const}\ timer::time\_point<timer::steady\_clock>\ \&time\_stamp)}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ :\ time\_stamp(time\_stamp)\{\};}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1server_1_1TicEvent}{\string~TicEvent}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ timer::time\_point<timer::steady\_clock>\ time\_stamp;}
+\DoxyCodeLine{00025\ \};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrtype_1_1server_1_1RemoveClient}{RemoveClient}}\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1server_1_1RemoveClient}{RemoveClient}}(\textcolor{keyword}{const}\ std::string\ \&uuid)\ :\ \_uuid(uuid)\ \{\}}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1server_1_1RemoveClient}{\string~RemoveClient}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ std::string\ \_uuid;}
+\DoxyCodeLine{00032\ \};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrtype_1_1server_1_1CheckEvent}{CheckEvent}}\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1server_1_1CheckEvent}{CheckEvent}}(\textcolor{keyword}{const}\ Protocol\ \&action,\ \textcolor{keyword}{const}\ std::string\ \&idr,}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structRequestEvent}{RequestEvent}}\ \&req,\ \textcolor{keywordtype}{int}\ time)}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ :\ \_action(action),\ \_idr(idr),\ \_request(req),\ \_time(time)\{\};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{const}\ Protocol\ \_action;}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \_idr;}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structRequestEvent}{RequestEvent}}\ \_request;}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \_time;}
+\DoxyCodeLine{00043\ \};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrtype_1_1server_1_1UpdateEvent}{UpdateEvent}}\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1server_1_1UpdateEvent}{UpdateEvent}}(\textcolor{keyword}{const}\ timer::time\_point<timer::steady\_clock>\ \&time\_stamp)}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ :\ time\_stamp(time\_stamp)\{\};}
+\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1server_1_1UpdateEvent}{\string~UpdateEvent}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ timer::time\_point<timer::steady\_clock>\ time\_stamp;}
+\DoxyCodeLine{00051\ \};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \}\ \textcolor{comment}{//\ namespace\ rtype::server}}
+
+\end{DoxyCode}

@@ -15,53 +15,57 @@
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <utility>}}
 \DoxyCodeLine{00012\ }
 \DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}ECS/ECS.hpp"{}}}
-\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}components/Drawable.hpp"{}}}
-\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}components/Hitbox.hpp"{}}}
-\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}components/Position.hpp"{}}}
-\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}components/Selectable.hpp"{}}}
-\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}components/Text.hpp"{}}}
-\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}components/Window.hpp"{}}}
-\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}events/ChangeKey.hpp"{}}}
-\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}events/FrameEvent.hpp"{}}}
-\DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }rtype::client\ \{}
-\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrtype_1_1client_1_1WindowSys}{WindowSys}}\ \{}
-\DoxyCodeLine{00025\ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1client_1_1WindowSys}{WindowSys}}(sf::VideoMode\ mode,\ \textcolor{keyword}{const}\ sf::String\ \&title,}
-\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sf::Uint32\ style\ =\ 7U,}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ sf::ContextSettings\ \&settings\ =\ sf::ContextSettings());}
-\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1client_1_1WindowSys}{\string~WindowSys}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1FrameEvent}{FrameEvent}}\ \&e\_frame,}
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classSparseArray}{SparseArray<Window>}}\ \&windows,}
-\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Position>}}\ \&positions,}
-\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Hitbox>}}\ \&hitboxs,}
-\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Drawable>}}\ \&sprites,\ \mbox{\hyperlink{classSparseArray}{SparseArray<Text>}}\ \&texts,}
-\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Selectable>}}\ \&selectables);}
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1ChangeKey}{ChangeKey}}\ \&e\_changeK,}
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Window>}}\ \&windows);}
-\DoxyCodeLine{00039\ }
-\DoxyCodeLine{00040\ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00041\ \ \ \ \ sf::RenderWindow\ \_window;}
-\DoxyCodeLine{00042\ \ \ \ \ sf::String\ \_title;}
-\DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ resizeWindow(\mbox{\hyperlink{structrtype_1_1client_1_1TupleUInt}{TupleUInt}},\ \textcolor{keywordtype}{bool}\ \&);}
-\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ updateInfo(\mbox{\hyperlink{classSparseArray}{SparseArray<Position>}}\ \&positions,}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Hitbox>}}\ \&hitboxs,\ \textcolor{keywordtype}{bool}\ isResize,}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sf::Vector2u\ sizeClient,\ \mbox{\hyperlink{structrtype_1_1client_1_1TupleUInt}{TupleUInt}}\ serverSize);}
-\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{void}\ drawSprite(\mbox{\hyperlink{classSparseArray}{SparseArray<Position>}}\ \&positions,}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Hitbox>}}\ \&hitboxs,}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Drawable>}}\ \&sprites,\ \textcolor{keywordtype}{int}\ order,}
-\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1Window}{Window}}\ \&myWindow);}
-\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{void}\ drawSel(\mbox{\hyperlink{classSparseArray}{SparseArray<Position>}}\ \&positions,\ \mbox{\hyperlink{classSparseArray}{SparseArray<Hitbox>}}\ \&hitboxs,}
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Selectable>}}\ \&selectables,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1Window}{Window}}\ \&myWindow);}
-\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ drawText(\mbox{\hyperlink{classSparseArray}{SparseArray<Position>}}\ \&positions,}
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Hitbox>}}\ \&hitboxs,\ \mbox{\hyperlink{classSparseArray}{SparseArray<Text>}}\ \&texts,}
-\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isResize,\ sf::Vector2u\ sizeClient,}
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1Window}{Window}}\ \&myWindow);}
-\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ drawHitboxes(\mbox{\hyperlink{classSparseArray}{SparseArray<Position>}}\ \&positions,}
-\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Hitbox>}}\ \&hitboxs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1Window}{Window}}\ \&myWindow);}
-\DoxyCodeLine{00060\ \};}
-\DoxyCodeLine{00061\ \}\ \textcolor{comment}{//\ namespace\ rtype::client}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}components/Configs.hpp"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}components/Drawable.hpp"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}components/Hitbox.hpp"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}components/Position.hpp"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}components/SFMLObjects.hpp"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}components/Selectable.hpp"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}components/Text.hpp"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}events/ChangeKey.hpp"{}}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}events/FrameEvent.hpp"{}}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{namespace\ }rtype::client\ \{}
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrtype_1_1client_1_1WindowSys}{WindowSys}}\ \{}
+\DoxyCodeLine{00026\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1client_1_1WindowSys}{WindowSys}}(sf::VideoMode\ mode,\ \textcolor{keyword}{const}\ sf::String\ \&title,}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sf::Uint32\ style\ =\ 7U,}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ sf::ContextSettings\ \&settings\ =\ sf::ContextSettings());}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1client_1_1WindowSys}{\string~WindowSys}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1FrameEvent}{FrameEvent}}\ \&e\_frame,}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classSparseArray}{SparseArray<Configs>}}\ \&configs,}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classSparseArray}{SparseArray<SFMLObjects>}}\ \&SFMLObjs,}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Position>}}\ \&positions,}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Hitbox>}}\ \&hitboxs,}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Drawable>}}\ \&sprites,\ \mbox{\hyperlink{classSparseArray}{SparseArray<Text>}}\ \&texts,}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Selectable>}}\ \&selectables);}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1ChangeKey}{ChangeKey}}\ \&e\_changeK,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Configs>}}\ \&configs);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00043\ \ \ \ \ sf::RenderWindow\ \_window;}
+\DoxyCodeLine{00044\ \ \ \ \ sf::String\ \_title;}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ resizeWindow(\mbox{\hyperlink{structrtype_1_1client_1_1TupleUInt}{TupleUInt}},\ \textcolor{keywordtype}{bool}\ \&);}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ updateInfo(\mbox{\hyperlink{classSparseArray}{SparseArray<Position>}}\ \&positions,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Hitbox>}}\ \&hitboxs,\ \textcolor{keywordtype}{bool}\ isResize,}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sf::Vector2u\ sizeClient,\ \mbox{\hyperlink{structrtype_1_1client_1_1TupleUInt}{TupleUInt}}\ serverSize);}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ drawSprite(\mbox{\hyperlink{classSparseArray}{SparseArray<Position>}}\ \&positions,}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Hitbox>}}\ \&hitboxs,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Drawable>}}\ \&sprites,\ \textcolor{keywordtype}{int}\ order,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1Configs}{Configs}}\ \&myConfig,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1SFMLObjects}{SFMLObjects}}\ \&SFMLObj);}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ drawSel(\mbox{\hyperlink{classSparseArray}{SparseArray<Position>}}\ \&positions,\ \mbox{\hyperlink{classSparseArray}{SparseArray<Hitbox>}}\ \&hitboxs,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Selectable>}}\ \&selectables,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1Configs}{Configs}}\ \&myConfig,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1SFMLObjects}{SFMLObjects}}\ \&SFMLObj);}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ drawText(\mbox{\hyperlink{classSparseArray}{SparseArray<Position>}}\ \&positions,}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Hitbox>}}\ \&hitboxs,\ \mbox{\hyperlink{classSparseArray}{SparseArray<Text>}}\ \&texts,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isResize,\ sf::Vector2u\ sizeClient,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1Configs}{Configs}}\ \&myConfig,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1SFMLObjects}{SFMLObjects}}\ \&SFMLObj);}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{void}\ drawHitboxes(\mbox{\hyperlink{classSparseArray}{SparseArray<Position>}}\ \&positions,}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Hitbox>}}\ \&hitboxs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1Configs}{Configs}}\ \&myConfig,}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1SFMLObjects}{SFMLObjects}}\ \&SFMLObj);}
+\DoxyCodeLine{00064\ \};}
+\DoxyCodeLine{00065\ \}\ \textcolor{comment}{//\ namespace\ rtype::client}}
 
 \end{DoxyCode}

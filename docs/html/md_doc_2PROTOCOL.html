@@ -179,7 +179,7 @@ Message Types</h1>
 <li><code>id</code> (int): <a class="el" href="classEntity.html">Entity</a> ID.</li>
 <li><code>type</code> (enum): <a class="el" href="classEntity.html">Entity</a> type (e.g., <code>other_player</code>, <code>enemy</code>).</li>
 <li><code>position</code> (struct): X and Y coordinates of the entity.</li>
-<li><code>health</code> (int): <a class="el" href="structHealth.html">Health</a> of the entity.</li>
+<li><code>health</code> (int): Health of the entity.</li>
 <li><code>velocity</code> (struct): X and Y velocity components.</li>
 <li><code>hitbox</code> (struct): Size and dimensions of the entity's hitbox.</li>
 <li><code>score</code> (int): Score associated with the entity (if applicable).</li>
@@ -220,30 +220,30 @@ Communication Flow</h1>
 <ul>
 <li>Client sends <code>NEW_CLIENT</code> to the server. <br  />
 </li>
-<li><a class="el" href="classServer.html">Server</a> responds with <code>SEND_UUID</code> to assign a unique ID.</li>
+<li>Server responds with <code>SEND_UUID</code> to assign a unique ID.</li>
 </ul>
 </li>
 <li><b>Game Preparation Phase</b>: <br  />
 <ul>
 <li>Client sends <code>CLIENT_READY</code> with player details when ready. <br  />
 </li>
-<li><a class="el" href="classServer.html">Server</a> sends <code>READY_SIGNAL</code> to all ready clients when the game is ready to start.</li>
+<li>Server sends <code>READY_SIGNAL</code> to all ready clients when the game is ready to start.</li>
 </ul>
 </li>
 <li><b>Gameplay Phase</b>: <br  />
 <ul>
-<li><a class="el" href="classServer.html">Server</a> sends <code>CREATE_ENTITY</code> messages to initialize game entities on the client. <br  />
+<li>Server sends <code>CREATE_ENTITY</code> messages to initialize game entities on the client. <br  />
 </li>
 <li>Client sends <code>CLIENT_INPUT</code> messages to notify the server of player actions. <br  />
 </li>
-<li><a class="el" href="classServer.html">Server</a> periodically sends <code>UPDATE_ENTITY</code> messages to synchronize entity states.</li>
+<li>Server periodically sends <code>UPDATE_ENTITY</code> messages to synchronize entity states.</li>
 </ul>
 </li>
 <li><b>Disconnection/End Phase</b>: <br  />
 <ul>
 <li>Client can send <code>CLIENT_DISCONNECT</code> to leave the game. <br  />
 </li>
-<li><a class="el" href="classServer.html">Server</a> can send <code>GAME_OVER</code> to notify clients that the game has ended.</li>
+<li>Server can send <code>GAME_OVER</code> to notify clients that the game has ended.</li>
 </ul>
 </li>
 </ol>
