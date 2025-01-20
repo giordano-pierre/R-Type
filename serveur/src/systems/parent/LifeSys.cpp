@@ -52,28 +52,37 @@ void LifeSys::operator()(ECS &ecs, const TicEvent &tic_event,
         const auto &ro = rooms[i];
         auto &st = stages[i];
         auto &child = children[i];
-        EnemyInfo enemy = {2000, 500, -9, 0, 0.1, 0.18, 100, 60, 0, ENEMY1};
+        // EnemyInfo enemy = {2000, 500, -9, 0, 0.1, 0.18, 100, 60, 0, ENEMY1};
+
         if (ro && st && child && ro.value()._state == IN_GAME) {
-            int j = 0;
-            while (!spawnQueue.isEmpty()) {
-                rtype::server::EnemyAI::BehaviorType toSpawn = spawnQueue.pop();
-                std::vector<RequestEvent> resp;
-                switch (toSpawn) {
-                case rtype::server::EnemyAI::BehaviorType::BOSS:
-                    resp = createBoss(child.value()._ecs_child, enemy);
-                    break;
-                case rtype::server::EnemyAI::BehaviorType::SINUSOIDAL:
-                    resp = createSineEnemy(child.value()._ecs_child, enemy);
-                    break;
-                case rtype::server::EnemyAI::BehaviorType::CHASE:
-                    resp = createChase(child.value()._ecs_child, enemy);
-                    break;
-                case rtype::server::EnemyAI::BehaviorType::UPDOWN:
-                    resp = createUpDown(child.value()._ecs_child, enemy);
-                    break;
-                default:
-                    break;
-                }
+            for (int j = 0; j < st.value()._enemies.size(); j++) {
+                auto& ennemy = st.value()._enemies[j];
+
+                ennemy.spawn_tic -= 1;
+                if (ennemy.spawn_tic <= 0) {
+                    auto resp = createChase(child.value()._ecs_child, ennemy);
+
+        // if (ro && st && child && ro.value()._state == IN_GAME) {
+        //     int j = 0;
+        //     while (!spawnQueue.isEmpty()) {
+        //         rtype::server::EnemyAI::BehaviorType toSpawn = spawnQueue.pop();
+        //         std::vector<RequestEvent> resp;
+        //         switch (toSpawn) {
+        //         case rtype::server::EnemyAI::BehaviorType::BOSS:
+        //             resp = createBoss(child.value()._ecs_child, enemy);
+        //             break;
+        //         case rtype::server::EnemyAI::BehaviorType::SINUSOIDAL:
+        //             resp = createSineEnemy(child.value()._ecs_child, enemy);
+        //             break;
+        //         case rtype::server::EnemyAI::BehaviorType::CHASE:
+        //             resp = createChase(child.value()._ecs_child, enemy);
+        //             break;
+        //         case rtype::server::EnemyAI::BehaviorType::UPDOWN:
+        //             resp = createUpDown(child.value()._ecs_child, enemy);
+        //             break;
+        //         default:
+        //             break;
+        //         }
                 // auto resp = createSineEnemy(child.value()._ecs_child,
                 // ennemy); auto resp = createCircle(child.value()._ecs_child,
                 // ennemy); auto resp = createUpDown(child.value()._ecs_child,
@@ -93,13 +102,21 @@ void LifeSys::operator()(ECS &ecs, const TicEvent &tic_event,
                 //     ennemyE, {ennemy.health});
                 // child.value()._ecs_child.add_component<Score>(
                 //     ennemyE, {ennemy.score});
-                for (const auto evt : resp) {
-                    for (const auto &[uuid, _] : ro.value()._clients_uuid)
-                        ecs.post<RequestEvent>(
-                            {SV_CREATE_ENTITY, evt.payload, uuid});
+                // for (const auto evt : resp) {
+                //     for (const auto &[uuid, _] : ro.value()._clients_uuid)
+                //         ecs.post<RequestEvent>(
+                //             {SV_CREATE_ENTITY, evt.payload, uuid});
+                // }
+                // st.value()._enemies.erase(st.value()._enemies.begin() + j);
+                // j++;
+
+                    for (const auto evt : resp) {
+                        for (const auto& [uuid, _] : ro.value()._clients_uuid)
+                            ecs.post<RequestEvent>(
+                                { SV_CREATE_ENTITY, evt.payload, uuid });
+                    }
+                    st.value()._enemies.erase(st.value()._enemies.begin() + j);
                 }
-                st.value()._enemies.erase(st.value()._enemies.begin() + j);
-                j++;
             }
         }
     }
