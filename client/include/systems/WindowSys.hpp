@@ -18,6 +18,7 @@
 #include "components/SFMLObjects.hpp"
 #include "components/Selectable.hpp"
 #include "components/Text.hpp"
+#include "events/CaptureInputEvent.hpp"
 #include "events/ChangeKey.hpp"
 #include "events/FrameEvent.hpp"
 
@@ -38,6 +39,13 @@ class WindowSys {
                     SparseArray<Selectable> &selectables);
     void operator()(ECS &ecs, const ChangeKey &e_changeK,
                     SparseArray<Configs> &configs);
+    void operator()(ECS &ecs, const CaptureInputEvent &e_capture,
+                    const SparseArray<Configs> &configs,
+                    const SparseArray<SFMLObjects> &SFMLObjs,
+                    SparseArray<Position> &positions,
+                    SparseArray<Hitbox> &hitboxs,
+                    SparseArray<Drawable> &sprites, SparseArray<Text> &texts,
+                    SparseArray<Selectable> &selectables);
 
   private:
     sf::RenderWindow _window;
@@ -61,5 +69,10 @@ class WindowSys {
     void drawHitboxes(SparseArray<Position> &positions,
                       SparseArray<Hitbox> &hitboxs, const Configs &myConfig,
                       const SFMLObjects &SFMLObj);
+    void draw(ECS &ecs, const SparseArray<Configs> &configs,
+              const SparseArray<SFMLObjects> &SFMLObjs,
+              SparseArray<Position> &positions, SparseArray<Hitbox> &hitboxs,
+              SparseArray<Drawable> &sprites, SparseArray<Text> &texts,
+              SparseArray<Selectable> &selectables);
 };
 } // namespace rtype::client

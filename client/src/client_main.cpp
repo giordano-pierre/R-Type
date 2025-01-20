@@ -11,6 +11,7 @@
 #include "clientTools.hpp"
 #include "createEntities.hpp"
 #include "ecsObjects.hpp"
+#include "events/CaptureInputEvent.hpp"
 #include "loadSystems.hpp"
 #include "systems/MessageHandlerSys.hpp"
 #include "systems/UDPClient.hpp"
@@ -61,6 +62,7 @@ int main(int ac, char *argv[]) {
     ecs.register_event<rtype::client::AnimeEvent>();
     ecs.register_event<RequestEvent>();
     ecs.register_event<ReceiveEvent>();
+    ecs.register_event<rtype::client::CaptureInputEvent>();
 
     rtype::client::TupleUInt serverSize = {1920, 1080};
     sf::Shader myShader;
@@ -116,6 +118,11 @@ int main(int ac, char *argv[]) {
                                                                   true);
     ecs.subscribe<rtype::client::ChangeKey, rtype::client::Configs>(windowSys,
                                                                     true);
+    ecs.subscribe<rtype::client::CaptureInputEvent, rtype::client::Configs,
+                  rtype::client::SFMLObjects, rtype::client::Position,
+                  rtype::client::Hitbox, rtype::client::Drawable,
+                  rtype::client::Text, rtype::client::Selectable>(windowSys,
+                                                                  true);
 
     auto cheatSys = rtype::client::CheatSys();
     ecs.subscribe<rtype::client::InputEvent, rtype::client::Configs>(cheatSys,

@@ -34,6 +34,7 @@ set(SRC
     src/createEntities.cpp
     src/loadSystems.cpp
     src/clientTools.cpp
+    src/createRoomEntities.cpp
 )
 
 add_executable(r-type_client ${SRC})

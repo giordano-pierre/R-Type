@@ -42,4 +42,5 @@ void createConfigPlayer1Entites(ECS &ecs, const Configs &myConfig,
                                 SFMLObjects &SFMLObj);
 void createConfigPlayer2Entites(ECS &ecs, const Configs &myConfig,
                                 SFMLObjects &SFMLObj);
+void createMenuRoomEntities(ECS &ecs, Configs &config, SFMLObjects &SFMLObj);
 } // namespace rtype::client

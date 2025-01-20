@@ -68,6 +68,11 @@ void LifeSys::operator()(ECS &ecs, const CreationEvent &e_create,
     case M_IN_ROOM:
         loadMenuSystem(ecs);
         createMenuInRoomEntities(ecs, myConfig, SFMLObj, myRoom);
+        break;
+    case MENUROOM:
+        loadMenuSystem(ecs);
+        createMenuRoomEntities(ecs, myConfig, SFMLObj);
+        break;
     default:
         return;
     }
