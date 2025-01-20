@@ -8,12 +8,12 @@
 #pragma once
 
 #include "Components.hpp"
-#include <vector>
 #include <stdexcept>
+#include <vector>
 
 class SpawnQueue {
-public:
-    void add(const rtype::server::EnemyAI::BehaviorType& behavior) {
+  public:
+    void add(const rtype::server::EnemyAI::BehaviorType &behavior) {
         _spawnQueue.push_back(behavior);
     }
 
@@ -26,10 +26,8 @@ public:
         return front;
     }
 
-    bool isEmpty() const {
-        return _spawnQueue.empty();
-    }
+    bool isEmpty() const { return _spawnQueue.empty(); }
 
-private:
+  private:
     std::vector<rtype::server::EnemyAI::BehaviorType> _spawnQueue;
 };
