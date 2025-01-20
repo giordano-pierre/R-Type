@@ -77,16 +77,6 @@ void createPlayers(
     }
 }
 
-void createPlayer(Child &child, const std::string &name,
-                  const std::string &color, const std::string &uuid) {
-    Entity player = child._ecs_child.spawn_entity();
-    child._ecs_child.add_component<Client>(player, {uuid});
-    child._ecs_child.add_component<Tag>(player, {fetch_new_uuid(), PLAYER});
-    child._ecs_child.add_component<PlayerData>(player, {name, color});
-    std::cout << "Player " << name << " " << color << " is created."
-              << std::endl;
-}
-
 void disconnect(ECS &ecs, const ReceiveEvent &rec_event,
                 SparseArray<Room> &rooms, SparseArray<Tag> &tags,
                 SparseArray<Child> &children,

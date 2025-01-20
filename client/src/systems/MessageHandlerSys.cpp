@@ -87,7 +87,7 @@ void createDrawable(ECS &ecs, Entity &entity, SFMLObjects &SFMLObj,
 }
 
 void createEntity(ECS &ecs, Entity &entity, const ReceiveEvent &rec_event,
-                  SFMLObjects &SFMLObj) {
+                  SFMLObjects &SFMLObj, LastUpdate &lastup) {
     if (rec_event.payload.contains("type") &&
         rec_event.payload.contains("id")) {
         ecs.add_component<Tag>(entity,
@@ -117,7 +117,7 @@ void createEntity(ECS &ecs, Entity &entity, const ReceiveEvent &rec_event,
         ecs.add_component<Health>(entity, {rec_event.payload["hp"].get<int>()});
     if (rec_event.payload.contains("sc"))
         ecs.add_component<Score>(entity, {rec_event.payload["sc"].get<int>()});
-    ecs.add_component<LastUpdate>(entity, {1});
+    ecs.add_component<LastUpdate>(entity, {lastup._lastUpdate});
     ecs.add_component<Scene>(entity, {GAME});
 }
 
@@ -133,10 +133,10 @@ bool entityExist(const ReceiveEvent &rec_event, const SparseArray<Tag> &tags) {
 }
 
 void createPlayer(ECS &ecs, const ReceiveEvent &rec_event, Room &myRoom,
-                  SFMLObjects &SFMLObj, const SparseArray<Tag> &tags) {
+                  SFMLObjects &SFMLObj, const SparseArray<Tag> &tags, LastUpdate &lastup) {
     if (!entityExist(rec_event, tags)) {
         Entity player = ecs.spawn_entity();
-        createEntity(ecs, player, rec_event, SFMLObj);
+        createEntity(ecs, player, rec_event, SFMLObj, lastup);
         std::cout << "PC " << countPlayer(ecs) + 1 << std::endl;
         ecs.add_component<Playable>(player, {countPlayer(ecs) + 1});
         if (myRoom._gameState)
@@ -177,12 +177,11 @@ void updateEntity(Entity &entity, const ReceiveEvent &rec_event,
     }
     if (rec_event.payload.contains("lu") && entity < lastups.size() &&
         lastups[entity]) {
-        lastups[entity].value()._lastUpdate =
-            rec_event.payload["lu"].get<int>();
-        if (lastups[0].value()._lastUpdate !=
+        lastups[entity].value()._lastUpdate = rec_event.payload["lu"].get<int>();
+    }
+    if (rec_event.payload.contains("lu") && lastups[0].value()._lastUpdate !=
             rec_event.payload["lu"].get<int>()) {
-            lastups[0].value()._lastUpdate = rec_event.payload["lu"].get<int>();
-        }
+        lastups[0].value()._lastUpdate = rec_event.payload["lu"].get<int>();
     }
 }
 
@@ -206,6 +205,7 @@ void MessageHandlerSys::operator()(
     SparseArray<LastUpdate> &lastups) {
     auto &myRoom = rooms[0].value();
     auto &SFMLObj = SFMLObjs[0].value();
+    auto lastup = lastups[0].value();
 
     std::cout << rec_event.action << std::endl;
     std::cout << rec_event.payload.dump() << std::endl;
@@ -215,7 +215,7 @@ void MessageHandlerSys::operator()(
         break;
     }
     case SV_CREATE_PLAYER: {
-        createPlayer(ecs, rec_event, myRoom, SFMLObj, tags);
+        createPlayer(ecs, rec_event, myRoom, SFMLObj, tags, lastup);
         ecs.post<RequestEvent>({SV_CREATE_PLAYER, {{"idr", myRoom._idRoom}}});
         break;
     }
@@ -230,14 +230,14 @@ void MessageHandlerSys::operator()(
     case SV_CREATE_ENTITY: {
         if (!entityExist(rec_event, tags)) {
             Entity entity = ecs.spawn_entity();
-            createEntity(ecs, entity, rec_event, SFMLObj);
+            createEntity(ecs, entity, rec_event, SFMLObj, lastup);
         }
         break;
     }
     case SV_UPDATE_ENTITY: {
         if (!entityExist(rec_event, tags)) {
             Entity entity = ecs.spawn_entity();
-            createEntity(ecs, entity, rec_event, SFMLObj);
+            createEntity(ecs, entity, rec_event, SFMLObj, lastup);
         } else {
             Entity entity =
                 getEntityByID(rec_event.payload["id"].get<std::string>(), tags);

@@ -32,7 +32,7 @@ void UpdateSys::operator()(ECS &ecs, const UpdateEvent &up_event,
             const auto &scores =
                 child.value()._ecs_child.get_components<Score>();
 
-            ro.value()._lastUpdate = ((ro.value()._lastUpdate + 1) > 10)
+            ro.value()._lastUpdate = ((ro.value()._lastUpdate + 1) > 20)
                                          ? 1
                                          : (ro.value()._lastUpdate + 1);
 
