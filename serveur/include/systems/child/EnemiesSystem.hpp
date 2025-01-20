@@ -17,11 +17,15 @@ class EnemiesSys {
     sol::state lua;
     std::string scriptsPath = "serveur/script/EnemiesComponant.lua";
     std::unordered_map<size_t, float> entityTimes;
+    std::size_t _bossPhase = 0;
+    Position _bossTarget = Position(0, 0);
+    std::size_t _bossTick = 0;
 
     void initLua();
     void registerComponents();
     void loadBehaviors();
-    void updateBehavior(Position &pos, Velocity &vel, EnemyAI &ai, float dt, rtype::server::Position &posPlayer);
+    void updateBoss(ECS& ecs, Position& pos, Velocity& vel, EnemyAI& ai, float dt, rtype::server::Position& posPlayer);
+    void updateBehavior(ECS& ecs, Position &pos, Velocity &vel, EnemyAI &ai, float dt, rtype::server::Position &posPlayer);
 
   public:
     EnemiesSys();
@@ -41,3 +45,4 @@ std::vector<RequestEvent> createVFormation(ECS& ecs, rtype::server::EnemyInfo en
 std::vector<RequestEvent> createCircle(ECS& ecs, rtype::server::EnemyInfo enemy);
 std::vector<RequestEvent> createChase(ECS& ecs, rtype::server::EnemyInfo enemy);
 std::vector<RequestEvent> createUpDown(ECS& ecs, rtype::server::EnemyInfo enemy);
+std::vector<RequestEvent> createBoss(ECS& ecs, rtype::server::EnemyInfo enemy);
