@@ -119,10 +119,10 @@ int main(int ac, char *argv[]) {
     ecs.subscribe<rtype::client::ChangeKey, rtype::client::Configs>(windowSys,
                                                                     true);
     ecs.subscribe<rtype::client::CaptureInputEvent, rtype::client::Configs,
-                  rtype::client::SFMLObjects,
-                  rtype::client::Position, rtype::client::Hitbox,
-                  rtype::client::Drawable, rtype::client::Text,
-                  rtype::client::Selectable>(windowSys, true);
+                  rtype::client::SFMLObjects, rtype::client::Position,
+                  rtype::client::Hitbox, rtype::client::Drawable,
+                  rtype::client::Text, rtype::client::Selectable>(windowSys,
+                                                                  true);
 
     auto cheatSys = rtype::client::CheatSys();
     ecs.subscribe<rtype::client::InputEvent, rtype::client::Configs>(cheatSys,

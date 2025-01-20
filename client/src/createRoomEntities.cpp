@@ -4,10 +4,10 @@
 ** File description:
 ** createEntities
 */
-#include "events/RequestEvent.hpp"
 #include "buttonFunctions.hpp"
 #include "createEntities.hpp"
 #include "ecsObjects.hpp"
+#include "events/RequestEvent.hpp"
 #include <iostream>
 
 namespace rtype::client {

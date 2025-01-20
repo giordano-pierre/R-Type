@@ -223,15 +223,17 @@ void WindowSys::operator()(
     ECS &ecs, const FrameEvent &, const SparseArray<Configs> &configs,
     const SparseArray<SFMLObjects> &SFMLObjs, SparseArray<Position> &positions,
     SparseArray<Hitbox> &hitboxs, SparseArray<Drawable> &sprites,
-    SparseArray<Text> &texts, SparseArray<Selectable> &selectables)
-{
-    draw(ecs, configs, SFMLObjs, positions, hitboxs, sprites, texts, selectables);
+    SparseArray<Text> &texts, SparseArray<Selectable> &selectables) {
+    draw(ecs, configs, SFMLObjs, positions, hitboxs, sprites, texts,
+         selectables);
 }
 
 void WindowSys::draw(ECS &ecs, const SparseArray<Configs> &configs,
-                     const SparseArray<SFMLObjects> &SFMLObjs, SparseArray<Position> &positions,
-                     SparseArray<Hitbox> &hitboxs, SparseArray<Drawable> &sprites,
-                     SparseArray<Text> &texts, SparseArray<Selectable> &selectables) {
+                     const SparseArray<SFMLObjects> &SFMLObjs,
+                     SparseArray<Position> &positions,
+                     SparseArray<Hitbox> &hitboxs,
+                     SparseArray<Drawable> &sprites, SparseArray<Text> &texts,
+                     SparseArray<Selectable> &selectables) {
     const auto &myConfig = configs[0].value();
     const auto &SFMLObj = SFMLObjs[0].value();
     bool isResize = false;

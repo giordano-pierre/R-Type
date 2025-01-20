@@ -44,8 +44,7 @@ class WindowSys {
                     const SparseArray<SFMLObjects> &SFMLObjs,
                     SparseArray<Position> &positions,
                     SparseArray<Hitbox> &hitboxs,
-                    SparseArray<Drawable> &sprites,
-                    SparseArray<Text> &texts,
+                    SparseArray<Drawable> &sprites, SparseArray<Text> &texts,
                     SparseArray<Selectable> &selectables);
 
   private:
@@ -71,8 +70,9 @@ class WindowSys {
                       SparseArray<Hitbox> &hitboxs, const Configs &myConfig,
                       const SFMLObjects &SFMLObj);
     void draw(ECS &ecs, const SparseArray<Configs> &configs,
-              const SparseArray<SFMLObjects> &SFMLObjs, SparseArray<Position> &positions,
-              SparseArray<Hitbox> &hitboxs, SparseArray<Drawable> &sprites,
-              SparseArray<Text> &texts, SparseArray<Selectable> &selectables);
+              const SparseArray<SFMLObjects> &SFMLObjs,
+              SparseArray<Position> &positions, SparseArray<Hitbox> &hitboxs,
+              SparseArray<Drawable> &sprites, SparseArray<Text> &texts,
+              SparseArray<Selectable> &selectables);
 };
 } // namespace rtype::client
