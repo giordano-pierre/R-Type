@@ -260,6 +260,8 @@ void MessageHandlerSys::operator()(
         break;
     }
     case QUIT_ROOM: {
+        myRoom._master = false;
+        myRoom._idRoom = "";
         ecs.post<DeleteEvent>({M_CREATE_ROOM});
         ecs.post<DeleteEvent>({M_MY_ROOM});
         ecs.post<CreationEvent>({M_PLAYER});
