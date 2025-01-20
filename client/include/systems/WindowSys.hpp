@@ -11,12 +11,13 @@
 #include <utility>
 
 #include "ECS/ECS.hpp"
+#include "components/Configs.hpp"
 #include "components/Drawable.hpp"
 #include "components/Hitbox.hpp"
 #include "components/Position.hpp"
+#include "components/SFMLObjects.hpp"
 #include "components/Selectable.hpp"
 #include "components/Text.hpp"
-#include "components/Window.hpp"
 #include "events/ChangeKey.hpp"
 #include "events/FrameEvent.hpp"
 
@@ -29,13 +30,14 @@ class WindowSys {
     ~WindowSys() = default;
 
     void operator()(ECS &ecs, const FrameEvent &e_frame,
-                    const SparseArray<Window> &windows,
+                    const SparseArray<Configs> &configs,
+                    const SparseArray<SFMLObjects> &SFMLObjs,
                     SparseArray<Position> &positions,
                     SparseArray<Hitbox> &hitboxs,
                     SparseArray<Drawable> &sprites, SparseArray<Text> &texts,
                     SparseArray<Selectable> &selectables);
     void operator()(ECS &ecs, const ChangeKey &e_changeK,
-                    SparseArray<Window> &windows);
+                    SparseArray<Configs> &configs);
 
   private:
     sf::RenderWindow _window;
@@ -48,14 +50,16 @@ class WindowSys {
     void drawSprite(SparseArray<Position> &positions,
                     SparseArray<Hitbox> &hitboxs,
                     SparseArray<Drawable> &sprites, int order,
-                    const Window &myWindow);
+                    const Configs &myConfig, const SFMLObjects &SFMLObj);
     void drawSel(SparseArray<Position> &positions, SparseArray<Hitbox> &hitboxs,
-                 SparseArray<Selectable> &selectables, const Window &myWindow);
+                 SparseArray<Selectable> &selectables, const Configs &myConfig,
+                 const SFMLObjects &SFMLObj);
     void drawText(SparseArray<Position> &positions,
                   SparseArray<Hitbox> &hitboxs, SparseArray<Text> &texts,
                   bool isResize, sf::Vector2u sizeClient,
-                  const Window &myWindow);
+                  const Configs &myConfig, const SFMLObjects &SFMLObj);
     void drawHitboxes(SparseArray<Position> &positions,
-                      SparseArray<Hitbox> &hitboxs, const Window &myWindow);
+                      SparseArray<Hitbox> &hitboxs, const Configs &myConfig,
+                      const SFMLObjects &SFMLObj);
 };
 } // namespace rtype::client

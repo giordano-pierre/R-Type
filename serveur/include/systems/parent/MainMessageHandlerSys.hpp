@@ -11,6 +11,7 @@
 #include "Components.hpp"
 #include "ECS/ECS.hpp"
 #include "events/ReceiveEvent.hpp"
+#include "tools.hpp"
 
 namespace rtype::server {
 
@@ -20,7 +21,8 @@ class MainMessageHandlerSys {
     ~MainMessageHandlerSys() = default;
 
     void operator()(ECS &ecs, const ReceiveEvent &rec_event,
-                    SparseArray<Room> &rooms, SparseArray<Tag> &tags,
+                    SparseArray<Utils> &utils, SparseArray<Room> &rooms,
+                    SparseArray<Tag> &tags, SparseArray<Stage> &stages,
                     SparseArray<Child> &children);
 };
 

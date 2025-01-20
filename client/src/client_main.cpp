@@ -23,33 +23,6 @@ bool is_number(char *str) {
     return true;
 }
 
-void createWindow(ECS &ecs) {
-    rtype::client::TupleUInt serverSize = {1920, 1080};
-    sf::Shader myShader;
-    myShader.loadFromMemory(
-        R"(
-            uniform sampler2D texture;
-            void main()
-            {
-                vec4 pixel = texture2D(texture, gl_TexCoord[0].xy);
-
-                // Apply a color-blind friendly filter (Protanopia example)
-                float r = 0.567 * pixel.r + 0.433 * pixel.g;
-                float g = 0.558 * pixel.r + 0.442 * pixel.g;
-                float b = pixel.b;
-
-                gl_FragColor = vec4(r, g, b, pixel.a);
-            }
-            )",
-        sf::Shader::Fragment);
-
-    Entity window = ecs.spawn_entity();
-    ecs.add_component<rtype::client::Tag>(window, {});
-    ecs.add_component<rtype::client::Window>(
-        window,
-        {"assets/font/retro_gaming.ttf", myShader, {1440, 810}, serverSize});
-}
-
 int main(int ac, char *argv[]) {
     if (ac != 3 && ac != 1)
         return 84;
@@ -74,7 +47,10 @@ int main(int ac, char *argv[]) {
     ecs.register_component<rtype::client::Tag>();
     ecs.register_component<rtype::client::Text>();
     ecs.register_component<rtype::client::Velocity>();
-    ecs.register_component<rtype::client::Window>();
+    ecs.register_component<rtype::client::Configs>();
+    ecs.register_component<rtype::client::SFMLObjects>();
+    ecs.register_component<rtype::client::Room>();
+    ecs.register_component<rtype::client::PlayerInfo>();
 
     ecs.register_event<rtype::client::FrameEvent>();
     ecs.register_event<rtype::client::InputEvent>();
@@ -86,35 +62,64 @@ int main(int ac, char *argv[]) {
     ecs.register_event<RequestEvent>();
     ecs.register_event<ReceiveEvent>();
 
-    createWindow(ecs);
+    rtype::client::TupleUInt serverSize = {1920, 1080};
+    sf::Shader myShader;
+    myShader.loadFromMemory(
+        R"(
+            uniform sampler2D texture;
+            void main()
+            {
+                vec4 pixel = texture2D(texture, gl_TexCoord[0].xy);
+
+                // Apply a color-blind friendly filter (Protanopia example)
+                float r = 0.567 * pixel.r + 0.433 * pixel.g;
+                float g = 0.558 * pixel.r + 0.442 * pixel.g;
+                float b = pixel.b;
+
+                gl_FragColor = vec4(r, g, b, pixel.a);
+            }
+            )",
+        sf::Shader::Fragment);
+
+    Entity base = ecs.spawn_entity();
+    ecs.add_component<rtype::client::Tag>(base, {});
+    ecs.add_component<rtype::client::Configs>(base, {{1440, 810}, serverSize});
+    ecs.add_component<rtype::client::SFMLObjects>(
+        base, {"assets/font/retro_gaming.ttf", myShader});
+    ecs.add_component<rtype::client::Room>(base, {});
+    ecs.add_component<rtype::client::PlayerInfo>(base, {});
+    ecs.add_component<rtype::client::LastUpdate>(base, {1});
 
     rtype::client::UDPClient client(ecs, host, port);
     ecs.subscribe<RequestEvent>(client, true);
 
     rtype::client::MessageHandlerSys handler;
-    ecs.subscribe<ReceiveEvent, rtype::client::Window, rtype::client::Tag,
-                  rtype::client::Position, rtype::client::Velocity,
-                  rtype::client::Health, rtype::client::Score,
-                  rtype::client::LastUpdate>(handler, true);
+    ecs.subscribe<ReceiveEvent, rtype::client::Room, rtype::client::SFMLObjects,
+                  rtype::client::Tag, rtype::client::Position,
+                  rtype::client::Velocity, rtype::client::Health,
+                  rtype::client::Score, rtype::client::LastUpdate>(handler,
+                                                                   true);
 
     auto lifeSys = rtype::client::LifeSys();
-    ecs.subscribe<rtype::client::CreationEvent, rtype::client::Window>(lifeSys,
-                                                                       true);
+    ecs.subscribe<rtype::client::CreationEvent, rtype::client::Configs,
+                  rtype::client::SFMLObjects, rtype::client::PlayerInfo,
+                  rtype::client::Room>(lifeSys, true);
     ecs.subscribe<rtype::client::DeleteEvent, rtype::client::Scene>(lifeSys,
                                                                     true);
 
     auto windowSys = rtype::client::WindowSys(
         {1920, 1080, 32}, "R-type", sf::Style::Titlebar | sf::Style::Close);
-    ecs.subscribe<rtype::client::FrameEvent, rtype::client::Window,
-                  rtype::client::Position, rtype::client::Hitbox,
-                  rtype::client::Drawable, rtype::client::Text,
-                  rtype::client::Selectable>(windowSys, true);
-    ecs.subscribe<rtype::client::ChangeKey, rtype::client::Window>(windowSys,
-                                                                   true);
+    ecs.subscribe<rtype::client::FrameEvent, rtype::client::Configs,
+                  rtype::client::SFMLObjects, rtype::client::Position,
+                  rtype::client::Hitbox, rtype::client::Drawable,
+                  rtype::client::Text, rtype::client::Selectable>(windowSys,
+                                                                  true);
+    ecs.subscribe<rtype::client::ChangeKey, rtype::client::Configs>(windowSys,
+                                                                    true);
 
     auto cheatSys = rtype::client::CheatSys();
-    ecs.subscribe<rtype::client::InputEvent, rtype::client::Window>(cheatSys,
-                                                                    true);
+    ecs.subscribe<rtype::client::InputEvent, rtype::client::Configs>(cheatSys,
+                                                                     true);
 
     auto frameSys = rtype::client::AnimeSys();
     ecs.subscribe<rtype::client::AnimeEvent, rtype::client::Drawable>(frameSys,
@@ -133,12 +138,10 @@ int main(int ac, char *argv[]) {
                             const rtype::client::InputEvent &e_input) -> void {
             if (e_input._myEvent == rtype::client::QUIT ||
                 e_input._event.type == sf::Event::Closed) {
-                // std::cout << "FIX1" << std::endl;
                 if (client.isConnected())
                     ecs.post<RequestEvent>({DISCONNECT, {}});
                 else
                     running = false;
-                // std::cout << "FIX2" << std::endl;
             }
         },
         true);

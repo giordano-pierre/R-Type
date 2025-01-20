@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include "ECS/ECS.hpp"
 #include <SFML/Graphics.hpp>
 #include <memory>
 
@@ -31,8 +32,9 @@ enum SceneType {
     M_GENERAL,
     M_PLAYER, // à modifier
     M_ROOM,   // à faire
-    M_STAGE,  // à faire
-    M_PERSO,  // à faire
+    M_IN_ROOM,
+    M_STAGE, // à faire
+    M_PERSO, // à faire
     M_CONFIG,
     M_C_GENERAL,
     M_C_PLAYER1,
@@ -85,4 +87,5 @@ void initPlay2Input(
     std::pair<std::map<UserInput, std::pair<sf::Keyboard::Key,
                                             std::shared_ptr<std::string>>>,
               std::map<UserInput, sf::Keyboard::Key>> &inputConfig);
+void killMyEntity(ECS &ecs, Entity i);
 } // namespace rtype::client

@@ -14,16 +14,19 @@
 namespace rtype::client {
 
 void ShootSys::operator()(ECS &ecs, const InputEvent &e_input,
-                          SparseArray<Window> &windows,
                           const SparseArray<Playable> &players,
                           const SparseArray<Position> &positions,
                           const SparseArray<Hitbox> &hitboxs,
                           const SparseArray<Tag> &tags) {
     bool player1Shoot = false;
+    bool player2Shoot = false;
 
     switch (e_input._myEvent) {
     case SHOOT1:
         player1Shoot = true;
+        break;
+    case SHOOT2:
+        player2Shoot = true;
         break;
     default:
         return;
@@ -39,6 +42,10 @@ void ShootSys::operator()(ECS &ecs, const InputEvent &e_input,
 
         if (play && pos && box && tag && player1Shoot &&
             play.value()._id == 1) {
+            ecs.post<RequestEvent>({CL_SHOOT, {{"idp", tag.value()._id}}});
+        }
+        if (play && pos && box && tag && player2Shoot &&
+            play.value()._id == 2) {
             ecs.post<RequestEvent>({CL_SHOOT, {{"idp", tag.value()._id}}});
         }
     }

@@ -81,7 +81,8 @@ void WindowSys::updateInfo(SparseArray<Position> &positions,
 void WindowSys::drawSprite(SparseArray<Position> &positions,
                            SparseArray<Hitbox> &hitboxs,
                            SparseArray<Drawable> &sprites, int order,
-                           const Window &myWindow) {
+                           const Configs &myConfig,
+                           const SFMLObjects &SFMLObj) {
     for (size_t i = 0;
          i < positions.size() && i < hitboxs.size() && i < sprites.size();
          ++i) {
@@ -96,8 +97,8 @@ void WindowSys::drawSprite(SparseArray<Position> &positions,
             sprite.value()._sprite.setScale(
                 {box.value()._client.x / sprite.value()._sizeFrame.x,
                  box.value()._client.y / sprite.value()._sizeFrame.y});
-            if (myWindow._colorblind)
-                _window.draw(sprite.value()._sprite, myWindow._renderState);
+            if (myConfig._colorblind)
+                _window.draw(sprite.value()._sprite, SFMLObj._renderState);
             else
                 _window.draw(sprite.value()._sprite);
         }
@@ -107,7 +108,7 @@ void WindowSys::drawSprite(SparseArray<Position> &positions,
 void WindowSys::drawSel(SparseArray<Position> &positions,
                         SparseArray<Hitbox> &hitboxs,
                         SparseArray<Selectable> &selectables,
-                        const Window &myWindow) {
+                        const Configs &myConfig, const SFMLObjects &SFMLObj) {
     for (size_t i = 0;
          i < positions.size() && i < hitboxs.size() && i < selectables.size();
          ++i) {
@@ -121,8 +122,8 @@ void WindowSys::drawSel(SparseArray<Position> &positions,
             sel.value()._sprite.setScale(
                 {box.value()._client.x / sel.value()._size.x,
                  box.value()._client.y / sel.value()._size.y});
-            if (myWindow._colorblind)
-                _window.draw(sel.value()._sprite, myWindow._renderState);
+            if (myConfig._colorblind)
+                _window.draw(sel.value()._sprite, SFMLObj._renderState);
             else
                 _window.draw(sel.value()._sprite);
         }
@@ -132,7 +133,7 @@ void WindowSys::drawSel(SparseArray<Position> &positions,
 void WindowSys::drawText(SparseArray<Position> &positions,
                          SparseArray<Hitbox> &hitboxs, SparseArray<Text> &texts,
                          bool isResize, sf::Vector2u sizeClient,
-                         const Window &myWindow) {
+                         const Configs &myConfig, const SFMLObjects &SFMLObj) {
     for (size_t i = 0;
          i < positions.size() && i < hitboxs.size() && i < texts.size(); ++i) {
         auto &pos = positions[i];
@@ -144,16 +145,16 @@ void WindowSys::drawText(SparseArray<Position> &positions,
                 tex.value()._text.setFillColor(tex.value()._color);
                 tex.value()._text.setStyle(tex.value()._style);
             }
-            if (tex.value()._str.find(myWindow._lang) != tex.value()._str.end())
+            if (tex.value()._str.find(myConfig._lang) != tex.value()._str.end())
                 tex.value()._text.setString(
-                    *tex.value()._str.find(myWindow._lang)->second);
+                    *tex.value()._str.find(myConfig._lang)->second);
             else if (tex.value()._str.find("DEFAULT") != tex.value()._str.end())
                 tex.value()._text.setString(
                     *tex.value()._str.find("DEFAULT")->second);
             else
                 tex.value()._text.setString(*tex.value()._str.begin()->second);
             unsigned int charSize =
-                tex.value()._charSize * sizeClient.x / myWindow._serverSize.x;
+                tex.value()._charSize * sizeClient.x / myConfig._serverSize.x;
             tex.value()._text.setCharacterSize(charSize);
             auto currentSize = tex.value()._text.getLocalBounds();
             tex.value()._text.setOrigin(
@@ -183,8 +184,8 @@ void WindowSys::drawText(SparseArray<Position> &positions,
                     {pos.value()._client.x - (box.value()._client.x / 2) + tmp,
                      pos.value()._client.y});
             }
-            if (myWindow._colorblind)
-                _window.draw(tex.value()._text, myWindow._renderState);
+            if (myConfig._colorblind)
+                _window.draw(tex.value()._text, SFMLObj._renderState);
             else
                 _window.draw(tex.value()._text);
         }
@@ -193,12 +194,13 @@ void WindowSys::drawText(SparseArray<Position> &positions,
 
 void WindowSys::drawHitboxes(SparseArray<Position> &positions,
                              SparseArray<Hitbox> &hitboxs,
-                             const Window &myWindow) {
+                             const Configs &myConfig,
+                             const SFMLObjects &SFMLObj) {
     for (size_t i = 0; i < positions.size() && i < hitboxs.size(); ++i) {
         auto &pos = positions[i];
         auto &box = hitboxs[i];
 
-        if (pos && box && box.value()._display && myWindow._displayHitboxs) {
+        if (pos && box && box.value()._display && myConfig._displayHitboxs) {
             sf::RectangleShape borderRect(
                 sf::Vector2f({box.value()._client.x, box.value()._client.y}));
             borderRect.setOrigin(box.value()._client.x / 2,
@@ -208,41 +210,40 @@ void WindowSys::drawHitboxes(SparseArray<Position> &positions,
             borderRect.setOutlineThickness(2.0);
             borderRect.setPosition(
                 {pos.value()._client.x, pos.value()._client.y});
-            if (myWindow._colorblind)
-                _window.draw(borderRect, myWindow._renderState);
+            if (myConfig._colorblind)
+                _window.draw(borderRect, SFMLObj._renderState);
             else
                 _window.draw(borderRect);
         }
     }
 }
 
-void WindowSys::operator()(ECS &ecs, const FrameEvent &,
-                           const SparseArray<Window> &windows,
-                           SparseArray<Position> &positions,
-                           SparseArray<Hitbox> &hitboxs,
-                           SparseArray<Drawable> &sprites,
-                           SparseArray<Text> &texts,
-                           SparseArray<Selectable> &selectables) {
-    auto &myWindow = windows[0].value();
+void WindowSys::operator()(
+    ECS &ecs, const FrameEvent &, const SparseArray<Configs> &configs,
+    const SparseArray<SFMLObjects> &SFMLObjs, SparseArray<Position> &positions,
+    SparseArray<Hitbox> &hitboxs, SparseArray<Drawable> &sprites,
+    SparseArray<Text> &texts, SparseArray<Selectable> &selectables) {
+    const auto &myConfig = configs[0].value();
+    const auto &SFMLObj = SFMLObjs[0].value();
     bool isResize = false;
 
     _window.clear();
-    if (windows.size() > 0 && windows[0])
-        resizeWindow(windows[0].value()._size, isResize);
+    resizeWindow(myConfig._size, isResize);
     sf::Vector2u sizeWindow = _window.getSize();
 
-    updateInfo(positions, hitboxs, isResize, sizeWindow, myWindow._serverSize);
+    updateInfo(positions, hitboxs, isResize, sizeWindow, myConfig._serverSize);
     for (int i = 0; i <= 3; i++)
-        drawSprite(positions, hitboxs, sprites, i, myWindow);
-    drawSel(positions, hitboxs, selectables, myWindow);
-    drawText(positions, hitboxs, texts, isResize, sizeWindow, myWindow);
-    drawHitboxes(positions, hitboxs, myWindow);
+        drawSprite(positions, hitboxs, sprites, i, myConfig, SFMLObj);
+    drawSel(positions, hitboxs, selectables, myConfig, SFMLObj);
+    drawText(positions, hitboxs, texts, isResize, sizeWindow, myConfig,
+             SFMLObj);
+    drawHitboxes(positions, hitboxs, myConfig, SFMLObj);
     _window.display();
 
     sf::Event event;
 
     while (_window.pollEvent(event))
-        extractInput(ecs, event, myWindow._inputConfig);
+        extractInput(ecs, event, myConfig._inputConfig);
 }
 
 bool isBanKey(sf::Keyboard::Key key) {
@@ -316,12 +317,12 @@ bool updateConfigs(
 }
 
 void WindowSys::operator()(ECS &ecs, const ChangeKey &e_changeK,
-                           SparseArray<Window> &windows) {
+                           SparseArray<Configs> &configs) {
     bool run = true;
     sf::Event event;
-    if (windows.size() < 1 || !windows[0])
+    if (configs.size() < 1 || !configs[0])
         return;
-    auto &inputConfig = windows[0].value()._inputConfig;
+    auto &inputConfig = configs[0].value()._inputConfig;
 
     while (run) {
         while (_window.pollEvent(event)) {

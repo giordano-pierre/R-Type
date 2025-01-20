@@ -8,22 +8,38 @@
 #pragma once
 
 #include "ECS/ECS.hpp"
-#include "components/Window.hpp"
+#include "components/Configs.hpp"
+#include "components/PlayerInfo.hpp"
+#include "components/Room.hpp"
+#include "components/SFMLObjects.hpp"
+#include "events/ReceiveEvent.hpp"
 
 namespace rtype::client {
 
 // Game
-void createGameEntities(ECS &ecs, Window &myWindow);
+void createGameEntities(ECS &ecs, const Configs &myConfig,
+                        SFMLObjects &SFMLObj);
 
 // Menu Jeu
-void createMenuEntities(ECS &ecs, Window &myWindow);
-void createMenuGeneralEntities(ECS &ecs, Window &myWindow);
-// void createMenuPlayerEntities(ECS &ecs, Window &myWindow);
-void createMenuRoomEntities(ECS &ecs, Window &myWindow);
+void createMenuEntities(ECS &ecs, const Configs &myConfig,
+                        SFMLObjects &SFMLObj);
+void createMenuGeneralEntities(ECS &ecs, const Configs &myConfig,
+                               SFMLObjects &SFMLObj);
+void createMenuPlayerEntities(ECS &ecs, const Configs &myConfig,
+                              SFMLObjects &SFMLObj);
+void createMenuRoomEntities(ECS &ecs, const ReceiveEvent &rec_event,
+                            const Configs &myConfig, SFMLObjects &SFMLObj,
+                            PlayerInfo &playerInfo, Room &myRoom);
+void createMenuInRoomEntities(ECS &ecs, const Configs &myConfig,
+                              SFMLObjects &SFMLObj, Room &myRoom);
 
 // Menu Config
-void createConfigEntities(ECS &ecs, Window &myWindow);
-void createConfigGeneralEntites(ECS &ecs, Window &myWindow);
-void createConfigPlayer1Entites(ECS &ecs, Window &myWindow);
-void createConfigPlayer2Entites(ECS &ecs, Window &myWindow);
+void createConfigEntities(ECS &ecs, const Configs &myConfig,
+                          SFMLObjects &SFMLObj);
+void createConfigGeneralEntites(ECS &ecs, const Configs &myConfig,
+                                SFMLObjects &SFMLObj);
+void createConfigPlayer1Entites(ECS &ecs, const Configs &myConfig,
+                                SFMLObjects &SFMLObj);
+void createConfigPlayer2Entites(ECS &ecs, const Configs &myConfig,
+                                SFMLObjects &SFMLObj);
 } // namespace rtype::client

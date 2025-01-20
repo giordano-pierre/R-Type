@@ -44,6 +44,8 @@ enum Protocol {
     // chef (info_room, id_room)
     JOIN_ROOM, // -> Serveur ajoute le joueur à la room -> informe les autres
                // clients (id room, info_player) ?? sécu
+    QUIT_ROOM, // -> Serveur retire le joueur et en promut un nouveau chef (si
+               // necessaire) (id_room, vide)
 
     // Stage Handler
     // (info_stage = nb, diff, lock)
@@ -55,9 +57,7 @@ enum Protocol {
     // (info_players = id, hp, sc)
     LAUNCH_GAME, // -> le Serveur lance la partie du client et enlève la room de
                  // la liste en attente (id_room, vide)
-    PAUSE_GAME, // -> Serveur met en pause la partie du client (id_room, vide)
-    QUIT_GAME,  // -> Serveur retire le joueur et en promut un nouveau chef (si
-                // necessaire) (id_room, vide)
+    PAUSE_GAME,   // -> Serveur met en pause la partie du client (id_room, vide)
     SV_GAME_OVER, // -> Server informe la fin de partie (info_players)
 
     // Event

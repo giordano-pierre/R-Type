@@ -10,6 +10,7 @@
 #include "Child.hpp"
 #include "Components.hpp"
 #include "ECS/ECS.hpp"
+#include "tools.hpp"
 
 namespace rtype::server {
 

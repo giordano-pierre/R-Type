@@ -18,12 +18,12 @@ class MessageHandlerSys {
     MessageHandlerSys() = default;
     ~MessageHandlerSys() = default;
 
-    void operator()(ECS &ecs, const ReceiveEvent &rec_event,
-                    SparseArray<Window> &windows, const SparseArray<Tag> &tags,
-                    SparseArray<Position> &positions,
-                    SparseArray<Velocity> &velocities,
-                    SparseArray<Health> &healths, SparseArray<Score> &scores,
-                    SparseArray<LastUpdate> &lastups);
+    void
+    operator()(ECS &ecs, const ReceiveEvent &rec_event,
+               SparseArray<Room> &rooms, SparseArray<SFMLObjects> &SFMLObjs,
+               const SparseArray<Tag> &tags, SparseArray<Position> &positions,
+               SparseArray<Velocity> &velocities, SparseArray<Health> &healths,
+               SparseArray<Score> &scores, SparseArray<LastUpdate> &lastups);
 };
 
 } // namespace rtype::client

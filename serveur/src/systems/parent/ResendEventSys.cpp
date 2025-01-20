@@ -43,7 +43,7 @@ void ResendEventSys::operator()(ECS &ecs, const CheckEvent &check_event,
             if (client_it == ro.value()._clients_uuid.end())
                 break;
             ;
-            if (client_it->second.first != target) {
+            if (client_it->second.first._state != target) {
                 if (check_event._time > 0) {
                     ecs.post<CheckEvent>({check_event._action, check_event._idr,
                                           check_event._request,

@@ -6,6 +6,7 @@ find_package(Sol2 CONFIG REQUIRED)
 
 set(SRC
     src/server_main.cpp
+    src/LevelLoader.cpp
     src/tools.cpp
     src/Child.cpp
     src/systems/parent/UDPServer.cpp

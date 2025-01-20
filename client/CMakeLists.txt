@@ -10,7 +10,8 @@ set(SRC
     src/components/Velocity.cpp
     src/components/Playable.cpp
     src/components/Tag.cpp
-    src/components/Window.cpp
+    src/components/Configs.cpp
+    src/components/SFMLObjects.cpp
     src/components/Hitbox.cpp
     src/components/Text.cpp
     src/components/Selectable.cpp
@@ -28,6 +29,7 @@ set(SRC
     src/systems/ShootSys.cpp
     src/systems/UDPClient.cpp
     src/systems/WindowSys.cpp
+    src/systems/KillEntity.cpp
     src/buttonFunctions.cpp
     src/createEntities.cpp
     src/loadSystems.cpp
