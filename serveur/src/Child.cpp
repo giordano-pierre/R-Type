@@ -7,6 +7,9 @@
 
 #include "Child.hpp"
 #include "systems/child/Singleton.hpp"
+#include "systems/child/SpawnQueue.hpp"
+
+auto spawnQueue = SpawnQueue();
 namespace rtype::server {
 
 void initSubECS(ECS &ecs) {
@@ -43,6 +46,8 @@ void loadSubGameSystem(Child &child) {
     auto enemiesSys = Singleton<EnemiesSys>();
     child._ecs_child.subscribe<TicEvent, Position, Tag, EnemyAI, Velocity>(
         enemiesSys.getInstance());
+
+    spawnQueue.add(EnemyAI::BehaviorType::BOSS);
 }
 
 } // namespace rtype::server
