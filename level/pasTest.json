@@ -16,10 +16,10 @@
         "score": 10
       },
       {
-        "type": 1,
-        "spawn_time": 30,
+        "type": 2,
+        "spawn_time": 3000000,
         "position": { "x": 2000, "y": 500 },
-        "velocity": { "x": -3, "y": -6},
+        "velocity": { "x": -3, "y": 0},
         "hitbox": { "x": 0.1, "y": 0.18 },
         "hp": 70,
         "score": 10

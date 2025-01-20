@@ -83,6 +83,7 @@ void LifeSys::operator()(ECS &ecs, const TicEvent &tic_event,
                         break;
                     }
                     case BOSS1: {
+                        std::cout << "spawning boss" << std::endl;
                         resp = createBoss(child.value()._ecs_child, ennemy);
                         break;
                     }

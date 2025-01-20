@@ -69,6 +69,7 @@ void EnemiesSys::operator()(ECS &ecs, const rtype::server::TicEvent &tic,
         std::chrono::duration<float>(tic.time_stamp - lastTic).count();
     lastTic = tic.time_stamp;
     for (size_t i = 0; i < positions.size(); ++i) {
+
         if (!positions[i] || !tags[i] || !ais[i] || !velocities[i])
             continue;
         if (!isEnemy((*tags[i])._type))
@@ -89,6 +90,7 @@ void EnemiesSys::updateBoss(ECS &ecs, Position &pos, Velocity &vel, EnemyAI &ai,
     // appel des updown (6) quand il reste 2 sinudoidale
     // appel des chasseurs quand il reste (3) up and down
     // boss qui tire
+    std::cout << "Boss phase "<< _bossPhase << std::endl;
     if (_bossPhase == 0) {
         if (pos.x < 1600) {
             vel.x = 0;
@@ -107,10 +109,10 @@ void EnemiesSys::updateBoss(ECS &ecs, Position &pos, Velocity &vel, EnemyAI &ai,
             vel.y = -3;
         }
         _bossTick++;
-        if (_bossTick == 300) {
+        if (_bossTick == 100) {
             createSineEnemy(ecs, {
-                .x_pos = 2000,
-                .y_pos = 100,
+                .x_pos = pos.x - 200,
+                .y_pos = pos.y,
                 .x_velocity = -10,
                 .y_velocity = 0,
                 .x_hitbox = 0.1,
@@ -364,7 +366,8 @@ std::vector<RequestEvent> createBoss(ECS &ecs, rtype::server::EnemyInfo enemy) {
                                   .x_hitbox = enemy.x_hitbox,
                                   .y_hitbox = enemy.y_hitbox,
                                   .health = 100,
-                                  .score = 100};
+                                  .score = 100,
+                                  .type = EntityType::BOSS1 };
     return {createEnemyWithAI(ecs, info,
                               rtype::server::EnemyAI::BehaviorType::BOSS)};
 }

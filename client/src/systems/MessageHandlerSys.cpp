@@ -117,6 +117,15 @@ void createDrawable(ECS &ecs, Entity &entity, SFMLObjects &SFMLObj,
                                      22,
                                      1});
         break;
+    case BOSS1:
+        ecs.add_component<Drawable>(entity,
+            { SFMLObj._myTextures.getTexture(
+                 "assets/images/ship/enemy_ship_3.png"),
+             {2196, 1944},
+             {549, 324},
+             22,
+             1 });
+        break;
     default:
         break;
     }
