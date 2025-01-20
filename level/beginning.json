@@ -7,39 +7,57 @@
   },
   "enemies": [
     {
-      "type": 3,
+      "type": 2,
       "spawn_time": 0,
       "position": { "x": 2000, "y": 500 },
-      "velocity": { "x": -9, "y": 0 },
+      "velocity": { "x": -3, "y": 0 },
       "hitbox": { "x": 0.1, "y": 0.18 },
-      "hp": 100,
+      "hp": 30,
       "score": 10
     },
     {
-        "type": 3,
-        "spawn_time": 20,
+        "type": 2,
+        "spawn_time": 200,
         "position": { "x": 2000, "y": 1000 },
-        "velocity": { "x": -8, "y": 0 },
+        "velocity": { "x": -3, "y": 0 },
         "hitbox": { "x": 0.1, "y": 0.18 },
-        "hp": 100,
+        "hp": 30,
         "score": 10
       },
       {
-        "type": 2,
-        "spawn_time": 550,
+        "type": 3,
+        "spawn_time": 400,
         "position": { "x": 2000, "y": 500 },
-        "velocity": { "x": -7, "y": 0 },
+        "velocity": { "x": -2, "y": 0 },
         "hitbox": { "x": 0.1, "y": 0.18 },
-        "hp": 100,
+        "hp": 30,
         "score": 10
       },
       {
         "type": 1,
         "spawn_time": 600,
         "position": { "x": 2000, "y": 100 },
-        "velocity": { "x": -9, "y": 0 },
+        "velocity": { "x": -2, "y": 0 },
         "hitbox": { "x": 0.1, "y": 0.18 },
-        "hp": 100,
+        "hp": 30,
+        "score": 10
+      },
+      {
+        "type": 5,
+        "spawn_time": 800,
+        "position": { "x": 2000, "y": 100 },
+        "velocity": { "x": -3, "y": -6 },
+        "hitbox": { "x": 0.1, "y": 0.18 },
+        "hp": 30,
+        "score": 10
+      },
+      {
+        "type": 4,
+        "spawn_time": 1000,
+        "position": { "x": 2000, "y": 100 },
+        "velocity": { "x": -10, "y": 0 },
+        "hitbox": { "x": 0.1, "y": 0.18 },
+        "hp": 30,
         "score": 10
       }
   ]

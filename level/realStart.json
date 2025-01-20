@@ -1,0 +1,91 @@
+{
+    "stage": {
+        "id": 2,
+        "name": "Real Start",
+        "background": "assets/backgrounds/background_mountains.jpg",
+        "music": "assets/audio/stage1_theme.ogg"
+    },
+  "enemies": [
+    {
+      "type": 2,
+      "spawn_time": 0,
+      "position": { "x": 2000, "y": 500 },
+      "velocity": { "x": -3, "y": 0 },
+      "hitbox": { "x": 0.1, "y": 0.18 },
+      "hp": 50,
+      "score": 10
+    },
+    {
+        "type": 2,
+        "spawn_time": 20,
+        "position": { "x": 2000, "y": 800 },
+        "velocity": { "x": -3, "y": 0 },
+        "hitbox": { "x": 0.1, "y": 0.18 },
+        "hp": 50,
+        "score": 10
+      },
+      {
+        "type": 2,
+        "spawn_time": 35,
+        "position": { "x": 2000, "y": 200 },
+        "velocity": { "x": -3, "y": 0 },
+        "hitbox": { "x": 0.1, "y": 0.18 },
+        "hp": 50,
+        "score": 10
+      },
+      {
+        "type": 1,
+        "spawn_time": 400,
+        "position": { "x": 2000, "y": 100 },
+        "velocity": { "x": -2, "y": 0 },
+        "hitbox": { "x": 0.1, "y": 0.18 },
+        "hp": 50,
+        "score": 10
+      },
+      {
+        "type": 1,
+        "spawn_time": 900,
+        "position": { "x": 2000, "y": 100 },
+        "velocity": { "x": -2, "y": 0 },
+        "hitbox": { "x": 0.1, "y": 0.18 },
+        "hp": 50,
+        "score": 10
+      },
+      {
+        "type": 5,
+        "spawn_time": 900,
+        "position": { "x": 2000, "y": 100 },
+        "velocity": { "x": -3, "y": -6 },
+        "hitbox": { "x": 0.1, "y": 0.18 },
+        "hp": 50,
+        "score": 10
+      },
+      {
+        "type": 4,
+        "spawn_time": 1000,
+        "position": { "x": 2000, "y": 900 },
+        "velocity": { "x": -10, "y": 0 },
+        "hitbox": { "x": 0.1, "y": 0.18 },
+        "hp": 50,
+        "score": 10
+      },
+       {
+        "type": 4,
+        "spawn_time": 1200,
+        "position": { "x": 2000, "y": 300 },
+        "velocity": { "x": -10, "y": 0 },
+        "hitbox": { "x": 0.1, "y": 0.18 },
+        "hp": 50,
+        "score": 10
+      },
+       {
+        "type": 3,
+        "spawn_time": 1500,
+        "position": { "x": 2000, "y": 500 },
+        "velocity": { "x": -5, "y": 0 },
+        "hitbox": { "x": 0.1, "y": 0.18 },
+        "hp": 50,
+        "score": 10
+      }
+  ]
+}
