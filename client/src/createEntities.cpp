@@ -98,7 +98,7 @@ void createMenuGeneralEntities(ECS &ecs, const Configs &myConfig,
                  [](ECS &ecs, Entity) {
                      ecs.post<RequestEvent>({Protocol::CONNECT, {}});
                      ecs.post<DeleteEvent>({M_GENERAL});
-                     ecs.post<CreationEvent>({MENUROOM});
+                     ecs.post<CreationEvent>({M_PLAYER});
                  }});
 
     Entity customB = ecs.spawn_entity();
