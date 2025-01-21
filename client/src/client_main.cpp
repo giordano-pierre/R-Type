@@ -18,7 +18,7 @@
 
 bool is_number(char *str) {
     for (int i = 0; i < strlen(str); i++) {
-        if (!isdigit(str[i]) || str[i] != '.')
+        if (!isdigit(str[i]) && str[i] != '.')
             return false;
     }
     return true;
@@ -92,6 +92,8 @@ int main(int ac, char *argv[]) {
     ecs.add_component<rtype::client::Room>(base, {});
     ecs.add_component<rtype::client::PlayerInfo>(base, {});
     ecs.add_component<rtype::client::LastUpdate>(base, {1});
+
+    std::cout << "Host: " << host << std::endl;
 
     rtype::client::UDPClient client(ecs, host, port);
     ecs.subscribe<RequestEvent>(client, true);
