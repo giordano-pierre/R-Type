@@ -88,67 +88,36 @@ void createDrawable(ECS &ecs, Entity &entity, SFMLObjects &SFMLObj,
 
         drawable._sprite.setColor(playerColor);
         break;
-
-    case POWERUP: {
-        const auto &type1 = ecs.get_components<Powerup>()[entity];
-        std::cout<< "TYPEt !!!!!!!!!!!!!!!!!!!: "<< type1->_type<< std::endl;
-        if (!type1) {
-            std::cout << "sgsesegseg" << std::endl;
-        }
-        switch (type1->_type) {
-            case (SHIELD):
-                ecs.add_component<Drawable>(entity,
-                                    {SFMLObj._myTextures.getTexture(
-                                         "assets/images/powerups/shield.png"),
-                                     {250, 250},
-                                     {250, 250},
-                                     1,
-                                     2});
-                break;
-            case (BONUSLIFE):
-                ecs.add_component<Drawable>(entity,
-                                    {SFMLObj._myTextures.getTexture(
-                                         "assets/images/powerups/life.png"),
-                                     {250, 250},
-                                     {250, 250},
-                                     1,
-                                     2});
-                break;
-            default:
-                break;
-        }
-        break;
-
-    case POWERUP: {
-        const auto &type1 = ecs.get_components<Powerup>()[entity];
-        std::cout<< "TYPEt !!!!!!!!!!!!!!!!!!!: "<< type1->_type<< std::endl;
-        if (!type1) {
-            std::cout << "sgsesegseg" << std::endl;
-        }
-        switch (type1->_type) {
-            case (SHIELD):
-                ecs.add_component<Drawable>(entity,
-                                    {SFMLObj._myTextures.getTexture(
-                                         "assets/images/powerups/shield.png"),
-                                     {250, 250},
-                                     {250, 250},
-                                     1,
-                                     2});
-                break;
-            case (BONUSLIFE):
-                ecs.add_component<Drawable>(entity,
-                                    {SFMLObj._myTextures.getTexture(
-                                         "assets/images/powerups/life.png"),
-                                     {250, 250},
-                                     {250, 250},
-                                     1,
-                                     2});
-                break;
-            default:
-                break;
-        }
-        break;
     }
+    case POWERUP: {
+        const auto &type1 = ecs.get_components<Powerup>()[entity];
+        std::cout<< "TYPEt !!!!!!!!!!!!!!!!!!!: "<< type1->_type<< std::endl;
+        if (!type1) {
+            std::cout << "sgsesegseg" << std::endl;
+        }
+        switch (type1->_type) {
+            case (SHIELD):
+                ecs.add_component<Drawable>(entity,
+                                    {SFMLObj._myTextures.getTexture(
+                                         "assets/images/powerups/shield.png"),
+                                     {250, 250},
+                                     {250, 250},
+                                     1,
+                                     2});
+                break;
+            case (BONUSLIFE):
+                ecs.add_component<Drawable>(entity,
+                                    {SFMLObj._myTextures.getTexture(
+                                         "assets/images/powerups/life.png"),
+                                     {250, 250},
+                                     {250, 250},
+                                     1,
+                                     2});
+                break;
+            default:
+                break;
+        }
+        break;
     }
     case SHOT: {
         ecs.add_component<Drawable>(entity,
