@@ -10,12 +10,21 @@
 #include "events/RequestEvent.hpp"
 #include "protocol.hpp"
 #include <iostream>
+#include <fstream>
 
 namespace rtype::client {
 
 void createGameEntities(ECS &ecs, const Configs &myConfig,
-                        SFMLObjects &SFMLObj) {
+                        SFMLObjects &SFMLObj, Room &myRoom) {
     const auto &serverSize = myConfig._serverSize;
+    std::ifstream f(myRoom._levelFile);
+    auto level = nlohmann::json::parse(f);
+    std::string backFile;
+
+    if (level.contains("stage") && level["stage"].contains("background"))
+        backFile = level["stage"]["background"].get<std::string>();
+    else
+        backFile = "assets/images/background/background_mountain.jpg";
 
     Entity back1 = ecs.spawn_entity();
     ecs.add_component<Position>(
@@ -26,7 +35,7 @@ void createGameEntities(ECS &ecs, const Configs &myConfig,
     ecs.add_component<Hitbox>(back1, {{1, 1}, false});
     ecs.add_component<Drawable>(
         back1, {SFMLObj._myTextures.getTexture(
-                    "assets/images/background/background_mountain.jpg"),
+                    backFile),
                 {675, 360},
                 {675, 360},
                 1});
@@ -40,7 +49,7 @@ void createGameEntities(ECS &ecs, const Configs &myConfig,
     ecs.add_component<Hitbox>(back2, {{1, 1}, false});
     ecs.add_component<Drawable>(
         back2, {SFMLObj._myTextures.getTexture(
-                    "assets/images/background/background_mountain.jpg"),
+                    backFile),
                 {675, 360},
                 {675, 360},
                 1});

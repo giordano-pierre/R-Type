@@ -18,7 +18,7 @@ namespace rtype::client {
 
 // Game
 void createGameEntities(ECS &ecs, const Configs &myConfig,
-                        SFMLObjects &SFMLObj);
+                        SFMLObjects &SFMLObj, Room &myRoom);
 
 // Menu Jeu
 void createMenuEntities(ECS &ecs, const Configs &myConfig,

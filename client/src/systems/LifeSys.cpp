@@ -72,7 +72,7 @@ void LifeSys::operator()(ECS &ecs, const CreationEvent &e_create,
         break;
     case GAME:
         loadGameSystem(ecs);
-        createGameEntities(ecs, myConfig, SFMLObj);
+        createGameEntities(ecs, myConfig, SFMLObj, myRoom);
         break;
     default:
         return;
