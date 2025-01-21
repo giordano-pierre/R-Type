@@ -7,6 +7,7 @@
 
 #include "systems/child/EnemiesSystem.hpp"
 #include "systems/child/SpawnQueue.hpp"
+#include "tools.hpp"
 extern SpawnQueue spawnQueue;
 
 namespace rtype::server {
@@ -23,7 +24,9 @@ void EnemiesSys::registerComponents() {
                          {"CIRCULAR", EnemyAI::BehaviorType::CIRCULAR},
                          {"CHASE", EnemyAI::BehaviorType::CHASE},
                          {"V_FORMATION", EnemyAI::BehaviorType::V_FORMATION},
-                         {"BOSS", EnemyAI::BehaviorType::BOSS}});
+                         {"BOSS", EnemyAI::BehaviorType::BOSS},
+                         {"UPDOWN", EnemyAI::BehaviorType::UPDOWN},
+                         {"CHARGE", EnemyAI::BehaviorType::CHARGE}});
 
     lua.new_usertype<EnemyAI>("EnemyAI", "behaviorType", &EnemyAI::behaviorType,
                               "amplitude", &EnemyAI::amplitude, "frequency",
@@ -66,9 +69,10 @@ void EnemiesSys::operator()(ECS &ecs, const rtype::server::TicEvent &tic,
         std::chrono::duration<float>(tic.time_stamp - lastTic).count();
     lastTic = tic.time_stamp;
     for (size_t i = 0; i < positions.size(); ++i) {
+
         if (!positions[i] || !tags[i] || !ais[i] || !velocities[i])
             continue;
-        if ((*tags[i])._type != EntityType::ENEMY1)
+        if (!isEnemy((*tags[i])._type))
             continue;
         auto &pos = *positions[i];
         auto &ai = *ais[i];
@@ -86,6 +90,7 @@ void EnemiesSys::updateBoss(ECS &ecs, Position &pos, Velocity &vel, EnemyAI &ai,
     // appel des updown (6) quand il reste 2 sinudoidale
     // appel des chasseurs quand il reste (3) up and down
     // boss qui tire
+    std::cout << "Boss phase " << _bossPhase << std::endl;
     if (_bossPhase == 0) {
         if (pos.x < 1600) {
             vel.x = 0;
@@ -104,8 +109,14 @@ void EnemiesSys::updateBoss(ECS &ecs, Position &pos, Velocity &vel, EnemyAI &ai,
             vel.y = -3;
         }
         _bossTick++;
-        if (_bossTick == 300) {
-            spawnQueue.add(rtype::server::EnemyAI::BehaviorType::SINUSOIDAL);
+        if (_bossTick == 100) {
+            createSineEnemy(ecs, {.x_pos = pos.x - 200,
+                                  .y_pos = pos.y,
+                                  .x_velocity = -10,
+                                  .y_velocity = 0,
+                                  .x_hitbox = 0.1,
+                                  .y_hitbox = 0.18});
+            // spawnQueue.add(rtype::server::EnemyAI::BehaviorType::SINUSOIDAL);
             _bossTick = 0;
         }
     }
@@ -158,6 +169,13 @@ void EnemiesSys::updateBehavior(ECS &ecs, Position &pos, Velocity &vel,
         }
         break;
     }
+    case EnemyAI::BehaviorType::CHARGE: {
+        sol::function update = lua["Charge"]["update"];
+        if (update.valid()) {
+            update(lua["Charge"], pos, vel, ai, dt);
+        }
+        break;
+    }
     }
 }
 
@@ -178,7 +196,7 @@ RequestEvent createEnemyWithAI(ECS &ecs, rtype::server::EnemyInfo enemyInfo,
 
     ecs.add_component<rtype::server::Health>(entity, {});
     ecs.add_component<rtype::server::Score>(entity, {enemyInfo.score});
-    ecs.add_component<rtype::server::Tag>(entity, {uuid, EntityType::ENEMY1});
+    ecs.add_component<rtype::server::Tag>(entity, {uuid, enemyInfo.type});
 
     switch (behavior) {
     case rtype::server::EnemyAI::BehaviorType::SINUSOIDAL:
@@ -222,11 +240,17 @@ RequestEvent createEnemyWithAI(ECS &ecs, rtype::server::EnemyInfo enemyInfo,
             entity,
             rtype::server::EnemyAI{.behaviorType = behavior, .speed = 5.0f});
         break;
+
+    case rtype::server::EnemyAI::BehaviorType::CHARGE:
+        ecs.add_component<rtype::server::EnemyAI>(
+            entity,
+            rtype::server::EnemyAI{.behaviorType = behavior, .speed = 5.0f});
+        break;
     }
     return RequestEvent(
         {Protocol::SV_CREATE_ENTITY,
          {{"id", uuid},
-          {"type", EntityType::ENEMY1},
+          {"type", enemyInfo.type},
           {"pos", {{"x", enemyInfo.x_pos}, {"y", enemyInfo.y_pos}}},
           {"hp", enemyInfo.health},
           {"vel", {{"x", enemyInfo.x_velocity}, {"y", enemyInfo.y_velocity}}},
@@ -239,12 +263,13 @@ std::vector<RequestEvent> createSineEnemy(ECS &ecs,
                                           rtype::server::EnemyInfo enemy) {
     rtype::server::EnemyInfo info{.x_pos = enemy.x_pos,
                                   .y_pos = enemy.y_pos,
-                                  .x_velocity = -2,
-                                  .y_velocity = 0,
+                                  .x_velocity = enemy.x_velocity,
+                                  .y_velocity = enemy.y_velocity,
                                   .x_hitbox = enemy.x_hitbox,
                                   .y_hitbox = enemy.y_hitbox,
                                   .health = 100,
-                                  .score = 100};
+                                  .score = 100,
+                                  .type = EntityType::ENEMY2};
     return {createEnemyWithAI(
         ecs, info, rtype::server::EnemyAI::BehaviorType::SINUSOIDAL)};
 }
@@ -259,12 +284,13 @@ std::vector<RequestEvent> createVFormation(ECS &ecs,
     for (int i = 0; i < 5; i++) {
         rtype::server::EnemyInfo info{.x_pos = pos[i].x,
                                       .y_pos = pos[i].y,
-                                      .x_velocity = -2,
-                                      .y_velocity = 1,
+                                      .x_velocity = enemy.x_velocity,
+                                      .y_velocity = enemy.y_velocity,
                                       .x_hitbox = enemy.x_hitbox,
                                       .y_hitbox = enemy.y_hitbox,
                                       .health = 100,
-                                      .score = 150};
+                                      .score = 150,
+                                      .type = EntityType::ENEMY1};
         response.push_back(createEnemyWithAI(
             ecs, info, rtype::server::EnemyAI::BehaviorType::V_FORMATION));
     }
@@ -289,12 +315,13 @@ std::vector<RequestEvent> createChase(ECS &ecs,
                                       rtype::server::EnemyInfo enemy) {
     rtype::server::EnemyInfo info{.x_pos = enemy.x_pos,
                                   .y_pos = enemy.y_pos,
-                                  .x_velocity = -2,
-                                  .y_velocity = 0,
+                                  .x_velocity = enemy.x_velocity,
+                                  .y_velocity = enemy.y_velocity,
                                   .x_hitbox = enemy.x_hitbox,
                                   .y_hitbox = enemy.y_hitbox,
                                   .health = 100,
-                                  .score = 100};
+                                  .score = 100,
+                                  .type = EntityType::ENEMY3};
     return {createEnemyWithAI(ecs, info,
                               rtype::server::EnemyAI::BehaviorType::CHASE)};
 }
@@ -303,24 +330,42 @@ std::vector<RequestEvent> createUpDown(ECS &ecs,
                                        rtype::server::EnemyInfo enemy) {
     rtype::server::EnemyInfo info{.x_pos = enemy.x_pos,
                                   .y_pos = enemy.y_pos,
-                                  .x_velocity = -3,
-                                  .y_velocity = -6,
+                                  .x_velocity = enemy.x_velocity,
+                                  .y_velocity = enemy.y_velocity,
                                   .x_hitbox = enemy.x_hitbox,
                                   .y_hitbox = enemy.y_hitbox,
                                   .health = 100,
-                                  .score = 100};
+                                  .score = 100,
+                                  .type = EntityType::ENEMY5};
     return {createEnemyWithAI(ecs, info,
                               rtype::server::EnemyAI::BehaviorType::UPDOWN)};
+}
+
+std::vector<RequestEvent> createCharge(ECS &ecs,
+                                       rtype::server::EnemyInfo enemy) {
+    rtype::server::EnemyInfo info{.x_pos = enemy.x_pos,
+                                  .y_pos = enemy.y_pos,
+                                  .x_velocity = enemy.x_velocity,
+                                  .y_velocity = enemy.y_velocity,
+                                  .x_hitbox = enemy.x_hitbox,
+                                  .y_hitbox = enemy.y_hitbox,
+                                  .health = 100,
+                                  .score = 100,
+                                  .type = EntityType::ENEMY5};
+    return {createEnemyWithAI(ecs, info,
+                              rtype::server::EnemyAI::BehaviorType::CHARGE)};
 }
 
 std::vector<RequestEvent> createBoss(ECS &ecs, rtype::server::EnemyInfo enemy) {
     rtype::server::EnemyInfo info{.x_pos = enemy.x_pos,
                                   .y_pos = enemy.y_pos,
-                                  .x_velocity = -3,
+                                  .x_velocity = enemy.x_velocity,
+                                  .y_velocity = enemy.y_velocity,
                                   .x_hitbox = enemy.x_hitbox,
                                   .y_hitbox = enemy.y_hitbox,
                                   .health = 100,
-                                  .score = 100};
+                                  .score = 100,
+                                  .type = EntityType::BOSS1};
     return {createEnemyWithAI(ecs, info,
                               rtype::server::EnemyAI::BehaviorType::BOSS)};
 }

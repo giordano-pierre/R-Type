@@ -55,13 +55,13 @@ enum Protocol {
 };
 
 enum EntityType {
-    ENEMY1 = 1,
-    ENEMY2,
-    ENEMY3,
-    ENEMY4,
-    ENEMY5,
+    ENEMY1 = 1, // ship 1 (vformation)
+    ENEMY2,     // ship 2 (sinosoidale)
+    ENEMY3,     // ship 4 (chasse)
+    ENEMY4,     // ship 5 (charge)
+    ENEMY5,     // shop 3 (upDown)
     ENEMY6,
-    BOSS1,
+    BOSS1, // sprite avec les trucs rouges stp
     BOSS2,
     PLAYER,
     SHOT,

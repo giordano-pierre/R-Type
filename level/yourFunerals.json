@@ -1,0 +1,109 @@
+{
+    "stage": {
+        "id": 4,
+        "name": "Your Funerals",
+        "background": "assets/backgrounds/background_mountains.jpg",
+        "music": "assets/audio/stage1_theme.ogg"
+    },
+  "enemies": [
+    {
+        "type": 2,
+        "spawn_time": 0,
+        "position": { "x": 2000, "y": 500 },
+        "velocity": { "x": -4, "y": -7 },
+        "hitbox": { "x": 0.1, "y": 0.18 },
+        "hp": 100,
+        "score": 10
+      },
+    {
+        "type": 2,
+        "spawn_time": 0,
+        "position": { "x": 2000, "y": 900 },
+        "velocity": { "x": -4, "y": -7 },
+        "hitbox": { "x": 0.1, "y": 0.18 },
+        "hp": 100,
+        "score": 10
+      },
+      {
+        "type": 2,
+        "spawn_time": 0,
+        "position": { "x": 2000, "y": 200 },
+        "velocity": { "x": -4, "y": -7 },
+        "hitbox": { "x": 0.1, "y": 0.18 },
+        "hp": 100,
+        "score": 10
+      },
+      {
+        "type": 1,
+        "spawn_time": 100,
+        "position": { "x": 2000, "y": 500 },
+        "velocity": { "x": -4, "y": 0 },
+        "hitbox": { "x": 0.1, "y": 0.18 },
+        "hp": 100,
+        "score": 10
+      },
+      {
+        "type": 1,
+        "spawn_time": 300,
+        "position": { "x": 2000,"y": 500 },
+        "velocity": { "x": -4, "y": 0 },
+        "hitbox": { "x": 0.1, "y": 0.18 },
+        "hp": 100,
+        "score": 10
+      },
+      {
+        "type": 1,
+        "spawn_time": 600,
+        "position": { "x": 2000, "y": 500 },
+        "velocity": { "x": -4, "y": 0 },
+        "hitbox": { "x": 0.1, "y": 0.18 },
+        "hp": 100,
+        "score": 10
+      },
+       {
+        "type": 3,
+        "spawn_time": 1000,
+        "position": { "x": 2000, "y": 300 },
+        "velocity": { "x": -10, "y": 0 },
+        "hitbox": { "x": 0.1, "y": 0.18 },
+        "hp": 100,
+        "score": 10
+      },
+       {
+        "type": 3,
+        "spawn_time": 1000,
+        "position": { "x": 2000, "y": 800 },
+        "velocity": { "x": -10, "y": 0 },
+        "hitbox": { "x": 0.1, "y": 0.18 },
+        "hp": 100,
+        "score": 10
+      },
+      {
+        "type": 4,
+        "spawn_time": 1200,
+        "position": { "x": 2000, "y": 800 },
+        "velocity": { "x": -10, "y": 0 },
+        "hitbox": { "x": 0.1, "y": 0.18 },
+        "hp": 100,
+        "score": 10
+      },
+      {
+        "type": 4,
+        "spawn_time": 1200,
+        "position": { "x": 2000, "y": 200 },
+        "velocity": { "x": -10, "y": 0 },
+        "hitbox": { "x": 0.1, "y": 0.18 },
+        "hp": 100,
+        "score": 10
+      },
+      {
+        "type": 4,
+        "spawn_time": 1200,
+        "position": { "x": 2000, "y": 500},
+        "velocity": { "x": -10, "y": 0 },
+        "hitbox": { "x": 0.1, "y": 0.18 },
+        "hp": 100,
+        "score": 10
+      }
+  ]
+}

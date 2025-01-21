@@ -74,6 +74,13 @@ function UpDown:update(position, velocity, ai, dt)
     end
 end
 
+Charge = {}
+
+function Charge:update(position, velocity, ia, dt)
+    if position.x < 200 then
+        velocity.y = -15
+    end
+end
 
 BossBehavior = {
     currentPhase = 1,
