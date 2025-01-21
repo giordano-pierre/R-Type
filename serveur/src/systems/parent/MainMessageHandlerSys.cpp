@@ -71,8 +71,8 @@ void createPlayers(
                             infos.first._name[i],
                             infos.first._color[i],
                         });
-            std::cout << "Player " << infos.first._name[i] << " "
-                      << infos.first._color[i] << " is created." << std::endl;
+            // std::cout << "Player " << infos.first._name[i] << " "
+                    //   << infos.first._color[i] << " is created." << std::endl;
         }
     }
 }
@@ -101,10 +101,10 @@ void disconnect(ECS &ecs, const ReceiveEvent &rec_event,
             ro.value()._clients_uuid.find(rec_event.sender_uuid));
         child.value()._ecs_child.post<RemoveClient>({rec_event.sender_uuid});
         for (const auto &[uuid, _] : ro.value()._clients_uuid)
-            std::cout << uuid << std::endl;
+            // std::cout << uuid << std::endl;
         if (ro.value()._clients_uuid.empty()) {
             ecs.kill_entity(ecs.entity_from_index(i));
-            std::cout << "Destroy Room !!!" << std::endl;
+            // std::cout << "Destroy Room !!!" << std::endl;
         } else {
             if (ro.value()._master == rec_event.sender_uuid) {
                 ro.value()._master = ro.value()._clients_uuid.begin()->first;
@@ -141,7 +141,7 @@ void createRoom(ECS &ecs, const ReceiveEvent &rec_event,
                 SparseArray<Room> &rooms, SparseArray<Tag> &tags,
                 SparseArray<Child> &children,
                 const SparseArray<Stage> &stages) {
-    std::cout << rec_event.payload.dump() << std::endl;
+    // std::cout << rec_event.payload.dump() << std::endl;
     int nbPlayer = (rec_event.payload.contains("nbp"))
                        ? rec_event.payload["nbp"].get<int>()
                        : 1;
@@ -245,7 +245,7 @@ void joinRoom(ECS &ecs, const ReceiveEvent &rec_event, SparseArray<Room> &rooms,
                     ro.value()._clients_uuid.end() ||
                 ro.value()._state != WAITING)
                 return;
-            std::cout << "Player add." << std::endl;
+            // std::cout << "Player add." << std::endl;
             auto namesP =
                 rec_event.payload["p_name"].get<std::vector<std::string>>();
             auto colorsP =
