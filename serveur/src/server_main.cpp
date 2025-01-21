@@ -18,6 +18,9 @@
 #include <csignal>
 #include <cstdlib>
 #include <iostream>
+#include "systems/child/PowerupSys.hpp"
+#include "systems/child/PowerupSys.hpp"
+
 
 bool running = true;
 
@@ -85,18 +88,25 @@ void initMainECS(ECS &ecs) {
     ecs.register_component<rtype::server::Child>();
     ecs.register_component<rtype::server::Utils>();
     ecs.register_component<rtype::server::Position>();
+    ecs.register_component<rtype::server::Powerup>();
+    ecs.register_component<rtype::server::HitBox>();
+
 
     ecs.register_event<rtype::server::TicEvent>();
     ecs.register_event<RequestEvent>();
     ecs.register_event<ReceiveEvent>();
     ecs.register_event<rtype::server::CheckEvent>();
     ecs.register_event<rtype::server::UpdateEvent>();
+    ecs.register_event<rtype::server::PowerupEvent>();
+    auto test =  rtype::server::PowerupSys();
+    ecs.subscribe<rtype::server::PowerupEvent>(test);
 
     Entity base = ecs.spawn_entity();
     ecs.add_component<rtype::server::Utils>(base, {});
 }
 
 void loadMainSystems(ECS &ecs) {
+
     auto handler = rtype::server::MainMessageHandlerSys();
     ecs.subscribe<ReceiveEvent, rtype::server::Utils, rtype::server::Room,
                   rtype::server::Tag, rtype::server::Stage,

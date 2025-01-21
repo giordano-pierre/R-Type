@@ -85,7 +85,8 @@ enum EntityType {
     BOSS2,
     PLAYER,
     SHOT,
-    OTHER
+    POWERUP,
+    OTHER,
 };
 
 const std::unordered_map<EntityType, std::string> TypeToString{

@@ -8,6 +8,7 @@
 #include "Child.hpp"
 #include "systems/child/Singleton.hpp"
 #include "systems/child/SpawnQueue.hpp"
+#include "systems/child/PowerupSys.hpp"
 
 auto spawnQueue = SpawnQueue();
 namespace rtype::server {
@@ -25,10 +26,12 @@ void initSubECS(ECS &ecs) {
     ecs.register_component<Dead>();
     ecs.register_component<Owner>();
     ecs.register_component<EnemyAI>();
+    ecs.register_component<Powerup>();
 
     ecs.register_event<TicEvent>();
     ecs.register_event<RemoveClient>();
     ecs.register_event<ReceiveEvent>();
+    ecs.register_event<rtype::server::PowerupEvent>();
 }
 
 void loadSubSystem(Child &child) {
@@ -37,6 +40,8 @@ void loadSubSystem(Child &child) {
 }
 
 void loadSubGameSystem(Child &child) {
+    auto test =  rtype::server::PowerupSys();
+    child._ecs_child.subscribe<rtype::server::PowerupEvent>(test);
     child._ecs_child.subscribe<TicEvent, Position, Velocity>(child._moveSys);
     child._ecs_child.subscribe<TicEvent, Health>(child._hpSys);
     child._ecs_child

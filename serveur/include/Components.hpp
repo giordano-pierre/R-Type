@@ -25,6 +25,14 @@ enum StateGame {
     WAITING,
 };
 
+struct Powerup {
+    Powerup( int type, float duration) : _type(type), _duration(duration) {};
+    ~Powerup() = default;
+
+    int _type;
+    float _duration;
+};
+
 struct EnemyInfo {
     float x_pos;
     float y_pos;
