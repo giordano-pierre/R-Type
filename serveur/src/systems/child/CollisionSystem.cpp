@@ -84,6 +84,7 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
                     const auto enemyScore = scores[j].value()._score;
                     scores[idPlayer].value()._score += enemyScore;
                 }
+                ecs.post<PowerupEvent>(PowerupEvent(pos2->x, pos2->y, 0, 10.0));
             }
             if (isEnemy(tag1.value()._type) && tag2.value()._type == SHOT) {
                 ecs.add_component<Dead>(ecs.entity_from_index(i), {});
@@ -95,6 +96,21 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
                     const auto enemyScore = scores[i].value()._score;
                     scores[idPlayer].value()._score += enemyScore;
                 }
+                ecs.post<PowerupEvent>(PowerupEvent(pos1->x, pos1->y, 0, 10.0));
+            }
+            if (tag1.value()._type == PLAYER && tag2.value()._type == POWERUP) {
+                ecs.add_component<Dead>(ecs.entity_from_index(j), {});
+
+                if (j < owners.size() && owners[j]) {
+                    const std::size_t idPlayer =
+                        getShotOwner(ecs, tags, owners[j].value()._id_owner);
+                    const auto enemyScore = scores[i].value()._score;
+                    scores[idPlayer].value()._score += enemyScore;
+                }
+                Entity player = ecs.entity_from_index(i);
+                auto &powerup = ecs.get_components<Powerup>()[j].value();
+
+                ecs.add_component<Powerup>(player, Powerup(powerup));
             }
         }
     }
