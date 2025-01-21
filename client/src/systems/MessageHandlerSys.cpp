@@ -70,17 +70,26 @@ void createDrawable(ECS &ecs, Entity &entity, SFMLObjects &SFMLObj,
             std::cout << "sgsesegseg" << std::endl;
         }
         switch (type->_type) {
-        case (SHIELD):
-            ecs.add_component<Drawable>(
-                entity, {SFMLObj._myTextures.getTexture(
-                             "assets/images/powerups/shield.png"),
-                         {250, 250},
-                         {250, 250},
-                         1,
-                         2});
-            break;
-        default:
-            break;
+            case (SHIELD):
+                ecs.add_component<Drawable>(entity,
+                                    {SFMLObj._myTextures.getTexture(
+                                         "assets/images/powerups/shield.png"),
+                                     {250, 250},
+                                     {250, 250},
+                                     1,
+                                     2});
+                break;
+            case (BONUSLIFE):
+                ecs.add_component<Drawable>(entity,
+                                    {SFMLObj._myTextures.getTexture(
+                                         "assets/images/powerups/life.png"),
+                                     {250, 250},
+                                     {250, 250},
+                                     1,
+                                     2});
+                break;
+            default:
+                break;
         }
         break;
     }
