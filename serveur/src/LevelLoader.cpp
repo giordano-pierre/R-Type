@@ -24,7 +24,7 @@ void LevelLoader::reset(void) {
                 cmpt += 1;
                 _map.insert(
                     {cmpt, "level/" + entry.path().filename().string()});
-                std::cout << entry.path().filename().string() << std::endl;
+                // std::cout << entry.path().filename().string() << std::endl;
             }
         } else {
             std::cerr

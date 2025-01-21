@@ -121,7 +121,7 @@ void loadMainSystems(ECS &ecs) {
 }
 
 int main(int ac, char *argv[]) {
-    // try {
+    try {
     if (ac != 1 && ac != 2)
         return 84;
 
@@ -152,9 +152,9 @@ int main(int ac, char *argv[]) {
     std::cout << "===============================" << std::endl << std::endl;
     std::cout << "... Serveur arrêté avec succès. Bien joué!" << std::endl;
     std::cout << "N'hésite pas a rejoindre Arts&Crafts ;)" << std::endl;
-    // } catch (const std::exception &e) {
-    //     std::cerr << "Aie aie aie... \nServer error: " << e.what() <<
-    //     std::endl; return 1;
-    // }
+    } catch (const std::exception &e) {
+        std::cerr << "Aie aie aie... \nServer error: " << e.what() <<
+        std::endl; return 1;
+    }
     return 0;
 }
