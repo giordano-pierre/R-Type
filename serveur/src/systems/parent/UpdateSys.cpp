@@ -31,6 +31,8 @@ void UpdateSys::operator()(ECS &ecs, const UpdateEvent &up_event,
                 child.value()._ecs_child.get_components<Health>();
             const auto &scores =
                 child.value()._ecs_child.get_components<Score>();
+            const auto &powerups =
+                child.value()._ecs_child.get_components<Powerup>();
 
             ro.value()._lastUpdate = ((ro.value()._lastUpdate + 1) > 20)
                                          ? 1
@@ -63,6 +65,11 @@ void UpdateSys::operator()(ECS &ecs, const UpdateEvent &up_event,
                     if (j < players.size() && players[j]) {
                         request["p_name"] = players[j].value()._name;
                         request["p_color"] = players[j].value()._color;
+                    }
+                    if (j < powerups.size() && powerups[j]) {
+                        request["pu"] = powerups[j].value()._type;
+                        std::cout << "Sending type :" << request["pu"]
+                                  << std::endl;
                     }
                     for (const auto &[uuid, _] : ro.value()._clients_uuid) {
                         ecs.post<RequestEvent>(

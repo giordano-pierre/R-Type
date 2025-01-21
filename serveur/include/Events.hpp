@@ -50,4 +50,14 @@ struct UpdateEvent {
     timer::time_point<timer::steady_clock> time_stamp;
 };
 
+struct PowerupEvent {
+    PowerupEvent(float posX, float posY, int type, float dur)
+        : _x(posX), _y(posY), _type(type), _duration(dur) {}
+    ~PowerupEvent() = default;
+    float _x;
+    float _y;
+    int _type;
+    float _duration;
+};
+
 } // namespace rtype::server

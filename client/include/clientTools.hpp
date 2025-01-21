@@ -47,6 +47,13 @@ enum SceneType {
     CUSTOM,
 };
 
+enum PowerupType {
+    SHIELD = 0,
+    BONUSLIFE,
+    TIMESTOP,
+    ENNEMYDESTRUCTION,
+};
+
 enum UserInput {
     NOTHING = 0,
     ENTER,

@@ -9,6 +9,7 @@
 #include "ClientHandlerSystem.hpp"
 #include "ECS/ECS.hpp"
 #include "clientTools.hpp"
+#include "components/Powerup.hpp"
 #include "createEntities.hpp"
 #include "ecsObjects.hpp"
 #include "events/CaptureInputEvent.hpp"
@@ -53,6 +54,7 @@ int main(int ac, char *argv[]) {
     ecs.register_component<rtype::client::Room>();
     ecs.register_component<rtype::client::PlayerInfo>();
     ecs.register_component<rtype::client::Sound>();
+    ecs.register_component<rtype::client::Powerup>();
 
     ecs.register_event<rtype::client::FrameEvent>();
     ecs.register_event<rtype::client::InputEvent>();

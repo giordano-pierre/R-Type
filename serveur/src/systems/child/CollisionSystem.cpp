@@ -6,6 +6,7 @@
 */
 
 #include "systems/child/CollisionSystem.hpp"
+#include "Components.hpp"
 #include "tools.hpp"
 #include <iostream>
 
@@ -21,6 +22,18 @@ size_t getShotOwner(ECS &ecs, const SparseArray<Tag> &tags,
         }
     }
     return -1;
+}
+
+bool hasPowerup(ECS &ecs, int index, int type) {
+    const auto &powerups = ecs.get_components<rtype::server::Powerup>();
+
+    if (index >= 0 && index < powerups.size() && powerups[index]) {
+        const auto &pu = powerups[index].value();
+        if (pu._type == type) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void CollisionSys::operator()(ECS &ecs, const TicEvent &,
@@ -64,6 +77,8 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
                 continue;
             if (tag1.value()._type == PLAYER && isEnemy(tag2.value()._type)) {
                 if (i < healths.size() && healths[i]) {
+                    if (hasPowerup(ecs, i, SHIELD))
+                        continue;
                     if (!healths[i].value()._infinite)
                         healths[i].value()._health -= 10;
                 }
@@ -77,6 +92,8 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
             if (tag2.value()._type == PLAYER && isEnemy(tag1.value()._type)) {
                 ecs.add_component<Dead>(ecs.entity_from_index(i), {});
                 if (j < healths.size() && healths[j]) {
+                    if (hasPowerup(ecs, j, SHIELD))
+                        continue;
                     if (!healths[j].value()._infinite)
                         healths[j].value()._health -= 10;
                 }
@@ -101,8 +118,10 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
                         }
                     }
                 }
+                ecs.post<PowerupEvent>(PowerupEvent(pos2->x, pos2->y, 5, 10.0));
             }
             if (isEnemy(tag1.value()._type) && tag2.value()._type == SHOT) {
+                ecs.add_component<Dead>(ecs.entity_from_index(i), {});
                 ecs.add_component<Dead>(ecs.entity_from_index(j), {});
                 if (i < healths.size() && healths[i]) {
                     healths[i].value()._health -= 10;
@@ -116,6 +135,21 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
                         }
                     }
                 }
+                ecs.post<PowerupEvent>(PowerupEvent(pos1->x, pos1->y, 5, 10.0));
+            }
+            if (tag1.value()._type == PLAYER && tag2.value()._type == POWERUP) {
+                ecs.add_component<Dead>(ecs.entity_from_index(j), {});
+
+                if (j < owners.size() && owners[j]) {
+                    const std::size_t idPlayer =
+                        getShotOwner(ecs, tags, owners[j].value()._id_owner);
+                    const auto enemyScore = scores[i].value()._score;
+                    scores[idPlayer].value()._score += enemyScore;
+                }
+                Entity player = ecs.entity_from_index(i);
+                auto &powerup = ecs.get_components<Powerup>()[j].value();
+
+                ecs.add_component<Powerup>(player, Powerup(powerup));
             }
         }
     }
