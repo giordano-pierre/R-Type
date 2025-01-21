@@ -22,6 +22,10 @@ void AnimeSys::operator()(ECS &ecs, const AnimeEvent &,
         }
         sprite.value()._currentFrame += 1;
         if (sprite.value()._currentFrame > sprite.value()._nbFrame) {
+            if (sprite.value()._destroy) {
+                ecs.kill_entity(ecs.entity_from_index(i));
+                continue;
+            }
             sprite.value()._currentFrame = 1;
             sprite.value()._rectangle.left = 0;
             sprite.value()._rectangle.top = 0;
@@ -34,6 +38,10 @@ void AnimeSys::operator()(ECS &ecs, const AnimeEvent &,
         }
         if (sprite.value()._rectangle.top >
             (sprite.value()._sizeTexture.y - 1)) {
+            if (sprite.value()._destroy) {
+                ecs.kill_entity(ecs.entity_from_index(i));
+                continue;
+            }
             sprite.value()._rectangle.left = 0;
             sprite.value()._rectangle.top = 0;
             sprite.value()._currentFrame = 1;

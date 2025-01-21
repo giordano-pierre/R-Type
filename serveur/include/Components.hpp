@@ -69,9 +69,10 @@ struct Room {
     std::map<std::string, std::pair<PlayerInfo, int>> _clients_uuid;
     int _lastUpdate;
     StateGame _state = WAITING;
+    int _diff;
 
-    Room(std::string name, std::string master, int nbPlayer)
-        : _name(name), _master(master) {
+    Room(std::string name, std::string master, int nbPlayer, int diff)
+        : _name(name), _master(master), _diff(diff) {
         _lastUpdate = 0;
     }
 };
@@ -84,13 +85,6 @@ struct Stage {
     Stage(const std::string &file) : _mapFile(file) {
         std::ifstream f(file);
         _json = nlohmann::json::parse(f);
-        // std::vector<EnemyInfo> enemies = {
-        //     {2000, 500, -9, 0, 0.1, 0.18, 100, 60, 0, ENEMY1},
-        //     {2000, 1000, -8, 0, 0.1, 0.18, 100, 30, 100, ENEMY1},
-        //     {2000, 800, -7, 0, 0.1, 0.18, 100, 50, 100, ENEMY1},
-        //     {2000, 100, -10, 0, 0.1, 0.18, 100, 40, 200, ENEMY1}};
-        // // à créer en fonction du fichier
-        // _enemies = enemies;
     }
 };
 
@@ -139,8 +133,10 @@ struct HitBox {
 
 struct Health {
     int _health;
+    bool _infinite;
 
-    Health(int health = 10) : _health(health){};
+    Health(int health = 10, bool infinite = false)
+        : _health(health), _infinite(infinite){};
 };
 
 struct Dead {
@@ -167,6 +163,7 @@ struct EnemyAI {
         V_FORMATION,
         BOSS,
         UPDOWN,
+        CHARGE,
     } behaviorType;
 
     float amplitude = 0.0f;

@@ -14,7 +14,7 @@
 namespace rtype::client {
 
 void ShootSys::operator()(ECS &ecs, const InputEvent &e_input,
-                          const SparseArray<Playable> &players,
+                          SparseArray<Playable> &players,
                           const SparseArray<Position> &positions,
                           const SparseArray<Hitbox> &hitboxs,
                           const SparseArray<Tag> &tags) {
@@ -35,18 +35,20 @@ void ShootSys::operator()(ECS &ecs, const InputEvent &e_input,
     for (size_t i = 0; i < players.size() && i < positions.size() &&
                        i < hitboxs.size() && i < tags.size();
          ++i) {
-        const auto &play = players[i];
+        auto &play = players[i];
         const auto &pos = positions[i];
         const auto &box = hitboxs[i];
         const auto &tag = tags[i];
 
         if (play && pos && box && tag && player1Shoot &&
-            play.value()._id == 1) {
+            play.value()._id == 1 && play.value()._newShot <= 0) {
             ecs.post<RequestEvent>({CL_SHOOT, {{"idp", tag.value()._id}}});
+            play.value()._newShot = 10;
         }
         if (play && pos && box && tag && player2Shoot &&
-            play.value()._id == 2) {
+            play.value()._id == 2 && play.value()._newShot <= 0) {
             ecs.post<RequestEvent>({CL_SHOOT, {{"idp", tag.value()._id}}});
+            play.value()._newShot = 10;
         }
     }
 }

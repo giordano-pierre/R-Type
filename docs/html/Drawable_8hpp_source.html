@@ -98,7 +98,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="structrtype_1_1client_1_1Drawable.html">   14</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrtype_1_1client_1_1Drawable.html">Drawable</a> {</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <a class="code hl_struct" href="structrtype_1_1client_1_1Drawable.html">Drawable</a>(<span class="keyword">const</span> std::shared_ptr&lt;sf::Texture&gt; texture,</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>             <span class="keyword">const</span> <a class="code hl_struct" href="structrtype_1_1client_1_1TupleInt.html">TupleInt</a> sizeTexture, <span class="keyword">const</span> <a class="code hl_struct" href="structrtype_1_1client_1_1TupleInt.html">TupleInt</a> sizeFrame, <span class="keywordtype">int</span> nbFrame,</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>             <span class="keywordtype">int</span> order = 0);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>             <span class="keywordtype">int</span> order = 0, <span class="keywordtype">bool</span> destroy = <span class="keyword">false</span>);</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <a class="code hl_struct" href="structrtype_1_1client_1_1Drawable.html">~Drawable</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordtype">int</span> _nbFrame;</div>
@@ -106,14 +106,15 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <a class="code hl_struct" href="structrtype_1_1client_1_1TupleInt.html">TupleInt</a> _sizeTexture;</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <a class="code hl_struct" href="structrtype_1_1client_1_1TupleInt.html">TupleInt</a> _sizeFrame;</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordtype">bool</span> _activated = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordtype">int</span> _order;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    std::shared_ptr&lt;sf::Texture&gt; _texture;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    sf::IntRect _rectangle;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    sf::Sprite _sprite;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>};</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordtype">bool</span> _destroy;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordtype">int</span> _order;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    std::shared_ptr&lt;sf::Texture&gt; _texture;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    sf::IntRect _rectangle;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    sf::Sprite _sprite;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>};</div>
 </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>} <span class="comment">// namespace rtype::client</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>} <span class="comment">// namespace rtype::client</span></div>
 <div class="ttc" id="astructrtype_1_1client_1_1Drawable_html"><div class="ttname"><a href="structrtype_1_1client_1_1Drawable.html">rtype::client::Drawable</a></div><div class="ttdef"><b>Definition</b> Drawable.hpp:14</div></div>
 <div class="ttc" id="astructrtype_1_1client_1_1TupleInt_html"><div class="ttname"><a href="structrtype_1_1client_1_1TupleInt.html">rtype::client::TupleInt</a></div><div class="ttdef"><b>Definition</b> clientTools.hpp:15</div></div>
 </div><!-- fragment --></div><!-- contents -->

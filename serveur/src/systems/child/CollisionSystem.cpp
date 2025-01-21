@@ -77,11 +77,17 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
                 tempY1 + box1.value().height < tempY2)
                 continue;
             if (tag1.value()._type == PLAYER && isEnemy(tag2.value()._type)) {
-                ecs.add_component<Dead>(ecs.entity_from_index(j), {});
                 if (i < healths.size() && healths[i]) {
                     if (hasPowerup(ecs, i, SHIELD))
                         continue;
-                    healths[i].value()._health -= 10;
+                    if (!healths[i].value()._infinite)
+                        healths[i].value()._health -= 10;
+                }
+                if (j < healths.size() && healths[j]) {
+                    healths[j].value()._health -= 10;
+                    if (healths[j].value()._health <= 0) {
+                        ecs.add_component<Dead>(ecs.entity_from_index(j), {});
+                    }
                 }
             }
             if (tag2.value()._type == PLAYER && isEnemy(tag1.value()._type)) {
@@ -89,30 +95,46 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
                 if (j < healths.size() && healths[j]) {
                     if (hasPowerup(ecs, j, SHIELD))
                         continue;
-                    healths[j].value()._health -= 10;
+                    if (!healths[j].value()._infinite)
+                        healths[j].value()._health -= 10;
+                }
+                if (i < healths.size() && healths[i]) {
+                    healths[i].value()._health -= 10;
+                    if (healths[i].value()._health <= 0) {
+                        ecs.add_component<Dead>(ecs.entity_from_index(i), {});
+                    }
                 }
             }
             if (tag1.value()._type == SHOT && isEnemy(tag2.value()._type)) {
                 ecs.add_component<Dead>(ecs.entity_from_index(i), {});
-                ecs.add_component<Dead>(ecs.entity_from_index(j), {});
-
-                if (i < owners.size() && owners[i]) {
-                    const std::size_t idPlayer =
-                        getShotOwner(ecs, tags, owners[i].value()._id_owner);
-                    const auto enemyScore = scores[j].value()._score;
-                    scores[idPlayer].value()._score += enemyScore;
+                if (j < healths.size() && healths[j]) {
+                    healths[j].value()._health -= 10;
+                    if (healths[j].value()._health <= 0) {
+                        ecs.add_component<Dead>(ecs.entity_from_index(j), {});
+                        if (i < owners.size() && owners[i]) {
+                            const std::size_t idPlayer = getShotOwner(
+                                ecs, tags, owners[i].value()._id_owner);
+                            const auto enemyScore = scores[j].value()._score;
+                            scores[idPlayer].value()._score += enemyScore;
+                        }
+                    }
                 }
                 ecs.post<PowerupEvent>(PowerupEvent(pos2->x, pos2->y, 5, 10.0));
             }
             if (isEnemy(tag1.value()._type) && tag2.value()._type == SHOT) {
                 ecs.add_component<Dead>(ecs.entity_from_index(i), {});
                 ecs.add_component<Dead>(ecs.entity_from_index(j), {});
-
-                if (j < owners.size() && owners[j]) {
-                    const std::size_t idPlayer =
-                        getShotOwner(ecs, tags, owners[j].value()._id_owner);
-                    const auto enemyScore = scores[i].value()._score;
-                    scores[idPlayer].value()._score += enemyScore;
+                if (i < healths.size() && healths[i]) {
+                    healths[i].value()._health -= 10;
+                    if (healths[i].value()._health <= 0) {
+                        ecs.add_component<Dead>(ecs.entity_from_index(i), {});
+                        if (j < owners.size() && owners[j]) {
+                            const std::size_t idPlayer = getShotOwner(
+                                ecs, tags, owners[j].value()._id_owner);
+                            const auto enemyScore = scores[i].value()._score;
+                            scores[idPlayer].value()._score += enemyScore;
+                        }
+                    }
                 }
                 ecs.post<PowerupEvent>(PowerupEvent(pos1->x, pos1->y, 5, 10.0));
             }

@@ -11,24 +11,6 @@
 #include <boost/uuid/uuid_io.hpp>
 #include <nlohmann/json.hpp>
 
-// enum Protocol {
-//     // Connection
-//     CONNECT = 1,
-//     NEW_CLIENT,
-//     SEND_UUID,
-
-//     // Events
-//     CLIENT_READY,
-//     GAME_START,
-//     CLIENT_CREATE,
-//     CREATE_ENTITY,
-//     UPDATE_ENTITY,
-//     CLIENT_INPUT,
-//     CLIENT_DISCONNECT,
-//     GAME_OVER,
-//     CREATE_PLAYER,
-// };
-
 enum Protocol {
     // Connexion
     CONNECT, // -> Serveur ajoute le client -> le client ajoute son uuid (vide ,
@@ -49,9 +31,7 @@ enum Protocol {
 
     // Stage Handler
     // (info_stage = nb, diff, lock)
-    GET_STAGE,    // -> Serveur envoi les niveaux au client (vide, info_stages)
-    SELECT_STAGE, // -> Serveur selectionne le niveaux pour la partie ->
-    // informe les autres clients (id_stage, info_stage)
+    GET_STAGE, // -> Serveur envoi les niveaux au client (vide, info_stages)
 
     // Game Handler
     // (info_players = id, hp, sc)
@@ -75,13 +55,13 @@ enum Protocol {
 };
 
 enum EntityType {
-    ENEMY1 = 1,
-    ENEMY2,
-    ENEMY3,
-    ENEMY4,
-    ENEMY5,
+    ENEMY1 = 1, // ship 1 (vformation)
+    ENEMY2,     // ship 2 (sinosoidale)
+    ENEMY3,     // ship 4 (chasse)
+    ENEMY4,     // ship 5 (charge)
+    ENEMY5,     // shop 3 (upDown)
     ENEMY6,
-    BOSS1,
+    BOSS1, // sprite avec les trucs rouges stp
     BOSS2,
     PLAYER,
     SHOT,

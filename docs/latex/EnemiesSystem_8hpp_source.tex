@@ -1,0 +1,63 @@
+\doxysection{Enemies\+System.\+hpp}
+\hypertarget{EnemiesSystem_8hpp_source}{}\label{EnemiesSystem_8hpp_source}\index{serveur/include/systems/child/EnemiesSystem.hpp@{serveur/include/systems/child/EnemiesSystem.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ EPITECH\ PROJECT,\ 2024}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**\ R-\/Type}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**\ File\ description:}}
+\DoxyCodeLine{00005\ \textcolor{comment}{**\ EnemiesSystem.hpp}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}Components.hpp"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}ECS/ECS.hpp"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <sol/sol.hpp>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }rtype::server\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrtype_1_1server_1_1EnemiesSys}{EnemiesSys}}\ \{}
+\DoxyCodeLine{00016\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00017\ \ \ \ \ sol::state\ lua;}
+\DoxyCodeLine{00018\ \ \ \ \ std::string\ scriptsPath\ =\ \textcolor{stringliteral}{"{}serveur/script/EnemiesComponant.lua"{}};}
+\DoxyCodeLine{00019\ \ \ \ \ std::unordered\_map<size\_t,\ float>\ entityTimes;}
+\DoxyCodeLine{00020\ \ \ \ \ std::size\_t\ \_bossPhase\ =\ 0;}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1server_1_1Position}{Position}}\ \_bossTarget\ =\ \mbox{\hyperlink{structrtype_1_1server_1_1Position}{Position}}(0,\ 0);}
+\DoxyCodeLine{00022\ \ \ \ \ std::size\_t\ \_bossTick\ =\ 0;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ initLua();}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ registerComponents();}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ loadBehaviors();}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ updateBoss(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \mbox{\hyperlink{structrtype_1_1server_1_1Position}{Position}}\ \&pos,\ \mbox{\hyperlink{structrtype_1_1server_1_1Velocity}{Velocity}}\ \&vel,\ \mbox{\hyperlink{structrtype_1_1server_1_1EnemyAI}{EnemyAI}}\ \&ai,}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ dt,\ \mbox{\hyperlink{structrtype_1_1server_1_1Position}{rtype::server::Position}}\ \&posPlayer);}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ updateBehavior(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \mbox{\hyperlink{structrtype_1_1server_1_1Position}{Position}}\ \&pos,\ \mbox{\hyperlink{structrtype_1_1server_1_1Velocity}{Velocity}}\ \&vel,\ \mbox{\hyperlink{structrtype_1_1server_1_1EnemyAI}{EnemyAI}}\ \&ai,}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ dt,\ \mbox{\hyperlink{structrtype_1_1server_1_1Position}{rtype::server::Position}}\ \&posPlayer);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1server_1_1EnemiesSys}{EnemiesSys}}();}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1server_1_1EnemiesSys}{\string~EnemiesSys}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1server_1_1TicEvent}{rtype::server::TicEvent}}\ \&tic,}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Position>}}\ \&positions,}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classSparseArray}{SparseArray<Tag>}}\ \&tags,\ \mbox{\hyperlink{classSparseArray}{SparseArray<EnemyAI>}}\ \&ais,}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Velocity>}}\ \&velocities);}
+\DoxyCodeLine{00040\ \};}
+\DoxyCodeLine{00041\ \}\ \textcolor{comment}{//\ namespace\ rtype::server}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ std::vector<RequestEvent>\ createSineEnemy(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrtype_1_1server_1_1EnemyInfo}{rtype::server::EnemyInfo}}\ enemy);}
+\DoxyCodeLine{00045\ \mbox{\hyperlink{structRequestEvent}{RequestEvent}}\ createEnemyWithAI(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \mbox{\hyperlink{structrtype_1_1server_1_1EnemyInfo}{rtype::server::EnemyInfo}}\ enemyInfo,}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rtype::server::EnemyAI::BehaviorType\ behavior);}
+\DoxyCodeLine{00047\ std::vector<RequestEvent>\ createVFormation(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrtype_1_1server_1_1EnemyInfo}{rtype::server::EnemyInfo}}\ enemy);}
+\DoxyCodeLine{00049\ std::vector<RequestEvent>\ createCircle(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrtype_1_1server_1_1EnemyInfo}{rtype::server::EnemyInfo}}\ enemy);}
+\DoxyCodeLine{00051\ std::vector<RequestEvent>\ createChase(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \mbox{\hyperlink{structrtype_1_1server_1_1EnemyInfo}{rtype::server::EnemyInfo}}\ enemy);}
+\DoxyCodeLine{00052\ std::vector<RequestEvent>\ createUpDown(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrtype_1_1server_1_1EnemyInfo}{rtype::server::EnemyInfo}}\ enemy);}
+\DoxyCodeLine{00054\ std::vector<RequestEvent>\ createBoss(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \mbox{\hyperlink{structrtype_1_1server_1_1EnemyInfo}{rtype::server::EnemyInfo}}\ enemy);}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ std::vector<RequestEvent>\ createCharge(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrtype_1_1server_1_1EnemyInfo}{rtype::server::EnemyInfo}}\ enemy);}
+
+\end{DoxyCode}

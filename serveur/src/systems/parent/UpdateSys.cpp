@@ -34,7 +34,7 @@ void UpdateSys::operator()(ECS &ecs, const UpdateEvent &up_event,
             const auto &powerups =
                 child.value()._ecs_child.get_components<Powerup>();
 
-            ro.value()._lastUpdate = ((ro.value()._lastUpdate + 1) > 10)
+            ro.value()._lastUpdate = ((ro.value()._lastUpdate + 1) > 20)
                                          ? 1
                                          : (ro.value()._lastUpdate + 1);
 

@@ -30,9 +30,11 @@ struct TupleFloat {
 enum SceneType {
     MENU = 1,
     M_GENERAL,
-    M_PLAYER, // à modifier
-    M_ROOM,   // à faire
-    M_IN_ROOM,
+    M_PLAYER,
+    M_ALL_ROOM,
+    M_MY_ROOM,
+    M_CREATE_ROOM,
+    // M_IN_ROOM,
     MENUROOM,
     M_STAGE, // à faire
     M_PERSO, // à faire
@@ -42,6 +44,7 @@ enum SceneType {
     M_C_PLAYER2,
     GAME,    // à améliorer
     G_PAUSE, // à faire
+    CUSTOM,
 };
 
 enum PowerupType {

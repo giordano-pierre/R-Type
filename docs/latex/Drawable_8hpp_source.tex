@@ -18,7 +18,7 @@
 \DoxyCodeLine{00014\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrtype_1_1client_1_1Drawable}{Drawable}}\ \{}
 \DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1Drawable}{Drawable}}(\textcolor{keyword}{const}\ std::shared\_ptr<sf::Texture>\ texture,}
 \DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1TupleInt}{TupleInt}}\ sizeTexture,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1TupleInt}{TupleInt}}\ sizeFrame,\ \textcolor{keywordtype}{int}\ nbFrame,}
-\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ order\ =\ 0);}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ order\ =\ 0,\ \textcolor{keywordtype}{bool}\ destroy\ =\ \textcolor{keyword}{false});}
 \DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1Drawable}{\string~Drawable}}()\ =\ \textcolor{keywordflow}{default};}
 \DoxyCodeLine{00019\ }
 \DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{int}\ \_nbFrame;}
@@ -26,12 +26,13 @@
 \DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1TupleInt}{TupleInt}}\ \_sizeTexture;}
 \DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1TupleInt}{TupleInt}}\ \_sizeFrame;}
 \DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_activated\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{int}\ \_order;}
-\DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \ \ \ \ std::shared\_ptr<sf::Texture>\ \_texture;}
-\DoxyCodeLine{00028\ \ \ \ \ sf::IntRect\ \_rectangle;}
-\DoxyCodeLine{00029\ \ \ \ \ sf::Sprite\ \_sprite;}
-\DoxyCodeLine{00030\ \};}
-\DoxyCodeLine{00031\ \}\ \textcolor{comment}{//\ namespace\ rtype::client}}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_destroy;}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{int}\ \_order;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ std::shared\_ptr<sf::Texture>\ \_texture;}
+\DoxyCodeLine{00029\ \ \ \ \ sf::IntRect\ \_rectangle;}
+\DoxyCodeLine{00030\ \ \ \ \ sf::Sprite\ \_sprite;}
+\DoxyCodeLine{00031\ \};}
+\DoxyCodeLine{00032\ \}\ \textcolor{comment}{//\ namespace\ rtype::client}}
 
 \end{DoxyCode}

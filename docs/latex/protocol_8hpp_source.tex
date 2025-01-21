@@ -15,110 +15,85 @@
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <boost/uuid/uuid\_io.hpp>}}
 \DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <nlohmann/json.hpp>}}
 \DoxyCodeLine{00013\ }
-\DoxyCodeLine{00014\ \textcolor{comment}{//\ enum\ Protocol\ \{}}
-\DoxyCodeLine{00015\ \textcolor{comment}{//\ \ \ \ \ //\ Connection}}
-\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ \ \ CONNECT\ =\ 1,}}
-\DoxyCodeLine{00017\ \textcolor{comment}{//\ \ \ \ \ NEW\_CLIENT,}}
-\DoxyCodeLine{00018\ \textcolor{comment}{//\ \ \ \ \ SEND\_UUID,}}
-\DoxyCodeLine{00019\ }
-\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ \ \ //\ Events}}
-\DoxyCodeLine{00021\ \textcolor{comment}{//\ \ \ \ \ CLIENT\_READY,}}
-\DoxyCodeLine{00022\ \textcolor{comment}{//\ \ \ \ \ GAME\_START,}}
-\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ \ \ CLIENT\_CREATE,}}
-\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ \ \ CREATE\_ENTITY,}}
-\DoxyCodeLine{00025\ \textcolor{comment}{//\ \ \ \ \ UPDATE\_ENTITY,}}
-\DoxyCodeLine{00026\ \textcolor{comment}{//\ \ \ \ \ CLIENT\_INPUT,}}
-\DoxyCodeLine{00027\ \textcolor{comment}{//\ \ \ \ \ CLIENT\_DISCONNECT,}}
-\DoxyCodeLine{00028\ \textcolor{comment}{//\ \ \ \ \ GAME\_OVER,}}
-\DoxyCodeLine{00029\ \textcolor{comment}{//\ \ \ \ \ CREATE\_PLAYER,}}
-\DoxyCodeLine{00030\ \textcolor{comment}{//\ \};}}
+\DoxyCodeLine{00014\ \textcolor{keyword}{enum}\ Protocol\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{comment}{//\ Connexion}}
+\DoxyCodeLine{00016\ \ \ \ \ CONNECT,\ \textcolor{comment}{//\ -\/>\ Serveur\ ajoute\ le\ client\ -\/>\ le\ client\ ajoute\ son\ uuid\ (vide\ ,}}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ uuid)}}
+\DoxyCodeLine{00018\ \ \ \ \ DISCONNECT,\ \textcolor{comment}{//\ -\/>\ Server\ supprime\ le\ client\ de\ toutes\ ces\ variable\ (vide,}}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ OK)}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{comment}{//\ Room\ Handler}}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{comment}{//\ (info\_room\ =\ id,\ nb\_max,\ nb\_cur)}}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{comment}{//\ (info\_player\ =\ id,\ color)}}
+\DoxyCodeLine{00024\ \ \ \ \ GET\_ROOM,\ \ \ \ \textcolor{comment}{//\ -\/>\ Serveur\ envoi\ les\ rooms\ au\ client\ (vide,\ info\_rooms)}}
+\DoxyCodeLine{00025\ \ \ \ \ CREATE\_ROOM,\ \textcolor{comment}{//\ -\/>\ Serveur\ crée\ une\ nouvelle\ room\ avec\ le\ client\ pour}}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{comment}{//\ chef\ (info\_room,\ id\_room)}}
+\DoxyCodeLine{00027\ \ \ \ \ JOIN\_ROOM,\ \textcolor{comment}{//\ -\/>\ Serveur\ ajoute\ le\ joueur\ à\ la\ room\ -\/>\ informe\ les\ autres}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ clients\ (id\ room,\ info\_player)\ ??\ sécu}}
+\DoxyCodeLine{00029\ \ \ \ \ QUIT\_ROOM,\ \textcolor{comment}{//\ -\/>\ Serveur\ retire\ le\ joueur\ et\ en\ promut\ un\ nouveau\ chef\ (si}}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ necessaire)\ (id\_room,\ vide)}}
 \DoxyCodeLine{00031\ }
-\DoxyCodeLine{00032\ \textcolor{keyword}{enum}\ Protocol\ \{}
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{comment}{//\ Connexion}}
-\DoxyCodeLine{00034\ \ \ \ \ CONNECT,\ \textcolor{comment}{//\ -\/>\ Serveur\ ajoute\ le\ client\ -\/>\ le\ client\ ajoute\ son\ uuid\ (vide\ ,}}
-\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ uuid)}}
-\DoxyCodeLine{00036\ \ \ \ \ DISCONNECT,\ \textcolor{comment}{//\ -\/>\ Server\ supprime\ le\ client\ de\ toutes\ ces\ variable\ (vide,}}
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ OK)}}
-\DoxyCodeLine{00038\ }
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{//\ Room\ Handler}}
-\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{//\ (info\_room\ =\ id,\ nb\_max,\ nb\_cur)}}
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{comment}{//\ (info\_player\ =\ id,\ color)}}
-\DoxyCodeLine{00042\ \ \ \ \ GET\_ROOM,\ \ \ \ \textcolor{comment}{//\ -\/>\ Serveur\ envoi\ les\ rooms\ au\ client\ (vide,\ info\_rooms)}}
-\DoxyCodeLine{00043\ \ \ \ \ CREATE\_ROOM,\ \textcolor{comment}{//\ -\/>\ Serveur\ crée\ une\ nouvelle\ room\ avec\ le\ client\ pour}}
-\DoxyCodeLine{00044\ \ \ \ \ \textcolor{comment}{//\ chef\ (info\_room,\ id\_room)}}
-\DoxyCodeLine{00045\ \ \ \ \ JOIN\_ROOM,\ \textcolor{comment}{//\ -\/>\ Serveur\ ajoute\ le\ joueur\ à\ la\ room\ -\/>\ informe\ les\ autres}}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ clients\ (id\ room,\ info\_player)\ ??\ sécu}}
-\DoxyCodeLine{00047\ \ \ \ \ QUIT\_ROOM,\ \textcolor{comment}{//\ -\/>\ Serveur\ retire\ le\ joueur\ et\ en\ promut\ un\ nouveau\ chef\ (si}}
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ necessaire)\ (id\_room,\ vide)}}
-\DoxyCodeLine{00049\ }
-\DoxyCodeLine{00050\ \ \ \ \ \textcolor{comment}{//\ Stage\ Handler}}
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{comment}{//\ (info\_stage\ =\ nb,\ diff,\ lock)}}
-\DoxyCodeLine{00052\ \ \ \ \ GET\_STAGE,\ \ \ \ \textcolor{comment}{//\ -\/>\ Serveur\ envoi\ les\ niveaux\ au\ client\ (vide,\ info\_stages)}}
-\DoxyCodeLine{00053\ \ \ \ \ SELECT\_STAGE,\ \textcolor{comment}{//\ -\/>\ Serveur\ selectionne\ le\ niveaux\ pour\ la\ partie\ -\/>}}
-\DoxyCodeLine{00054\ \ \ \ \ \textcolor{comment}{//\ informe\ les\ autres\ clients\ (id\_stage,\ info\_stage)}}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{//\ Game\ Handler}}
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{comment}{//\ (info\_players\ =\ id,\ hp,\ sc)}}
-\DoxyCodeLine{00058\ \ \ \ \ LAUNCH\_GAME,\ \textcolor{comment}{//\ -\/>\ le\ Serveur\ lance\ la\ partie\ du\ client\ et\ enlève\ la\ room\ de}}
-\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ la\ liste\ en\ attente\ (id\_room,\ vide)}}
-\DoxyCodeLine{00060\ \ \ \ \ PAUSE\_GAME,\ \ \ \textcolor{comment}{//\ -\/>\ Serveur\ met\ en\ pause\ la\ partie\ du\ client\ (id\_room,\ vide)}}
-\DoxyCodeLine{00061\ \ \ \ \ SV\_GAME\_OVER,\ \textcolor{comment}{//\ -\/>\ Server\ informe\ la\ fin\ de\ partie\ (info\_players)}}
-\DoxyCodeLine{00062\ }
-\DoxyCodeLine{00063\ \ \ \ \ \textcolor{comment}{//\ Event}}
-\DoxyCodeLine{00064\ \ \ \ \ CL\_MOVE,\ \ \textcolor{comment}{//\ -\/>\ Server\ fais\ bouger\ le\ client\ (direction\ id\_player,\ vide)}}
-\DoxyCodeLine{00065\ \ \ \ \ CL\_SHOOT,\ \textcolor{comment}{//\ -\/>\ Server\ fais\ tirer\ le\ client\ (type\ id\_player,\ id\_player\ or}}
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ vide)}}
-\DoxyCodeLine{00067\ }
-\DoxyCodeLine{00068\ \ \ \ \ \textcolor{comment}{//\ Entity\ Handler}}
-\DoxyCodeLine{00069\ \ \ \ \ \textcolor{comment}{//\ (info\_entity\ =\ id,\ type,\ hit,\ pos,\ vel,\ [hp],\ [sc])}}
-\DoxyCodeLine{00070\ \ \ \ \ SV\_CREATE\_PLAYER,\ \textcolor{comment}{//\ Client\ crée\ une\ entité\ jouable\ (id\_player,\ OK)}}
-\DoxyCodeLine{00071\ \ \ \ \ SV\_CREATE\_ENTITY,\ \textcolor{comment}{//\ Client\ crée\ l'entity\ demandé\ (info\_entity)}}
-\DoxyCodeLine{00072\ \ \ \ \ SV\_UPDATE\_ENTITY,\ \textcolor{comment}{//\ Client\ met\ à\ jour\ ou\ crée\ l'entity\ demandé}}
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ (info\_entity)}}
-\DoxyCodeLine{00074\ \ \ \ \ SV\_KILL\_ENTITY,\ \ \ \textcolor{comment}{//\ Client\ kill\ l'entité\ (id\_entity)\ sécu???}}
-\DoxyCodeLine{00075\ \};}
-\DoxyCodeLine{00076\ }
-\DoxyCodeLine{00077\ \textcolor{keyword}{enum}\ EntityType\ \{}
-\DoxyCodeLine{00078\ \ \ \ \ ENEMY1\ =\ 1,}
-\DoxyCodeLine{00079\ \ \ \ \ ENEMY2,}
-\DoxyCodeLine{00080\ \ \ \ \ ENEMY3,}
-\DoxyCodeLine{00081\ \ \ \ \ ENEMY4,}
-\DoxyCodeLine{00082\ \ \ \ \ ENEMY5,}
-\DoxyCodeLine{00083\ \ \ \ \ ENEMY6,}
-\DoxyCodeLine{00084\ \ \ \ \ BOSS1,}
-\DoxyCodeLine{00085\ \ \ \ \ BOSS2,}
-\DoxyCodeLine{00086\ \ \ \ \ PLAYER,}
-\DoxyCodeLine{00087\ \ \ \ \ SHOT,}
-\DoxyCodeLine{00088\ \ \ \ \ OTHER}
-\DoxyCodeLine{00089\ \};}
-\DoxyCodeLine{00090\ }
-\DoxyCodeLine{00091\ \textcolor{comment}{//\ const\ std::unordered\_map<EntityType,\ std::string>\ TypeToString\{}}
-\DoxyCodeLine{00092\ \textcolor{comment}{//\ \ \ \ \ \{EntityType::ENEMY1,\ "{}Enemy1"{}\},\ \{EntityType::ENEMY2,\ "{}Enemy2"{}\},}}
-\DoxyCodeLine{00093\ \textcolor{comment}{//\ \ \ \ \ \{EntityType::ENEMY3,\ "{}Enemy3"{}\},\ \{EntityType::ENEMY4,\ "{}Enemy4"{}\},}}
-\DoxyCodeLine{00094\ \textcolor{comment}{//\ \ \ \ \ \{EntityType::ENEMY5,\ "{}Enemy5"{}\},\ \{EntityType::ENEMY6,\ "{}Enemy6"{}\},}}
-\DoxyCodeLine{00095\ \textcolor{comment}{//\ \ \ \ \ \{EntityType::BOSS1,\ "{}Boss1"{}\},\ \ \ \{EntityType::BOSS2,\ "{}Boss2"{}\},}}
-\DoxyCodeLine{00096\ \textcolor{comment}{//\ \ \ \ \ \{EntityType::PLAYER,\ "{}Player"{}\},\ \{EntityType::SHOT,\ "{}Shot"{}\},}}
-\DoxyCodeLine{00097\ \textcolor{comment}{//\ \ \ \ \ \{EntityType::OTHER,\ "{}Other"{}\}\};}}
-\DoxyCodeLine{00098\ }
-\DoxyCodeLine{00099\ \textcolor{comment}{//\ const\ std::unordered\_map<std::string,\ EntityType>\ StringToType\{}}
-\DoxyCodeLine{00100\ \textcolor{comment}{//\ \ \ \ \ \{"{}Enemy1"{},\ EntityType::ENEMY1\},\ \{"{}Enemy2"{},\ EntityType::ENEMY2\},}}
-\DoxyCodeLine{00101\ \textcolor{comment}{//\ \ \ \ \ \{"{}Enemy3"{},\ EntityType::ENEMY3\},\ \{"{}Enemy4"{},\ EntityType::ENEMY4\},}}
-\DoxyCodeLine{00102\ \textcolor{comment}{//\ \ \ \ \ \{"{}Enemy5"{},\ EntityType::ENEMY5\},\ \{"{}Enemy6"{},\ EntityType::ENEMY6\},}}
-\DoxyCodeLine{00103\ \textcolor{comment}{//\ \ \ \ \ \{"{}Boss1"{},\ EntityType::BOSS1\},\ \ \ \{"{}Boss2"{},\ EntityType::BOSS2\},}}
-\DoxyCodeLine{00104\ \textcolor{comment}{//\ \ \ \ \ \{"{}Player"{},\ EntityType::PLAYER\},\ \{"{}Shot"{},\ EntityType::SHOT\},}}
-\DoxyCodeLine{00105\ \textcolor{comment}{//\ \ \ \ \ \{"{}Other"{},\ EntityType::OTHER\}\};}}
-\DoxyCodeLine{00106\ }
-\DoxyCodeLine{00107\ \textcolor{comment}{//\ inline\ nlohmann::json\ to\_json(const\ EntityType\ \&type)\ \{}}
-\DoxyCodeLine{00108\ \textcolor{comment}{//\ \ \ \ \ return\ TypeToString.at(type);}}
-\DoxyCodeLine{00109\ \textcolor{comment}{//\ \}}}
-\DoxyCodeLine{00110\ }
-\DoxyCodeLine{00111\ \textcolor{comment}{//\ inline\ EntityType\ from\_json(const\ nlohmann::json\ \&j)\ \{}}
-\DoxyCodeLine{00112\ \textcolor{comment}{//\ \ \ \ \ return\ StringToType.at(j.get<std::string>());}}
-\DoxyCodeLine{00113\ \textcolor{comment}{//\ \}}}
-\DoxyCodeLine{00114\ }
-\DoxyCodeLine{00115\ \textcolor{keyword}{inline}\ std::string\ fetch\_new\_uuid()\ \{}
-\DoxyCodeLine{00116\ \ \ \ \ boost::uuids::random\_generator\ uuid\_generator\_;}
-\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordflow}{return}\ boost::uuids::to\_string(uuid\_generator\_());}
-\DoxyCodeLine{00118\ \}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{comment}{//\ Stage\ Handler}}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{comment}{//\ (info\_stage\ =\ nb,\ diff,\ lock)}}
+\DoxyCodeLine{00034\ \ \ \ \ GET\_STAGE,\ \textcolor{comment}{//\ -\/>\ Serveur\ envoi\ les\ niveaux\ au\ client\ (vide,\ info\_stages)}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{comment}{//\ Game\ Handler}}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{comment}{//\ (info\_players\ =\ id,\ hp,\ sc)}}
+\DoxyCodeLine{00038\ \ \ \ \ LAUNCH\_GAME,\ \textcolor{comment}{//\ -\/>\ le\ Serveur\ lance\ la\ partie\ du\ client\ et\ enlève\ la\ room\ de}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ la\ liste\ en\ attente\ (id\_room,\ vide)}}
+\DoxyCodeLine{00040\ \ \ \ \ PAUSE\_GAME,\ \ \ \textcolor{comment}{//\ -\/>\ Serveur\ met\ en\ pause\ la\ partie\ du\ client\ (id\_room,\ vide)}}
+\DoxyCodeLine{00041\ \ \ \ \ SV\_GAME\_OVER,\ \textcolor{comment}{//\ -\/>\ Server\ informe\ la\ fin\ de\ partie\ (info\_players)}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{comment}{//\ Event}}
+\DoxyCodeLine{00044\ \ \ \ \ CL\_MOVE,\ \ \textcolor{comment}{//\ -\/>\ Server\ fais\ bouger\ le\ client\ (direction\ id\_player,\ vide)}}
+\DoxyCodeLine{00045\ \ \ \ \ CL\_SHOOT,\ \textcolor{comment}{//\ -\/>\ Server\ fais\ tirer\ le\ client\ (type\ id\_player,\ id\_player\ or}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ vide)}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{comment}{//\ Entity\ Handler}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{comment}{//\ (info\_entity\ =\ id,\ type,\ hit,\ pos,\ vel,\ [hp],\ [sc])}}
+\DoxyCodeLine{00050\ \ \ \ \ SV\_CREATE\_PLAYER,\ \textcolor{comment}{//\ Client\ crée\ une\ entité\ jouable\ (id\_player,\ OK)}}
+\DoxyCodeLine{00051\ \ \ \ \ SV\_CREATE\_ENTITY,\ \textcolor{comment}{//\ Client\ crée\ l'entity\ demandé\ (info\_entity)}}
+\DoxyCodeLine{00052\ \ \ \ \ SV\_UPDATE\_ENTITY,\ \textcolor{comment}{//\ Client\ met\ à\ jour\ ou\ crée\ l'entity\ demandé}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ (info\_entity)}}
+\DoxyCodeLine{00054\ \ \ \ \ SV\_KILL\_ENTITY,\ \ \ \textcolor{comment}{//\ Client\ kill\ l'entité\ (id\_entity)\ sécu???}}
+\DoxyCodeLine{00055\ \};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{enum}\ EntityType\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ ENEMY1\ =\ 1,\ \textcolor{comment}{//\ ship\ 1\ (vformation)}}
+\DoxyCodeLine{00059\ \ \ \ \ ENEMY2,\ \ \ \ \ \textcolor{comment}{//\ ship\ 2\ (sinosoidale)}}
+\DoxyCodeLine{00060\ \ \ \ \ ENEMY3,\ \ \ \ \ \textcolor{comment}{//\ ship\ 4\ (chasse)}}
+\DoxyCodeLine{00061\ \ \ \ \ ENEMY4,\ \ \ \ \ \textcolor{comment}{//\ ship\ 5\ (charge)}}
+\DoxyCodeLine{00062\ \ \ \ \ ENEMY5,\ \ \ \ \ \textcolor{comment}{//\ shop\ 3\ (upDown)}}
+\DoxyCodeLine{00063\ \ \ \ \ ENEMY6,}
+\DoxyCodeLine{00064\ \ \ \ \ BOSS1,\ \textcolor{comment}{//\ sprite\ avec\ les\ trucs\ rouges\ stp}}
+\DoxyCodeLine{00065\ \ \ \ \ BOSS2,}
+\DoxyCodeLine{00066\ \ \ \ \ PLAYER,}
+\DoxyCodeLine{00067\ \ \ \ \ SHOT,}
+\DoxyCodeLine{00068\ \ \ \ \ OTHER}
+\DoxyCodeLine{00069\ \};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{const}\ std::unordered\_map<EntityType,\ std::string>\ TypeToString\{}
+\DoxyCodeLine{00072\ \ \ \ \ \{EntityType::ENEMY1,\ \textcolor{stringliteral}{"{}Enemy1"{}}\}\};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{comment}{//\ const\ std::unordered\_map<std::string,\ EntityType>\ StringToType\{}}
+\DoxyCodeLine{00075\ \textcolor{comment}{//\ \ \ \ \ \{"{}Enemy1"{},\ EntityType::ENEMY1\},\ \{"{}Enemy2"{},\ EntityType::ENEMY2\},}}
+\DoxyCodeLine{00076\ \textcolor{comment}{//\ \ \ \ \ \{"{}Enemy3"{},\ EntityType::ENEMY3\},\ \{"{}Enemy4"{},\ EntityType::ENEMY4\},}}
+\DoxyCodeLine{00077\ \textcolor{comment}{//\ \ \ \ \ \{"{}Enemy5"{},\ EntityType::ENEMY5\},\ \{"{}Enemy6"{},\ EntityType::ENEMY6\},}}
+\DoxyCodeLine{00078\ \textcolor{comment}{//\ \ \ \ \ \{"{}Boss1"{},\ EntityType::BOSS1\},\ \ \ \{"{}Boss2"{},\ EntityType::BOSS2\},}}
+\DoxyCodeLine{00079\ \textcolor{comment}{//\ \ \ \ \ \{"{}Player"{},\ EntityType::PLAYER\},\ \{"{}Shot"{},\ EntityType::SHOT\},}}
+\DoxyCodeLine{00080\ \textcolor{comment}{//\ \ \ \ \ \{"{}Other"{},\ EntityType::OTHER\}\};}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{inline}\ nlohmann::json\ to\_json(\textcolor{keyword}{const}\ EntityType\ \&type)\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordflow}{return}\ TypeToString.at(type);}
+\DoxyCodeLine{00084\ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{comment}{//\ inline\ EntityType\ from\_json(const\ nlohmann::json\ \&j)\ \{}}
+\DoxyCodeLine{00087\ \textcolor{comment}{//\ \ \ \ \ return\ StringToType.at(j.get<std::string>());}}
+\DoxyCodeLine{00088\ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{inline}\ std::string\ fetch\_new\_uuid()\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ boost::uuids::random\_generator\ uuid\_generator\_;}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordflow}{return}\ boost::uuids::to\_string(uuid\_generator\_());}
+\DoxyCodeLine{00093\ \}}
 
 \end{DoxyCode}

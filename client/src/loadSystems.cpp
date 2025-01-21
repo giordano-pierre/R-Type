@@ -31,6 +31,12 @@ void loadGameSystem(ECS &ecs) {
     auto pressSys = PressButtonSys();
     ecs.subscribe<InputEvent, Position, Hitbox, Selectable, Pressable>(
         pressSys);
+
+    // auto kill = KillEntity();
+    // ecs.subscribe<TicEvent, LastUpdate>(kill);
+
+    auto fireRate = FireRateSys();
+    ecs.subscribe<TicEvent, Playable>(fireRate);
 }
 
 void loadMenuSystem(ECS &ecs) {

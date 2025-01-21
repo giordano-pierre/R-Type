@@ -15,6 +15,7 @@ set(SRC
     src/components/Hitbox.cpp
     src/components/Text.cpp
     src/components/Selectable.cpp
+    src/components/Sound.cpp
     src/events/FrameEvent.cpp
     src/events/TicEvent.cpp
     src/systems/AnimeSys.cpp
@@ -30,18 +31,18 @@ set(SRC
     src/systems/UDPClient.cpp
     src/systems/WindowSys.cpp
     src/systems/KillEntity.cpp
+    src/systems/FireRateSys.cpp
     src/buttonFunctions.cpp
     src/createEntities.cpp
     src/loadSystems.cpp
     src/clientTools.cpp
-    src/createRoomEntities.cpp
 )
 
 add_executable(r-type_client ${SRC})
 
 find_package(SFML COMPONENTS system window graphics audio CONFIG REQUIRED)
 
-target_link_libraries(r-type_client PRIVATE ECS sfml-system sfml-network sfml-graphics sfml-window sfml-audio)
+target_link_libraries(r-type_client PRIVATE ECS sfml-system sfml-network sfml-graphics sfml-window sfml-audio atomic)
 
 target_link_libraries(r-type_client
     PUBLIC
