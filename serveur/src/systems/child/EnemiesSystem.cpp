@@ -110,7 +110,8 @@ void EnemiesSys::updateBoss(ECS &ecs, Position &pos, Velocity &vel, EnemyAI &ai,
         }
         _bossTick++;
         if (_bossTick == 100) {
-            createSineEnemy(ecs, {pos.x - 200, pos.y, -10, 0, 0.15, 0.075, 10, 10, 0, ENEMY2});
+            createSineEnemy(ecs, {pos.x - 200, pos.y, -10, 0, 0.15, 0.075, 10,
+                                  10, 0, ENEMY2});
             // spawnQueue.add(rtype::server::EnemyAI::BehaviorType::SINUSOIDAL);
             _bossTick = 0;
         }
