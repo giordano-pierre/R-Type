@@ -21,8 +21,8 @@
 \DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }rtype::client\ \{}
 \DoxyCodeLine{00018\ }
 \DoxyCodeLine{00019\ \textcolor{comment}{//\ Game}}
-\DoxyCodeLine{00020\ \textcolor{keywordtype}{void}\ createGameEntities(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ Configs\ \&myConfig,}
-\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SFMLObjects\ \&SFMLObj);}
+\DoxyCodeLine{00020\ \textcolor{keywordtype}{void}\ createGameEntities(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ Configs\ \&myConfig,\ SFMLObjects\ \&SFMLObj,}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Room\ \&myRoom);}
 \DoxyCodeLine{00022\ }
 \DoxyCodeLine{00023\ \textcolor{comment}{//\ Menu\ Jeu}}
 \DoxyCodeLine{00024\ \textcolor{keywordtype}{void}\ createMenuEntities(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ Configs\ \&myConfig,}
@@ -36,16 +36,23 @@
 \DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PlayerInfo\ \&playerInfo,\ Room\ \&myRoom);}
 \DoxyCodeLine{00033\ \textcolor{keywordtype}{void}\ createMenuInRoomEntities(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ Configs\ \&myConfig,}
 \DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SFMLObjects\ \&SFMLObj,\ Room\ \&myRoom);}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \textcolor{comment}{//\ Menu\ Config}}
-\DoxyCodeLine{00037\ \textcolor{keywordtype}{void}\ createConfigEntities(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ Configs\ \&myConfig,}
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SFMLObjects\ \&SFMLObj);}
-\DoxyCodeLine{00039\ \textcolor{keywordtype}{void}\ createConfigGeneralEntites(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ Configs\ \&myConfig,}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SFMLObjects\ \&SFMLObj);}
-\DoxyCodeLine{00041\ \textcolor{keywordtype}{void}\ createConfigPlayer1Entites(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ Configs\ \&myConfig,}
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{void}\ createCustomEntities(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ Configs\ \&myConfig,}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SFMLObjects\ \&SFMLObj);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Menu\ Config}}
+\DoxyCodeLine{00039\ \textcolor{keywordtype}{void}\ createConfigEntities(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ Configs\ \&myConfig,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SFMLObjects\ \&SFMLObj);}
+\DoxyCodeLine{00041\ \textcolor{keywordtype}{void}\ createConfigGeneralEntites(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ Configs\ \&myConfig,}
 \DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SFMLObjects\ \&SFMLObj);}
-\DoxyCodeLine{00043\ \textcolor{keywordtype}{void}\ createConfigPlayer2Entites(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ Configs\ \&myConfig,}
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{void}\ createConfigPlayer1Entites(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ Configs\ \&myConfig,}
 \DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SFMLObjects\ \&SFMLObj);}
-\DoxyCodeLine{00045\ \}\ \textcolor{comment}{//\ namespace\ rtype::client}}
+\DoxyCodeLine{00045\ \textcolor{keywordtype}{void}\ createConfigPlayer2Entites(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ Configs\ \&myConfig,}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SFMLObjects\ \&SFMLObj);}
+\DoxyCodeLine{00047\ \textcolor{keywordtype}{void}\ createMenuBaseRoomEntities(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ Configs\ \&myConfig,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SFMLObjects\ \&SFMLObj,\ Room\ \&myRoom,}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structReceiveEvent}{ReceiveEvent}}\ \&rec\_event);}
+\DoxyCodeLine{00050\ \textcolor{keywordtype}{void}\ createMenuCreateRoomEntities(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ Configs\ \&myConfig,}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SFMLObjects\ \&SFMLObj,\ Room\ \&myRoom);}
+\DoxyCodeLine{00052\ \}\ \textcolor{comment}{//\ namespace\ rtype::client}}
 
 \end{DoxyCode}
