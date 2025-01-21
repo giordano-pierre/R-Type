@@ -14,12 +14,12 @@
 namespace rtype::client {
 
 class FireRateSys {
-    public:
-        FireRateSys() = default;
-        ~FireRateSys() = default;
+  public:
+    FireRateSys() = default;
+    ~FireRateSys() = default;
 
     void operator()(ECS &ecs, const TicEvent &e_tic,
                     SparseArray<Playable> &players);
 };
 
-}
+} // namespace rtype::client
