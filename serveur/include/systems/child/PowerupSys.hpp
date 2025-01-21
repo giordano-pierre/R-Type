@@ -25,10 +25,9 @@ class PowerupSys {
         ecs.add_component<HitBox>(powerup, HitBox(0.115, 0.120));
         ecs.add_component<Velocity>(powerup, Velocity(-1, 0));
 
-        std::cout<< "pup at " << event._x << ", " << event._y
-                  << " type :" << event._type << " duration: "
-                  << event._duration << std::endl;
+        std::cout << "pup at " << event._x << ", " << event._y
+                  << " type :" << event._type
+                  << " duration: " << event._duration << std::endl;
     }
 };
 } // namespace rtype::server
-

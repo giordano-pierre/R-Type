@@ -8,6 +8,7 @@
 #include "Components.hpp"
 #include "Events.hpp"
 #include "systems/child/EnemiesSystem.hpp"
+#include "systems/child/PowerupSys.hpp"
 #include "systems/parent/CheckWinSys.hpp"
 #include "systems/parent/LifeSys.hpp"
 #include "systems/parent/MainMessageHandlerSys.hpp"
@@ -18,9 +19,6 @@
 #include <csignal>
 #include <cstdlib>
 #include <iostream>
-#include "systems/child/PowerupSys.hpp"
-#include "systems/child/PowerupSys.hpp"
-
 
 bool running = true;
 
@@ -91,14 +89,13 @@ void initMainECS(ECS &ecs) {
     ecs.register_component<rtype::server::Powerup>();
     ecs.register_component<rtype::server::HitBox>();
 
-
     ecs.register_event<rtype::server::TicEvent>();
     ecs.register_event<RequestEvent>();
     ecs.register_event<ReceiveEvent>();
     ecs.register_event<rtype::server::CheckEvent>();
     ecs.register_event<rtype::server::UpdateEvent>();
     ecs.register_event<rtype::server::PowerupEvent>();
-    auto test =  rtype::server::PowerupSys();
+    auto test = rtype::server::PowerupSys();
     ecs.subscribe<rtype::server::PowerupEvent>(test);
 
     Entity base = ecs.spawn_entity();

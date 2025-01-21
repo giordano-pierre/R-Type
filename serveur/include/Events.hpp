@@ -60,5 +60,4 @@ struct PowerupEvent {
     float _duration;
 };
 
-
 } // namespace rtype::server

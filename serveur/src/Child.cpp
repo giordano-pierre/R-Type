@@ -6,9 +6,9 @@
 */
 
 #include "Child.hpp"
+#include "systems/child/PowerupSys.hpp"
 #include "systems/child/Singleton.hpp"
 #include "systems/child/SpawnQueue.hpp"
-#include "systems/child/PowerupSys.hpp"
 
 auto spawnQueue = SpawnQueue();
 namespace rtype::server {
@@ -40,7 +40,7 @@ void loadSubSystem(Child &child) {
 }
 
 void loadSubGameSystem(Child &child) {
-    auto test =  rtype::server::PowerupSys();
+    auto test = rtype::server::PowerupSys();
     child._ecs_child.subscribe<rtype::server::PowerupEvent>(test);
     child._ecs_child.subscribe<TicEvent, Position, Velocity>(child._moveSys);
     child._ecs_child.subscribe<TicEvent, Health>(child._hpSys);

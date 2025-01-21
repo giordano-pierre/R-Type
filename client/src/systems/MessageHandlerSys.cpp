@@ -6,11 +6,11 @@
 */
 
 #include "systems/MessageHandlerSys.hpp"
+#include "components/Powerup.hpp"
 #include "events/CreateEvent.hpp"
 #include "events/DeleteEvent.hpp"
 #include "events/RequestEvent.hpp"
 #include <iostream>
-#include "components/Powerup.hpp"
 
 namespace rtype::client {
 
@@ -70,17 +70,17 @@ void createDrawable(ECS &ecs, Entity &entity, SFMLObjects &SFMLObj,
             std::cout << "sgsesegseg" << std::endl;
         }
         switch (type->_type) {
-            case (SHIELD):
-                ecs.add_component<Drawable>(entity,
-                                    {SFMLObj._myTextures.getTexture(
-                                         "assets/images/powerups/shield.png"),
-                                     {250, 250},
-                                     {250, 250},
-                                     1,
-                                     2});
-                break;
-            default:
-                break;
+        case (SHIELD):
+            ecs.add_component<Drawable>(
+                entity, {SFMLObj._myTextures.getTexture(
+                             "assets/images/powerups/shield.png"),
+                         {250, 250},
+                         {250, 250},
+                         1,
+                         2});
+            break;
+        default:
+            break;
         }
         break;
     }
@@ -137,9 +137,10 @@ void createEntity(ECS &ecs, Entity &entity, const ReceiveEvent &rec_event,
     if (rec_event.payload.contains("sc"))
         ecs.add_component<Score>(entity, {rec_event.payload["sc"].get<int>()});
     if (rec_event.payload.contains("pu")) {
-        std::cout<<"^HERE SDFJISQJDIJQSIDJISQJDIJSJQDIJQSI"<<std::endl;
+        std::cout << "^HERE SDFJISQJDIJQSIDJISQJDIJSJQDIJQSI" << std::endl;
 
-        ecs.add_component<Powerup>(entity, {rec_event.payload["pu"].get<int>()});
+        ecs.add_component<Powerup>(entity,
+                                   {rec_event.payload["pu"].get<int>()});
         // std::cout<<rec_event.payload["pu"]<<std::endl;
         // std::cout<<"^here"<<std::endl;
     }
@@ -209,10 +210,10 @@ void updateEntity(Entity &entity, const ReceiveEvent &rec_event,
             lastups[0].value()._lastUpdate = rec_event.payload["lu"].get<int>();
         }
     }
-    if (rec_event.payload.contains("pu") ) {
-        ecs.add_component<Powerup>(entity, {rec_event.payload["pu"].get<int>()});
+    if (rec_event.payload.contains("pu")) {
+        ecs.add_component<Powerup>(entity,
+                                   {rec_event.payload["pu"].get<int>()});
     }
-
 }
 
 void killEntity(ECS &ecs, const ReceiveEvent &rec_event,

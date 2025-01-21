@@ -9,13 +9,13 @@
 #include "ClientHandlerSystem.hpp"
 #include "ECS/ECS.hpp"
 #include "clientTools.hpp"
+#include "components/Powerup.hpp"
 #include "createEntities.hpp"
 #include "ecsObjects.hpp"
 #include "events/CaptureInputEvent.hpp"
 #include "loadSystems.hpp"
 #include "systems/MessageHandlerSys.hpp"
 #include "systems/UDPClient.hpp"
-#include "components/Powerup.hpp"
 
 bool is_number(char *str) {
     for (int i = 0; i < strlen(str); i++) {

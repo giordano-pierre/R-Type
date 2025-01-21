@@ -9,12 +9,12 @@
 namespace rtype::client {
 
 struct Powerup {
-    Powerup( int type) : _type(type) {};
+    Powerup(int type) : _type(type){};
     ~Powerup() = default;
     // Powerup(const Powerup&) = default;
     // Powerup& operator=(const Powerup&) = default;
 
-     int _type;
+    int _type;
     // float _duration;
 };
-}
+} // namespace rtype::client

@@ -26,7 +26,7 @@ enum StateGame {
 };
 
 struct Powerup {
-    Powerup( int type, float duration) : _type(type), _duration(duration) {};
+    Powerup(int type, float duration) : _type(type), _duration(duration){};
     ~Powerup() = default;
 
     int _type;
