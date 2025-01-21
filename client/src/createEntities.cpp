@@ -108,13 +108,12 @@ void createCustomEntities(ECS &ecs, const Configs &myConfig,
          std::function<void(ECS &, Entity)>(select),
          std::function<void(ECS &, Entity)>(deselect)});
     ecs.add_component<Pressable>(
-        arrow1,
-        Pressable{
-            SFMLObj._myTextures.getTexture("assets/images/utils/arrow_1.png"),
-            [&SFMLObj](ECS &ecs, Entity entity) {
-                rtype::client::press(ecs, entity);
-                rtype::client::cyclePlayerColor(ecs);
-            }});
+        arrow1, Pressable{SFMLObj._myTextures.getTexture(
+                              "assets/images/utils/arrow_1.png"),
+                          [&SFMLObj](ECS &ecs, Entity entity) {
+                              rtype::client::press(ecs, entity);
+                              rtype::client::cyclePlayerColor(ecs);
+                          }});
 
     Entity arrow2 = ecs.spawn_entity();
     ecs.add_component<Tag>(arrow2, {});
@@ -143,15 +142,14 @@ void createCustomEntities(ECS &ecs, const Configs &myConfig,
          std::function<void(ECS &, Entity)>(deselect)});
 
     ecs.add_component<Pressable>(
-        arrow2,
-        Pressable{
-            SFMLObj._myTextures.getTexture("assets/images/utils/arrow_2.png"),
-            [&SFMLObj](ECS &ecs, Entity entity) {
-                rtype::client::press(ecs, entity);
-                rtype::client::cyclePlayerShip(ecs);
-                ecs.post<DeleteEvent>({CUSTOM});
-                ecs.post<CreationEvent>({CUSTOM});
-            }});
+        arrow2, Pressable{SFMLObj._myTextures.getTexture(
+                              "assets/images/utils/arrow_2.png"),
+                          [&SFMLObj](ECS &ecs, Entity entity) {
+                              rtype::client::press(ecs, entity);
+                              rtype::client::cyclePlayerShip(ecs);
+                              ecs.post<DeleteEvent>({CUSTOM});
+                              ecs.post<CreationEvent>({CUSTOM});
+                          }});
 
     Entity playerSprite = ecs.spawn_entity();
 
@@ -237,13 +235,12 @@ void createCustomEntities(ECS &ecs, const Configs &myConfig,
                 std::function<void(ECS &, Entity)>(deselect)});
 
     ecs.add_component<Pressable>(
-        backB,
-        Pressable{
-            SFMLObj._myTextures.getTexture("assets/images/utils/button_config1_act.png"),
-            [](ECS &ecs, Entity) {
-                ecs.post<DeleteEvent>({CUSTOM});
-                ecs.post<CreationEvent>({M_GENERAL});
-            }});
+        backB, Pressable{SFMLObj._myTextures.getTexture(
+                             "assets/images/utils/button_config1_act.png"),
+                         [](ECS &ecs, Entity) {
+                             ecs.post<DeleteEvent>({CUSTOM});
+                             ecs.post<CreationEvent>({M_GENERAL});
+                         }});
 
     Entity player1B = ecs.spawn_entity();
     ecs.add_component<Position>(player1B, {float(serverSize.x) / 8 * float(6.5),
@@ -273,18 +270,17 @@ void createCustomEntities(ECS &ecs, const Configs &myConfig,
                    std::function<void(ECS &, Entity)>(select),
                    std::function<void(ECS &, Entity)>(deselect)});
     ecs.add_component<Pressable>(
-        player1B,
-        Pressable{
-            SFMLObj._myTextures.getTexture(
-                "assets/images/utils/button_config2_act.png"),
-            [](ECS &ecs, Entity entity) {
-                rtype::client::press(ecs, entity);
-                auto &playerInfo = ecs.get_components<PlayerInfo>()[0].value();
-                playerInfo._customPlayer = 1;
-                ecs.post<DeleteEvent>({CUSTOM});
-                ecs.post<CreationEvent>({CUSTOM});
-            },
-            3});
+        player1B, Pressable{SFMLObj._myTextures.getTexture(
+                                "assets/images/utils/button_config2_act.png"),
+                            [](ECS &ecs, Entity entity) {
+                                rtype::client::press(ecs, entity);
+                                auto &playerInfo =
+                                    ecs.get_components<PlayerInfo>()[0].value();
+                                playerInfo._customPlayer = 1;
+                                ecs.post<DeleteEvent>({CUSTOM});
+                                ecs.post<CreationEvent>({CUSTOM});
+                            },
+                            3});
 
     Entity player2B = ecs.spawn_entity();
     ecs.add_component<Position>(player2B, {float(serverSize.x) / 8 * float(7.3),
@@ -315,18 +311,17 @@ void createCustomEntities(ECS &ecs, const Configs &myConfig,
                    std::function<void(ECS &, Entity)>(select),
                    std::function<void(ECS &, Entity)>(deselect)});
     ecs.add_component<Pressable>(
-        player2B,
-        Pressable{
-            SFMLObj._myTextures.getTexture(
-                "assets/images/utils/button_config2_act.png"),
-            [](ECS &ecs, Entity entity) {
-                rtype::client::press(ecs, entity);
-                auto &playerInfo = ecs.get_components<PlayerInfo>()[0].value();
-                playerInfo._customPlayer = 2;
-                ecs.post<DeleteEvent>({CUSTOM});
-                ecs.post<CreationEvent>({CUSTOM});
-            },
-            3});
+        player2B, Pressable{SFMLObj._myTextures.getTexture(
+                                "assets/images/utils/button_config2_act.png"),
+                            [](ECS &ecs, Entity entity) {
+                                rtype::client::press(ecs, entity);
+                                auto &playerInfo =
+                                    ecs.get_components<PlayerInfo>()[0].value();
+                                playerInfo._customPlayer = 2;
+                                ecs.post<DeleteEvent>({CUSTOM});
+                                ecs.post<CreationEvent>({CUSTOM});
+                            },
+                            3});
 
     if (playerInfo._customPlayer == 1) {
         press(ecs, player1B);
