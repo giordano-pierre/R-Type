@@ -68,7 +68,8 @@ void UpdateSys::operator()(ECS &ecs, const UpdateEvent &up_event,
                     }
                     if (j < powerups.size() && powerups[j]) {
                         request["pu"] = powerups[j].value()._type;
-                        std::cout<<"Sending type :" << request["pu"]<< std::endl;
+                        std::cout << "Sending type :" << request["pu"]
+                                  << std::endl;
                     }
                     for (const auto &[uuid, _] : ro.value()._clients_uuid) {
                         ecs.post<RequestEvent>(

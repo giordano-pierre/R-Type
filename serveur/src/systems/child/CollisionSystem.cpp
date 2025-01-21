@@ -6,9 +6,9 @@
 */
 
 #include "systems/child/CollisionSystem.hpp"
+#include "Components.hpp"
 #include "tools.hpp"
 #include <iostream>
-#include "Components.hpp"
 
 namespace rtype::server {
 
@@ -35,7 +35,6 @@ bool hasPowerup(ECS &ecs, int index, int type) {
     }
     return false;
 }
-
 
 void CollisionSys::operator()(ECS &ecs, const TicEvent &,
                               const SparseArray<Position> &positions,
