@@ -118,6 +118,7 @@ void createDrawable(ECS &ecs, Entity &entity, SFMLObjects &SFMLObj,
                 break;
         }
         break;
+
     case POWERUP: {
         const auto &type1 = ecs.get_components<Powerup>()[entity];
         std::cout<< "TYPEt !!!!!!!!!!!!!!!!!!!: "<< type1->_type<< std::endl;
@@ -256,7 +257,8 @@ void createEntity(ECS &ecs, Entity &entity, const ReceiveEvent &rec_event,
     if (rec_event.payload.contains("pu")) {
         // std::cout<<"^HERE SDFJISQJDIJQSIDJISQJDIJSJQDIJQSI->   "<<rec_event.payload["pu"].get<int>()<<std::endl;
 
-        ecs.add_component<Powerup>(entity, Powerup(rec_event.payload["pu"].get<int>()));
+        ecs.add_component<Powerup>(entity,
+                                   Powerup(rec_event.payload["pu"].get<int>()));
         // std::cout<<rec_event.payload["pu"]<<std::endl;
         // std::cout<<"^here"<<std::endl;
     }

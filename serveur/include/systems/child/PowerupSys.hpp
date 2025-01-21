@@ -24,9 +24,8 @@ class PowerupSys {
         std::uniform_real_distribution<> probDis(0.0, 1.0);
         std::uniform_int_distribution<> typeDis(0, 1);
 
-
-        if (probDis(gen) < 0.2) { //define the chance of appearance
-        // if (1) { //define th/§e chance of appearance
+        if (probDis(gen) < 0.2) { // define the chance of appearance
+            // if (1) { //define th/§e chance of appearance
             int powerupType = typeDis(gen);
             // int powerupType = 1;
 
@@ -38,8 +37,8 @@ class PowerupSys {
             ecs.add_component<Velocity>(powerup, Velocity(-1, 0));
 
             std::cout << "Pup spawned at (" << x << ", " << y
-                      << ") Type: " << powerupType
-                      << " Duration: " << 10 << std::endl;
+                      << ") Type: " << powerupType << " Duration: " << 10
+                      << std::endl;
         }
     }
 
