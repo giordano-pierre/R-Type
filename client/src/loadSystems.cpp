@@ -34,6 +34,9 @@ void loadGameSystem(ECS &ecs) {
 
     auto kill = KillEntity();
     ecs.subscribe<TicEvent, LastUpdate>(kill);
+
+    auto fireRate = FireRateSys();
+    ecs.subscribe<TicEvent, Playable>(fireRate);
 }
 
 void loadMenuSystem(ECS &ecs) {

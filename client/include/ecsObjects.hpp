@@ -45,3 +45,4 @@
 #include "systems/SelectSys.hpp"
 #include "systems/ShootSys.hpp"
 #include "systems/WindowSys.hpp"
+#include "systems/FireRateSys.hpp"
