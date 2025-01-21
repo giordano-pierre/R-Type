@@ -20,11 +20,16 @@ void createGameEntities(ECS &ecs, const Configs &myConfig, SFMLObjects &SFMLObj,
     std::ifstream f(myRoom._levelFile);
     auto level = nlohmann::json::parse(f);
     std::string backFile;
+    TupleInt sizeBack;
 
     if (level.contains("stage") && level["stage"].contains("background"))
         backFile = level["stage"]["background"].get<std::string>();
     else
         backFile = "assets/images/background/background_mountain.jpg";
+    if (level.contains("stage") && level["stage"].contains("size"))
+        sizeBack = {level["stage"]["size"]["x"].get<int>(), level["stage"]["size"]["y"].get<int>()};
+    else
+        sizeBack = {675, 360};
 
     Entity back1 = ecs.spawn_entity();
     ecs.add_component<Position>(
@@ -35,7 +40,7 @@ void createGameEntities(ECS &ecs, const Configs &myConfig, SFMLObjects &SFMLObj,
     ecs.add_component<Hitbox>(back1, {{1, 1}, false});
     ecs.add_component<Drawable>(
         back1,
-        {SFMLObj._myTextures.getTexture(backFile), {675, 360}, {675, 360}, 1});
+        {SFMLObj._myTextures.getTexture(backFile), sizeBack, sizeBack, 1});
 
     Entity back2 = ecs.spawn_entity();
     ecs.add_component<Position>(back2, {serverSize.x / float(2) + serverSize.x,
@@ -46,7 +51,7 @@ void createGameEntities(ECS &ecs, const Configs &myConfig, SFMLObjects &SFMLObj,
     ecs.add_component<Hitbox>(back2, {{1, 1}, false});
     ecs.add_component<Drawable>(
         back2,
-        {SFMLObj._myTextures.getTexture(backFile), {675, 360}, {675, 360}, 1});
+        {SFMLObj._myTextures.getTexture(backFile), sizeBack, sizeBack, 1});
 }
 
 void createMenuEntities(ECS &ecs, const Configs &myConfig,
@@ -1091,7 +1096,7 @@ void createMenuBaseRoomEntities(ECS &ecs, const Configs &myConfig,
 
     Entity levelP = ecs.spawn_entity();
     ecs.add_component<Position>(levelP, {float(serverSize.x) / 5 * float(4.3),
-                                         float(serverSize.y) / 15 * float(4)});
+                                         float(serverSize.y) / 15 * float(3)});
     ecs.add_component<Tag>(levelP, {});
     ecs.add_component<Scene>(levelP, {M_MY_ROOM});
     ecs.add_component<Hitbox>(levelP, {{float(1) / 4, float(1) / 15}});
@@ -1174,7 +1179,7 @@ void createMenuBaseRoomEntities(ECS &ecs, const Configs &myConfig,
         Entity levelB = ecs.spawn_entity();
         ecs.add_component<Position>(levelB,
                                     {float(serverSize.x) / 5 * float(4.3),
-                                     float(serverSize.y) / 15 * (i + 5)});
+                                     float(serverSize.y) / 15 * (i + 4)});
         ecs.add_component<Tag>(levelB, {OTHER, l_file[i]});
         ecs.add_component<Scene>(levelB, {M_MY_ROOM});
         ecs.add_component<Hitbox>(levelB, {{float(1) / 4, float(1) / 15}});

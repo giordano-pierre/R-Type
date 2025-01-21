@@ -110,6 +110,7 @@ void createDrawable(ECS &ecs, Entity &entity, SFMLObjects &SFMLObj,
                                      35,
                                      1});
         break;
+    }
     case ENEMY2:
         ecs.add_component<Drawable>(entity,
                                     {SFMLObj._myTextures.getTexture(
@@ -149,15 +150,12 @@ void createDrawable(ECS &ecs, Entity &entity, SFMLObjects &SFMLObj,
     case BOSS1:
         ecs.add_component<Drawable>(entity,
                                     {SFMLObj._myTextures.getTexture(
-                                         "assets/images/ship/enemy_ship_3.png"),
-                                     {2196, 1944},
-                                     {549, 324},
-                                     22,
+                                         "assets/images/ship/boss_ship_1.png"),
+                                     {1444, 2280},
+                                     {361, 570},
+                                     16,
                                      1});
         break;
-    default:
-        break;
-    }
     default:
         break;
     }

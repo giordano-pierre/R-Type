@@ -32,8 +32,8 @@ void loadGameSystem(ECS &ecs) {
     ecs.subscribe<InputEvent, Position, Hitbox, Selectable, Pressable>(
         pressSys);
 
-    auto kill = KillEntity();
-    ecs.subscribe<TicEvent, LastUpdate>(kill);
+    // auto kill = KillEntity();
+    // ecs.subscribe<TicEvent, LastUpdate>(kill);
 
     auto fireRate = FireRateSys();
     ecs.subscribe<TicEvent, Playable>(fireRate);

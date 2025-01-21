@@ -2,7 +2,8 @@
     "stage": {
         "id": 3,
         "name": "Are You Ready",
-        "background": "assets/backgrounds/background_mountains.jpg",
+        "background": "assets/images/background/Hidden_Desert.jpg",
+        "size": {"x": 645, "y": 360},
         "music": "assets/audio/stage1_theme.ogg"
     },
   "enemies": [
@@ -20,7 +21,7 @@
         "spawn_time": 35,
         "position": { "x": 2000, "y": 900 },
         "velocity": { "x": -3, "y": 0 },
-        "hitbox": { "x": 0.1, "y": 0.18 },
+        "hitbox": { "x": 0.1, "y": 0.05 },
         "hp": 70,
         "score": 10
       },
@@ -29,7 +30,7 @@
         "spawn_time": 35,
         "position": { "x": 2000, "y": 400 },
         "velocity": { "x": -3, "y": 0 },
-        "hitbox": { "x": 0.1, "y": 0.18 },
+        "hitbox": { "x": 0.1, "y": 0.05 },
         "hp": 70,
         "score": 10
       },
