@@ -94,8 +94,8 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
                     if (healths[j].value()._health <= 0) {
                         ecs.add_component<Dead>(ecs.entity_from_index(j), {});
                         if (i < owners.size() && owners[i]) {
-                            const std::size_t idPlayer =
-                                getShotOwner(ecs, tags, owners[i].value()._id_owner);
+                            const std::size_t idPlayer = getShotOwner(
+                                ecs, tags, owners[i].value()._id_owner);
                             const auto enemyScore = scores[j].value()._score;
                             scores[idPlayer].value()._score += enemyScore;
                         }
@@ -109,8 +109,8 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
                     if (healths[i].value()._health <= 0) {
                         ecs.add_component<Dead>(ecs.entity_from_index(i), {});
                         if (j < owners.size() && owners[j]) {
-                            const std::size_t idPlayer =
-                                getShotOwner(ecs, tags, owners[j].value()._id_owner);
+                            const std::size_t idPlayer = getShotOwner(
+                                ecs, tags, owners[j].value()._id_owner);
                             const auto enemyScore = scores[i].value()._score;
                             scores[idPlayer].value()._score += enemyScore;
                         }

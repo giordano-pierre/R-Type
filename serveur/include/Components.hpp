@@ -127,7 +127,8 @@ struct Health {
     int _health;
     bool _infinite;
 
-    Health(int health = 10, bool infinite = false) : _health(health), _infinite(infinite) {};
+    Health(int health = 10, bool infinite = false)
+        : _health(health), _infinite(infinite){};
 };
 
 struct Dead {
