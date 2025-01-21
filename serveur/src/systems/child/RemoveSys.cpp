@@ -16,7 +16,7 @@ void RemoveSys::operator()(ECS &ecs, const RemoveClient &remove_event,
         const auto &cl = clients[i];
 
         if (cl && cl.value()._uuid == remove_event._uuid) {
-            std::cout << "JE Met Dead" << std::endl;
+            // std::cout << "JE Met Dead" << std::endl;
             ecs.add_component<Dead>(ecs.entity_from_index(i), {});
         }
     }

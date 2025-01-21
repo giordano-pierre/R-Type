@@ -159,7 +159,7 @@ void createRoom(ECS &ecs, const ReceiveEvent &rec_event,
     auto &tmp = ecs.get_components<Child>();
     initSubECS(tmp[roomE].value()._ecs_child);
     loadSubSystem(tmp[roomE].value());
-    std::cout << "Room " << nameRoom << " created." << std::endl;
+    // std::cout << "Room " << nameRoom << " created." << std::endl;
     auto namesP = rec_event.payload["p_name"].get<std::vector<std::string>>();
     auto colorsP = rec_event.payload["p_color"].get<std::vector<std::string>>();
     rooms[roomE].value()._clients_uuid.insert(
@@ -336,7 +336,7 @@ void launchGame(ECS &ecs, const ReceiveEvent &rec_event,
         auto &child = children[i];
 
         if (ro && tag && child && tag.value()._id == idRoom) {
-            std::cout << "Launch " << idRoom << " game." << std::endl;
+            // std::cout << "Launch " << idRoom << " game." << std::endl;
             createPlayers(child.value(), ro.value()._clients_uuid);
             float space = 1080 / (countPlayer(ro.value()._clients_uuid) + 1);
             float posY = 0;
@@ -376,7 +376,7 @@ void launchGame(ECS &ecs, const ReceiveEvent &rec_event,
                                                                   {0});
                     child.value()._ecs_child.add_component<Position>(
                         tmpPlayer, {100, posY});
-                    std::cout << "SEND CREATE PLAYER" << std::endl;
+                    // std::cout << "SEND CREATE PLAYER" << std::endl;
                     RequestEvent req = {SV_CREATE_PLAYER,
                                         {{"id", subTag.value()._id},
                                          {"type", PLAYER},
@@ -570,8 +570,8 @@ void MainMessageHandlerSys::operator()(ECS &ecs, const ReceiveEvent &rec_event,
                                        SparseArray<Child> &children) {
     auto &util = utils[0].value();
 
-    std::cout << rec_event.action << std::endl;
-    std::cout << rec_event.payload.dump() << std::endl;
+    // std::cout << rec_event.action << std::endl;
+    // std::cout << rec_event.payload.dump() << std::endl;
     switch (rec_event.action) {
     case DISCONNECT: {
         disconnect(ecs, rec_event, rooms, tags, children, stages);

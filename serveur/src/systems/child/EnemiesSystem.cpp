@@ -90,7 +90,7 @@ void EnemiesSys::updateBoss(ECS &ecs, Position &pos, Velocity &vel, EnemyAI &ai,
     // appel des updown (6) quand il reste 2 sinudoidale
     // appel des chasseurs quand il reste (3) up and down
     // boss qui tire
-    std::cout << "Boss phase " << _bossPhase << std::endl;
+    // std::cout << "Boss phase " << _bossPhase << std::endl;
     if (_bossPhase == 0) {
         if (pos.x < 1600) {
             vel.x = 0;

@@ -33,7 +33,7 @@ class UDPServer {
           socket_(io_context_, udp::endpoint(udp::v4(), port)),
           clients_endpoint_(), buffer_(), port_(port) {
 
-        std::cout << "Server running on port: " << port_ << std::endl;
+        // std::cout << "Server running on port: " << port_ << std::endl;
 
         context_thread_ = std::thread([this]() {
             try {

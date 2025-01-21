@@ -21,9 +21,9 @@ void removeAll(ECS &ecs) {
         const auto &tag = tags[i];
 
         if (tag && tag.value()._type != OTHER) {
-            std::cout << "B KILL" << std::endl;
+            // std::cout << "B KILL" << std::endl;
             ecs.kill_entity(ecs.entity_from_index(i));
-            std::cout << "A KILL" << std::endl;
+            // std::cout << "A KILL" << std::endl;
         }
     }
 }

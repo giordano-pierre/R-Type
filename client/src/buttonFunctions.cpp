@@ -117,7 +117,7 @@ void cyclePlayerShip(ECS &ecs) {
         currentSpritePath = shipTextures[0];
     }
 
-    std::cout << "Player sprite updated to: " << currentSpritePath << std::endl;
+    // std::cout << "Player sprite updated to: " << currentSpritePath << std::endl;
 }
 
 void resize1440(ECS &ecs, Entity i) {

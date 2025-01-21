@@ -50,7 +50,7 @@ void ResendEventSys::operator()(ECS &ecs, const CheckEvent &check_event,
                                           check_event._time - 1});
                     break;
                 }
-                std::cout << "RESEND CREATE PLAYER" << std::endl;
+                // std::cout << "RESEND CREATE PLAYER" << std::endl;
                 ecs.post<RequestEvent>(check_event._request);
                 ecs.post<CheckEvent>({check_event._action, check_event._idr,
                                       check_event._request, 120});

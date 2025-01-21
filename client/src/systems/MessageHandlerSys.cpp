@@ -213,7 +213,7 @@ void createPlayer(ECS &ecs, const ReceiveEvent &rec_event, Room &myRoom,
     if (!entityExist(rec_event, tags)) {
         Entity player = ecs.spawn_entity();
         createEntity(ecs, player, rec_event, SFMLObj, lastup);
-        std::cout << "PC " << countPlayer(ecs) + 1 << std::endl;
+        // std::cout << "PC " << countPlayer(ecs) + 1 << std::endl;
         ecs.add_component<Playable>(player, {countPlayer(ecs) + 1});
         if (myRoom._gameState)
             return;
@@ -284,8 +284,8 @@ void MessageHandlerSys::operator()(
     auto &SFMLObj = SFMLObjs[0].value();
     auto lastup = lastups[0].value();
 
-    std::cout << rec_event.action << std::endl;
-    std::cout << rec_event.payload.dump() << std::endl;
+    // std::cout << rec_event.action << std::endl;
+    // std::cout << rec_event.payload.dump() << std::endl;
     switch (rec_event.action) {
     case JOIN_ROOM: {
         joinRoom(ecs, rec_event, myRoom);
