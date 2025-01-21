@@ -11,9 +11,9 @@ namespace rtype::client {
 
 Drawable::Drawable(const std::shared_ptr<sf::Texture> texture,
                    const TupleInt sizeTexture, const TupleInt sizeFrame,
-                   int nbFrame, int order)
+                   int nbFrame, int order, bool destroy)
     : _texture(texture), _sizeTexture(sizeTexture), _sizeFrame(sizeFrame),
-      _nbFrame(nbFrame), _currentFrame(0), _order(order) {
+      _nbFrame(nbFrame), _currentFrame(0), _order(order), _destroy(destroy) {
     _rectangle = sf::IntRect(0, 0, _sizeFrame.x, _sizeFrame.y);
     _sprite = sf::Sprite(*_texture);
     _sprite.setTextureRect(_rectangle);

@@ -21,7 +21,7 @@ class ShootSys {
     ~ShootSys() = default;
 
     void operator()(ECS &ecs, const InputEvent &e_input,
-                    const SparseArray<Playable> &players,
+                    SparseArray<Playable> &players,
                     const SparseArray<Position> &positions,
                     const SparseArray<Hitbox> &hitboxs,
                     const SparseArray<Tag> &tags);

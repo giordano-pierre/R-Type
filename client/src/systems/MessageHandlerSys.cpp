@@ -26,15 +26,17 @@ Entity getEntityByID(const std::string &id, const SparseArray<Tag> &tags) {
 void joinRoom(ECS &ecs, const ReceiveEvent &rec_event, Room &myRoom) {
     myRoom._idRoom = rec_event.payload["idr"].get<std::string>();
 
-    myRoom._level = rec_event.payload["st"];
-    if (rec_event.payload.contains("master"))
+    myRoom._levelFile = rec_event.payload["st"];
+    myRoom._diff = rec_event.payload["diff"];
+    myRoom._nbPlayer = rec_event.payload["nbp"];
+    *(myRoom._name) = rec_event.payload["r_name"];
+    if (rec_event.payload.contains("master")) {
         myRoom._master = true;
-    else
+    } else {
         myRoom._master = false;
+    }
     if (!myRoom._gameState) {
-        ecs.post<DeleteEvent>({M_ROOM});
-        ecs.post<DeleteEvent>({M_IN_ROOM});
-        ecs.post<CreationEvent>({M_IN_ROOM});
+        ecs.post<RequestEvent>({GET_STAGE, {}});
     }
 }
 
@@ -115,7 +117,7 @@ void createDrawable(ECS &ecs, Entity &entity, SFMLObjects &SFMLObj,
 }
 
 void createEntity(ECS &ecs, Entity &entity, const ReceiveEvent &rec_event,
-                  SFMLObjects &SFMLObj) {
+                  SFMLObjects &SFMLObj, LastUpdate &lastup) {
     if (rec_event.payload.contains("type") &&
         rec_event.payload.contains("id")) {
         ecs.add_component<Tag>(entity,
@@ -145,7 +147,7 @@ void createEntity(ECS &ecs, Entity &entity, const ReceiveEvent &rec_event,
         ecs.add_component<Health>(entity, {rec_event.payload["hp"].get<int>()});
     if (rec_event.payload.contains("sc"))
         ecs.add_component<Score>(entity, {rec_event.payload["sc"].get<int>()});
-    ecs.add_component<LastUpdate>(entity, {1});
+    ecs.add_component<LastUpdate>(entity, {lastup._lastUpdate});
     ecs.add_component<Scene>(entity, {GAME});
 }
 
@@ -161,15 +163,17 @@ bool entityExist(const ReceiveEvent &rec_event, const SparseArray<Tag> &tags) {
 }
 
 void createPlayer(ECS &ecs, const ReceiveEvent &rec_event, Room &myRoom,
-                  SFMLObjects &SFMLObj, const SparseArray<Tag> &tags) {
+                  SFMLObjects &SFMLObj, const SparseArray<Tag> &tags,
+                  LastUpdate &lastup) {
     if (!entityExist(rec_event, tags)) {
         Entity player = ecs.spawn_entity();
-        createEntity(ecs, player, rec_event, SFMLObj);
+        createEntity(ecs, player, rec_event, SFMLObj, lastup);
         std::cout << "PC " << countPlayer(ecs) + 1 << std::endl;
         ecs.add_component<Playable>(player, {countPlayer(ecs) + 1});
         if (myRoom._gameState)
             return;
-        ecs.post<DeleteEvent>({M_IN_ROOM});
+        ecs.post<DeleteEvent>({M_MY_ROOM});
+        ecs.post<DeleteEvent>({M_CREATE_ROOM});
         ecs.post<DeleteEvent>({MENU});
         ecs.post<CreationEvent>({GAME});
         myRoom._gameState = true;
@@ -206,10 +210,10 @@ void updateEntity(Entity &entity, const ReceiveEvent &rec_event,
         lastups[entity]) {
         lastups[entity].value()._lastUpdate =
             rec_event.payload["lu"].get<int>();
-        if (lastups[0].value()._lastUpdate !=
-            rec_event.payload["lu"].get<int>()) {
-            lastups[0].value()._lastUpdate = rec_event.payload["lu"].get<int>();
-        }
+    }
+    if (rec_event.payload.contains("lu") &&
+        lastups[0].value()._lastUpdate != rec_event.payload["lu"].get<int>()) {
+        lastups[0].value()._lastUpdate = rec_event.payload["lu"].get<int>();
     }
 }
 
@@ -233,6 +237,7 @@ void MessageHandlerSys::operator()(
     SparseArray<LastUpdate> &lastups) {
     auto &myRoom = rooms[0].value();
     auto &SFMLObj = SFMLObjs[0].value();
+    auto lastup = lastups[0].value();
 
     std::cout << rec_event.action << std::endl;
     std::cout << rec_event.payload.dump() << std::endl;
@@ -242,14 +247,14 @@ void MessageHandlerSys::operator()(
         break;
     }
     case SV_CREATE_PLAYER: {
-        createPlayer(ecs, rec_event, myRoom, SFMLObj, tags);
+        createPlayer(ecs, rec_event, myRoom, SFMLObj, tags, lastup);
         ecs.post<RequestEvent>({SV_CREATE_PLAYER, {{"idr", myRoom._idRoom}}});
         break;
     }
     case SV_GAME_OVER: {
         ecs.post<DeleteEvent>({GAME});
-        ecs.post<CreationEvent>({M_IN_ROOM});
         ecs.post<CreationEvent>({MENU});
+        ecs.post<RequestEvent>({GET_STAGE, {{}}});
         myRoom._gameState = false;
         ecs.post<RequestEvent>({SV_GAME_OVER, {{"idr", myRoom._idRoom}}});
         break;
@@ -257,14 +262,14 @@ void MessageHandlerSys::operator()(
     case SV_CREATE_ENTITY: {
         if (!entityExist(rec_event, tags)) {
             Entity entity = ecs.spawn_entity();
-            createEntity(ecs, entity, rec_event, SFMLObj);
+            createEntity(ecs, entity, rec_event, SFMLObj, lastup);
         }
         break;
     }
     case SV_UPDATE_ENTITY: {
         if (!entityExist(rec_event, tags)) {
             Entity entity = ecs.spawn_entity();
-            createEntity(ecs, entity, rec_event, SFMLObj);
+            createEntity(ecs, entity, rec_event, SFMLObj, lastup);
         } else {
             Entity entity =
                 getEntityByID(rec_event.payload["id"].get<std::string>(), tags);
@@ -279,8 +284,25 @@ void MessageHandlerSys::operator()(
     }
     case GET_ROOM: {
         ecs.post<DeleteEvent>({M_PLAYER});
-        ecs.post<DeleteEvent>({M_ROOM});
-        ecs.post<CreationEvent>({M_ROOM, rec_event});
+        ecs.post<DeleteEvent>({M_CREATE_ROOM});
+        ecs.post<DeleteEvent>({M_ALL_ROOM});
+        ecs.post<CreationEvent>({M_ALL_ROOM, rec_event});
+        break;
+    }
+    case QUIT_ROOM: {
+        myRoom._master = false;
+        myRoom._idRoom = "";
+        ecs.post<DeleteEvent>({M_CREATE_ROOM});
+        ecs.post<DeleteEvent>({M_MY_ROOM});
+        ecs.post<CreationEvent>({M_PLAYER});
+        break;
+    }
+    case GET_STAGE: {
+        ecs.post<DeleteEvent>({M_ALL_ROOM});
+        ecs.post<DeleteEvent>({M_MY_ROOM});
+        ecs.post<DeleteEvent>({M_CREATE_ROOM});
+        ecs.post<CreationEvent>({M_MY_ROOM, rec_event});
+        ecs.post<CreationEvent>({M_CREATE_ROOM});
         break;
     }
     default:

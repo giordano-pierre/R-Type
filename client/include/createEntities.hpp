@@ -17,8 +17,8 @@
 namespace rtype::client {
 
 // Game
-void createGameEntities(ECS &ecs, const Configs &myConfig,
-                        SFMLObjects &SFMLObj);
+void createGameEntities(ECS &ecs, const Configs &myConfig, SFMLObjects &SFMLObj,
+                        Room &myRoom);
 
 // Menu Jeu
 void createMenuEntities(ECS &ecs, const Configs &myConfig,
@@ -44,5 +44,9 @@ void createConfigPlayer1Entites(ECS &ecs, const Configs &myConfig,
                                 SFMLObjects &SFMLObj);
 void createConfigPlayer2Entites(ECS &ecs, const Configs &myConfig,
                                 SFMLObjects &SFMLObj);
-void createMenuRoomEntities(ECS &ecs, Configs &config, SFMLObjects &SFMLObj);
+void createMenuBaseRoomEntities(ECS &ecs, const Configs &myConfig,
+                                SFMLObjects &SFMLObj, Room &myRoom,
+                                const ReceiveEvent &rec_event);
+void createMenuCreateRoomEntities(ECS &ecs, const Configs &myConfig,
+                                  SFMLObjects &SFMLObj, Room &myRoom);
 } // namespace rtype::client

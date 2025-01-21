@@ -1,8 +1,8 @@
 {
   "stage": {
-    "id": 1,
-    "name": "The Beginning",
-    "background": "assets/images/background/background_mountain.jpg",
+    "id": 2,
+    "name": "The Final",
+    "background": "assets/backgrounds/background_mountains.jpg",
     "music": "assets/audio/stage1_theme.ogg"
   },
   "enemies": [

@@ -31,11 +31,11 @@ set(SRC
     src/systems/UDPClient.cpp
     src/systems/WindowSys.cpp
     src/systems/KillEntity.cpp
+    src/systems/FireRateSys.cpp
     src/buttonFunctions.cpp
     src/createEntities.cpp
     src/loadSystems.cpp
     src/clientTools.cpp
-    src/createRoomEntities.cpp
 )
 
 add_executable(r-type_client ${SRC})
