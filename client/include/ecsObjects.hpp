@@ -22,6 +22,7 @@
 #include "components/Scene.hpp"
 #include "components/Score.hpp"
 #include "components/Selectable.hpp"
+#include "components/Sound.hpp"
 #include "components/Tag.hpp"
 #include "components/Text.hpp"
 #include "components/Velocity.hpp"

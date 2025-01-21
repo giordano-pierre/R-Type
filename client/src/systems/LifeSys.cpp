@@ -40,6 +40,10 @@ void LifeSys::operator()(ECS &ecs, const CreationEvent &e_create,
         loadMenuSystem(ecs);
         createMenuPlayerEntities(ecs, myConfig, SFMLObj);
         break;
+    case CUSTOM:
+        loadMenuSystem(ecs);
+        createCustomEntities(ecs, myConfig, SFMLObj);
+        break;
     case M_ALL_ROOM:
         loadMenuSystem(ecs);
         createMenuRoomEntities(ecs, e_create._param.value(), myConfig, SFMLObj,
@@ -85,7 +89,7 @@ void LifeSys::operator()(ECS &ecs, const DeleteEvent &e_del,
         auto &sce = scenes[i];
 
         if (sce && sce.value()._type == e_del._type) {
-            killMyEntity(ecs, Entity(i));
+            ecs.kill_entity(Entity(i));
         }
     }
 }

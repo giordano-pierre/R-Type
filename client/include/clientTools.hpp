@@ -44,6 +44,7 @@ enum SceneType {
     M_C_PLAYER2,
     GAME,    // à améliorer
     G_PAUSE, // à faire
+    CUSTOM,
 };
 
 enum UserInput {
