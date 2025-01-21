@@ -72,7 +72,7 @@ void createPlayers(
                             infos.first._color[i],
                         });
             // std::cout << "Player " << infos.first._name[i] << " "
-                    //   << infos.first._color[i] << " is created." << std::endl;
+            //   << infos.first._color[i] << " is created." << std::endl;
         }
     }
 }
@@ -102,23 +102,24 @@ void disconnect(ECS &ecs, const ReceiveEvent &rec_event,
         child.value()._ecs_child.post<RemoveClient>({rec_event.sender_uuid});
         for (const auto &[uuid, _] : ro.value()._clients_uuid)
             // std::cout << uuid << std::endl;
-        if (ro.value()._clients_uuid.empty()) {
-            ecs.kill_entity(ecs.entity_from_index(i));
-            // std::cout << "Destroy Room !!!" << std::endl;
-        } else {
-            if (ro.value()._master == rec_event.sender_uuid) {
-                ro.value()._master = ro.value()._clients_uuid.begin()->first;
-                ecs.post<RequestEvent>(
-                    {JOIN_ROOM,
-                     {{"master", true},
-                      {"diff", ro.value()._diff},
-                      {"idr", tag.value()._id},
-                      {"r_name", ro.value()._name},
-                      {"st", st.value()._mapFile},
-                      {"nbp", countPlayer(ro.value()._clients_uuid)}},
-                     ro.value()._master});
+            if (ro.value()._clients_uuid.empty()) {
+                ecs.kill_entity(ecs.entity_from_index(i));
+                // std::cout << "Destroy Room !!!" << std::endl;
+            } else {
+                if (ro.value()._master == rec_event.sender_uuid) {
+                    ro.value()._master =
+                        ro.value()._clients_uuid.begin()->first;
+                    ecs.post<RequestEvent>(
+                        {JOIN_ROOM,
+                         {{"master", true},
+                          {"diff", ro.value()._diff},
+                          {"idr", tag.value()._id},
+                          {"r_name", ro.value()._name},
+                          {"st", st.value()._mapFile},
+                          {"nbp", countPlayer(ro.value()._clients_uuid)}},
+                         ro.value()._master});
+                }
             }
-        }
     }
     // std::cout << "Player Deconnexion!" << std::endl;
     // ecs.post<RequestEvent>({Protocol::DISCONNECT, {},
