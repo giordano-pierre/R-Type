@@ -10,14 +10,35 @@
 #include <iostream>
 
 #include "clientTools.hpp"
+#include "ecsObjects.hpp"
 
 namespace rtype::client {
 
 void killMyEntity(ECS &ecs, Entity i) {
     auto tag = ecs.get_components<Tag>()[i].value();
+    auto &myConfig = ecs.get_components<Configs>()[0].value();
+    auto &SFMLObj = ecs.get_components<SFMLObjects>()[0].value();
+    auto &postion = ecs.get_components<Position>()[i].value();
+    auto &hitbox = ecs.get_components<Hitbox>()[i].value();
+    auto serverSize = myConfig._serverSize;
 
     if (tag._type >= ENEMY1 && tag._type <= PLAYER) {
-        std::cout << "Explosion" << std::endl;
+        Entity boom1 = ecs.spawn_entity();
+        ecs.add_component<Tag>(boom1, {});
+        ecs.add_component<Scene>(boom1, {MENU});
+        ecs.add_component<Position>(boom1,
+                                    {postion._server.x, postion._server.y});
+        ecs.add_component<Hitbox>(boom1, hitbox._coefSize);
+        ecs.add_component<rtype::client::Drawable>(
+            boom1, {SFMLObj._myTextures.getTexture(
+                        "assets/images/utils/explosion.png"),
+                    {5790, 4500},
+                    {1930, 2250},
+                    6,
+                    2});
+        ecs.add_component<rtype::client::Sound>(
+            boom1, {"assets/audio/explosion2.ogg",
+                    rtype::client::SoundState::PLAY_ONCE, 50.0f});
     }
     ecs.kill_entity(i);
 }

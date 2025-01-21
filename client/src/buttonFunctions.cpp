@@ -8,6 +8,7 @@
 #include "ECS/ECS.hpp"
 #include "ecsObjects.hpp"
 #include "events/RequestEvent.hpp"
+#include <iostream>
 
 namespace rtype::client {
 
@@ -45,6 +46,78 @@ void resize1920(ECS &ecs, Entity i) {
 
     myConfig._size = {1920, 1080};
     press(ecs, i);
+}
+
+void cyclePlayerColor(ECS &ecs) {
+    auto &playerInfo = ecs.get_components<PlayerInfo>()[0].value();
+
+    static const std::vector<sf::Color> colors = {
+        sf::Color(253, 20, 175),  sf::Color(255, 166, 208),
+        sf::Color(243, 158, 108), sf::Color(255, 249, 148),
+        sf::Color(140, 249, 147), sf::Color(104, 196, 249),
+        sf::Color(81, 101, 235),  sf::Color(186, 109, 245)};
+
+    std::string &currentColor = (playerInfo._customPlayer == 1)
+                                    ? playerInfo._color1
+                                    : playerInfo._color2;
+
+    size_t colorIndex = 0;
+    for (size_t i = 0; i < colors.size(); ++i) {
+        std::ostringstream oss;
+        oss << static_cast<int>(colors[i].r) << ","
+            << static_cast<int>(colors[i].g) << ","
+            << static_cast<int>(colors[i].b);
+
+        if (currentColor == oss.str()) {
+            colorIndex = (i + 1) % colors.size();
+            break;
+        }
+    }
+
+    const sf::Color &newColor = colors[colorIndex];
+    std::ostringstream newColorStr;
+    newColorStr << static_cast<int>(newColor.r) << ","
+                << static_cast<int>(newColor.g) << ","
+                << static_cast<int>(newColor.b);
+    currentColor = newColorStr.str();
+
+    auto &drawableComponents = ecs.get_components<Drawable>();
+    for (size_t i = 0; i < drawableComponents.size(); ++i) {
+        if (!drawableComponents[i])
+            continue;
+
+        auto &drawable = drawableComponents[i].value();
+
+        if (drawable._sprite.getTexture()->getSize() ==
+            sf::Vector2u(395, 250)) {
+            drawable._sprite.setColor(newColor);
+            break;
+        }
+    }
+}
+
+void cyclePlayerShip(ECS &ecs) {
+    auto &playerInfo = ecs.get_components<PlayerInfo>()[0].value();
+
+    static const std::vector<std::string> shipTextures = {
+        "assets/images/ship/red_ship.png", "assets/images/ship/green_ship.png",
+        "assets/images/ship/grey_ship.png", "assets/images/ship/cat.png"};
+
+    std::string &currentSpritePath = (playerInfo._customPlayer == 1)
+                                         ? playerInfo._spritePath1
+                                         : playerInfo._spritePath2;
+
+    auto it =
+        std::find(shipTextures.begin(), shipTextures.end(), currentSpritePath);
+    if (it != shipTextures.end()) {
+        size_t nextIndex =
+            (std::distance(shipTextures.begin(), it) + 1) % shipTextures.size();
+        currentSpritePath = shipTextures[nextIndex];
+    } else {
+        currentSpritePath = shipTextures[0];
+    }
+
+    std::cout << "Player sprite updated to: " << currentSpritePath << std::endl;
 }
 
 void resize1440(ECS &ecs, Entity i) {
