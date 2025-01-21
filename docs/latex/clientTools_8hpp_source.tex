@@ -34,64 +34,68 @@
 \DoxyCodeLine{00030\ \textcolor{keyword}{enum}\ SceneType\ \{}
 \DoxyCodeLine{00031\ \ \ \ \ MENU\ =\ 1,}
 \DoxyCodeLine{00032\ \ \ \ \ M\_GENERAL,}
-\DoxyCodeLine{00033\ \ \ \ \ M\_PLAYER,\ \textcolor{comment}{//\ à\ modifier}}
-\DoxyCodeLine{00034\ \ \ \ \ M\_ROOM,\ \ \ \textcolor{comment}{//\ à\ faire}}
-\DoxyCodeLine{00035\ \ \ \ \ M\_IN\_ROOM,}
-\DoxyCodeLine{00036\ \ \ \ \ M\_STAGE,\ \textcolor{comment}{//\ à\ faire}}
-\DoxyCodeLine{00037\ \ \ \ \ M\_PERSO,\ \textcolor{comment}{//\ à\ faire}}
-\DoxyCodeLine{00038\ \ \ \ \ M\_CONFIG,}
-\DoxyCodeLine{00039\ \ \ \ \ M\_C\_GENERAL,}
-\DoxyCodeLine{00040\ \ \ \ \ M\_C\_PLAYER1,}
-\DoxyCodeLine{00041\ \ \ \ \ M\_C\_PLAYER2,}
-\DoxyCodeLine{00042\ \ \ \ \ GAME,\ \ \ \ \textcolor{comment}{//\ à\ améliorer}}
-\DoxyCodeLine{00043\ \ \ \ \ G\_PAUSE,\ \textcolor{comment}{//\ à\ faire}}
-\DoxyCodeLine{00044\ \};}
-\DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \textcolor{keyword}{enum}\ UserInput\ \{}
-\DoxyCodeLine{00047\ \ \ \ \ NOTHING\ =\ 0,}
-\DoxyCodeLine{00048\ \ \ \ \ ENTER,}
-\DoxyCodeLine{00049\ \ \ \ \ PAUSE,}
-\DoxyCodeLine{00050\ \ \ \ \ QUIT,}
-\DoxyCodeLine{00051\ \ \ \ \ RETURN,}
-\DoxyCodeLine{00052\ \ \ \ \ UP1P,}
-\DoxyCodeLine{00053\ \ \ \ \ UP1R,}
-\DoxyCodeLine{00054\ \ \ \ \ DOWN1P,}
-\DoxyCodeLine{00055\ \ \ \ \ DOWN1R,}
-\DoxyCodeLine{00056\ \ \ \ \ LEFT1P,}
-\DoxyCodeLine{00057\ \ \ \ \ LEFT1R,}
-\DoxyCodeLine{00058\ \ \ \ \ RIGHT1P,}
-\DoxyCodeLine{00059\ \ \ \ \ RIGHT1R,}
-\DoxyCodeLine{00060\ \ \ \ \ SHOOT1,}
-\DoxyCodeLine{00061\ \ \ \ \ SUPERSHOOT1,}
-\DoxyCodeLine{00062\ \ \ \ \ UP2P,}
-\DoxyCodeLine{00063\ \ \ \ \ UP2R,}
-\DoxyCodeLine{00064\ \ \ \ \ DOWN2P,}
-\DoxyCodeLine{00065\ \ \ \ \ DOWN2R,}
-\DoxyCodeLine{00066\ \ \ \ \ LEFT2P,}
-\DoxyCodeLine{00067\ \ \ \ \ LEFT2R,}
-\DoxyCodeLine{00068\ \ \ \ \ RIGHT2P,}
-\DoxyCodeLine{00069\ \ \ \ \ RIGHT2R,}
-\DoxyCodeLine{00070\ \ \ \ \ SHOOT2,}
-\DoxyCodeLine{00071\ \ \ \ \ SUPERSHOOT2,}
-\DoxyCodeLine{00072\ \};}
-\DoxyCodeLine{00073\ }
-\DoxyCodeLine{00074\ \textcolor{keywordtype}{float}\ computeDist(TupleFloat\ a,\ TupleFloat\ b);}
-\DoxyCodeLine{00075\ std::string\ convertInput(\textcolor{keyword}{const}\ sf::Keyboard::Key\ \&key);}
-\DoxyCodeLine{00076\ std::string\ getInput(std::map<UserInput,\ sf::Keyboard::Key>\ \&input,}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UserInput\ search);}
-\DoxyCodeLine{00078\ \textcolor{keywordtype}{void}\ initGeneralInput(}
-\DoxyCodeLine{00079\ \ \ \ \ std::map<UserInput,}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::pair<sf::Keyboard::Key,\ std::shared\_ptr<std::string>>>}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \&inputConfig);}
-\DoxyCodeLine{00082\ \textcolor{keywordtype}{void}\ initPlay1Input(}
-\DoxyCodeLine{00083\ \ \ \ \ std::pair<std::map<UserInput,\ std::pair<sf::Keyboard::Key,}
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::shared\_ptr<std::string>>>,}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::map<UserInput,\ sf::Keyboard::Key>>\ \&inputConfig);}
-\DoxyCodeLine{00086\ \textcolor{keywordtype}{void}\ initPlay2Input(}
+\DoxyCodeLine{00033\ \ \ \ \ M\_PLAYER,}
+\DoxyCodeLine{00034\ \ \ \ \ M\_ALL\_ROOM,}
+\DoxyCodeLine{00035\ \ \ \ \ M\_MY\_ROOM,}
+\DoxyCodeLine{00036\ \ \ \ \ M\_CREATE\_ROOM,}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{comment}{//\ M\_IN\_ROOM,}}
+\DoxyCodeLine{00038\ \ \ \ \ MENUROOM,}
+\DoxyCodeLine{00039\ \ \ \ \ M\_STAGE,\ \textcolor{comment}{//\ à\ faire}}
+\DoxyCodeLine{00040\ \ \ \ \ M\_PERSO,\ \textcolor{comment}{//\ à\ faire}}
+\DoxyCodeLine{00041\ \ \ \ \ M\_CONFIG,}
+\DoxyCodeLine{00042\ \ \ \ \ M\_C\_GENERAL,}
+\DoxyCodeLine{00043\ \ \ \ \ M\_C\_PLAYER1,}
+\DoxyCodeLine{00044\ \ \ \ \ M\_C\_PLAYER2,}
+\DoxyCodeLine{00045\ \ \ \ \ GAME,\ \ \ \ \textcolor{comment}{//\ à\ améliorer}}
+\DoxyCodeLine{00046\ \ \ \ \ G\_PAUSE,\ \textcolor{comment}{//\ à\ faire}}
+\DoxyCodeLine{00047\ \ \ \ \ CUSTOM,}
+\DoxyCodeLine{00048\ \};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{enum}\ UserInput\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ NOTHING\ =\ 0,}
+\DoxyCodeLine{00052\ \ \ \ \ ENTER,}
+\DoxyCodeLine{00053\ \ \ \ \ PAUSE,}
+\DoxyCodeLine{00054\ \ \ \ \ QUIT,}
+\DoxyCodeLine{00055\ \ \ \ \ RETURN,}
+\DoxyCodeLine{00056\ \ \ \ \ UP1P,}
+\DoxyCodeLine{00057\ \ \ \ \ UP1R,}
+\DoxyCodeLine{00058\ \ \ \ \ DOWN1P,}
+\DoxyCodeLine{00059\ \ \ \ \ DOWN1R,}
+\DoxyCodeLine{00060\ \ \ \ \ LEFT1P,}
+\DoxyCodeLine{00061\ \ \ \ \ LEFT1R,}
+\DoxyCodeLine{00062\ \ \ \ \ RIGHT1P,}
+\DoxyCodeLine{00063\ \ \ \ \ RIGHT1R,}
+\DoxyCodeLine{00064\ \ \ \ \ SHOOT1,}
+\DoxyCodeLine{00065\ \ \ \ \ SUPERSHOOT1,}
+\DoxyCodeLine{00066\ \ \ \ \ UP2P,}
+\DoxyCodeLine{00067\ \ \ \ \ UP2R,}
+\DoxyCodeLine{00068\ \ \ \ \ DOWN2P,}
+\DoxyCodeLine{00069\ \ \ \ \ DOWN2R,}
+\DoxyCodeLine{00070\ \ \ \ \ LEFT2P,}
+\DoxyCodeLine{00071\ \ \ \ \ LEFT2R,}
+\DoxyCodeLine{00072\ \ \ \ \ RIGHT2P,}
+\DoxyCodeLine{00073\ \ \ \ \ RIGHT2R,}
+\DoxyCodeLine{00074\ \ \ \ \ SHOOT2,}
+\DoxyCodeLine{00075\ \ \ \ \ SUPERSHOOT2,}
+\DoxyCodeLine{00076\ \};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keywordtype}{float}\ computeDist(TupleFloat\ a,\ TupleFloat\ b);}
+\DoxyCodeLine{00079\ std::string\ convertInput(\textcolor{keyword}{const}\ sf::Keyboard::Key\ \&key);}
+\DoxyCodeLine{00080\ std::string\ getInput(std::map<UserInput,\ sf::Keyboard::Key>\ \&input,}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UserInput\ search);}
+\DoxyCodeLine{00082\ \textcolor{keywordtype}{void}\ initGeneralInput(}
+\DoxyCodeLine{00083\ \ \ \ \ std::map<UserInput,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::pair<sf::Keyboard::Key,\ std::shared\_ptr<std::string>>>}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \&inputConfig);}
+\DoxyCodeLine{00086\ \textcolor{keywordtype}{void}\ initPlay1Input(}
 \DoxyCodeLine{00087\ \ \ \ \ std::pair<std::map<UserInput,\ std::pair<sf::Keyboard::Key,}
 \DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::shared\_ptr<std::string>>>,}
 \DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::map<UserInput,\ sf::Keyboard::Key>>\ \&inputConfig);}
-\DoxyCodeLine{00090\ \textcolor{keywordtype}{void}\ killMyEntity(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \mbox{\hyperlink{classEntity}{Entity}}\ i);}
-\DoxyCodeLine{00091\ \}\ \textcolor{comment}{//\ namespace\ rtype::client}}
+\DoxyCodeLine{00090\ \textcolor{keywordtype}{void}\ initPlay2Input(}
+\DoxyCodeLine{00091\ \ \ \ \ std::pair<std::map<UserInput,\ std::pair<sf::Keyboard::Key,}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::shared\_ptr<std::string>>>,}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::map<UserInput,\ sf::Keyboard::Key>>\ \&inputConfig);}
+\DoxyCodeLine{00094\ \textcolor{keywordtype}{void}\ killMyEntity(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \mbox{\hyperlink{classEntity}{Entity}}\ i);}
+\DoxyCodeLine{00095\ \}\ \textcolor{comment}{//\ namespace\ rtype::client}}
 
 \end{DoxyCode}
