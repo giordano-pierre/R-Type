@@ -27,7 +27,8 @@ void createGameEntities(ECS &ecs, const Configs &myConfig, SFMLObjects &SFMLObj,
     else
         backFile = "assets/images/background/background_mountain.jpg";
     if (level.contains("stage") && level["stage"].contains("size"))
-        sizeBack = {level["stage"]["size"]["x"].get<int>(), level["stage"]["size"]["y"].get<int>()};
+        sizeBack = {level["stage"]["size"]["x"].get<int>(),
+                    level["stage"]["size"]["y"].get<int>()};
     else
         sizeBack = {675, 360};
 
