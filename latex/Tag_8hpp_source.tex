@@ -13,16 +13,17 @@
 \DoxyCodeLine{00009\ }
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <ostream>}}
 \DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}tools.hpp"{}}}
-\DoxyCodeLine{00013\ }
-\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }rtype::client\ \{}
-\DoxyCodeLine{00015\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrtype_1_1client_1_1Tag}{Tag}}\ \{}
-\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1Tag}{Tag}}(ObjectType\ type,\ std::string\ \textcolor{keywordtype}{id}\ =\ \textcolor{stringliteral}{"{}"{}})\ :\ \_type(type),\ \_id(\textcolor{keywordtype}{id})\{\};}
-\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1Tag}{\string~Tag}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00018\ \ \ \ \ ObjectType\ \_type;}
-\DoxyCodeLine{00019\ \ \ \ \ std::string\ \_id;}
-\DoxyCodeLine{00020\ \};}
-\DoxyCodeLine{00021\ \}\ \textcolor{comment}{//\ namespace\ rtype::client}}
-\DoxyCodeLine{00022\ std::ostream\ \&operator<<(std::ostream\ \&out,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1Tag}{rtype::client::Tag}}\ \&type);}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}clientTools.hpp"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}protocol.hpp"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }rtype::client\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrtype_1_1client_1_1Tag}{Tag}}\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1Tag}{Tag}}(EntityType\ type\ =\ OTHER,\ std::string\ \textcolor{keywordtype}{id}\ =\ \textcolor{stringliteral}{"{}"{}})\ :\ \_type(type),\ \_id(\textcolor{keywordtype}{id})\{\};}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1Tag}{\string~Tag}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00019\ \ \ \ \ EntityType\ \_type;}
+\DoxyCodeLine{00020\ \ \ \ \ std::string\ \_id;}
+\DoxyCodeLine{00021\ \};}
+\DoxyCodeLine{00022\ \}\ \textcolor{comment}{//\ namespace\ rtype::client}}
+\DoxyCodeLine{00023\ std::ostream\ \&operator<<(std::ostream\ \&out,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1Tag}{rtype::client::Tag}}\ \&type);}
 
 \end{DoxyCode}
