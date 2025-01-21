@@ -122,39 +122,40 @@ void loadMainSystems(ECS &ecs) {
 
 int main(int ac, char *argv[]) {
     try {
-    if (ac != 1 && ac != 2)
-        return 84;
+        if (ac != 1 && ac != 2)
+            return 84;
 
-    if (ac == 3 && !is_number(argv[1]))
-        return 84;
+        if (ac == 3 && !is_number(argv[1]))
+            return 84;
 
-    std::signal(SIGINT, signalHandler);
-    std::signal(SIGTERM, signalHandler);
+        std::signal(SIGINT, signalHandler);
+        std::signal(SIGTERM, signalHandler);
 
-    int port = (ac == 2) ? std::atoi(argv[1]) : 4242;
-    std::cout << "Démarrage du serveur R-Type..." << std::endl;
+        int port = (ac == 2) ? std::atoi(argv[1]) : 4242;
+        std::cout << "Démarrage du serveur R-Type..." << std::endl;
 
-    ECS ecs;
-    initMainECS(ecs);
+        ECS ecs;
+        initMainECS(ecs);
 
-    rtype::server::UDPServer server(ecs, port);
-    ecs.subscribe<RequestEvent>(server, true);
+        rtype::server::UDPServer server(ecs, port);
+        ecs.subscribe<RequestEvent>(server, true);
 
-    loadMainSystems(ecs);
-    serverLoop(ecs);
+        loadMainSystems(ecs);
+        serverLoop(ecs);
 
-    ecs.post<RequestEvent>({DISCONNECT, {}});
-    if (!ecs.empty()) {
-        auto evt = ecs.front();
-        evt();
-        ecs.pop_front();
-    }
-    std::cout << "===============================" << std::endl << std::endl;
-    std::cout << "... Serveur arrêté avec succès. Bien joué!" << std::endl;
-    std::cout << "N'hésite pas a rejoindre Arts&Crafts ;)" << std::endl;
+        ecs.post<RequestEvent>({DISCONNECT, {}});
+        if (!ecs.empty()) {
+            auto evt = ecs.front();
+            evt();
+            ecs.pop_front();
+        }
+        std::cout << "===============================" << std::endl
+                  << std::endl;
+        std::cout << "... Serveur arrêté avec succès. Bien joué!" << std::endl;
+        std::cout << "N'hésite pas a rejoindre Arts&Crafts ;)" << std::endl;
     } catch (const std::exception &e) {
-        std::cerr << "Aie aie aie... \nServer error: " << e.what() <<
-        std::endl; return 1;
+        std::cerr << "Aie aie aie... \nServer error: " << e.what() << std::endl;
+        return 1;
     }
     return 0;
 }
