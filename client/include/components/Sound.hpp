@@ -8,22 +8,17 @@
 #pragma once
 
 #include <SFML/Audio.hpp>
-#include <string>
 #include <memory>
 #include <ostream>
+#include <string>
 
 namespace rtype::client {
 
-enum class SoundState {
-    LOOP,
-    PLAY_ONCE,
-    TRIGGER
-};
+enum class SoundState { LOOP, PLAY_ONCE, TRIGGER };
 
 struct Sound {
     Sound(const std::string &filePath, SoundState state, float volume);
     ~Sound() = default;
-
 
     std::shared_ptr<sf::Music> _music;
     SoundState _state;

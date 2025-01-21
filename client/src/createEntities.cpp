@@ -47,20 +47,18 @@ void createGameEntities(ECS &ecs, const Configs &myConfig,
     Entity healthBar = ecs.spawn_entity();
 
     ecs.add_component<Position>(
-        healthBar,
-        {serverSize.x * float(1) / 7, serverSize.y * float(1) / 11});
+        healthBar, {serverSize.x * float(1) / 7, serverSize.y * float(1) / 11});
 
     ecs.add_component<Tag>(healthBar, {});
     ecs.add_component<Scene>(healthBar, {GAME});
     float healthBarWidth = serverSize.x * (1.0 / 8.0);
     float healthBarHeight = serverSize.y * (1.0 / 16.0);
 
-    ecs.add_component<Hitbox>(healthBar,
-                              {{1.0 / 8, 1.0 / 16},
-                               true,
-                               {healthBarWidth, healthBarHeight},
-                               {healthBarWidth, healthBarHeight},
-                               false});
+    ecs.add_component<Hitbox>(healthBar, {{1.0 / 8, 1.0 / 16},
+                                          true,
+                                          {healthBarWidth, healthBarHeight},
+                                          {healthBarWidth, healthBarHeight},
+                                          false});
     ecs.add_component<Drawable>(
         healthBar,
         {SFMLObj._myTextures.getTexture("assets/images/utils/full_life.png"),
@@ -70,7 +68,7 @@ void createGameEntities(ECS &ecs, const Configs &myConfig,
 }
 
 void createCustomEntities(ECS &ecs, const Configs &myConfig,
-                        SFMLObjects &SFMLObj) {
+                          SFMLObjects &SFMLObj) {
 
     auto serverSize = myConfig._serverSize;
     Entity back1 = ecs.spawn_entity();
@@ -80,36 +78,35 @@ void createCustomEntities(ECS &ecs, const Configs &myConfig,
     ecs.add_component<Scene>(back1, {CUSTOM});
     ecs.add_component<Hitbox>(back1, {{1, 1}, false});
     ecs.add_component<Drawable>(
-        back1, {SFMLObj._myTextures.getTexture(
-                    "assets/images/background/custom.jpg"),
-                {1434, 666},
-                {1434, 666},
-                1});
+        back1,
+        {SFMLObj._myTextures.getTexture("assets/images/background/custom.jpg"),
+         {1434, 666},
+         {1434, 666},
+         1});
 
     Entity arrow1 = ecs.spawn_entity();
-    ecs.add_component<Position>(arrow1, {serverSize.x * 0.05f, serverSize.y / 2.0f});
+    ecs.add_component<Position>(arrow1,
+                                {serverSize.x * 0.05f, serverSize.y / 2.0f});
     ecs.add_component<Tag>(arrow1, {});
     ecs.add_component<Scene>(arrow1, {CUSTOM});
 
-    ecs.add_component<Hitbox>(
-        arrow1,
-        {{float(1) / 6, float(1) / 4},
-         true,
-         {639 * (1.0f / 6.0f), 420 * (1.0f / 4.0f)},
-         {639 * (1.0f / 6.0f), 420 * (1.0f / 4.0f)},
-         false});
-    ecs.add_component<Drawable>(arrow1,
-                                {SFMLObj._myTextures.getTexture(
-                                     "assets/images/utils/arrow_1.png"),
-                                 {639, 420},
-                                 {639, 420},
-                                 1,
-                                 1});
+    ecs.add_component<Hitbox>(arrow1,
+                              {{float(1) / 6, float(1) / 4},
+                               true,
+                               {639 * (1.0f / 6.0f), 420 * (1.0f / 4.0f)},
+                               {639 * (1.0f / 6.0f), 420 * (1.0f / 4.0f)},
+                               false});
+    ecs.add_component<Drawable>(arrow1, {SFMLObj._myTextures.getTexture(
+                                             "assets/images/utils/arrow_1.png"),
+                                         {639, 420},
+                                         {639, 420},
+                                         1,
+                                         1});
     ecs.add_component<Selectable>(
-        arrow1, {SFMLObj._myTextures.getTexture(
-                     "assets/images/utils/arrow_1_sel.png"),
-                 std::function<void(ECS &, Entity)>(select),
-                 std::function<void(ECS &, Entity)>(deselect)});
+        arrow1,
+        {SFMLObj._myTextures.getTexture("assets/images/utils/arrow_1_sel.png"),
+         std::function<void(ECS &, Entity)>(select),
+         std::function<void(ECS &, Entity)>(deselect)});
     ecs.add_component<Pressable>(
         arrow1,
         Pressable{
@@ -122,32 +119,28 @@ void createCustomEntities(ECS &ecs, const Configs &myConfig,
     Entity arrow2 = ecs.spawn_entity();
     ecs.add_component<Tag>(arrow2, {});
     ecs.add_component<Scene>(arrow2, {CUSTOM});
-    ecs.add_component<Drawable>(
-        arrow2,
-        {SFMLObj._myTextures.getTexture("assets/images/utils/arrow_2.png"),
-         {639, 420},
-         {639, 420},
-         1,
-         1});
+    ecs.add_component<Drawable>(arrow2, {SFMLObj._myTextures.getTexture(
+                                             "assets/images/utils/arrow_2.png"),
+                                         {639, 420},
+                                         {639, 420},
+                                         1,
+                                         1});
 
-    ecs.add_component<Hitbox>(
-        arrow2,
-        {{float(1) / 6, float(1) / 4},
-         true,
-         {639 * (1.0f / 6.0f), 420 * (1.0f / 4.0f)},
-         {639 * (1.0f / 6.0f), 420 * (1.0f / 4.0f)},
-         false});
+    ecs.add_component<Hitbox>(arrow2,
+                              {{float(1) / 6, float(1) / 4},
+                               true,
+                               {639 * (1.0f / 6.0f), 420 * (1.0f / 4.0f)},
+                               {639 * (1.0f / 6.0f), 420 * (1.0f / 4.0f)},
+                               false});
 
-    ecs.add_component<Position>(
-        arrow2,
-        {serverSize.x * 0.95f,
-         serverSize.y / 2.0f});
+    ecs.add_component<Position>(arrow2,
+                                {serverSize.x * 0.95f, serverSize.y / 2.0f});
 
     ecs.add_component<Selectable>(
-        arrow2, {SFMLObj._myTextures.getTexture(
-                     "assets/images/utils/arrow_2_sel.png"),
-                 std::function<void(ECS &, Entity)>(select),
-                 std::function<void(ECS &, Entity)>(deselect)});
+        arrow2,
+        {SFMLObj._myTextures.getTexture("assets/images/utils/arrow_2_sel.png"),
+         std::function<void(ECS &, Entity)>(select),
+         std::function<void(ECS &, Entity)>(deselect)});
 
     ecs.add_component<Pressable>(
         arrow2,
@@ -165,27 +158,26 @@ void createCustomEntities(ECS &ecs, const Configs &myConfig,
     float spriteWidth = serverSize.x * (1.0f / 4.0f);
     float spriteHeight = serverSize.y * (1.0f / 4.0f);
 
-    ecs.add_component<Position>(
-        playerSprite, {serverSize.x / 2.0f, serverSize.y / 2.0f});
+    ecs.add_component<Position>(playerSprite,
+                                {serverSize.x / 2.0f, serverSize.y / 2.0f});
 
-    ecs.add_component<Hitbox>(
-        playerSprite,
-        {{1.0f / 4.0f, 1.0f / 4.0f},
-         true,
-         {spriteWidth, spriteHeight},
-         {spriteWidth, spriteHeight},
-         false});
+    ecs.add_component<Hitbox>(playerSprite, {{1.0f / 4.0f, 1.0f / 4.0f},
+                                             true,
+                                             {spriteWidth, spriteHeight},
+                                             {spriteWidth, spriteHeight},
+                                             false});
 
     auto &playerInfo = ecs.get_components<PlayerInfo>()[0].value();
-    std::string spritePath = (playerInfo._customPlayer == 1) ? playerInfo._spritePath1 : playerInfo._spritePath2;
+    std::string spritePath = (playerInfo._customPlayer == 1)
+                                 ? playerInfo._spritePath1
+                                 : playerInfo._spritePath2;
 
-    ecs.add_component<Drawable>(
-        playerSprite,
-        {SFMLObj._myTextures.getTexture(spritePath),
-         {395, 250},
-         {395, 250},
-         1,
-         1});
+    ecs.add_component<Drawable>(playerSprite,
+                                {SFMLObj._myTextures.getTexture(spritePath),
+                                 {395, 250},
+                                 {395, 250},
+                                 1,
+                                 1});
 
     auto &drawable = ecs.get_components<Drawable>()[playerSprite].value();
 
@@ -212,7 +204,8 @@ void createCustomEntities(ECS &ecs, const Configs &myConfig,
     ecs.add_component<Scene>(playerSprite, {CUSTOM});
 
     Entity backB = ecs.spawn_entity();
-    ecs.add_component<Position>(backB, {serverSize.x * 0.2f, serverSize.y * 0.1f});
+    ecs.add_component<Position>(backB,
+                                {serverSize.x * 0.2f, serverSize.y * 0.1f});
     ecs.add_component<Tag>(backB, {});
     ecs.add_component<Scene>(backB, {CUSTOM});
 
@@ -229,13 +222,13 @@ void createCustomEntities(ECS &ecs, const Configs &myConfig,
                                     sf::Color::White,
                                     sf::Text::Style::Regular});
 
-    ecs.add_component<Drawable>(
-        backB,
-        {SFMLObj._myTextures.getTexture("assets/images/utils/button_config1.png"),
-         {402, 100},
-         {402, 100},
-         1,
-         2});
+    ecs.add_component<Drawable>(backB,
+                                {SFMLObj._myTextures.getTexture(
+                                     "assets/images/utils/button_config1.png"),
+                                 {402, 100},
+                                 {402, 100},
+                                 1,
+                                 2});
 
     ecs.add_component<Selectable>(
         backB, {SFMLObj._myTextures.getTexture(
@@ -253,14 +246,13 @@ void createCustomEntities(ECS &ecs, const Configs &myConfig,
             }});
 
     Entity player1B = ecs.spawn_entity();
-    ecs.add_component<Position>(player1B,
-                                {float(serverSize.x) / 8 * float(6.5),
-                                 float(serverSize.y) * 0.85f});
+    ecs.add_component<Position>(player1B, {float(serverSize.x) / 8 * float(6.5),
+                                           float(serverSize.y) * 0.85f});
     ecs.add_component<Scene>(player1B, {CUSTOM});
     ecs.add_component<Hitbox>(player1B, {{float(1) / 10, float(1) / 10}});
     texts.clear();
     texts.insert({"EN", std::make_shared<std::string>("Player 1")});
-        texts.insert({"FR", std::make_shared<std::string>("Joueur 1")});
+    texts.insert({"FR", std::make_shared<std::string>("Joueur 1")});
     ecs.add_component<Text>(player1B, {texts,
                                        SFMLObj._font,
                                        {0.5f, 0.5f},
@@ -295,9 +287,8 @@ void createCustomEntities(ECS &ecs, const Configs &myConfig,
             3});
 
     Entity player2B = ecs.spawn_entity();
-    ecs.add_component<Position>(player2B,
-                                {float(serverSize.x) / 8 * float(7.3),
-                                 float(serverSize.y) * 0.85f});
+    ecs.add_component<Position>(player2B, {float(serverSize.x) / 8 * float(7.3),
+                                           float(serverSize.y) * 0.85f});
     ecs.add_component<Tag>(player2B, {});
     ecs.add_component<Scene>(player2B, {CUSTOM});
     ecs.add_component<Hitbox>(player2B, {{float(1) / 10, float(1) / 10}});
@@ -362,9 +353,7 @@ void createMenuEntities(ECS &ecs, const Configs &myConfig,
                                  48});
     ecs.add_component<rtype::client::Sound>(
         back1,
-        {"assets/audio/epic_menu.ogg",
-        rtype::client::SoundState::LOOP,
-        50.0f});
+        {"assets/audio/epic_menu.ogg", rtype::client::SoundState::LOOP, 50.0f});
 }
 
 void createMenuGeneralEntities(ECS &ecs, const Configs &myConfig,

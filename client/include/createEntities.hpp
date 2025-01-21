@@ -33,7 +33,7 @@ void createMenuRoomEntities(ECS &ecs, const ReceiveEvent &rec_event,
 void createMenuInRoomEntities(ECS &ecs, const Configs &myConfig,
                               SFMLObjects &SFMLObj, Room &myRoom);
 void createCustomEntities(ECS &ecs, const Configs &myConfig,
-                        SFMLObjects &SFMLObj);
+                          SFMLObjects &SFMLObj);
 
 // Menu Config
 void createConfigEntities(ECS &ecs, const Configs &myConfig,

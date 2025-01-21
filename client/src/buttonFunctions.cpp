@@ -52,18 +52,14 @@ void cyclePlayerColor(ECS &ecs) {
     auto &playerInfo = ecs.get_components<PlayerInfo>()[0].value();
 
     static const std::vector<sf::Color> colors = {
-        sf::Color(253, 20, 175),
-        sf::Color(255, 166, 208),
-        sf::Color(243, 158, 108),
-        sf::Color(255, 249, 148),
-        sf::Color(140, 249, 147),
-        sf::Color(104, 196, 249),
-        sf::Color(81, 101, 235),
-        sf::Color(186, 109, 245)
-    };
+        sf::Color(253, 20, 175),  sf::Color(255, 166, 208),
+        sf::Color(243, 158, 108), sf::Color(255, 249, 148),
+        sf::Color(140, 249, 147), sf::Color(104, 196, 249),
+        sf::Color(81, 101, 235),  sf::Color(186, 109, 245)};
 
-    std::string &currentColor =
-        (playerInfo._customPlayer == 1) ? playerInfo._color1 : playerInfo._color2;
+    std::string &currentColor = (playerInfo._customPlayer == 1)
+                                    ? playerInfo._color1
+                                    : playerInfo._color2;
 
     size_t colorIndex = 0;
     for (size_t i = 0; i < colors.size(); ++i) {
@@ -87,11 +83,13 @@ void cyclePlayerColor(ECS &ecs) {
 
     auto &drawableComponents = ecs.get_components<Drawable>();
     for (size_t i = 0; i < drawableComponents.size(); ++i) {
-        if (!drawableComponents[i]) continue;
+        if (!drawableComponents[i])
+            continue;
 
         auto &drawable = drawableComponents[i].value();
 
-        if (drawable._sprite.getTexture()->getSize() == sf::Vector2u(395, 250)) {
+        if (drawable._sprite.getTexture()->getSize() ==
+            sf::Vector2u(395, 250)) {
             drawable._sprite.setColor(newColor);
             break;
         }
@@ -102,18 +100,18 @@ void cyclePlayerShip(ECS &ecs) {
     auto &playerInfo = ecs.get_components<PlayerInfo>()[0].value();
 
     static const std::vector<std::string> shipTextures = {
-        "assets/images/ship/red_ship.png",
-        "assets/images/ship/green_ship.png",
-        "assets/images/ship/grey_ship.png",
-        "assets/images/ship/cat.png"
-    };
+        "assets/images/ship/red_ship.png", "assets/images/ship/green_ship.png",
+        "assets/images/ship/grey_ship.png", "assets/images/ship/cat.png"};
 
-    std::string &currentSpritePath =
-        (playerInfo._customPlayer == 1) ? playerInfo._spritePath1 : playerInfo._spritePath2;
+    std::string &currentSpritePath = (playerInfo._customPlayer == 1)
+                                         ? playerInfo._spritePath1
+                                         : playerInfo._spritePath2;
 
-    auto it = std::find(shipTextures.begin(), shipTextures.end(), currentSpritePath);
+    auto it =
+        std::find(shipTextures.begin(), shipTextures.end(), currentSpritePath);
     if (it != shipTextures.end()) {
-        size_t nextIndex = (std::distance(shipTextures.begin(), it) + 1) % shipTextures.size();
+        size_t nextIndex =
+            (std::distance(shipTextures.begin(), it) + 1) % shipTextures.size();
         currentSpritePath = shipTextures[nextIndex];
     } else {
         currentSpritePath = shipTextures[0];
@@ -121,7 +119,6 @@ void cyclePlayerShip(ECS &ecs) {
 
     std::cout << "Player sprite updated to: " << currentSpritePath << std::endl;
 }
-
 
 void resize1440(ECS &ecs, Entity i) {
     auto &myConfig = ecs.get_components<Configs>()[0].value();

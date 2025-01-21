@@ -57,12 +57,12 @@ void createDrawable(ECS &ecs, Entity &entity, SFMLObjects &SFMLObj,
     case PLAYER: {
         int actualPlayer = countPlayer(ecs);
         auto &playerInfo = ecs.get_components<PlayerInfo>()[0].value();
-        std::string texturePath = (actualPlayer == 0) ? playerInfo._spritePath1 : playerInfo._spritePath2;
+        std::string texturePath = (actualPlayer == 0) ? playerInfo._spritePath1
+                                                      : playerInfo._spritePath2;
         auto texture = SFMLObj._myTextures.getTexture(texturePath);
 
-        ecs.add_component<Drawable>(
-            entity,
-            {texture, {395, 250}, {395, 250}, 1, 1});
+        ecs.add_component<Drawable>(entity,
+                                    {texture, {395, 250}, {395, 250}, 1, 1});
 
         auto &drawable = ecs.get_components<Drawable>()[entity].value();
         sf::Color playerColor;
@@ -95,10 +95,8 @@ void createDrawable(ECS &ecs, Entity &entity, SFMLObjects &SFMLObj,
                                      1,
                                      2});
         ecs.add_component<rtype::client::Sound>(
-        entity,
-        {"assets/audio/long-laser.ogg",
-        rtype::client::SoundState::PLAY_ONCE,
-        50.0f});
+            entity, {"assets/audio/long-laser.ogg",
+                     rtype::client::SoundState::PLAY_ONCE, 50.0f});
         break;
     }
     case ENEMY1: {
