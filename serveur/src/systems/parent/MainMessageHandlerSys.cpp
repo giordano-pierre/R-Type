@@ -360,8 +360,18 @@ void launchGame(ECS &ecs, const ReceiveEvent &rec_event,
                                                                    {0.1, 0.12});
                     child.value()._ecs_child.add_component<Velocity>(tmpPlayer,
                                                                      {0, 0});
-                    child.value()._ecs_child.add_component<Health>(tmpPlayer,
-                                                                   {});
+                    if (ro.value()._diff == 1) {
+                        child.value()._ecs_child.add_component<Health>(tmpPlayer,
+                                                                    {10, true});
+                    }
+                    if (ro.value()._diff == 2) {
+                        child.value()._ecs_child.add_component<Health>(tmpPlayer,
+                                                                    {30});
+                    }
+                    if (ro.value()._diff == 3) {
+                        child.value()._ecs_child.add_component<Health>(tmpPlayer,
+                                                                    {});
+                    }
                     child.value()._ecs_child.add_component<Score>(tmpPlayer,
                                                                   {0});
                     child.value()._ecs_child.add_component<Position>(
