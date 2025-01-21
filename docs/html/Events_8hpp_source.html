@@ -141,9 +141,22 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>};</div>
 </div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>} <span class="comment">// namespace rtype::server</span></div>
+<div class="foldopen" id="foldopen00053" data-start="{" data-end="};">
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="structrtype_1_1server_1_1PowerupEvent.html">   53</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrtype_1_1server_1_1PowerupEvent.html">PowerupEvent</a> {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_struct" href="structrtype_1_1server_1_1PowerupEvent.html">PowerupEvent</a>(<span class="keywordtype">float</span> posX, <span class="keywordtype">float</span> posY, <span class="keywordtype">int</span> type, <span class="keywordtype">float</span> dur)</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        : _x(posX), _y(posY), _type(type), _duration(dur) {}</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_struct" href="structrtype_1_1server_1_1PowerupEvent.html">~PowerupEvent</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordtype">float</span> _x;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordtype">float</span> _y;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordtype">int</span> _type;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordtype">float</span> _duration;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>};</div>
+</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>} <span class="comment">// namespace rtype::server</span></div>
 <div class="ttc" id="astructRequestEvent_html"><div class="ttname"><a href="structRequestEvent.html">RequestEvent</a></div><div class="ttdef"><b>Definition</b> RequestEvent.hpp:14</div></div>
 <div class="ttc" id="astructrtype_1_1server_1_1CheckEvent_html"><div class="ttname"><a href="structrtype_1_1server_1_1CheckEvent.html">rtype::server::CheckEvent</a></div><div class="ttdef"><b>Definition</b> Events.hpp:34</div></div>
+<div class="ttc" id="astructrtype_1_1server_1_1PowerupEvent_html"><div class="ttname"><a href="structrtype_1_1server_1_1PowerupEvent.html">rtype::server::PowerupEvent</a></div><div class="ttdef"><b>Definition</b> Events.hpp:53</div></div>
 <div class="ttc" id="astructrtype_1_1server_1_1RemoveClient_html"><div class="ttname"><a href="structrtype_1_1server_1_1RemoveClient.html">rtype::server::RemoveClient</a></div><div class="ttdef"><b>Definition</b> Events.hpp:27</div></div>
 <div class="ttc" id="astructrtype_1_1server_1_1TicEvent_html"><div class="ttname"><a href="structrtype_1_1server_1_1TicEvent.html">rtype::server::TicEvent</a></div><div class="ttdef"><b>Definition</b> Events.hpp:19</div></div>
 <div class="ttc" id="astructrtype_1_1server_1_1UpdateEvent_html"><div class="ttname"><a href="structrtype_1_1server_1_1UpdateEvent.html">rtype::server::UpdateEvent</a></div><div class="ttdef"><b>Definition</b> Events.hpp:45</div></div>

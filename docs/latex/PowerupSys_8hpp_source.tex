@@ -1,0 +1,55 @@
+\doxysection{Powerup\+Sys.\+hpp}
+\hypertarget{PowerupSys_8hpp_source}{}\label{PowerupSys_8hpp_source}\index{serveur/include/systems/child/PowerupSys.hpp@{serveur/include/systems/child/PowerupSys.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ EPITECH\ PROJECT,\ 2024}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**\ R-\/Type}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**\ File\ description:}}
+\DoxyCodeLine{00005\ \textcolor{comment}{**\ PowerupSys.hpp}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}Components.hpp"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}ECS/ECS.hpp"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}Events.hpp"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }rtype::server\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrtype_1_1server_1_1PowerupSys}{PowerupSys}}\ \{}
+\DoxyCodeLine{00016\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1server_1_1PowerupSys}{PowerupSys}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1server_1_1PowerupSys}{\string~PowerupSys}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ spawnPowerup(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\ \{}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::random\_device\ rd;}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::mt19937\ gen(rd());}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ std::uniform\_real\_distribution<>\ probDis(0.0,\ 1.0);}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ std::uniform\_int\_distribution<>\ typeDis(0,\ 1);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (probDis(gen)\ <\ 0.2)\ \{\ \textcolor{comment}{//\ define\ the\ chance\ of\ appearance}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ (1)\ \{\ //define\ th/§e\ chance\ of\ appearance}}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ powerupType\ =\ typeDis(gen);}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ int\ powerupType\ =\ 1;}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classEntity}{Entity}}\ powerup\ =\ ecs.spawn\_entity();}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ ecs.add\_component<\mbox{\hyperlink{structrtype_1_1server_1_1Position}{Position}}>(powerup,\ \{x,\ y\});}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ ecs.add\_component<\mbox{\hyperlink{structrtype_1_1server_1_1Powerup}{Powerup}}>(powerup,\ \{powerupType,\ 10\});}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ ecs.add\_component<\mbox{\hyperlink{structrtype_1_1server_1_1Tag}{Tag}}>(powerup,\ \{fetch\_new\_uuid(),\ POWERUP\});}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ ecs.add\_component<\mbox{\hyperlink{structrtype_1_1server_1_1HitBox}{HitBox}}>(powerup,\ \mbox{\hyperlink{structrtype_1_1server_1_1HitBox}{HitBox}}(0.040,\ 0.060));}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ ecs.add\_component<\mbox{\hyperlink{structrtype_1_1server_1_1Velocity}{Velocity}}>(powerup,\ \mbox{\hyperlink{structrtype_1_1server_1_1Velocity}{Velocity}}(-\/1,\ 0));}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Pup\ spawned\ at\ ("{}}\ <<\ x\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ y}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{})\ Type:\ "{}}\ <<\ powerupType\ <<\ \textcolor{stringliteral}{"{}\ Duration:\ "{}}\ <<\ 10}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00043\ \ \ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1server_1_1PowerupEvent}{PowerupEvent}}\ \&event)\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ spawnPowerup(ecs,\ event.\_x,\ event.\_y);}
+\DoxyCodeLine{00047\ \ \ \ \ \}}
+\DoxyCodeLine{00048\ \};}
+\DoxyCodeLine{00049\ \}\ \textcolor{comment}{//\ namespace\ rtype::server}}
+
+\end{DoxyCode}
