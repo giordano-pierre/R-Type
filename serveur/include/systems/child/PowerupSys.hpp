@@ -25,8 +25,10 @@ class PowerupSys {
         std::uniform_int_distribution<> typeDis(0, 1);
 
 
-        if (probDis(gen) < 0.2) {
+        if (probDis(gen) < 0.2) { //define the chance of appearance
+        // if (1) { //define th/§e chance of appearance
             int powerupType = typeDis(gen);
+            // int powerupType = 1;
 
             Entity powerup = ecs.spawn_entity();
             ecs.add_component<Position>(powerup, {x, y});

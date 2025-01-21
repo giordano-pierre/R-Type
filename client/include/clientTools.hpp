@@ -45,7 +45,7 @@ enum SceneType {
 };
 
 enum PowerupType {
-    SHIELD,
+    SHIELD = 0,
     BONUSLIFE,
     TIMESTOP,
     ENNEMYDESTRUCTION,

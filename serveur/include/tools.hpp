@@ -17,5 +17,13 @@ namespace rtype::server {
 void removeAll(ECS &ecs);
 bool isEnemy(const EntityType &obj);
 void loadLevel(Stage &stage);
+bool hasPowerup(ECS &ecs, int index, int type);
+
+enum PowerupType {
+    SHIELD = 0,
+    BONUSLIFE,
+    TIMESTOP,
+    ENNEMYDESTRUCTION,
+};
 
 } // namespace rtype::server

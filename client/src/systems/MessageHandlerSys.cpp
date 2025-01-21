@@ -65,11 +65,12 @@ void createDrawable(ECS &ecs, Entity &entity, SFMLObjects &SFMLObj,
              1});
         break;
     case POWERUP: {
-        const auto &type = ecs.get_components<Powerup>()[entity];
-        if (!type) {
+        const auto &type1 = ecs.get_components<Powerup>()[entity];
+        std::cout<< "TYPEt !!!!!!!!!!!!!!!!!!!: "<< type1->_type<< std::endl;
+        if (!type1) {
             std::cout << "sgsesegseg" << std::endl;
         }
-        switch (type->_type) {
+        switch (type1->_type) {
             case (SHIELD):
                 ecs.add_component<Drawable>(entity,
                                     {SFMLObj._myTextures.getTexture(
@@ -146,10 +147,9 @@ void createEntity(ECS &ecs, Entity &entity, const ReceiveEvent &rec_event,
     if (rec_event.payload.contains("sc"))
         ecs.add_component<Score>(entity, {rec_event.payload["sc"].get<int>()});
     if (rec_event.payload.contains("pu")) {
-        std::cout << "^HERE SDFJISQJDIJQSIDJISQJDIJSJQDIJQSI" << std::endl;
+        std::cout<<"^HERE SDFJISQJDIJQSIDJISQJDIJSJQDIJQSI->   "<<rec_event.payload["pu"].get<int>()<<std::endl;
 
-        ecs.add_component<Powerup>(entity,
-                                   {rec_event.payload["pu"].get<int>()});
+        ecs.add_component<Powerup>(entity, Powerup(rec_event.payload["pu"].get<int>()));
         // std::cout<<rec_event.payload["pu"]<<std::endl;
         // std::cout<<"^here"<<std::endl;
     }

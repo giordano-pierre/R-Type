@@ -8,6 +8,7 @@
 #include "systems/child/CollisionSystem.hpp"
 #include "tools.hpp"
 #include <iostream>
+#include "Components.hpp"
 
 namespace rtype::server {
 
@@ -22,6 +23,19 @@ size_t getShotOwner(ECS &ecs, const SparseArray<Tag> &tags,
     }
     return -1;
 }
+
+bool hasPowerup(ECS &ecs, int index, int type) {
+    const auto &powerups = ecs.get_components<rtype::server::Powerup>();
+
+    if (index >= 0 && index < powerups.size() && powerups[index]) {
+        const auto &pu = powerups[index].value();
+        if (pu._type == type) {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 void CollisionSys::operator()(ECS &ecs, const TicEvent &,
                               const SparseArray<Position> &positions,
@@ -65,12 +79,16 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
             if (tag1.value()._type == PLAYER && isEnemy(tag2.value()._type)) {
                 ecs.add_component<Dead>(ecs.entity_from_index(j), {});
                 if (i < healths.size() && healths[i]) {
+                    if (hasPowerup(ecs, i, SHIELD))
+                        continue;
                     healths[i].value()._health -= 10;
                 }
             }
             if (tag2.value()._type == PLAYER && isEnemy(tag1.value()._type)) {
                 ecs.add_component<Dead>(ecs.entity_from_index(i), {});
                 if (j < healths.size() && healths[j]) {
+                    if (hasPowerup(ecs, j, SHIELD))
+                        continue;
                     healths[j].value()._health -= 10;
                 }
             }
@@ -84,7 +102,7 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
                     const auto enemyScore = scores[j].value()._score;
                     scores[idPlayer].value()._score += enemyScore;
                 }
-                ecs.post<PowerupEvent>(PowerupEvent(pos2->x, pos2->y, 0, 10.0));
+                ecs.post<PowerupEvent>(PowerupEvent(pos2->x, pos2->y, 5, 10.0));
             }
             if (isEnemy(tag1.value()._type) && tag2.value()._type == SHOT) {
                 ecs.add_component<Dead>(ecs.entity_from_index(i), {});
@@ -96,7 +114,7 @@ void CollisionSys::operator()(ECS &ecs, const TicEvent &,
                     const auto enemyScore = scores[i].value()._score;
                     scores[idPlayer].value()._score += enemyScore;
                 }
-                ecs.post<PowerupEvent>(PowerupEvent(pos1->x, pos1->y, 0, 10.0));
+                ecs.post<PowerupEvent>(PowerupEvent(pos1->x, pos1->y, 5, 10.0));
             }
             if (tag1.value()._type == PLAYER && tag2.value()._type == POWERUP) {
                 ecs.add_component<Dead>(ecs.entity_from_index(j), {});
