@@ -15,6 +15,7 @@
 #include "loadSystems.hpp"
 #include "systems/MessageHandlerSys.hpp"
 #include "systems/UDPClient.hpp"
+#include "components/Powerup.hpp"
 
 bool is_number(char *str) {
     for (int i = 0; i < strlen(str); i++) {
@@ -52,6 +53,7 @@ int main(int ac, char *argv[]) {
     ecs.register_component<rtype::client::SFMLObjects>();
     ecs.register_component<rtype::client::Room>();
     ecs.register_component<rtype::client::PlayerInfo>();
+    ecs.register_component<rtype::client::Powerup>();
 
     ecs.register_event<rtype::client::FrameEvent>();
     ecs.register_event<rtype::client::InputEvent>();

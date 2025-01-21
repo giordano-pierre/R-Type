@@ -44,6 +44,13 @@ enum SceneType {
     G_PAUSE, // à faire
 };
 
+enum PowerupType {
+    SHIELD,
+    BONUSLIFE,
+    TIMESTOP,
+    ENNEMYDESTRUCTION,
+};
+
 enum UserInput {
     NOTHING = 0,
     ENTER,

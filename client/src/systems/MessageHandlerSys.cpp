@@ -10,6 +10,7 @@
 #include "events/DeleteEvent.hpp"
 #include "events/RequestEvent.hpp"
 #include <iostream>
+#include "components/Powerup.hpp"
 
 namespace rtype::client {
 
@@ -63,6 +64,26 @@ void createDrawable(ECS &ecs, Entity &entity, SFMLObjects &SFMLObj,
              1,
              1});
         break;
+    case POWERUP: {
+        const auto &type = ecs.get_components<Powerup>()[entity];
+        if (!type) {
+            std::cout << "sgsesegseg" << std::endl;
+        }
+        switch (type->_type) {
+            case (SHIELD):
+                ecs.add_component<Drawable>(entity,
+                                    {SFMLObj._myTextures.getTexture(
+                                         "assets/images/powerups/shield.png"),
+                                     {250, 250},
+                                     {250, 250},
+                                     1,
+                                     2});
+                break;
+            default:
+                break;
+        }
+        break;
+    }
     case SHOT:
         ecs.add_component<Drawable>(entity,
                                     {SFMLObj._myTextures.getTexture(
@@ -115,6 +136,13 @@ void createEntity(ECS &ecs, Entity &entity, const ReceiveEvent &rec_event,
         ecs.add_component<Health>(entity, {rec_event.payload["hp"].get<int>()});
     if (rec_event.payload.contains("sc"))
         ecs.add_component<Score>(entity, {rec_event.payload["sc"].get<int>()});
+    if (rec_event.payload.contains("pu")) {
+        std::cout<<"^HERE SDFJISQJDIJQSIDJISQJDIJSJQDIJQSI"<<std::endl;
+
+        ecs.add_component<Powerup>(entity, {rec_event.payload["pu"].get<int>()});
+        // std::cout<<rec_event.payload["pu"]<<std::endl;
+        // std::cout<<"^here"<<std::endl;
+    }
     ecs.add_component<LastUpdate>(entity, {1});
     ecs.add_component<Scene>(entity, {GAME});
 }
@@ -150,7 +178,7 @@ void updateEntity(Entity &entity, const ReceiveEvent &rec_event,
                   SparseArray<Position> &positions,
                   SparseArray<Velocity> &velocities,
                   SparseArray<Health> &healths, SparseArray<Score> &scores,
-                  SparseArray<LastUpdate> &lastups) {
+                  SparseArray<LastUpdate> &lastups, ECS &ecs) {
     if (rec_event.payload.contains("pos") && entity < positions.size() &&
         positions[entity]) {
         positions[entity].value()._server = {
@@ -181,6 +209,10 @@ void updateEntity(Entity &entity, const ReceiveEvent &rec_event,
             lastups[0].value()._lastUpdate = rec_event.payload["lu"].get<int>();
         }
     }
+    if (rec_event.payload.contains("pu") ) {
+        ecs.add_component<Powerup>(entity, {rec_event.payload["pu"].get<int>()});
+    }
+
 }
 
 void killEntity(ECS &ecs, const ReceiveEvent &rec_event,
@@ -239,7 +271,7 @@ void MessageHandlerSys::operator()(
             Entity entity =
                 getEntityByID(rec_event.payload["id"].get<std::string>(), tags);
             updateEntity(entity, rec_event, positions, velocities, healths,
-                         scores, lastups);
+                         scores, lastups, ecs);
         }
         break;
     }
