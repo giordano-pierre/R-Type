@@ -116,7 +116,6 @@ void createCustomEntities(ECS &ecs, const Configs &myConfig,
             SFMLObj._myTextures.getTexture("assets/images/utils/arrow_1.png"),
             [&SFMLObj](ECS &ecs, Entity entity) {
                 rtype::client::press(ecs, entity);
-                std::cout << "J'ai cliqué sur la flèche gauche !" << std::endl;
                 rtype::client::cyclePlayerColor(ecs);
             }});
 
@@ -156,7 +155,6 @@ void createCustomEntities(ECS &ecs, const Configs &myConfig,
             SFMLObj._myTextures.getTexture("assets/images/utils/arrow_2.png"),
             [&SFMLObj](ECS &ecs, Entity entity) {
                 rtype::client::press(ecs, entity);
-                std::cout << "J'ai cliqué sur la flèche droite !" << std::endl;
                 rtype::client::cyclePlayerShip(ecs);
                 ecs.post<DeleteEvent>({CUSTOM});
                 ecs.post<CreationEvent>({CUSTOM});
@@ -250,7 +248,6 @@ void createCustomEntities(ECS &ecs, const Configs &myConfig,
         Pressable{
             SFMLObj._myTextures.getTexture("assets/images/utils/button_config1_act.png"),
             [](ECS &ecs, Entity) {
-                std::cout << "Returning to main menu..." << std::endl;
                 ecs.post<DeleteEvent>({CUSTOM});
                 ecs.post<CreationEvent>({M_GENERAL});
             }});
@@ -292,7 +289,6 @@ void createCustomEntities(ECS &ecs, const Configs &myConfig,
                 rtype::client::press(ecs, entity);
                 auto &playerInfo = ecs.get_components<PlayerInfo>()[0].value();
                 playerInfo._customPlayer = 1;
-                std::cout << "Player 1 selected for customization." << std::endl;
                 ecs.post<DeleteEvent>({CUSTOM});
                 ecs.post<CreationEvent>({CUSTOM});
             },
@@ -336,7 +332,6 @@ void createCustomEntities(ECS &ecs, const Configs &myConfig,
                 rtype::client::press(ecs, entity);
                 auto &playerInfo = ecs.get_components<PlayerInfo>()[0].value();
                 playerInfo._customPlayer = 2;
-                std::cout << "Player 2 selected for customization." << std::endl;
                 ecs.post<DeleteEvent>({CUSTOM});
                 ecs.post<CreationEvent>({CUSTOM});
             },
@@ -441,7 +436,6 @@ void createMenuGeneralEntities(ECS &ecs, const Configs &myConfig,
         customB, {SFMLObj._myTextures.getTexture(
                       "assets/images/utils/button_config1_act.png"),
                   [](ECS &ecs, Entity) {
-                      std::cout << "Custom your ship!" << std::endl;
                       ecs.post<DeleteEvent>({M_GENERAL});
                       ecs.post<CreationEvent>({CUSTOM});
                   }});

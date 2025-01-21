@@ -85,9 +85,6 @@ void cyclePlayerColor(ECS &ecs) {
                 << static_cast<int>(newColor.b);
     currentColor = newColorStr.str();
 
-    std::cout << "Updated color for Player " << playerInfo._customPlayer
-              << ": " << currentColor << std::endl;
-
     auto &drawableComponents = ecs.get_components<Drawable>();
     for (size_t i = 0; i < drawableComponents.size(); ++i) {
         if (!drawableComponents[i]) continue;

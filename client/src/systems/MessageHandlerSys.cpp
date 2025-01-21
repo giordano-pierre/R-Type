@@ -73,17 +73,14 @@ void createDrawable(ECS &ecs, Entity &entity, SFMLObjects &SFMLObj,
             char comma;
             colorStream >> r >> comma >> g >> comma >> b;
             playerColor = sf::Color(r, g, b);
-            std::cout << "actuelle player:" << actualPlayer << " color:" << playerInfo._color1 << "\n\n\n\n\n\n\n\n\n\n" << std::endl;
         } else if (actualPlayer == 1) {
             std::istringstream colorStream(playerInfo._color2);
             int r, g, b;
             char comma;
             colorStream >> r >> comma >> g >> comma >> b;
             playerColor = sf::Color(r, g, b);
-            std::cout << "actuelle player:" << actualPlayer << " color:" << playerInfo._color2 << "\n\n\n\n\n\n\n\n\n\n" << std::endl;
         } else {
             playerColor = sf::Color::White;
-            std::cout << "actuelle player:" << actualPlayer << " color: white222" << "\n\n\n\n\n\n\n\n\n\n" << std::endl;
         }
 
         drawable._sprite.setColor(playerColor);

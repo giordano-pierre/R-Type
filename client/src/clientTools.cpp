@@ -23,7 +23,6 @@ void killMyEntity(ECS &ecs, Entity i) {
     auto serverSize = myConfig._serverSize;
 
     if (tag._type >= ENEMY1 && tag._type <= PLAYER) {
-        std::cout << "Explosion" << std::endl;
         Entity boom1 = ecs.spawn_entity();
         ecs.add_component<Tag>(boom1, {});
         ecs.add_component<Scene>(boom1, {MENU});
