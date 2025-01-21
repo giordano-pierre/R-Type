@@ -35,7 +35,8 @@ void killMyEntity(ECS &ecs, Entity i) {
                     {5790, 4500},
                     {1930, 2250},
                     6,
-                    2, true});
+                    2,
+                    true});
         ecs.add_component<rtype::client::Sound>(
             boom1, {"assets/audio/explosion2.ogg",
                     rtype::client::SoundState::PLAY_ONCE, 50.0f});

@@ -72,7 +72,8 @@ void createMenuEntities(ECS &ecs, const Configs &myConfig,
     // Entity healthBar = ecs.spawn_entity();
 
     // ecs.add_component<Position>(
-    //     healthBar, {serverSize.x * float(1) / 7, serverSize.y * float(1) / 11});
+    //     healthBar, {serverSize.x * float(1) / 7, serverSize.y * float(1) /
+    //     11});
 
     // ecs.add_component<Tag>(healthBar, {});
     // ecs.add_component<Scene>(healthBar, {GAME});
