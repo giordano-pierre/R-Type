@@ -52,6 +52,7 @@ int main(int ac, char *argv[]) {
     ecs.register_component<rtype::client::SFMLObjects>();
     ecs.register_component<rtype::client::Room>();
     ecs.register_component<rtype::client::PlayerInfo>();
+    ecs.register_component<rtype::client::Sound>();
 
     ecs.register_event<rtype::client::FrameEvent>();
     ecs.register_event<rtype::client::InputEvent>();
