@@ -12,7 +12,6 @@
 #include "components/Playable.hpp"
 #include "components/Position.hpp"
 #include "components/Tag.hpp"
-#include "components/Window.hpp"
 #include "events/InputEvent.hpp"
 
 namespace rtype::client {
@@ -22,8 +21,7 @@ class ShootSys {
     ~ShootSys() = default;
 
     void operator()(ECS &ecs, const InputEvent &e_input,
-                    SparseArray<Window> &windows,
-                    const SparseArray<Playable> &players,
+                    SparseArray<Playable> &players,
                     const SparseArray<Position> &positions,
                     const SparseArray<Hitbox> &hitboxs,
                     const SparseArray<Tag> &tags);

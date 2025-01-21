@@ -7,7 +7,7 @@
 #pragma once
 
 #include "ECS/ECS.hpp"
-#include "tools.hpp"
+#include "clientTools.hpp"
 #include <SFML/Graphics.hpp>
 #include <functional>
 #include <memory>

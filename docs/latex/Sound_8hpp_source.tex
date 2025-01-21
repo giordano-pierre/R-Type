@@ -1,0 +1,36 @@
+\doxysection{Sound.\+hpp}
+\hypertarget{Sound_8hpp_source}{}\label{Sound_8hpp_source}\index{client/include/components/Sound.hpp@{client/include/components/Sound.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ EPITECH\ PROJECT,\ 2024}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**\ R-\/Type}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**\ File\ description:}}
+\DoxyCodeLine{00005\ \textcolor{comment}{**\ Sound}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <SFML/Audio.hpp>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <ostream>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }rtype::client\ \{}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{enum\ class}\ SoundState\ \{\ LOOP,\ PLAY\_ONCE,\ TRIGGER\ \};}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrtype_1_1client_1_1Sound}{Sound}}\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1Sound}{Sound}}(\textcolor{keyword}{const}\ std::string\ \&filePath,\ SoundState\ state,\ \textcolor{keywordtype}{float}\ volume);}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{structrtype_1_1client_1_1Sound}{\string~Sound}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ std::shared\_ptr<sf::Music>\ \_music;}
+\DoxyCodeLine{00024\ \ \ \ \ SoundState\ \_state;}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{float}\ \_volume;}
+\DoxyCodeLine{00026\ \};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ std::ostream\ \&operator<<(std::ostream\ \&out,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1client_1_1Sound}{Sound}}\ \&sound);}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \}\ \textcolor{comment}{//\ namespace\ rtype::client}}
+
+\end{DoxyCode}

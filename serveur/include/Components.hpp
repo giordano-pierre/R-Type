@@ -1,21 +1,103 @@
+/*
+** EPITECH PROJECT, 2025
+** R-Type
+** File description:
+** Components
+*/
+
 #pragma once
 
-#include "NetworkActions.hpp"
-#include <chrono>
+#include "ECS/ECS.hpp"
+#include "Events.hpp"
+#include "LevelLoader.hpp"
+#include "protocol.hpp"
 #include <cstddef>
 #include <cstdint>
+#include <fstream>
 #include <string>
 #include <vector>
 
-namespace timer = std::chrono;
-
 namespace rtype::server {
+
+enum StateGame {
+    IN_GAME,
+    IN_PAUSE,
+    WAITING,
+};
+
+struct EnemyInfo {
+    float x_pos;
+    float y_pos;
+    int x_velocity;
+    int y_velocity;
+    float x_hitbox;
+    float y_hitbox;
+    int health;
+    int score;
+    int spawn_tic;
+    EntityType type;
+};
+
+struct PlayerInfo {
+    std::vector<std::string> _name;
+    std::vector<std::string> _color;
+    StateGame _state;
+};
+
+struct Utils {
+    LevelLoader _levels;
+};
+
+struct Tag {
+    std::string _id;
+    EntityType _type;
+
+    Tag(std::string id, EntityType type = OTHER) : _id(id), _type(type){};
+};
+
+struct Room {
+    std::string _name;
+    std::string _master;
+    std::map<std::string, std::pair<PlayerInfo, int>> _clients_uuid;
+    int _lastUpdate;
+    StateGame _state = WAITING;
+    int _diff;
+
+    Room(std::string name, std::string master, int nbPlayer, int diff)
+        : _name(name), _master(master), _diff(diff) {
+        _lastUpdate = 0;
+    }
+};
+
+struct Stage {
+    std::string _mapFile;
+    nlohmann::json _json;
+    std::vector<EnemyInfo> _enemies;
+
+    Stage(const std::string &file) : _mapFile(file) {
+        std::ifstream f(file);
+        _json = nlohmann::json::parse(f);
+    }
+};
+
+struct Client {
+    std::string _uuid;
+
+    Client(std::string uuid) : _uuid(uuid) {}
+};
+
+struct PlayerData {
+    std::string _name;
+    std::string _color;
+
+    PlayerData(std::string name, std::string color)
+        : _color(color), _name(name){};
+};
+
 struct Position {
-    int x = 0;
-    int y = 0;
-    int initialX = 0;
-    int initialY = 0;
-    Position(int px, int py) : x(px), y(py), initialX(px), initialY(py){};
+    float x = 0;
+    float y = 0;
+    Position(float px, float py) : x(px), y(py){};
 };
 
 struct Velocity {
@@ -30,10 +112,10 @@ struct Velocity {
 };
 
 struct HitBox {
-    float x = 0.0f;
-    float y = 0.0f;
-    float width = 0.0f;
-    float height = 0.0f;
+    float x;
+    float y;
+    float width;
+    float height;
 
     HitBox(float px, float py) : x(px), y(py) {
         width = {1920 * x};
@@ -41,63 +123,59 @@ struct HitBox {
     };
 };
 
-struct Tag {
-    std::string id;
-    EntityType type;
-
-    Tag(std::string id, EntityType type) : id(id), type(type){};
-};
-
-struct EnemyInfo {
-    int x_pos;
-    int y_pos;
-    int x_velocity;
-    int y_velocity;
-    float x_hitbox;
-    float y_hitbox;
-    int health;
-    int score;
-};
-
-struct Basics {
-    std::vector<EnemyInfo> enemies1;
-    std::map<std::string, bool> clientInGame;
-    int minPlayer = -1;
-    int nbPlayer = 0;
-    int nbPlayerAlive = -1;
-    int level = 0;
-    int minScore = 100;
-    bool gameState = false;
-    Basics(std::vector<EnemyInfo> _enemies1) : enemies1(_enemies1){};
-};
-
-struct TicEvent {
-    TicEvent(const timer::time_point<timer::steady_clock> &time_stamp)
-        : time_stamp(time_stamp){};
-    ~TicEvent() = default;
-
-    timer::time_point<timer::steady_clock> time_stamp;
-};
-
 struct Health {
-    int health = 100;
-    int healthMax = 100;
-    int HealthMin = 0;
+    int _health;
+    bool _infinite;
 
-    Health() = default;
+    Health(int health = 10, bool infinite = false)
+        : _health(health), _infinite(infinite){};
 };
 
-struct PlayerData {
-    std::size_t id;
-    std::string name;
+struct Dead {
+    bool _isDead;
 
-    PlayerData(std::string _name, std::size_t _id = 0) : id(_id), name(_name){};
+    Dead(void) : _isDead(true) {}
 };
 
 struct Score {
-    int score;
+    int _score;
 
-    Score(int score = 0) : score(score){};
+    Score(int score = 0) : _score(score){};
 };
+
+struct Owner {
+    std::string _id_owner;
+};
+
+struct EnemyAI {
+    enum class BehaviorType {
+        SINUSOIDAL,
+        CIRCULAR,
+        CHASE,
+        V_FORMATION,
+        BOSS,
+        UPDOWN,
+        CHARGE,
+    } behaviorType;
+
+    float amplitude = 0.0f;
+    float frequency = 0.0f;
+    float radius = 0.0f;
+    float speed = 0.0f;
+    float spacing = 0.0f;
+    int index = 0;
+};
+
+// struct Basics {
+//     std::vector<EnemyInfo> enemies1;
+//     std::map<std::string, bool> clientInGame;
+//     int minPlayer = -1;
+//     int nbPlayer = 0;
+//     int nbPlayerAlive = -1;
+//     int level = 0;
+//     int minScore = 100;
+//     bool gameState = false;
+//     Basics(std::vector<EnemyInfo> _enemies1) : enemies1(_enemies1){};
+// };
 
 } // namespace rtype::server

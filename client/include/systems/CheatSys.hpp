@@ -8,7 +8,7 @@
 #pragma once
 
 #include "ECS/ECS.hpp"
-#include "components/Window.hpp"
+#include "components/Configs.hpp"
 #include "events/InputEvent.hpp"
 
 namespace rtype::client {
@@ -18,6 +18,6 @@ class CheatSys {
     ~CheatSys() = default;
 
     void operator()(ECS &ecs, const InputEvent &e_input,
-                    SparseArray<Window> &windows);
+                    SparseArray<Configs> &configs);
 };
 } // namespace rtype::client

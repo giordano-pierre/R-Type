@@ -1,0 +1,28 @@
+{
+    "stage": {
+        "id": 3,
+        "name": "Are You Ready",
+        "background": "assets/images/background/background_mountain.jpg",
+        "size": {"x": 675, "y": 360},
+        "music": "assets/audio/stage1_theme.ogg"
+    },
+  "enemies": [
+    {
+        "type": 7,
+        "spawn_time": 0,
+        "position": { "x": 2000, "y": 500 },
+        "velocity": { "x": -3, "y": 0},
+        "hitbox": { "x": 0.1, "y": 0.18 },
+        "hp": 70,
+        "score": 10
+      },
+      {
+        "type": 2,
+        "spawn_time": 3000000,
+        "position": { "x": 2000, "y": 500 },
+        "velocity": { "x": -3, "y": 0},
+        "hitbox": { "x": 0.1, "y": 0.05 },
+        "hp": 70,
+        "score": 10
+      }
+    ]}

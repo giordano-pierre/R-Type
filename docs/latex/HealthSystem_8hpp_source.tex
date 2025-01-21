@@ -1,5 +1,5 @@
 \doxysection{Health\+System.\+hpp}
-\hypertarget{HealthSystem_8hpp_source}{}\label{HealthSystem_8hpp_source}\index{serveur/include/HealthSystem.hpp@{serveur/include/HealthSystem.hpp}}
+\hypertarget{HealthSystem_8hpp_source}{}\label{HealthSystem_8hpp_source}\index{serveur/include/systems/child/HealthSystem.hpp@{serveur/include/systems/child/HealthSystem.hpp}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{comment}{/*}}
@@ -12,20 +12,17 @@
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}Components.hpp"{}}}
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}ECS/ECS.hpp"{}}}
-\DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }rtype::server\ \{}
-\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }systems\ \{}
-\DoxyCodeLine{00014\ }
-\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrtype_1_1server_1_1systems_1_1HealthSys}{HealthSys}}\ \{}
-\DoxyCodeLine{00016\ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1server_1_1systems_1_1HealthSys}{HealthSys}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1server_1_1systems_1_1HealthSys}{\string~HealthSys}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00019\ }
-\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1server_1_1TicEvent}{rtype::server::TicEvent}}\ \&,}
-\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classSparseArray}{SparseArray<Health>}}\ \&healths,}
-\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSparseArray}{SparseArray<Basics>}}\ \&basics);}
-\DoxyCodeLine{00023\ \};}
-\DoxyCodeLine{00024\ \}\ \textcolor{comment}{//\ namespace\ systems}}
-\DoxyCodeLine{00025\ \}\ \textcolor{comment}{//\ namespace\ rtype::server}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}Events.hpp"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }rtype::server\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrtype_1_1server_1_1HealthSys}{HealthSys}}\ \{}
+\DoxyCodeLine{00015\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1server_1_1HealthSys}{HealthSys}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{classrtype_1_1server_1_1HealthSys}{\string~HealthSys}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrtype_1_1server_1_1TicEvent}{TicEvent}}\ \&,}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classSparseArray}{SparseArray<Health>}}\ \&healths);}
+\DoxyCodeLine{00021\ \};}
+\DoxyCodeLine{00022\ \}\ \textcolor{comment}{//\ namespace\ rtype::server}}
 
 \end{DoxyCode}

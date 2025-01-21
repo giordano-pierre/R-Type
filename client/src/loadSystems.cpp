@@ -20,11 +20,23 @@ void loadGameSystem(ECS &ecs) {
     ecs.subscribe<InputEvent, Playable, Velocity, Tag>(moveSys);
 
     auto borderSys = BorderSys();
-    ecs.subscribe<TicEvent, Window, Tag, Hitbox, Position>(borderSys);
+    ecs.subscribe<TicEvent, Configs, Tag, Hitbox, Position>(borderSys);
 
     auto shootSys = ShootSys();
-    ecs.subscribe<InputEvent, Window, Playable, Position, Hitbox, Tag>(
-        shootSys);
+    ecs.subscribe<InputEvent, Playable, Position, Hitbox, Tag>(shootSys);
+
+    auto selSys = SelectSys();
+    ecs.subscribe<InputEvent, Position, Drawable, Hitbox, Selectable>(selSys);
+
+    auto pressSys = PressButtonSys();
+    ecs.subscribe<InputEvent, Position, Hitbox, Selectable, Pressable>(
+        pressSys);
+
+    // auto kill = KillEntity();
+    // ecs.subscribe<TicEvent, LastUpdate>(kill);
+
+    auto fireRate = FireRateSys();
+    ecs.subscribe<TicEvent, Playable>(fireRate);
 }
 
 void loadMenuSystem(ECS &ecs) {

@@ -11,7 +11,7 @@
 #include <memory>
 #include <string>
 
-#include "tools.hpp"
+#include "clientTools.hpp"
 
 namespace rtype::client {
 struct Text {

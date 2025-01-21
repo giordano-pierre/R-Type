@@ -22,15 +22,16 @@ def install_linux_dependencies():
             subprocess.run([
                 "sudo", "apt", "install", "-y",
                 "libx11-dev", "libxrandr-dev", "libxcursor-dev", "libxi-dev",
-                "libudev-dev", "libgl1-mesa-dev", "ninja-build",
-                "autoconf", "automake", "libtool", "pkg-config"
+                "libudev-dev", "libgl1-mesa-dev", "ninja-build", "autoconf",
+                "automake", "libtool", "pkg-config", "lua5.3", "liblua5.3-dev"
             ], check=True)
         elif shutil.which("dnf"):
             print("Utilisation de dnf pour installer les dépendances (Fedora/RedHat).")
             subprocess.run(["sudo", "dnf", "install", "-y",
                             "libX11-devel", "libXrandr-devel", "libXcursor-devel",
                             "libXi-devel", "systemd-devel", "mesa-libGL-devel",
-                            "ninja-build", "autoconf", "automake", "libtool", "pkgconf"
+                            "ninja-build", "autoconf", "automake", "libtool",
+                            "pkgconf", "lua", "lua-devel"
             ], check=True)
         elif shutil.which("pacman"):
             print("Utilisation de pacman pour installer les dépendances (Arch Linux).")
@@ -38,7 +39,8 @@ def install_linux_dependencies():
             subprocess.run([
                 "sudo", "pacman", "-S", "--noconfirm",
                 "libx11", "libxrandr", "libxcursor", "libxi",
-                "libsystemd", "mesa", "ninja", "autoconf", "automake", "libtool", "pkgconf"
+                "libsystemd", "mesa", "ninja", "autoconf", "automake",
+                "libtool", "pkgconf", "lua"
             ], check=True)
         else:
             print("Aucun gestionnaire de paquets compatible trouvé. Système non pris en charge.")
@@ -48,7 +50,7 @@ def install_linux_dependencies():
         exit(1)
 
 def run_vcpkg():
-    """Clone et configure vcpkg pour SFML et autres bibliothèques."""
+    """Clone et configure vcpkg pour SFML, Lua et autres bibliothèques."""
     if not os.path.exists("vcpkg"):
         print("Clonage de vcpkg...")
         subprocess.run(["git", "clone", "https://github.com/microsoft/vcpkg.git"], check=True)
@@ -63,7 +65,8 @@ def run_vcpkg():
     os.chdir("vcpkg")
     vcpkg_command = "vcpkg.exe" if get_os_system() == "WINDOWS" else "./vcpkg"
     try:
-        packages = ["sfml", "nlohmann-json", "boost-asio", "boost-uuid"]
+        # Ajout de lua à la liste des bibliothèques installées via vcpkg
+        packages = ["sfml", "nlohmann-json", "boost-asio", "boost-uuid", "sol2", "lua"]
         for package in packages:
             print(f"Installation du package {package}...")
             subprocess.run([vcpkg_command, "install", package], check=True)

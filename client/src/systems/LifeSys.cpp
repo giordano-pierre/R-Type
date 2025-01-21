@@ -14,48 +14,81 @@
 
 namespace rtype::client {
 
-void LifeSys::operator()(ECS &ecs, const CreationEvent &e_create) {
+void LifeSys::operator()(ECS &ecs, const CreationEvent &e_create,
+                         SparseArray<Configs> &configs,
+                         SparseArray<SFMLObjects> &SFMLObjs,
+                         SparseArray<PlayerInfo> &playerInfos,
+                         SparseArray<Room> &rooms) {
+    auto &myConfig = configs[0].value();
+    auto &SFMLObj = SFMLObjs[0].value();
+    auto &playerInfo = playerInfos[0].value();
+    auto &myRoom = rooms[0].value();
+
     ecs.clean<FrameEvent>();
     ecs.clean<InputEvent>();
     ecs.clean<TicEvent>();
     switch (e_create._type) {
     case MENU:
         loadMenuSystem(ecs);
-        createMenuEntities(ecs);
+        createMenuEntities(ecs, myConfig, SFMLObj);
         break;
-    case MPLAYER:
+    case M_GENERAL:
         loadMenuSystem(ecs);
-        createMenuPlayerEntities(ecs);
+        createMenuGeneralEntities(ecs, myConfig, SFMLObj);
         break;
-    case CONFIG:
+    case M_PLAYER:
         loadMenuSystem(ecs);
-        createConfigEntities(ecs);
+        createMenuPlayerEntities(ecs, myConfig, SFMLObj);
         break;
-    case CGENERAL:
+    case CUSTOM:
         loadMenuSystem(ecs);
-        createConfigGeneralEntites(ecs);
+        createCustomEntities(ecs, myConfig, SFMLObj);
         break;
-    case CPLAYER1:
+    case M_ALL_ROOM:
         loadMenuSystem(ecs);
-        createConfigPlayer1Entites(ecs);
+        createMenuRoomEntities(ecs, e_create._param.value(), myConfig, SFMLObj,
+                               playerInfo, myRoom);
         break;
-    case CPLAYER2:
+    case M_MY_ROOM:
         loadMenuSystem(ecs);
-        createConfigPlayer2Entites(ecs);
+        createMenuBaseRoomEntities(ecs, myConfig, SFMLObj, myRoom,
+                                   e_create._param.value());
+        break;
+    case M_CREATE_ROOM:
+        loadMenuSystem(ecs);
+        createMenuCreateRoomEntities(ecs, myConfig, SFMLObj, myRoom);
+        break;
+    case M_CONFIG:
+        loadMenuSystem(ecs);
+        createConfigEntities(ecs, myConfig, SFMLObj);
+        break;
+    case M_C_GENERAL:
+        loadMenuSystem(ecs);
+        createConfigGeneralEntites(ecs, myConfig, SFMLObj);
+        break;
+    case M_C_PLAYER1:
+        loadMenuSystem(ecs);
+        createConfigPlayer1Entites(ecs, myConfig, SFMLObj);
+        break;
+    case M_C_PLAYER2:
+        loadMenuSystem(ecs);
+        createConfigPlayer2Entites(ecs, myConfig, SFMLObj);
+        break;
+    case GAME:
+        loadGameSystem(ecs);
+        createGameEntities(ecs, myConfig, SFMLObj, myRoom);
         break;
     default:
-        loadGameSystem(ecs);
-        createGameEntities(ecs);
         return;
     }
 }
 
 void LifeSys::operator()(ECS &ecs, const DeleteEvent &e_del,
-                         SparseArray<Tag> &tags) {
-    for (size_t i = 0; i < tags.size(); ++i) {
-        auto &tag = tags[i];
+                         SparseArray<Scene> &scenes) {
+    for (size_t i = 0; i < scenes.size(); ++i) {
+        auto &sce = scenes[i];
 
-        if (tag && tag.value()._type == e_del._type) {
+        if (sce && sce.value()._type == e_del._type) {
             ecs.kill_entity(Entity(i));
         }
     }

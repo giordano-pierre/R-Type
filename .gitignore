@@ -42,4 +42,9 @@ r-type_server
 build
 vcpkg
 
+#useless folders/files
 perso
+temp
+log.txt
+vgcore*
+hello.txt

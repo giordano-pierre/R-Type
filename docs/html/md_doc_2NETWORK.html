@@ -77,9 +77,9 @@ $(function() {
 Overview</h1>
 <p>This documentation provides a detailed explanation of the <b>Network Module</b> used in the game engine. The network module facilitates communication between the server and client using the <b>UDP protocol</b>. It integrates with the <b><a class="el" href="classECS.html">ECS</a> (Entity-Component-System)</b> architecture and leverages events to manage network requests and responses.</p>
 <p>The module is composed of the following components:</p><ol type="1">
-<li><b><a class="el" href="classUDPServer.html">UDPServer</a></b>: Handles server-side communication.</li>
-<li><b><a class="el" href="classUDPClient.html">UDPClient</a></b>: Handles client-side communication.</li>
-<li><b><a class="el" href="classServerHandlerSystem.html">ServerHandlerSystem</a></b>: Processes incoming requests on the server.</li>
+<li><b>UDPServer</b>: Handles server-side communication.</li>
+<li><b>UDPClient</b>: Handles client-side communication.</li>
+<li><b>ServerHandlerSystem</b>: Processes incoming requests on the server.</li>
 <li><b><a class="el" href="classClientHandlerSystem.html">ClientHandlerSystem</a></b>: Processes incoming responses on the client.</li>
 <li><b>Events</b>: <code><a class="el" href="structRequestEvent.html">RequestEvent</a></code> and <code><a class="el" href="structReceiveEvent.html">ReceiveEvent</a></code> are used to manage communication.</li>
 </ol>
@@ -94,8 +94,8 @@ Main Function (Server)</h2>
 <div class="fragment"><div class="line"><span class="keywordtype">int</span> main() {</div>
 <div class="line">    <span class="keywordflow">try</span> {</div>
 <div class="line">        <a class="code hl_class" href="classECS.html">ECS</a> ecs;</div>
-<div class="line">        <a class="code hl_class" href="classServerHandlerSystem.html">ServerHandlerSystem</a> server_handler;</div>
-<div class="line">        <a class="code hl_class" href="classUDPServer.html">UDPServer</a> server(ecs, 4242);</div>
+<div class="line">        ServerHandlerSystem server_handler;</div>
+<div class="line">        UDPServer server(ecs, 4242);</div>
 <div class="line"> </div>
 <div class="line">        ecs.register_event&lt;<a class="code hl_struct" href="structRequestEvent.html">RequestEvent</a>&gt;();</div>
 <div class="line">        ecs.register_event&lt;<a class="code hl_struct" href="structReceiveEvent.html">ReceiveEvent</a>&gt;();</div>
@@ -116,24 +116,22 @@ Main Function (Server)</h2>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
 <div class="ttc" id="aclassECS_html"><div class="ttname"><a href="classECS.html">ECS</a></div><div class="ttdef"><b>Definition</b> ECS.hpp:13</div></div>
-<div class="ttc" id="aclassServerHandlerSystem_html"><div class="ttname"><a href="classServerHandlerSystem.html">ServerHandlerSystem</a></div><div class="ttdef"><b>Definition</b> ServerHandlerSystem.hpp:15</div></div>
-<div class="ttc" id="aclassUDPServer_html"><div class="ttname"><a href="classUDPServer.html">UDPServer</a></div><div class="ttdef"><b>Definition</b> UDPServer.hpp:20</div></div>
 <div class="ttc" id="astructReceiveEvent_html"><div class="ttname"><a href="structReceiveEvent.html">ReceiveEvent</a></div><div class="ttdef"><b>Definition</b> ReceiveEvent.hpp:14</div></div>
 <div class="ttc" id="astructRequestEvent_html"><div class="ttname"><a href="structRequestEvent.html">RequestEvent</a></div><div class="ttdef"><b>Definition</b> RequestEvent.hpp:14</div></div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md30"></a>
 Components:</h2>
 <ol type="1">
-<li>**<code><a class="el" href="classUDPServer.html">UDPServer</a></code>**:<ul>
+<li>**<code>UDPServer</code>**:<ul>
 <li>Listens for incoming requests on a specified port (e.g., <code>4242</code>).</li>
 <li>Handles events of type <code><a class="el" href="structRequestEvent.html">RequestEvent</a></code> and sends responses back to clients.</li>
-<li>Constructor: <code><a class="el" href="classUDPServer.html">UDPServer</a>(<a class="el" href="classECS.html">ECS</a> &amp;ecs, unsigned short port)</code><ul>
+<li>Constructor: <code>UDPServer(<a class="el" href="classECS.html">ECS</a> &amp;ecs, unsigned short port)</code><ul>
 <li><code>ecs</code>: Reference to the <a class="el" href="classECS.html">ECS</a> instance.</li>
 <li><code>port</code>: The port on which the server listens for incoming requests.</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>**<code><a class="el" href="classServerHandlerSystem.html">ServerHandlerSystem</a></code>**:<ul>
+<li>**<code>ServerHandlerSystem</code>**:<ul>
 <li>Processes events of type <code><a class="el" href="structReceiveEvent.html">ReceiveEvent</a></code>.</li>
 <li>Implements the logic to handle data received from the client.</li>
 </ul>
@@ -148,9 +146,9 @@ Events:</h2>
 <h2><a class="anchor" id="autotoc_md32"></a>
 Flow:</h2>
 <ol type="1">
-<li>The server listens for incoming requests using <code><a class="el" href="classUDPServer.html">UDPServer</a></code>.</li>
+<li>The server listens for incoming requests using <code>UDPServer</code>.</li>
 <li>Incoming requests trigger a <code><a class="el" href="structRequestEvent.html">RequestEvent</a></code>.</li>
-<li>The <code><a class="el" href="classServerHandlerSystem.html">ServerHandlerSystem</a></code> processes the <code><a class="el" href="structReceiveEvent.html">ReceiveEvent</a></code> and handles the data.</li>
+<li>The <code>ServerHandlerSystem</code> processes the <code><a class="el" href="structReceiveEvent.html">ReceiveEvent</a></code> and handles the data.</li>
 <li>Responses can be sent back to clients as needed.</li>
 </ol>
 <hr  />
@@ -164,7 +162,7 @@ Main Function (Client)</h2>
 <div class="line">    <span class="keywordflow">try</span> {</div>
 <div class="line">        <a class="code hl_class" href="classECS.html">ECS</a> ecs;</div>
 <div class="line">        <a class="code hl_class" href="classClientHandlerSystem.html">ClientHandlerSystem</a> client_handler;</div>
-<div class="line">        <a class="code hl_class" href="classUDPClient.html">UDPClient</a> client(ecs, <span class="stringliteral">&quot;127.0.0.1&quot;</span>, <span class="stringliteral">&quot;4242&quot;</span>);</div>
+<div class="line">        UDPClient client(ecs, <span class="stringliteral">&quot;127.0.0.1&quot;</span>, <span class="stringliteral">&quot;4242&quot;</span>);</div>
 <div class="line"> </div>
 <div class="line">        ecs.register_event&lt;<a class="code hl_struct" href="structRequestEvent.html">RequestEvent</a>&gt;();</div>
 <div class="line">        ecs.register_event&lt;<a class="code hl_struct" href="structReceiveEvent.html">ReceiveEvent</a>&gt;();</div>
@@ -187,14 +185,13 @@ Main Function (Client)</h2>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
 <div class="ttc" id="aclassClientHandlerSystem_html"><div class="ttname"><a href="classClientHandlerSystem.html">ClientHandlerSystem</a></div><div class="ttdef"><b>Definition</b> ClientHandlerSystem.hpp:14</div></div>
-<div class="ttc" id="aclassUDPClient_html"><div class="ttname"><a href="classUDPClient.html">UDPClient</a></div><div class="ttdef"><b>Definition</b> UDPClient.hpp:16</div></div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md36"></a>
 Components:</h2>
 <ol type="1">
-<li>**<code><a class="el" href="classUDPClient.html">UDPClient</a></code>**:<ul>
+<li>**<code>UDPClient</code>**:<ul>
 <li>Establishes communication with the server at a given IP address and port.</li>
 <li>Handles events of type <code><a class="el" href="structRequestEvent.html">RequestEvent</a></code> and sends requests to the server.</li>
-<li>Constructor: <code><a class="el" href="classUDPClient.html">UDPClient</a>(<a class="el" href="classECS.html">ECS</a> &amp;ecs, const std::string &amp;ip, const std::string &amp;port)</code><ul>
+<li>Constructor: <code>UDPClient(<a class="el" href="classECS.html">ECS</a> &amp;ecs, const std::string &amp;ip, const std::string &amp;port)</code><ul>
 <li><code>ecs</code>: Reference to the <a class="el" href="classECS.html">ECS</a> instance.</li>
 <li><code>ip</code>: The IP address of the server.</li>
 <li><code>port</code>: The port to connect to.</li>
@@ -218,7 +215,7 @@ Events:</h2>
 Flow:</h2>
 <ol type="1">
 <li>The client posts a <code><a class="el" href="structRequestEvent.html">RequestEvent</a></code> to initiate communication with the server.</li>
-<li>The <code><a class="el" href="classUDPClient.html">UDPClient</a></code> handles the <code><a class="el" href="structRequestEvent.html">RequestEvent</a></code> and sends data to the server.</li>
+<li>The <code>UDPClient</code> handles the <code><a class="el" href="structRequestEvent.html">RequestEvent</a></code> and sends data to the server.</li>
 <li>Incoming responses trigger a <code><a class="el" href="structReceiveEvent.html">ReceiveEvent</a></code>.</li>
 <li>The <code><a class="el" href="classClientHandlerSystem.html">ClientHandlerSystem</a></code> processes the <code><a class="el" href="structReceiveEvent.html">ReceiveEvent</a></code> and handles the data.</li>
 </ol>
@@ -262,15 +259,15 @@ Example Workflow</h1>
 <h2><a class="anchor" id="autotoc_md47"></a>
 Server Workflow:</h2>
 <ol type="1">
-<li>The server starts and listens for requests on a specific port using <code><a class="el" href="classUDPServer.html">UDPServer</a></code>.</li>
+<li>The server starts and listens for requests on a specific port using <code>UDPServer</code>.</li>
 <li>A client sends a request, triggering a <code><a class="el" href="structRequestEvent.html">RequestEvent</a></code>.</li>
 <li>The server processes the event and generates a <code><a class="el" href="structReceiveEvent.html">ReceiveEvent</a></code>.</li>
-<li>The <code><a class="el" href="classServerHandlerSystem.html">ServerHandlerSystem</a></code> processes the received data and sends a response back if necessary.</li>
+<li>The <code>ServerHandlerSystem</code> processes the received data and sends a response back if necessary.</li>
 </ol>
 <h2><a class="anchor" id="autotoc_md48"></a>
 Client Workflow:</h2>
 <ol type="1">
-<li>The client initializes and connects to the server using <code><a class="el" href="classUDPClient.html">UDPClient</a></code>.</li>
+<li>The client initializes and connects to the server using <code>UDPClient</code>.</li>
 <li>A <code><a class="el" href="structRequestEvent.html">RequestEvent</a></code> is posted to send data to the server.</li>
 <li>The server processes the request and sends a response.</li>
 <li>The client processes the response using <code><a class="el" href="classClientHandlerSystem.html">ClientHandlerSystem</a></code> when a <code><a class="el" href="structReceiveEvent.html">ReceiveEvent</a></code> is triggered.</li>

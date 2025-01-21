@@ -1,2 +1,2 @@
 add_subdirectory(ecs)
-add_subdirectory(others)
+add_subdirectory(shared)

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['gamelogicsys_0',['GameLogicSys',['../classrtype_1_1server_1_1systems_1_1GameLogicSys.html',1,'rtype::server::systems']]],
-  ['gamelogicsystem_1',['GameLogicSystem',['../classrtype_1_1server_1_1systems_1_1GameLogicSystem.html',1,'rtype::server::systems']]],
-  ['gamestate_2',['gamestate',['../structGameState.html',1,'GameState'],['../structrtype_1_1server_1_1systems_1_1GameLogicSystem_1_1GameState.html',1,'rtype::server::systems::GameLogicSystem::GameState']]]
+  ['health_0',['health',['../structrtype_1_1client_1_1Health.html',1,'rtype::client::Health'],['../structrtype_1_1server_1_1Health.html',1,'rtype::server::Health']]],
+  ['healthsys_1',['HealthSys',['../classrtype_1_1server_1_1HealthSys.html',1,'rtype::server']]],
+  ['hitbox_2',['hitbox',['../structrtype_1_1client_1_1Hitbox.html',1,'rtype::client::Hitbox'],['../structrtype_1_1server_1_1HitBox.html',1,'rtype::server::HitBox']]]
 ];

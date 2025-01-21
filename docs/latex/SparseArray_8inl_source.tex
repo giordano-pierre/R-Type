@@ -140,7 +140,7 @@
 \DoxyCodeLine{00136\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Component>}
 \DoxyCodeLine{00137\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classSparseArray}{SparseArray<Component>::erase}}(size\_type\ pos)\ -\/>\ \textcolor{keywordtype}{void}}
 \DoxyCodeLine{00138\ \{}
-\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordflow}{if}\ (pos\ <\ 0\ ||\ pos\ >\ \_data.size()\ ||\ !\_data[pos])}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordflow}{if}\ (pos\ <\ 0\ ||\ pos\ >=\ \_data.size()\ ||\ !\_data[pos])}
 \DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
 \DoxyCodeLine{00141\ \ \ \ \ \_data[pos].reset();}
 \DoxyCodeLine{00142\ \}}

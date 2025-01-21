@@ -1,9 +1,9 @@
 \doxysection{tools.\+hpp}
-\hypertarget{tools_8hpp_source}{}\label{tools_8hpp_source}\index{client/include/tools.hpp@{client/include/tools.hpp}}
+\hypertarget{tools_8hpp_source}{}\label{tools_8hpp_source}\index{serveur/include/tools.hpp@{serveur/include/tools.hpp}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{comment}{/*}}
-\DoxyCodeLine{00002\ \textcolor{comment}{**\ EPITECH\ PROJECT,\ 2024}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ EPITECH\ PROJECT,\ 2025}}
 \DoxyCodeLine{00003\ \textcolor{comment}{**\ R-\/Type}}
 \DoxyCodeLine{00004\ \textcolor{comment}{**\ File\ description:}}
 \DoxyCodeLine{00005\ \textcolor{comment}{**\ tools}}
@@ -11,83 +11,17 @@
 \DoxyCodeLine{00007\ }
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00009\ }
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <SFML/Graphics.hpp>}}
-\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <memory>}}
-\DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }rtype::client\ \{}
-\DoxyCodeLine{00014\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrtype_1_1client_1_1TupleInt}{TupleInt}}\ \{}
-\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{int}\ x;}
-\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{int}\ y;}
-\DoxyCodeLine{00017\ \};}
-\DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrtype_1_1client_1_1TupleUInt}{TupleUInt}}\ \{}
-\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ x;}
-\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ y;}
-\DoxyCodeLine{00022\ \};}
-\DoxyCodeLine{00023\ }
-\DoxyCodeLine{00024\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrtype_1_1client_1_1TupleFloat}{TupleFloat}}\ \{}
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{float}\ x;}
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{float}\ y;}
-\DoxyCodeLine{00027\ \};}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \textcolor{keyword}{enum}\ ObjectType\ \{}
-\DoxyCodeLine{00030\ \ \ \ \ WINDOW,}
-\DoxyCodeLine{00031\ \ \ \ \ PLAYER,}
-\DoxyCodeLine{00032\ \ \ \ \ ENEMY,}
-\DoxyCodeLine{00033\ \ \ \ \ BACKGROUND,}
-\DoxyCodeLine{00034\ \ \ \ \ SHOT,}
-\DoxyCodeLine{00035\ \ \ \ \ MENU,}
-\DoxyCodeLine{00036\ \ \ \ \ CONFIG,}
-\DoxyCodeLine{00037\ \ \ \ \ CGENERAL,}
-\DoxyCodeLine{00038\ \ \ \ \ CPLAYER1,}
-\DoxyCodeLine{00039\ \ \ \ \ CPLAYER2,}
-\DoxyCodeLine{00040\ \ \ \ \ MPLAYER,}
-\DoxyCodeLine{00041\ \};}
-\DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ \textcolor{keyword}{enum}\ UserInput\ \{}
-\DoxyCodeLine{00044\ \ \ \ \ NOTHING\ =\ 0,}
-\DoxyCodeLine{00045\ \ \ \ \ ENTER,}
-\DoxyCodeLine{00046\ \ \ \ \ PAUSE,}
-\DoxyCodeLine{00047\ \ \ \ \ QUIT,}
-\DoxyCodeLine{00048\ \ \ \ \ RETURN,}
-\DoxyCodeLine{00049\ \ \ \ \ UP1P,}
-\DoxyCodeLine{00050\ \ \ \ \ UP1R,}
-\DoxyCodeLine{00051\ \ \ \ \ DOWN1P,}
-\DoxyCodeLine{00052\ \ \ \ \ DOWN1R,}
-\DoxyCodeLine{00053\ \ \ \ \ LEFT1P,}
-\DoxyCodeLine{00054\ \ \ \ \ LEFT1R,}
-\DoxyCodeLine{00055\ \ \ \ \ RIGHT1P,}
-\DoxyCodeLine{00056\ \ \ \ \ RIGHT1R,}
-\DoxyCodeLine{00057\ \ \ \ \ SHOOT1,}
-\DoxyCodeLine{00058\ \ \ \ \ SUPERSHOOT1,}
-\DoxyCodeLine{00059\ \ \ \ \ UP2P,}
-\DoxyCodeLine{00060\ \ \ \ \ UP2R,}
-\DoxyCodeLine{00061\ \ \ \ \ DOWN2P,}
-\DoxyCodeLine{00062\ \ \ \ \ DOWN2R,}
-\DoxyCodeLine{00063\ \ \ \ \ LEFT2P,}
-\DoxyCodeLine{00064\ \ \ \ \ LEFT2R,}
-\DoxyCodeLine{00065\ \ \ \ \ RIGHT2P,}
-\DoxyCodeLine{00066\ \ \ \ \ RIGHT2R,}
-\DoxyCodeLine{00067\ \ \ \ \ SHOOT2,}
-\DoxyCodeLine{00068\ \ \ \ \ SUPERSHOOT2,}
-\DoxyCodeLine{00069\ \};}
-\DoxyCodeLine{00070\ }
-\DoxyCodeLine{00071\ \textcolor{keywordtype}{float}\ computeDist(TupleFloat\ a,\ TupleFloat\ b);}
-\DoxyCodeLine{00072\ std::string\ convertInput(\textcolor{keyword}{const}\ sf::Keyboard::Key\ \&key);}
-\DoxyCodeLine{00073\ std::string\ getInput(std::map<UserInput,\ sf::Keyboard::Key>\ \&input,}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UserInput\ search);}
-\DoxyCodeLine{00075\ \textcolor{keywordtype}{void}\ initGeneralInput(}
-\DoxyCodeLine{00076\ \ \ \ \ std::map<UserInput,}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::pair<sf::Keyboard::Key,\ std::shared\_ptr<std::string>>>}
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \&inputConfig);}
-\DoxyCodeLine{00079\ \textcolor{keywordtype}{void}\ initPlay1Input(}
-\DoxyCodeLine{00080\ \ \ \ \ std::pair<std::map<UserInput,\ std::pair<sf::Keyboard::Key,}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::shared\_ptr<std::string>>>,}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::map<UserInput,\ sf::Keyboard::Key>>\ \&inputConfig);}
-\DoxyCodeLine{00083\ \textcolor{keywordtype}{void}\ initPlay2Input(}
-\DoxyCodeLine{00084\ \ \ \ \ std::pair<std::map<UserInput,\ std::pair<sf::Keyboard::Key,}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::shared\_ptr<std::string>>>,}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::map<UserInput,\ sf::Keyboard::Key>>\ \&inputConfig);}
-\DoxyCodeLine{00087\ \}\ \textcolor{comment}{//\ namespace\ rtype::client}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}Components.hpp"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}ECS/ECS.hpp"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}protocol.hpp"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }rtype::server\ \{}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keywordtype}{void}\ removeAll(\mbox{\hyperlink{classECS}{ECS}}\ \&ecs);}
+\DoxyCodeLine{00018\ \textcolor{keywordtype}{bool}\ isEnemy(\textcolor{keyword}{const}\ EntityType\ \&obj);}
+\DoxyCodeLine{00019\ \textcolor{keywordtype}{void}\ loadLevel(Stage\ \&stage);}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \}\ \textcolor{comment}{//\ namespace\ rtype::server}}
 
 \end{DoxyCode}

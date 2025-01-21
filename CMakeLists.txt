@@ -39,3 +39,6 @@ add_custom_target(assets SOURCES
     assets/font
     assets/images
 )
+
+add_compile_options(-fsanitize=address)
+add_link_options(-fsanitize=address)
