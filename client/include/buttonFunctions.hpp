@@ -16,6 +16,8 @@ void press(ECS &ecs, Entity i);
 void resize1920(ECS &ecs, Entity i);
 void resize1440(ECS &ecs, Entity i);
 void resize960(ECS &ecs, Entity i);
+void cyclePlayerShip(ECS &ecs);
+void cyclePlayerColor(ECS &ecs);
 void langFR(ECS &ecs, Entity i);
 void langEN(ECS &ecs, Entity i);
 void resetG(ECS &ecs, Entity i);

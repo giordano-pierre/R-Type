@@ -54,16 +54,42 @@ int countPlayer(ECS &ecs) {
 void createDrawable(ECS &ecs, Entity &entity, SFMLObjects &SFMLObj,
                     EntityType type) {
     switch (type) {
-    case PLAYER:
+    case PLAYER: {
+        int actualPlayer = countPlayer(ecs);
+        auto &playerInfo = ecs.get_components<PlayerInfo>()[0].value();
+        std::string texturePath = (actualPlayer == 0) ? playerInfo._spritePath1 : playerInfo._spritePath2;
+        auto texture = SFMLObj._myTextures.getTexture(texturePath);
+
         ecs.add_component<Drawable>(
             entity,
-            {SFMLObj._myTextures.getTexture("assets/images/ship/red_ship.png"),
-             {395, 250},
-             {395, 250},
-             1,
-             1});
+            {texture, {395, 250}, {395, 250}, 1, 1});
+
+        auto &drawable = ecs.get_components<Drawable>()[entity].value();
+        sf::Color playerColor;
+
+        if (actualPlayer == 0) {
+            std::istringstream colorStream(playerInfo._color1);
+            int r, g, b;
+            char comma;
+            colorStream >> r >> comma >> g >> comma >> b;
+            playerColor = sf::Color(r, g, b);
+            std::cout << "actuelle player:" << actualPlayer << " color:" << playerInfo._color1 << "\n\n\n\n\n\n\n\n\n\n" << std::endl;
+        } else if (actualPlayer == 1) {
+            std::istringstream colorStream(playerInfo._color2);
+            int r, g, b;
+            char comma;
+            colorStream >> r >> comma >> g >> comma >> b;
+            playerColor = sf::Color(r, g, b);
+            std::cout << "actuelle player:" << actualPlayer << " color:" << playerInfo._color2 << "\n\n\n\n\n\n\n\n\n\n" << std::endl;
+        } else {
+            playerColor = sf::Color::White;
+            std::cout << "actuelle player:" << actualPlayer << " color: white222" << "\n\n\n\n\n\n\n\n\n\n" << std::endl;
+        }
+
+        drawable._sprite.setColor(playerColor);
         break;
-    case SHOT:
+    }
+    case SHOT: {
         ecs.add_component<Drawable>(entity,
                                     {SFMLObj._myTextures.getTexture(
                                          "assets/images/shot/purple_shot.png"),
@@ -71,8 +97,14 @@ void createDrawable(ECS &ecs, Entity &entity, SFMLObjects &SFMLObj,
                                      {251, 144},
                                      1,
                                      2});
+        ecs.add_component<rtype::client::Sound>(
+        entity,
+        {"assets/audio/long-laser.ogg",
+        rtype::client::SoundState::PLAY_ONCE,
+        50.0f});
         break;
-    case ENEMY1:
+    }
+    case ENEMY1: {
         ecs.add_component<Drawable>(entity,
                                     {SFMLObj._myTextures.getTexture(
                                          "assets/images/ship/enemy_ship_1.png"),
@@ -80,6 +112,9 @@ void createDrawable(ECS &ecs, Entity &entity, SFMLObjects &SFMLObj,
                                      {290, 290},
                                      35,
                                      1});
+        break;
+    }
+    default:
         break;
     }
 }
