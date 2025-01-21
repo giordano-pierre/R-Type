@@ -27,21 +27,19 @@ void killMyEntity(ECS &ecs, Entity i) {
         Entity boom1 = ecs.spawn_entity();
         ecs.add_component<Tag>(boom1, {});
         ecs.add_component<Scene>(boom1, {MENU});
-        ecs.add_component<Position>(
-            boom1, {postion._server.x, postion._server.y});
+        ecs.add_component<Position>(boom1,
+                                    {postion._server.x, postion._server.y});
         ecs.add_component<Hitbox>(boom1, hitbox._coefSize);
         ecs.add_component<rtype::client::Drawable>(
             boom1, {SFMLObj._myTextures.getTexture(
-                         "assets/images/utils/explosion.png"),
-                     {5790, 4500},
-                     {1930, 2250},
-                     6,
-                     2});
+                        "assets/images/utils/explosion.png"),
+                    {5790, 4500},
+                    {1930, 2250},
+                    6,
+                    2});
         ecs.add_component<rtype::client::Sound>(
-            boom1,
-            {"assets/audio/explosion2.ogg",
-            rtype::client::SoundState::PLAY_ONCE,
-            50.0f});
+            boom1, {"assets/audio/explosion2.ogg",
+                    rtype::client::SoundState::PLAY_ONCE, 50.0f});
     }
     ecs.kill_entity(i);
 }
